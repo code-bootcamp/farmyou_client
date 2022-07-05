@@ -6,7 +6,11 @@ import LayoutFooter from "./footer/LayoutFooter.container";
 import LayoutHeader from "./header/LayoutHeader.container";
 
 const Body = styled.div`
-  width: 1200px;
+  width: 80vw;
+  margin: 0px auto;
+  @media (max-width: 575px) {
+    width: 100%;
+  }
 `;
 
 interface ILayoutProps {

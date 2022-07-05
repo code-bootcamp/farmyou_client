@@ -12,6 +12,7 @@ const Button = styled.button`
   width: 200px;
   height: 50px;
   font-size: 24px;
+  cursor: pointer;
   background-color: ${(props: IButtonProps) => {
     return props.buttonColor;
   }};
