@@ -1,7 +1,5 @@
+import Login from "../../../src/components/units/users/login/login.container";
+
 export default function LoginPage() {
-  return (
-    <>
-      <div>로그인페이지 입니다.</div>
-    </>
-  );
+  return <Login></Login>;
 }
