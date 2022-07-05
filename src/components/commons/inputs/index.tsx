@@ -13,7 +13,7 @@ interface IInputProps {
 
 const Input = styled.input`
   font-size: 20px;
-  width: 100vw;
+  width: 100%;
   height: 50px;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
