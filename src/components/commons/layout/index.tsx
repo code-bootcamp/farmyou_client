@@ -5,7 +5,9 @@ import LayoutBanner from "./banner/LayoutBanner.container";
 import LayoutFooter from "./footer/LayoutFooter.container";
 import LayoutHeader from "./header/LayoutHeader.container";
 
-const Body = styled.div``;
+const Body = styled.div`
+  width: 1200px;
+`;
 
 interface ILayoutProps {
   children: ReactNode;
