@@ -2,7 +2,11 @@ import * as S from "./LayoutHeader.styles";
 export default function LayoutHeaderUI() {
   return (
     <S.Body>
-      <div>여기는 헤더 영역입니다.</div>
+      <S.LogoImg src="/logoimgs/FarmYouHeaderLogo.png" />
+      <S.MenuWrapper>
+        <S.MenuFunction>로그인</S.MenuFunction>
+        <S.MenuCart src="/icons/cart.png" />
+      </S.MenuWrapper>
     </S.Body>
   );
 }
