@@ -62,6 +62,9 @@ export const BtnWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 575px) {
+    width: 50%;
+  } ;
 `;
 export const RightUp = styled.div`
   width: 100%;
@@ -78,4 +81,37 @@ export const RightDown = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+export const Payment = styled.div`
+  width: 100%;
+`;
+
+export const Price = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export const Delivery = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+`;
+export const Total = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export const PriceWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const Won = styled.span`
+  font-size: 16px;
+  margin-left: 5px;
 `;
