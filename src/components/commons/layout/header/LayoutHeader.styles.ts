@@ -11,7 +11,7 @@ export const Body = styled.div`
   align-items: center;
 `;
 export const LogoImg = styled.img`
-  width: 25vw;
+  width: 20vw;
   min-width: 200px;
 `;
 export const MenuWrapper = styled.div`

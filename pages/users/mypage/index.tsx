@@ -1,7 +1,7 @@
+// import BuyerMypage from "../../../src/components/units/users/mypage/buyer/BuyerMypage.container";
+import SellerMypage from "../../../src/components/units/users/mypage/seller/SellerMypage.container";
+
 export default function MypagePage() {
-  return (
-    <>
-      <div>마이페이지 입니다.</div>
-    </>
-  );
+  // return <BuyerMypage />;
+  return <SellerMypage />;
 }
