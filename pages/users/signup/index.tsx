@@ -1,7 +1,5 @@
+import SigninUI from "../../../src/components/units/users/signin/signin.presenter";
+
 export default function SignupPage() {
-  return (
-    <>
-      <div>회원가입페이지 입니다.</div>
-    </>
-  );
+  return <SigninUI />;
 }
