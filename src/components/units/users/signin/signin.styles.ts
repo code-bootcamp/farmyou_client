@@ -1,44 +1,35 @@
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-
   margin: 0px auto;
   background-image: url("/bgi/bgi.signup.png");
-
-  @media (max-width: 575px) {
+  background-size: cover;
+  /* @media (max-width: 575px) {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
+  } */
 `;
-
-// 이미지 랩
-export const ImageWrapper = styled.div`
-  width: 50%;
-  height: 100%;
-`;
-
-export const Img = styled.img`
-  width: 100%;
-  @media (max-width: 575px) {
-    width: 300px;
-  }
+export const Header = styled.div`
+  font-size: 2vw;
+  font-weight: 700;
+  margin-bottom: 30px;
 `;
 
 // 폼 랩
 export const FormWrapper = styled.div`
   width: 60%;
+  height: 100%;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
   padding: 20px;
 `;
 
@@ -48,10 +39,10 @@ export const InputWrapper = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-start;
-  padding-bottom: 40px;
+  margin-bottom: 10px;
 `;
 export const Text = styled.div`
-  font-size: 18px;
+  font-size: 1.5vw;
   font-weight: 700;
 `;
 export const DevideLine = styled.div`
@@ -82,7 +73,8 @@ export const BtnWrapper = styled.div`
 
 export const Select = styled.select`
   width: 20%;
-  height: 35px;
+  height: 2.5vw;
+  min-height: 35px;
   text-align: center;
   font-size: 16px;
   border: 1px solid #bdbdbd;
@@ -111,7 +103,6 @@ export const ZipcodeWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 `;
 
 export const AddressInput = styled.div`
@@ -127,8 +118,9 @@ export const AddressWrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100px;
+  padding-bottom: 20px;
   @media (max-width: 575px) {
-    height: 70px;
+    height: 100px;
   }
 `;
 

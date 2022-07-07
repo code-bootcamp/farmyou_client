@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
   border-radius: 5px;
   display: flex;
   flex-direction: row;
+  /* min-width: 575px; */
 `;
 
 export const ImageWrapper = styled.div`
@@ -28,6 +29,11 @@ export const TextWrapper = styled.div`
 
 export const ProductName = styled.div`
   width: 75%;
+  font-size: 1vw;
+  @media (max-width: 575px) {
+    min-width: 50%;
+    width: 50%;
+  }
 `;
 export const DeleteBtn = styled.div`
   cursor: pointer;
@@ -35,10 +41,11 @@ export const DeleteBtn = styled.div`
 export const ProductPrice = styled.div`
   width: 50%;
   font-weight: 600;
+  font-size: 1vw;
 `;
 export const ProductSeller = styled.div`
   width: 50%;
-  font-size: 12px;
+  font-size: 0.9vw;
   color: #bdbdbd;
 `;
 export const InfoWrapper = styled.div`
@@ -50,6 +57,7 @@ export const InfoWrapper = styled.div`
 
 export const ProductCount = styled.input`
   width: 35%;
+  font-size: 1vw;
   text-align: right;
   margin: 0px 10px;
 `;

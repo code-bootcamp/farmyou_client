@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
   background-image: url("/bgi/bgi.login.png");
+  background-size: cover;
   @media (max-width: 575px) {
     width: 100vw;
   }

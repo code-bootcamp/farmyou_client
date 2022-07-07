@@ -1,23 +1,40 @@
 import styled from "@emotion/styled";
 
+export const OutLine = styled.div`
+  width: 100%;
+  margin: 0px auto;
+`;
+export const PageHeader = styled.div`
+  padding-left: 200px;
+  width: 100%;
+  font-size: 2.5vw;
+  font-weight: 700;
+  @media (max-width: 575px) {
+    padding-left: 5vw;
+  }
+`;
 export const Wrapper = styled.div`
   width: 100%;
-  padding: 20px 0px;
+  padding: 50px 10vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-width: 575px;
+  @media (max-width: 575px) {
+    padding: 5vw;
+  } ;
 `;
 export const Header = styled.div`
   width: 100%;
-  font-size: 24px;
+  font-size: 2vw;
   font-weight: 700;
   text-align: left;
   padding-bottom: 10px;
 `;
 export const DevideLine = styled.div`
   width: 100%;
-  border-top: 1px solid #bdbdbd;
+  border-top: 1px solid #f6651e;
   margin: 10px 0px;
 `;
 
@@ -25,7 +42,9 @@ export const ListWrapper = styled.div`
   width: 100%;
   margin-bottom: 50px;
 `;
-export const Text = styled.div``;
+export const Text = styled.div`
+  font-size: 1vw;
+`;
 
 export const DevideWrapper = styled.div`
   display: flex;
@@ -63,7 +82,7 @@ export const BtnWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   @media (max-width: 575px) {
-    width: 50%;
+    width: 30%;
   } ;
 `;
 export const RightUp = styled.div`
