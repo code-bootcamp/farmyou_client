@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   align-items: center;
   margin: 0px auto;
   background-image: url("/bgi/bgi.signup.png");
-
+  background-size: cover;
   /* @media (max-width: 575px) {
     display: flex;
     flex-direction: column;
@@ -30,7 +30,6 @@ export const FormWrapper = styled.div`
   border: 1px solid #bdbdbd;
   border-radius: 5px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
   padding: 20px;
 `;
 
