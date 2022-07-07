@@ -1,9 +1,23 @@
 import styled from "@emotion/styled";
 import { Switch } from "antd";
-export const Body = styled.div`
+
+export const Wrapper = styled.div`
   width: 100%;
 `;
-
+export const Body = styled.div`
+  width: 80%;
+  margin: 0px auto;
+`;
+export const Header = styled.div`
+  font-size: 2vw;
+  font-weight: 700;
+  padding-left: 10vw;
+  margin-top: 20px;
+`;
+export const DevideLine = styled.div`
+  border-top: 1px solid #f6651e;
+  margin: 20px 0px;
+`;
 export const InfoWrapper = styled.div`
   width: 100%;
   height: 18%;
@@ -55,7 +69,7 @@ export const ToggleWrapper = styled.div`
   align-items: center;
 `;
 export const ToggleSwitch = styled(Switch)`
-  background-color: green;
+  background-color: #f6651e;
   margin-left: 20px;
 `;
 export const InfoBoxWrapper = styled.div`

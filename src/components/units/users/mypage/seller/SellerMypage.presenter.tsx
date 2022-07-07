@@ -1,7 +1,9 @@
 import * as S from "./SellerMypage.styles";
 export default function SellerMypageUI() {
   return (
-    <S.Body>
+    <S.Wrapper>
+      <S.Header>마이페이지</S.Header>
+      <S.DevideLine></S.DevideLine>
       <S.Body>
         <S.InfoWrapper>
           <S.InfoProfile>
@@ -80,6 +82,6 @@ export default function SellerMypageUI() {
           </S.ListItemWrapper>
         </S.ListWrapper>
       </S.Body>
-    </S.Body>
+    </S.Wrapper>
   );
 }
