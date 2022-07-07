@@ -12,17 +12,18 @@ interface IInputProps {
 }
 
 const Input = styled.input`
-  font-size: 20px;
+  font-size: 0.8vw;
   width: 100%;
-  height: 50px;
-  border: 1px solid #bdbdbd;
+  min-height: 35px;
+  height: 2.5vw;
+  border: 1px solid #828282;
   border-radius: 5px;
   padding: 0.7em;
-  outline-color: #055143;
+  outline-color: #f66512;
 
   @media (max-width: 575px) {
     height: 2em;
-    font-size: 14px;
+    font-size: 1vw;
   }
 `;
 

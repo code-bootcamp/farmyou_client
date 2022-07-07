@@ -9,9 +9,10 @@ interface IButtonProps {
 }
 
 const Button = styled.button`
-  width: 200px;
-  height: 50px;
-  font-size: 24px;
+  width: 10vw;
+  height: 2.5vw;
+  min-height: 35px;
+  font-size: 0.8vw;
   cursor: pointer;
   background-color: ${(props: IButtonProps) => {
     return props.buttonColor;
@@ -21,9 +22,9 @@ const Button = styled.button`
   border-radius: 5px;
 
   @media (max-width: 575px) {
-    width: 100px;
-    height: 25px;
-    font-size: 12px;
+    width: 5vw;
+    height: 1.25vw;
+    font-size: 0.6vw;
   }
 `;
 
