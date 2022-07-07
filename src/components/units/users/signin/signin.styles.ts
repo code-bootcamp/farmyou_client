@@ -1,12 +1,15 @@
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
-  width: 100%;
+  width: 100vw;
+  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  padding: 50px 0px;
+
+  margin: 0px auto;
+  background-image: url("/bgi/bgi.signup.png");
 
   @media (max-width: 575px) {
     display: flex;
@@ -19,6 +22,7 @@ export const Wrapper = styled.div`
 // 이미지 랩
 export const ImageWrapper = styled.div`
   width: 50%;
+  height: 100%;
 `;
 
 export const Img = styled.img`
@@ -47,12 +51,11 @@ export const InputWrapper = styled.div`
   padding-bottom: 40px;
 `;
 export const Text = styled.div`
-  width: 100%;
   font-size: 18px;
   font-weight: 700;
 `;
 export const DevideLine = styled.div`
-  border-top: 1px solid #055143;
+  border-top: 1px solid #f6651e;
   width: 100%;
   padding: 10px 0px;
 `;
@@ -78,14 +81,15 @@ export const BtnWrapper = styled.div`
 `;
 
 export const Select = styled.select`
-  width: 50%;
-  height: 50px;
+  width: 20%;
+  height: 35px;
   text-align: center;
-  font-size: 20px;
+  font-size: 16px;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
   @media (max-width: 575px) {
-    height: 25px;
+    height: 35px;
+    width: 50%;
   }
 `;
 export const Option = styled.option`
@@ -95,7 +99,7 @@ export const Option = styled.option`
 // Address 랩
 export const Address = styled.div`
   width: 100%;
-  height: 190px;
+  height: 170px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -114,7 +118,7 @@ export const AddressInput = styled.div`
   width: 50%;
 `;
 export const AddressBtn = styled.div`
-  width: 34%;
+  width: 100%;
 `;
 export const AddressWrapper = styled.div`
   display: flex;
@@ -122,7 +126,7 @@ export const AddressWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 120px;
+  height: 100px;
   @media (max-width: 575px) {
     height: 70px;
   }
