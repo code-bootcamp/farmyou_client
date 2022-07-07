@@ -6,6 +6,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 20px;
+  border: 1px solid #f6e7d1;
 
   @media (max-width: 689px) {
     display: flex;
@@ -14,18 +15,22 @@ const Wrapper = styled.div`
     height: 137px;
     margin: 0px;
   }
+
+  :hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+    box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.6);
+  }
 `;
 
 const ItemImage = styled.img`
   width: 100%;
   height: 210px;
-  border-radius: 5px 5px 0px 0px;
   background-color: #bdbdbd;
 
   @media (max-width: 689px) {
     width: 137px;
     height: 108.5px;
-    border-radius: 5px 0px 0px 5px;
   }
 `;
 
@@ -34,12 +39,10 @@ const ItemContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px;
-  border: 1px solid #bdbdbd;
   border-radius: 0px 0px 5px 5px;
 
   @media (max-width: 639px) {
     width: 100%;
-    border-radius: 0px 5px 5px 0px;
   }
 `;
 
