@@ -1,8 +1,13 @@
 import styled from "@emotion/styled";
 import { Input } from "antd";
 
+export const OutLine = styled.div`
+  width: 100%;
+`;
+
 export const Wrapper = styled.div`
-  width: 80vw;
+  width: 80%;
+  margin: 0px auto;
 
   @media (max-width: 689px) {
     width: 100%;

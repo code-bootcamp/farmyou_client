@@ -40,6 +40,10 @@ export const QuestionTableRow = styled.div`
 export const QuestionStatusColumn = styled.div`
   width: 15%;
 `;
+export const QuestionStatusColumnHeader = styled.div`
+  width: 15%;
+  color: #fff;
+`;
 
 interface ClickProps {
   isClick?: boolean;
@@ -52,11 +56,28 @@ export const QuestionTitleColumn = styled.div`
   overflow: hidden;
   text-align: left;
 `;
+export const QuestionTitleColumnHeader = styled.div`
+  width: 50%;
+  text-overflow: ellipsis;
+  white-space: ${(props: ClickProps) => (props.isClick ? "default" : "nowrap")};
+  flex-wrap: ${(props: ClickProps) => (props.isClick ? "wrap" : "default")};
+  overflow: hidden;
+  text-align: left;
+  color: #fff;
+`;
 export const QuestionWriterColumn = styled.div`
   width: 15%;
 `;
 export const QuestionDateColumn = styled.div`
   width: 20%;
+`;
+export const QuestionWriterColumnHeader = styled.div`
+  width: 15%;
+  color: #fff;
+`;
+export const QuestionDateColumnHeader = styled.div`
+  width: 20%;
+  color: #fff;
 `;
 
 export const AnswerWrapper = styled.div`
@@ -70,7 +91,7 @@ export const AnswerWrapper = styled.div`
 export const QuestionContents = styled.div`
   width: 85%;
   padding: 0px 20px 10px 0px;
-  /* background-color: blue; */
+
   border-bottom: 1px solid #bdbdbd;
 `;
 
@@ -84,4 +105,11 @@ export const AnswerContents = styled.div`
   padding: 0px 20px 20px 0px;
   width: 85%;
   flex-wrap: wrap;
+`;
+
+export const QText = styled.span`
+  color: #f6651e;
+`;
+export const AText = styled.span`
+  color: #f6651e;
 `;

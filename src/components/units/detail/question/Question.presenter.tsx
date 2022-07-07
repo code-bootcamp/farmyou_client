@@ -14,14 +14,19 @@ export default function QuestionUI() {
         </S.QuestionWarning>
         <S.QuestionTableWrapper>
           <S.QuestionTableRow
-            style={{ backgroundColor: "#ccc", borderRadius: "5px 5px 0px 0px" }}
+            style={{
+              backgroundColor: "#F6651E",
+              borderRadius: "5px 5px 0px 0px",
+            }}
           >
-            <S.QuestionStatusColumn>답변 상태</S.QuestionStatusColumn>
-            <S.QuestionTitleColumn style={{ textAlign: "center" }}>
+            <S.QuestionStatusColumnHeader>
+              답변 상태
+            </S.QuestionStatusColumnHeader>
+            <S.QuestionTitleColumnHeader style={{ textAlign: "center" }}>
               제목
-            </S.QuestionTitleColumn>
-            <S.QuestionWriterColumn>작성자</S.QuestionWriterColumn>
-            <S.QuestionDateColumn>작성일</S.QuestionDateColumn>
+            </S.QuestionTitleColumnHeader>
+            <S.QuestionWriterColumnHeader>작성자</S.QuestionWriterColumnHeader>
+            <S.QuestionDateColumnHeader>작성일</S.QuestionDateColumnHeader>
           </S.QuestionTableRow>
 
           {/* 여기서부터 아래의 코드는 map으로 그려주기, id값 잘 비교해서 문의 답변도 달아주기 */}
@@ -31,6 +36,7 @@ export default function QuestionUI() {
                 <S.QuestionTableRow key={index}>
                   <S.QuestionStatusColumn>답변 중</S.QuestionStatusColumn>
                   <S.QuestionTitleColumn>
+                    <S.QText>Q. </S.QText>
                     제목 제목 제목 제목 제목
                   </S.QuestionTitleColumn>
                   <S.QuestionWriterColumn>홍길동</S.QuestionWriterColumn>
@@ -43,6 +49,7 @@ export default function QuestionUI() {
             <S.QuestionTableRow>
               <S.QuestionStatusColumn>답변 완료</S.QuestionStatusColumn>
               <S.QuestionTitleColumn isClick={isClick}>
+                <S.QText>Q. </S.QText>
                 제목 제목 제목 제목 제목 제목 제목 제목 제목 제목 제목 제목 제목
                 제목 제목 제목 제목 제목 제목 제목
               </S.QuestionTitleColumn>
@@ -61,9 +68,10 @@ export default function QuestionUI() {
                     질문질문 질문 질문 질문 질문 질문
                   </S.QuestionContents>
                   <S.AnswerTitle>
-                    A. 답변 제목 답변 제목 답변 제목 답변 제목 답변 제목 답변
-                    제목 답변 제목 답변 제목 답변 제목 답변 제목 답변 제목 답변
-                    제목 답변 제목{" "}
+                    <S.AText>A.</S.AText>
+                    답변 제목 답변 제목 답변 제목 답변 제목 답변 제목 답변 제목
+                    답변 제목 답변 제목 답변 제목 답변 제목 답변 제목 답변 제목
+                    답변 제목{" "}
                   </S.AnswerTitle>
                   <S.AnswerContents>
                     답변 내용 답변 내용 답변 내용 답변 내용 답변 내용 답변 내용
@@ -84,6 +92,7 @@ export default function QuestionUI() {
                 <S.QuestionTableRow>
                   <S.QuestionStatusColumn>답변 완료</S.QuestionStatusColumn>
                   <S.QuestionTitleColumn>
+                    <S.QText>Q. </S.QText>
                     제목 제목 제목 제목 제목 제목 제목 제목 제목 제목 제목 제목
                     제목 제목
                   </S.QuestionTitleColumn>
