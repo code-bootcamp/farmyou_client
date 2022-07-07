@@ -6,6 +6,7 @@ export default function SigninUI() {
   return (
     <S.Wrapper>
       <S.FormWrapper>
+        <S.Header>회원가입</S.Header>
         <S.InputWrapper>
           <S.Text>이메일</S.Text>
           <S.DevideLine></S.DevideLine>
