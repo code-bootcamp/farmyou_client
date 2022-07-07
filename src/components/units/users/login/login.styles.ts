@@ -5,14 +5,20 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 70vw;
+  width: 100%;
+  height: 100vh;
+  background-image: url("/bgi/bgi.login.png");
   @media (max-width: 575px) {
     width: 100vw;
   }
 `;
-
+export const DevideLine = styled.div`
+  width: 100%;
+  border-top: 1px solid #f6651e;
+`;
 export const LoginWrapper = styled.div`
-  width: 56%;
+  width: 545px;
+  margin: 0px auto;
   height: 550px;
   border: 1px solid #cccccc;
   display: flex;
@@ -48,12 +54,13 @@ export const Input = styled.input`
 `;
 
 export const BtnWrapper = styled.div`
-  width: 80%;
+  width: 65%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff;
+  @media (max-width: 575px) {
+  }
 `;
 
 export const SocialLogin = styled.div`

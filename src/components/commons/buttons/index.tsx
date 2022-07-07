@@ -20,9 +20,10 @@ const Button = styled.button`
   border: 0px solid;
   color: white;
   border-radius: 5px;
+  min-width: 75px;
 
   @media (max-width: 575px) {
-    width: 5vw;
+    width: 15vw;
     height: 1.25vw;
     font-size: 0.6vw;
   }

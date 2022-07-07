@@ -5,9 +5,6 @@ import * as S from "./signin.styles";
 export default function SigninUI() {
   return (
     <S.Wrapper>
-      <S.ImageWrapper>
-        <S.Img src="/logoimgs/FarmYouLogo.jpg" alt="" />
-      </S.ImageWrapper>
       <S.FormWrapper>
         <S.InputWrapper>
           <S.Text>이메일</S.Text>
@@ -45,13 +42,13 @@ export default function SigninUI() {
             -<InputComponent placeholder="전화번호"></InputComponent>
             <S.BtnWrapper>
               <S.Text>03:00</S.Text>
-              <ButtonComponent title="인증번호 전송" buttonColor="#055143" />
+              <ButtonComponent title="인증번호 전송" buttonColor="#F6651E" />
             </S.BtnWrapper>
           </S.PhoneWrapper>
           <S.PhoneWrapper>
             <InputComponent placeholder="인증번호 입력" />
             <S.BtnWrapper>
-              <ButtonComponent title="인증하기" buttonColor="#055143" />
+              <ButtonComponent title="인증하기" buttonColor="#F6651E" />
             </S.BtnWrapper>
           </S.PhoneWrapper>
         </S.InputWrapper>
@@ -64,7 +61,7 @@ export default function SigninUI() {
                 <InputComponent placeholder="우편번호를 입력하세요" />
               </S.AddressInput>
               <S.AddressBtn>
-                <ButtonComponent title="우편번호 검색" buttonColor="#055143" />
+                <ButtonComponent title="우편번호 검색" buttonColor="#F6651E" />
               </S.AddressBtn>
             </S.ZipcodeWrapper>
             <S.AddressWrapper>
@@ -76,7 +73,7 @@ export default function SigninUI() {
         <S.DevideLine></S.DevideLine>
         <S.SubmitWrapper>
           <ButtonComponent title="취소하기" />
-          <ButtonComponent title="가입하기" buttonColor="#055143" />
+          <ButtonComponent title="가입하기" buttonColor="#F6651E" />
         </S.SubmitWrapper>
       </S.FormWrapper>
     </S.Wrapper>
