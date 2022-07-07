@@ -4,6 +4,7 @@ export const Body = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  top: 0px;
 `;
 
 export const MainVideo = styled.video`
