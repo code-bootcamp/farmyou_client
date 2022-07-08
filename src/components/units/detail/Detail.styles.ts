@@ -2,8 +2,13 @@ import styled from "@emotion/styled";
 import Slider from "react-slick";
 import { Input } from "antd";
 
-export const Wrapper = styled.div`
+export const OutLine = styled.div`
   width: 100%;
+`;
+
+export const Wrapper = styled.div`
+  width: 80%;
+  margin: 0px auto;
 `;
 
 export const TopWrapper = styled.div`
