@@ -27,7 +27,13 @@ const HIDDEN_FOOTERS = [
   "/users/signup",
 ];
 
-const CHECK = ["/main"];
+const CHECK = [
+  "/main",
+  "/users/login",
+  "/users/signup",
+  "/localfood",
+  "/bfood",
+];
 
 export default function Layout(props: ILayoutProps) {
   const router = useRouter();

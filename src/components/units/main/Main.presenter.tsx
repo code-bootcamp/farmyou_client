@@ -16,7 +16,7 @@ export default function MainUI() {
         <span style={{ fontWeight: "700" }}>로컬푸드</span> 온라인 마켓
       </S.Title> */}
       <S.SubTitle>
-        생산자를 보호하고소비자의 먹거리 안전을 보장하는 <br />
+        생산자를 보호하고 소비자의 먹거리 안전을 보장하는 <br />
         <span style={{ fontWeight: "700" }}>로컬푸드</span> 온라인 마켓
       </S.SubTitle>
       {/* <S.Title>“행복한 밥상 팜유와 함께하세요”</S.Title> */}
