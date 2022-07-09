@@ -3,32 +3,27 @@ import * as S from "./rowCapsule.styles";
 export default function RowCapsuleUI() {
   return (
     <S.Wrapper>
-      <S.ImageWrapper>NoImage</S.ImageWrapper>
-      <S.TextWrapper>
-        <S.InfoWrapper>
-          <S.ProductName>
-            상품이름상품이름상품이름상품이름상품이름상품이름상품이름상품이름상품이름상품이름
-            상품이름상품이름상품이름상품이름상품이름상품이름상품이름상품이름상품이름
-          </S.ProductName>
-          <S.DeleteBtn>X</S.DeleteBtn>
-        </S.InfoWrapper>
-        <S.InfoWrapper>
-          <S.ProductSeller>판매자이름</S.ProductSeller>
-
-          <S.Right>
-            <S.ProductPrice>99,000원</S.ProductPrice>
-
-            <S.RightUp>
-              <S.Text>수량</S.Text>
-              <S.ProductCount defaultValue={1}></S.ProductCount>
-            </S.RightUp>
-            <S.RightDown>
-              <S.UpBtn src="/icons/arrow_upward.png"></S.UpBtn>
-              <S.UpBtn src="/icons/arrow_downward.png"></S.UpBtn>
-            </S.RightDown>
-          </S.Right>
-        </S.InfoWrapper>
-      </S.TextWrapper>
+      <S.ImageWrapper src="/apple_slider.png" />
+      <S.InfoWrapper>
+        <S.InfoLeftWrapper>
+          <S.Name>상품이름상품이름</S.Name>
+          <S.Seller>로컬푸드 구로점</S.Seller>
+          <S.Price>9,900원</S.Price>
+        </S.InfoLeftWrapper>
+        <S.InfoRightWrapper>
+          <S.CountWrapper>
+            <S.CountText>수량</S.CountText>
+            <S.CountInput />
+            <S.CountUpDownButtonWrapper>
+              <S.CountUpDownButton src="/icons/polygon_up.svg" />
+              <S.CountUpDownButton src="/icons/polygon_down.svg" />
+            </S.CountUpDownButtonWrapper>
+          </S.CountWrapper>
+        </S.InfoRightWrapper>
+      </S.InfoWrapper>
+      <S.DeleteButtonWrapper>
+        <S.DeleteButton src="/icons/delete.svg" />
+      </S.DeleteButtonWrapper>
     </S.Wrapper>
   );
 }
