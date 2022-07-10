@@ -1,5 +1,5 @@
-import SigninUI from "../../../src/components/units/users/signin/signin.presenter";
+import Signup from "../../../src/components/units/users/signup/signup.container";
 
 export default function SignupPage() {
-  return <SigninUI />;
+  return <Signup />;
 }

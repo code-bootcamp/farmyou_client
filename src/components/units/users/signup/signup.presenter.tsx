@@ -1,8 +1,8 @@
 import ButtonComponent from "../../../commons/buttons";
 import InputComponent from "../../../commons/inputs";
-import * as S from "./signin.styles";
+import * as S from "./signup.styles";
 
-export default function SigninUI() {
+export default function SignupUI() {
   return (
     <S.Wrapper>
       <S.FormWrapper>
@@ -30,33 +30,30 @@ export default function SigninUI() {
               <S.AddressInput>
                 <InputComponent placeholder="00000" />
               </S.AddressInput>
-              <S.AddressBtn>
-                <S.AddressSearchBtn>우편번호 검색</S.AddressSearchBtn>
-              </S.AddressBtn>
+              <S.AddressSearchBtn>우편번호 검색</S.AddressSearchBtn>
             </S.ZipcodeWrapper>
-            {/* <S.AddressWrapper> */}
             <InputComponent placeholder="주소" />
             <InputComponent placeholder="상세주소" />
-            {/* </S.AddressWrapper> */}
           </S.Address>
         </S.InputWrapper>
         <S.InputWrapper>
           <S.Text>휴대전화</S.Text>
           <S.PhoneWrapper>
-            <InputComponent placeholder="" />
-            <S.Text style={{ padding: "0 1vw" }}> - </S.Text>
-            <InputComponent placeholder="" />
-            <S.Text style={{ padding: "0 1vw" }}> - </S.Text>
+            <InputComponent placeholder="" /> -{" "}
+            <InputComponent placeholder="" /> -{" "}
             <InputComponent placeholder="" />
           </S.PhoneWrapper>
         </S.InputWrapper>
-
-        <S.BtnWrapper>
-          <InputComponent placeholder="인증번호 입력" />
-          <S.Text style={{ justifyContent: "center" }}>03:00</S.Text>
-          <S.AddressSearchBtn>인증번호 전송</S.AddressSearchBtn>
-        </S.BtnWrapper>
-
+        <S.InputWrapper>
+          <S.Text></S.Text>
+          <S.PhoneAgreementWrapper>
+            <InputComponent placeholder="인증번호 입력" />
+            <S.Text style={{ justifyContent: "center", paddingLeft: "10px" }}>
+              03:00
+            </S.Text>
+            <S.PhoneAgreementButton>인증번호 전송</S.PhoneAgreementButton>
+          </S.PhoneAgreementWrapper>
+        </S.InputWrapper>
         <S.SubmitWrapper>
           <ButtonComponent title="취소하기" />
           <ButtonComponent title="가입하기" buttonColor="#F6651E" />
