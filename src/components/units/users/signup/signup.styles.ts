@@ -8,7 +8,8 @@ export const Wrapper = styled.div`
   margin: 0px auto;
   background-image: url("/bgi/bgi.signup.png");
   background-size: cover;
-  padding: 5vw;
+  padding: 7vh 5vw;
+
   @media (max-width: 575px) {
   }
 `;
@@ -21,14 +22,13 @@ export const Header = styled.div`
 
 // 폼 랩
 export const FormWrapper = styled.div`
-  min-width: 750px;
-  width: 50%;
+  width: 750px;
   height: 100%;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 4vw;
-  margin: 8vw 0;
+  /* margin: 8vw 0; */
   @media (max-width: 750px) {
     width: 100%;
     min-width: 0px;
@@ -46,7 +46,7 @@ export const InputWrapper = styled.div`
   /* align-items: center; */
   text-align: center;
   padding: 1vw;
-  @media (max-width: 575px) {
+  @media (max-width: 603px) {
     /* min-width: 0px; */
     flex-direction: column;
   }
@@ -81,18 +81,14 @@ export const PhoneWrapper = styled.div`
   /* height: 70px; */
 `;
 
-export const BtnWrapper = styled.div`
+export const PhoneAgreementWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: end;
   align-items: center;
-  padding: 1vw;
 
-  /* text-align: center; */
   @media (max-width: 575px) {
-    /* width: 100%; */
-    /* flex-direction: column; */
   }
 `;
 
@@ -120,18 +116,32 @@ export const AddressInput = styled.div`
   width: 50%;
 `;
 
-export const AddressBtn = styled.div`
-  width: 100%;
-`;
-
 export const AddressSearchBtn = styled.button`
   width: 10vw;
   min-width: 150px;
   height: 100%;
   background-color: #d9d9d9;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   border: 0px solid;
   border-radius: 35px;
+  margin-left: 10px;
+
+  @media (max-width: 575px) {
+    min-width: 100px;
+    font-size: 0.8rem;
+  }
+`;
+
+export const PhoneAgreementButton = styled.button`
+  width: 10vw;
+  min-width: 150px;
+  height: 100%;
+  background-color: #d9d9d9;
+  font-size: 1.2rem;
+  border: 0px solid;
+  border-radius: 35px;
+  margin-left: 10px;
+
   @media (max-width: 575px) {
     min-width: 100px;
     font-size: 0.8rem;
