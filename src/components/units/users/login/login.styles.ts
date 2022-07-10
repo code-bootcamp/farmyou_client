@@ -13,12 +13,12 @@ export const Wrapper = styled.div`
     width: 100vw;
   }
 `;
-export const DevideLine = styled.div`
+export const DivideLine = styled.div`
   width: 100%;
   border-top: 1px solid #f6651e;
 `;
 export const LoginWrapper = styled.div`
-  width: 545px;
+  width: 517.5px;
   margin: 0px auto;
   height: 550px;
   border: 1px solid #cccccc;
@@ -26,14 +26,15 @@ export const LoginWrapper = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  background-color: white;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   @media (max-width: 575px) {
-    width: 60vw;
+    width: 90%;
   }
 `;
 
 export const Text = styled.div`
-  font-size: 24px;
+  font-size: 2rem;
   font-weight: 700;
   padding-bottom: 20px;
 `;
@@ -60,8 +61,6 @@ export const BtnWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  @media (max-width: 575px) {
-  }
 `;
 
 export const SocialLogin = styled.div`
