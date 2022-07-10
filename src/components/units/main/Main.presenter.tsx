@@ -23,18 +23,56 @@ export default function MainUI() {
       <S.NextIcon>
         <S.Icon src="/icons/arrow.svg" />
       </S.NextIcon>
-      <S.InfoWrapper>
-        <S.InfoTitle>로컬푸드란?</S.InfoTitle>
-        <S.InfoContents>
-          <span style={{ fontSize: "2vw" }}>로컬푸드</span>는{" "}
-          <b>
-            지역에서 생산한 먹거리를 장거리 이동과 다단계 유통과정을 거치지 않고
-            지역에서 소비하는 새로운 먹거리
-          </b>{" "}
-          <br /> 유통문화로 장거리 운송을 거치지 않은 지역 농산물(흔히 반경 50km
-          이내에서 생산된 농산물)을 지칭합니다.
-        </S.InfoContents>
-      </S.InfoWrapper>
+      <S.LocalWrapper>
+        <S.LocalLeftWrapper>
+          <S.LocalTitle>로컬푸드 직매장</S.LocalTitle>
+          <S.LocalTitle>바로가기</S.LocalTitle>
+          <S.LocalSubTitle>집에서 가까운 매장을 찾아</S.LocalSubTitle>
+          <S.LocalSubTitle>
+            신선한 농산물을 바로 받아보는 온라인 마켓을 이용해보세요.
+          </S.LocalSubTitle>
+        </S.LocalLeftWrapper>
+        <S.LocalRightWrapper>
+          <S.LocalSearchBar>
+            <S.LocalSearch
+              placeholder="주소를 입력해 가장 가까운 로컬푸드 마켓을 찾아보세요!"
+              type="text"
+            />
+            <S.SearchIcon src="/icons/search.png" />
+          </S.LocalSearchBar>
+          <S.LocalMarket>
+            <S.MarketName>원당농협 로컬푸드직매장</S.MarketName>
+            <S.MarketAddress>
+              경기도 고양시 덕양구 고양대로1369번길 69
+            </S.MarketAddress>
+          </S.LocalMarket>
+          <S.LocalMarket>
+            <S.MarketName>강서농협 로컬푸드직매장 마곡점</S.MarketName>
+            <S.MarketAddress>
+              서울 강서구 양천로30길 123-28 (마곡동)
+            </S.MarketAddress>
+          </S.LocalMarket>
+          <S.LocalMarket>
+            <S.MarketName>진양농협 로컬푸드직매장</S.MarketName>
+            <S.MarketAddress>
+              경남 진주시 일반성면 동부로 1947 (창촌리)
+            </S.MarketAddress>
+          </S.LocalMarket>
+        </S.LocalRightWrapper>
+      </S.LocalWrapper>
+      <S.BfoodWrapper>
+        <S.BfoodImgWrapper>
+          <S.BfoodImg src="/main/bfood.png" />
+        </S.BfoodImgWrapper>
+        <S.BfoodRightWRapper>
+          <S.BfoodSubTitleWrapper>
+            <S.BfoodSubTitleTop>“소비자와 농가의</S.BfoodSubTitleTop>
+            <S.BfoodSubTitleLow>새로운 공생방법"</S.BfoodSubTitleLow>
+          </S.BfoodSubTitleWrapper>
+          <S.BfoodTitle>못난이 농산물 마켓</S.BfoodTitle>
+          <S.BfoodButton>바로가기</S.BfoodButton>
+        </S.BfoodRightWRapper>
+      </S.BfoodWrapper>
     </S.Body>
   );
 }
