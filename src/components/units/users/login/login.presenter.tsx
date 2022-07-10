@@ -8,7 +8,7 @@ export default function LoginUI() {
       <S.LoginWrapper>
         <S.InputWrapper>
           <S.Text>로그인</S.Text>
-          <S.DevideLine></S.DevideLine>
+          <S.DivideLine></S.DivideLine>
           <InputComponent placeholder="Email address" />
           <InputComponent placeholder="Password" />
         </S.InputWrapper>
