@@ -50,21 +50,152 @@ export const Icon = styled.img`
   width: 3vw;
 `;
 
-export const InfoWrapper = styled.div`
-  padding: 10vh;
-  width: 100%;
-  height: 600px;
+export const LocalWrapper = styled.div`
+  /* padding: 10vh;
+  width: 100%; */
+  width: 80%;
+  margin: 10vh auto;
+  height: 40vw;
+  display: flex;
+  flex-direction: row;
 `;
-export const InfoTitle = styled.div`
-  width: 100%;
-  text-align: center;
+export const LocalLeftWrapper = styled.div`
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 8vw 0px 0px 8vw;
+`;
+export const LocalTitle = styled.div`
+  font-size: 3vw;
+  font-weight: 600;
   color: #f58220;
-  font-size: 8vh;
-  margin-bottom: 2vw;
+`;
+export const LocalSubTitle = styled.div`
+  font-size: 1.2vw;
+  font-weight: 400;
+`;
+export const LocalRightWrapper = styled.div`
+  width: 50%;
+  height: 100%;
+  padding: 1vw 8vw 0px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+export const LocalSearchBar = styled.div`
+  width: 35vw;
+  height: 4.5vw;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 2px solid #f58220;
+  padding: 0px 30px;
+  margin-bottom: 10px;
+`;
+export const LocalSearch = styled.input`
+  width: 33vw;
+  height: 80%;
+  outline-style: none;
+  border: none;
+  font-size: 1.2vw;
+  &::placeholder {
+    color: #ccc;
+  }
 `;
 
-export const InfoContents = styled.div`
+export const SearchIcon = styled.img`
+  width: 2.5vw;
+  height: 2.5vw;
+`;
+export const LocalMarket = styled.div`
+  width: 33vw;
+  height: 7vw;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  margin: 1vw 0px;
+  display: flex;
+  padding: 1vw 3vw 1vw 3vw;
+  flex-direction: column;
+  justify-content: flex-start;
+  &:hover {
+    box-shadow: 10px 5px 5px #f6651e60;
+    border: 1.2px solid #f6651e60;
+  }
+`;
+export const MarketName = styled.div`
+  font-size: 1.5vw;
+`;
+export const MarketAddress = styled.div`
+  font-size: 1vw;
+`;
+export const BfoodWrapper = styled.div`
+  padding: 10vw 15vw;
   width: 100%;
-  text-align: center;
-  font-size: 3vh;
+  height: 40vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  background-color: #f6651e;
+`;
+export const BfoodLeftWrapper = styled.div`
+  width: 50%;
+  height: 100%;
+  padding: 8vw 0px 0px 8vw;
+`;
+export const BfoodImgWrapper = styled.div`
+  width: 28vw;
+  height: 28vw;
+  margin-right: 0px;
+  border-radius: 90%;
+  background-color: white;
+`;
+export const BfoodImg = styled.img`
+  width: 28vw;
+  height: 28vw;
+  object-fit: cover;
+`;
+export const BfoodRightWRapper = styled.div`
+  width: 50%;
+  height: 100%;
+  padding: 1vw 8vw 0px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+export const BfoodSubTitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 22vw;
+`;
+export const BfoodSubTitleTop = styled.div`
+  font-size: 2vw;
+  color: white;
+  text-align: start;
+`;
+export const BfoodSubTitleLow = styled.div`
+  font-size: 2vw;
+  color: white;
+  text-align: end;
+`;
+export const BfoodTitle = styled.div`
+  font-size: 3.5vw;
+  font-weight: 900;
+  color: white;
+`;
+export const BfoodButton = styled.button`
+  border: 2px solid white;
+  color: white;
+  background-color: transparent;
+  width: 22vw;
+  height: 3.5vw;
+  margin: 30px 0px;
+  font-size: 1.8vw;
+  border-radius: 5px;
+  &:hover {
+    background-color: white;
+    color: #f6651e;
+  }
 `;
