@@ -3,11 +3,10 @@ import { Checkbox } from "antd";
 
 export const Header = styled.h1`
   padding: 1vw 10vw;
-  border-bottom: 2px solid #f6651e;
   margin: 0px auto;
-  font-size: 2vw;
+  font-size: 1.7rem;
   @media (max-width: 671px) {
-    font-size: 6vw;
+    font-size: 2.1rem;
   }
 `;
 
@@ -17,7 +16,7 @@ export const Wrapper = styled.div`
   width: 80%;
   margin: 0px auto;
   @media (max-width: 671px) {
-    padding-bottom: 55vw;
+    padding-bottom: 70vw;
   }
 `;
 
@@ -32,7 +31,6 @@ export const PayWrapper = styled.div`
 
 export const LeftWrapper = styled.div`
   width: 55%;
-  /* margin: 0px auto; */
   display: flex;
   flex-direction: column;
   @media (max-width: 671px) {
@@ -42,11 +40,9 @@ export const LeftWrapper = styled.div`
 
 export const Title = styled.div`
   width: 100%;
-  padding-top: 2vw;
-  font-size: 1.5vw;
+  font-size: 1.5rem;
   @media (max-width: 671px) {
-    /* display: none; */
-    font-size: 5vw;
+    font-size: 2rem;
   }
 `;
 
@@ -63,7 +59,6 @@ export const InputWrapper = styled.div`
   flex-direction: row;
   margin-bottom: 20px;
   @media (max-width: 671px) {
-    /* display: none; */
     flex-direction: column;
     font-size: 4vw;
   }
@@ -71,11 +66,9 @@ export const InputWrapper = styled.div`
 export const Text = styled.div`
   width: 20%;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   font-size: 0.8vw;
   @media (max-width: 671px) {
-    /* display: none; */
     font-size: 4vw;
   }
 `;
@@ -84,8 +77,6 @@ export const ComponentWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  /* justify-content: space-between; */
-  /* align-items: center; */
 `;
 
 export const AddressWrapper = styled.div`
@@ -106,19 +97,16 @@ export const AddressSearchBtn = styled.button`
   border: 0px solid;
   background-color: #d9d9d9;
   @media (max-width: 671px) {
-    /* display: none; */
     font-size: 1.4vw;
   }
 `;
 
 export const RightWrapper = styled.div`
   width: 30%;
-  /* margin: 0px auto; */
   margin-top: 5vw;
   display: flex;
   flex-direction: column;
   @media (max-width: 671px) {
-    /* display: none; */
     position: fixed;
     width: 80%;
     margin: 0px auto;

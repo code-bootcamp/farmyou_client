@@ -114,7 +114,7 @@ export default function PaymentUI() {
         <S.DivideLine></S.DivideLine>
         <div>깃최신화 하면 캡슐컴포넌트자리</div> */}
         <S.BasketWrapper>
-          <S.Title>로컬푸드 직매장 주문내역</S.Title>
+          <S.Title>로컬푸드 주문내역</S.Title>
           <S.DivideLine />
           {new Array(3).fill(1).map((_, index) => {
             return (
@@ -134,9 +134,8 @@ export default function PaymentUI() {
             );
           })}
         </S.BasketWrapper>
-
         <S.BasketWrapper>
-          <S.Title>로컬푸드 직매장 주문내역</S.Title>
+          <S.Title>못난이 상품 주문내역</S.Title>
           <S.DivideLine />
           {new Array(4).fill(1).map((_, index) => {
             return (
