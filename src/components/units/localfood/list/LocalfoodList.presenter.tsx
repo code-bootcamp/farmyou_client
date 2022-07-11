@@ -1,24 +1,23 @@
 import ListItem from "../../../commons/items/list";
 import * as S from "./LocalfoodList.styles";
 import { Select } from "antd";
+import ListCategoryItem from "../../../commons/items/listcategory";
 
 const { Option } = Select;
 
 export default function LocalfoodListUI() {
   return (
     <S.OutLine>
-      <S.Divide></S.Divide>
       <S.CategoryWrapper>
-        <S.CategoryImage src="/icons/list/cabbage.png"></S.CategoryImage>
-        <S.CategoryImage src="/icons/list/eggplant.png"></S.CategoryImage>
-        <S.CategoryImage src="/icons/list/mushroom.png"></S.CategoryImage>
-        <S.CategoryImage src="/icons/list/carrot.png"></S.CategoryImage>
-        <S.CategoryImage src="/icons/list/garlic.png"></S.CategoryImage>
-        <S.CategoryImage src="/icons/list/apple.png"></S.CategoryImage>
-        <S.CategoryImage src="/icons/list/sprouts.png"></S.CategoryImage>
-        <S.CategoryImage src="/icons/list/rice.png"></S.CategoryImage>
+        <ListCategoryItem src="/icons/list/select-all.png" name="전체" />
+        <ListCategoryItem src="/icons/list/chard.png" name="엽채류" />
+        <ListCategoryItem src="/icons/list/eggplants.png" name="과채류" />
+        <ListCategoryItem src="/icons/list/beet.png" name="근채류" />
+        <ListCategoryItem src="/icons/list/chili-pepper.png" name="양념류" />
+        <ListCategoryItem src="/icons/list/strawberry.png" name="과일류" />
+        <ListCategoryItem src="/icons/list/mushroom.png" name="버섯류" />
+        <ListCategoryItem src="/icons/list/wheat.png" name="곡류" />
       </S.CategoryWrapper>
-      <S.Divide></S.Divide>
       <S.Wrapper>
         <S.SearchWrapper>
           <Select
