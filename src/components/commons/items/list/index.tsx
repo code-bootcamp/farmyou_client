@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   :hover {
     transform: scale(1.05);
     transition: 0.3s;
-    box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.6);
+    box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.1);
   }
 `;
 

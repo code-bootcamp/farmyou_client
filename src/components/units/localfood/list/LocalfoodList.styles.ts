@@ -37,7 +37,8 @@ export const SearchInput = styled(Input)`
 
 export const CategoryWrapper = styled.div`
   width: 100%;
-  padding: 20px 0px;
+  margin-top: 30px;
+  padding: 20px 25vw;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -46,32 +47,12 @@ export const CategoryWrapper = styled.div`
   overflow: auto;
   white-space: nowrap;
 
-  @media (max-width: 689px) {
+  @media (max-width: 889px) {
     display: grid;
+    padding: 20px 5vw;
     align-items: center;
     justify-items: center;
     grid-template-columns: repeat(4, 1fr);
-  }
-`;
-
-export const ImageWrapper = styled.span`
-  /* width: 38.5vw; */
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-`;
-
-export const CategoryImage = styled.img`
-  width: 65px;
-  height: 65px;
-  margin: 10px 20px;
-  background-color: #c6d8f2;
-  border-radius: 10px;
-
-  @media (max-width: 689px) {
-    width: 50px;
-    height: 50px;
-    margin: 10px 20px;
   }
 `;
 
