@@ -4,15 +4,17 @@ import { useEffect, useState } from "react";
 
 interface props {
   isCheck: boolean;
+  isCheckList: boolean;
   scroll: boolean;
 }
 export const Body = styled.div`
   width: 100%;
   height: 100px;
   z-index: 100;
-  background-color: ${(props: props) => (props.scroll ? "white" : "none")};
+  background-color: ${(props: props) =>
+    props.isCheckList ? (props.scroll ? "white" : "none") : "white"};
   border-bottom: ${(props: props) =>
-    props.isCheck ? "1px solid white" : "3px solid #f6651e"};
+    props.isCheck ? "1px solid white" : "none"};
   padding: 15px 10vw;
   display: flex;
   flex-direction: row;
@@ -21,7 +23,7 @@ export const Body = styled.div`
   position: fixed;
   top: 0;
   color: ${(props: props) =>
-    props.isCheck ? (props.scroll ? "#f6651e" : "white") : "black"};
+    props.isCheckList ? (props.scroll ? "#f6651e" : "white") : "#f6651e"};
 `;
 export const LogoImg = styled.img`
   width: 15vw;
@@ -36,15 +38,13 @@ export const MenuFunction = styled.div`
   font-size: 20px;
   margin-right: 40px;
 `;
-export const MenuCart = styled.img`
-  width: 40px;
-  height: 40px;
-`;
 
 export default function LayoutHeader() {
   const router = useRouter();
   const CHECK = ["/main"];
   const isCheck = CHECK.includes(router.asPath);
+  const CHECK_LIST = ["/main", "/localfood", "/bfood"];
+  const isCheckList = CHECK_LIST.includes(router.asPath);
 
   // 스크롤이 50px 이상 내려올경우 true값을 넣어줄 useState
   const [scroll, setScroll] = useState(false);
@@ -68,20 +68,20 @@ export default function LayoutHeader() {
   };
 
   return (
-    <Body isCheck={isCheck} scroll={scroll}>
+    <Body isCheckList={isCheckList} isCheck={isCheck} scroll={scroll}>
       <LogoImg
         src={
-          scroll
-            ? "/logo/boldo.png"
-            : isCheck
-            ? "/logo/boldw.png"
-            : "/logo/boldb.png"
+          isCheckList
+            ? scroll
+              ? "/logo/boldo.png"
+              : "/logo/boldw.png"
+            : "/logo/boldo.png"
         }
       />
       <MenuWrapper>
         <MenuFunction>회원가입</MenuFunction>
         <MenuFunction>로그인</MenuFunction>
-        {!isCheck && <MenuCart src="/icons/cart.png" />}
+        {!isCheck && <MenuFunction>장바구니</MenuFunction>}
       </MenuWrapper>
     </Body>
   );
