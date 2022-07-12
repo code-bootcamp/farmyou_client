@@ -22,13 +22,13 @@ export const SubTitle = styled.div`
   text-align: center;
   position: absolute;
   width: 100%;
-  top: 60vh;
+  top: 63vh;
   left: 0;
-  font-size: 2.4rem;
+  font-size: 2rem;
   z-index: 3;
   color: white;
   @media (max-width: 806px) {
-    font-size: 5vw;
+    font-size: 4vw;
   }
 `;
 export const Title = styled.div`
@@ -37,13 +37,13 @@ export const Title = styled.div`
   width: 100%;
   top: 75vh;
   left: 0;
-  font-size: 4rem;
+  font-size: 3.3rem;
   z-index: 3;
   color: white;
 
   @media (max-width: 806px) {
-    padding-top: 10px;
-    font-size: 7.5vw;
+    /* padding-top: 15px; */
+    font-size: 7vw;
   }
 `;
 export const NextIcon = styled.div`
@@ -75,7 +75,7 @@ export const LocalWrapper = styled.div`
   margin: 10vh auto;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 
   @media (max-width: 1200px) {
@@ -118,29 +118,31 @@ export const LocalRightWrapper = styled.div`
   }
 `;
 export const LocalSearchBar = styled.div`
-  width: 30rem;
+  width: 35rem;
   height: 3rem;
   border-radius: 40px;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   border: 2px solid #f58220;
-  padding: 0px 2vw;
+  padding: 0px 1vw;
   margin-bottom: 10px;
 
   @media (max-width: 1200px) {
     margin-top: 10vw;
-    width: 100%;
+    width: 80%;
+    padding: 0px 3vw;
   }
 `;
 export const LocalSearch = styled.input`
   width: 33vw;
   outline-style: none;
   border: none;
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   &::placeholder {
     color: #ccc;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 
   @media (max-width: 1200px) {
@@ -150,12 +152,12 @@ export const LocalSearch = styled.input`
 `;
 
 export const SearchIcon = styled.img`
-  width: 2.5vw;
-  height: 2.5vw;
+  width: 1.8rem;
+  height: 1.8rem;
 `;
 
 export const LocalMarket = styled.div`
-  width: 33vw;
+  width: 32rem;
   border: 1px solid #ccc;
   border-radius: 20px;
   margin: 2vw 0px;
@@ -172,18 +174,18 @@ export const LocalMarket = styled.div`
 
   @media (max-width: 1200px) {
     width: 80%;
-    font-size: 0.8rem;
+    /* font-size: 0.8rem; */
   }
 `;
 export const MarketName = styled.div`
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   @media (max-width: 1200px) {
     font-size: 2.4vw;
   }
 `;
 
 export const MarketAddress = styled.div`
-  font-size: 1.2rem;
+  font-size: 1rem;
   @media (max-width: 1200px) {
     font-size: 2vw;
   }
