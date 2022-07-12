@@ -1,17 +1,60 @@
 import * as S from "./Question.styles";
+import { IQuestionUIProps } from "./Question.types";
 
-export default function QuestionUI() {
+const aaa = [
+  {
+    id: "1",
+    title: "제목 제목 제목",
+    contents: "내용 내용 내용",
+    writer: "원용현",
+    date: "2022. 07. 01",
+  },
+  {
+    id: "2",
+    title:
+      "제목 제목 제목제목 제목 제목제목 제목 제목제목 제목 제목제목 제목 제목제목 제목 제목제목 제목 제목제목 제목 제목제목 제목 제목제목 제목 제목",
+    contents:
+      "내용 내용 내용내용 내용 내용내용 내용 내용내용 내용 내용내용 내용 내용내용 내용 내용내용 내용 내용내용 내용 내용내용 내용 내용내용 내용 내용내용 내용 내용내용 내용 내용내용 내용 내용",
+    writer: "유연희",
+    date: "2022. 07. 01",
+  },
+  {
+    id: "3",
+    title: "제목 제목 제목",
+    contents: "내용 내용 내용",
+    writer: "김민승",
+    date: "2022. 07. 01",
+  },
+  {
+    id: "4",
+    title: "제목 제목 제목",
+    contents: "내용 내용 내용",
+    writer: "이승원",
+    date: "2022. 07. 01",
+  },
+  {
+    id: "5",
+    title: "제목 제목 제목",
+    contents: "내용 내용 내용",
+    writer: "김지영",
+    date: "2022. 07. 01",
+    seller_title: "셀러입니다~",
+    seller_contents: "문의 답변입니다~",
+  },
+];
+
+export default function QuestionUI(props: IQuestionUIProps) {
   // 이 값 변경시키면 질문 내용이랑 답글 달렸으면 답글도 출력
   const isClick = true;
   return (
     <>
       <S.Wrapper>
-        <S.QuestionTitle>상품 문의</S.QuestionTitle>
-        <S.QuestionWarning>
-          상품에 판매자의 답글이 달리는 경우 수정 및 삭제가 불가능합니다. <br />
-          개인정보(휴대전화 번호, 주민등록 번호 등)의 작성에 유의하여 주시기
-          바랍니다.
-        </S.QuestionWarning>
+        <S.QuestionTitleWrapper>
+          <S.QuestionTitle>상품문의</S.QuestionTitle>
+          <S.QuestionButton onClick={props.onClickQuestionRegistration}>
+            문의하기
+          </S.QuestionButton>
+        </S.QuestionTitleWrapper>
         <S.QuestionTableWrapper>
           <S.QuestionTableRow
             style={{
@@ -29,81 +72,85 @@ export default function QuestionUI() {
             <S.QuestionDateColumnHeader>작성일</S.QuestionDateColumnHeader>
           </S.QuestionTableRow>
 
-          {/* 여기서부터 아래의 코드는 map으로 그려주기, id값 잘 비교해서 문의 답변도 달아주기 */}
-          {new Array(3).fill(1).map((el, index) => {
+          {aaa.map((el) => {
             return (
-              <S.QuestionAnswerWrapper key={index}>
-                <S.QuestionTableRow key={index}>
-                  <S.QuestionStatusColumn>답변 중</S.QuestionStatusColumn>
-                  <S.QuestionTitleColumn>
+              <S.QuestionAnswerWrapper key={el.id}>
+                <S.QuestionTableRow onClick={props.onClickQuestion} id={el.id}>
+                  <S.QuestionStatusColumn>
+                    {el.seller_title ? "답변 완료" : "답변 중"}
+                  </S.QuestionStatusColumn>
+                  <S.QuestionTitleColumn id={el.id}>
                     <S.QText>Q. </S.QText>
-                    제목 제목 제목 제목 제목
+                    {el.title}
+                    {el.seller_title ? (
+                      <></>
+                    ) : (
+                      <S.EditImage
+                        src="/icons/edit.svg"
+                        onClick={props.onClickQuestionEdit}
+                      ></S.EditImage>
+                    )}
                   </S.QuestionTitleColumn>
-                  <S.QuestionWriterColumn>홍길동</S.QuestionWriterColumn>
-                  <S.QuestionDateColumn>2023. 7. 2</S.QuestionDateColumn>
+                  <S.QuestionWriterColumn>{el.writer}</S.QuestionWriterColumn>
+                  <S.QuestionDateColumn>{el.date}</S.QuestionDateColumn>
                 </S.QuestionTableRow>
-              </S.QuestionAnswerWrapper>
-            );
-          })}
-          <S.QuestionAnswerWrapper>
-            <S.QuestionTableRow>
-              <S.QuestionStatusColumn>답변 완료</S.QuestionStatusColumn>
-              <S.QuestionTitleColumn isClick={isClick}>
-                <S.QText>Q. </S.QText>
-                제목 제목 제목 제목 제목 제목 제목 제목 제목 제목 제목 제목 제목
-                제목 제목 제목 제목 제목 제목 제목
-              </S.QuestionTitleColumn>
-              <S.QuestionWriterColumn>홍길동</S.QuestionWriterColumn>
-              <S.QuestionDateColumn>2023. 6. 25</S.QuestionDateColumn>
-            </S.QuestionTableRow>
-            <S.AnswerWrapper>
-              {/* 지금 여기 눌렸는지에 대해서면 구현, 답변이 달려있는지에 대해서도 구현해야함 */}
-              {isClick && (
-                <>
-                  <S.QuestionContents>
-                    질문 질문 질문 질문 질문 질문 질문 질문 질문 질문 질문
-                    질문질문 질문 질문 질문 질문 질문질문 질문 질문 질문 질문
-                    질문질문 질문 질문 질문 질문 질문질문 질문 질문 질문 질문
-                    질문질문 질문 질문 질문 질문 질문질문 질문 질문 질문 질문
-                    질문질문 질문 질문 질문 질문 질문
-                  </S.QuestionContents>
-                  <S.AnswerTitle>
-                    <S.AText>A.</S.AText>
-                    답변 제목 답변 제목 답변 제목 답변 제목 답변 제목 답변 제목
-                    답변 제목 답변 제목 답변 제목 답변 제목 답변 제목 답변 제목
-                    답변 제목{" "}
-                  </S.AnswerTitle>
-                  <S.AnswerContents>
-                    답변 내용 답변 내용 답변 내용 답변 내용 답변 내용 답변 내용
-                    답변 내용 답변 내용 답변 내용 답변 내용 답변 내용 답변 내용
-                    답변 내용 답변 내용 답변 내용 답변 내용 답변 내용 답변 내용
-                    답변 내용 답변 내용 답변 내용 답변 내용 답변 내용 답변 내용
-                    답변 내용 답변 내용 답변 내용 답변 내용 답변 내용 답변 내용
-                    답변 내용 답변 내용 답변 내용 답변 내용 답변 내용 답변 내용
-                    답변 내용{" "}
-                  </S.AnswerContents>
-                </>
-              )}
-            </S.AnswerWrapper>
-          </S.QuestionAnswerWrapper>
-          {new Array(6).fill(1).map((el, index) => {
-            return (
-              <S.QuestionAnswerWrapper key={index}>
-                <S.QuestionTableRow>
-                  <S.QuestionStatusColumn>답변 완료</S.QuestionStatusColumn>
-                  <S.QuestionTitleColumn>
-                    <S.QText>Q. </S.QText>
-                    제목 제목 제목 제목 제목 제목 제목 제목 제목 제목 제목 제목
-                    제목 제목
-                  </S.QuestionTitleColumn>
-                  <S.QuestionWriterColumn>홍길동</S.QuestionWriterColumn>
-                  <S.QuestionDateColumn>2023. 6. 7</S.QuestionDateColumn>
-                </S.QuestionTableRow>
+                {el.id === props.isClick ? (
+                  <S.AnswerWrapper>
+                    <S.QuestionContents title={el.seller_title}>
+                      {el.contents}
+                    </S.QuestionContents>
+                    {el.seller_title ? (
+                      <>
+                        <S.AnswerTitle>
+                          <S.AText>A.</S.AText>
+                          {el.seller_title}{" "}
+                          <S.EditImage
+                            src="/icons/edit.svg"
+                            onClick={props.onClickAnswerEdit}
+                          ></S.EditImage>
+                        </S.AnswerTitle>
+                        <S.AnswerContents>
+                          {el.seller_contents}
+                        </S.AnswerContents>
+                      </>
+                    ) : (
+                      <S.AnswerButton onClick={props.onClickAnswerRegistration}>
+                        답변하기
+                      </S.AnswerButton>
+                    )}
+                  </S.AnswerWrapper>
+                ) : (
+                  <></>
+                )}
               </S.QuestionAnswerWrapper>
             );
           })}
         </S.QuestionTableWrapper>
       </S.Wrapper>
+      {console.log(props.isVisible)}
+      {props.isVisible && (
+        <S.CustomModal>
+          <S.ModalWrapper>
+            <S.TitleContentsText>
+              {props.isAnswer ? "답변 제목" : "문의 제목"}
+            </S.TitleContentsText>
+            <S.TitleInput></S.TitleInput>
+            <S.TitleContentsText>
+              {props.isAnswer ? "답변 내용" : "문의 내용"}
+            </S.TitleContentsText>
+            <S.ContentsTextarea></S.ContentsTextarea>
+            <S.ButtonWrapper>
+              <S.RegistrationEditButton>
+                {props.isEdit ? "수정하기" : "등록하기"}
+              </S.RegistrationEditButton>
+            </S.ButtonWrapper>
+            <S.CancelButton
+              src="/icons/delete.svg"
+              onClick={props.onClickModalCancel}
+            />
+          </S.ModalWrapper>
+        </S.CustomModal>
+      )}
     </>
   );
 }
