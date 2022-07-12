@@ -45,7 +45,6 @@ const aaa = [
 
 export default function QuestionUI(props: IQuestionUIProps) {
   // 이 값 변경시키면 질문 내용이랑 답글 달렸으면 답글도 출력
-  const isClick = true;
   return (
     <>
       <S.Wrapper>
