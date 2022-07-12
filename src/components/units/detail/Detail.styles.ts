@@ -2,13 +2,19 @@ import styled from "@emotion/styled";
 import Slider from "react-slick";
 import { Input } from "antd";
 
-export const OutLine = styled.div`
+export const Body = styled.div`
   width: 100%;
 `;
 
 export const Wrapper = styled.div`
   width: 80%;
+  min-width: 1200px;
   margin: 0px auto;
+
+  @media (max-width: 1320px) {
+    min-width: 0;
+    width: 90%;
+  }
 `;
 
 export const TopWrapper = styled.div`
@@ -26,7 +32,7 @@ export const TopWrapper = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
-  width: 40vw;
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -56,12 +62,12 @@ export const SubImageWrapper = styled.div`
 
 export const StyledSlider = styled(Slider)`
   .slick-prev:before {
-    font-size: 1.5vw;
+    font-size: 1.3rem;
     color: #ccc;
   }
 
   .slick-next:before {
-    font-size: 1.5vw;
+    font-size: 1.3rem;
     color: #ccc;
   }
 `;
@@ -81,7 +87,7 @@ export const SubImage = styled.img`
 `;
 
 export const MainContentsWrapper = styled.div`
-  width: 40vw;
+  width: 50%;
   display: flex;
   flex-direction: column;
 
@@ -101,36 +107,37 @@ export const MainContentsHeader = styled.div`
 `;
 
 export const ItemSeller = styled.div`
-  width: 20vw;
-  font-size: 1vw;
+  /* width: 20vw; */
+  width: 70%;
+  font-size: 1.2rem;
   font-weight: 500;
   color: #adadad;
   padding-bottom: 20px;
 
   @media (max-width: 575px) {
-    font-size: 2vw;
+    font-size: 1.2rem;
   }
 `;
 
 export const IconWrapper = styled.div`
-  width: 10vw;
+  width: 20%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 0 3vw;
+  padding: 0 1vw;
 
   @media (max-width: 575px) {
-    width: 20vw;
+    /* width: 20vw; */
     /* height: 60vw; */
   }
 `;
 
 export const Icon = styled.img`
-  width: 1.5vw;
-  height: 1.5vw;
+  width: 1.5rem;
+  height: 1.5rem;
   @media (max-width: 575px) {
-    width: 3vw;
-    height: 3vw;
+    /* width: 3vw;
+    height: 3vw; */
   }
 `;
 
@@ -142,24 +149,24 @@ export const MainContentsBody = styled.div`
 `;
 
 export const ItemName = styled.div`
-  font-size: 1vw;
+  font-size: 1.7rem;
   flex-wrap: wrap;
   width: 80%;
   padding-bottom: 4vw;
 
   @media (max-width: 575px) {
-    font-size: 3vw;
+    font-size: 1.5rem;
   }
 `;
 
 export const ItemPrice = styled.div`
   width: 100%;
   text-align: end;
-  font-size: 1.5vw;
+  font-size: 1.7rem;
   font-weight: bold;
 
   @media (max-width: 575px) {
-    font-size: 4vw;
+    font-size: 1.5rem;
   }
 `;
 
@@ -173,27 +180,27 @@ export const TotalPrice = styled.div`
   padding: 20px 0;
   width: 100%;
   text-align: end;
-  font-size: 1.6vw;
+  font-size: 1.5rem;
   font-weight: bold;
 
   @media (max-width: 575px) {
-    font-size: 3.5vw;
+    font-size: 1.3rem;
   }
 `;
 
 export const CountInput = styled(Input)`
-  height: 2em + 5px;
-  font-size: 1.5vw;
+  height: 2rem + 5px;
+  font-size: 1.2rem;
   outline-color: #055143;
   border-radius: 5px;
 
   @media (max-width: 575px) {
-    font-size: 3vw;
+    font-size: 1.2rem;
   }
 `;
 
 export const ButtonWrapper = styled.div`
-  width: 100%;
+  width: 80%;
   margin-top: 50px;
   display: flex;
   flex-direction: row;

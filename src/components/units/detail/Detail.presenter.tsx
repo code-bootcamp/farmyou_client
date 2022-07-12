@@ -1,8 +1,9 @@
 import ButtonComponent from "../../commons/buttons";
 import * as S from "./Detail.styles";
+import { IDetailProps } from "./Detail.types";
 import Question from "./question/Question.container";
 
-export default function DetailUI() {
+export default function DetailUI(props: IDetailProps) {
   const settings = {
     dots: false,
     infinite: true,
@@ -12,23 +13,33 @@ export default function DetailUI() {
   };
 
   return (
-    <S.OutLine>
+    <S.Body>
       <S.Wrapper>
         <S.TopWrapper>
           <S.ImageWrapper>
-            <S.MainImage src="/apple_slider.png"></S.MainImage>
+            <S.MainImage
+              src={props.mainImageSrc || "/apple_slider.png"}
+            ></S.MainImage>
             <S.SubImageWrapper>
               <S.StyledSlider {...settings}>
-                <S.SubImage src="/apple_slider.png"></S.SubImage>
-                <S.SubImage src="/apple_slider.png"></S.SubImage>
-                <S.SubImage src="/apple_slider.png"></S.SubImage>
-                <S.SubImage src="/apple_slider.png"></S.SubImage>
-                <S.SubImage src="/apple_slider.png"></S.SubImage>
-                <S.SubImage src="/apple_slider.png"></S.SubImage>
-                <S.SubImage src="/apple_slider.png"></S.SubImage>
-                <S.SubImage src="/apple_slider.png"></S.SubImage>
-                <S.SubImage src="/apple_slider.png"></S.SubImage>
-                <S.SubImage src="/apple_slider.png"></S.SubImage>
+                {new Array(3).fill(1).map((_, index) => {
+                  return (
+                    <S.SubImage
+                      onClick={props.onClickSubImage}
+                      key={index}
+                      src="/apple_slider.png"
+                    ></S.SubImage>
+                  );
+                })}
+                {new Array(4).fill(1).map((_, index) => {
+                  return (
+                    <S.SubImage
+                      onClick={props.onClickSubImage}
+                      key={index}
+                      src="/icons/delete.svg"
+                    ></S.SubImage>
+                  );
+                })}
               </S.StyledSlider>
             </S.SubImageWrapper>
           </S.ImageWrapper>
@@ -48,8 +59,11 @@ export default function DetailUI() {
               <S.CountInput
                 placeholder="수량을 입력해주세요."
                 type="number"
+                onChange={props.onChangeBuyQuantity}
               ></S.CountInput>
-              <S.TotalPrice>1 X 19,000원 = 19,000원</S.TotalPrice>
+              <S.TotalPrice>
+                {props.buyQuantity} X 19,000원 = {props.buyQuantity * 19000}원
+              </S.TotalPrice>
               <S.ButtonWrapper>
                 <ButtonComponent
                   buttonColor="#bdbdbd"
@@ -80,6 +94,6 @@ export default function DetailUI() {
         </S.Contents>
         <Question></Question>
       </S.Wrapper>
-    </S.OutLine>
+    </S.Body>
   );
 }
