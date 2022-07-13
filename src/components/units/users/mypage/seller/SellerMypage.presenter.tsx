@@ -1,5 +1,7 @@
 import * as S from "./SellerMypage.styles";
-export default function SellerMypageUI() {
+import { ISellerMypageUiProps } from "./SellerMypage.types";
+import Tracking from "./tracking";
+export default function SellerMypageUI(props: ISellerMypageUiProps) {
   return (
     <S.Wrapper>
       <S.Body>
@@ -27,7 +29,9 @@ export default function SellerMypageUI() {
                 <S.BoxIcons>
                   <S.DeliveryBoxIcon src="/icons/mypage/delivery.png" />
                 </S.BoxIcons>
-                <S.BoxTitle>배송중</S.BoxTitle>
+                <S.BoxTitle onClick={props.onClickPostTracking}>
+                  배송중
+                </S.BoxTitle>
                 <S.Count>1</S.Count>
               </S.Box>
               <S.LengthDivideLine></S.LengthDivideLine>
@@ -52,38 +56,82 @@ export default function SellerMypageUI() {
         </S.InfoWrapper>
         <S.ListWrapper>
           <S.SelectListWrapper>
-            <S.SelectLocalFood isSelect={true}>
+            <S.SelectLocalFood
+              isSelect={props.isSelect}
+              onClick={props.onClickLocalList}
+            >
               로컬푸드 구매내역
             </S.SelectLocalFood>
-            <S.SelectLocalFood isSelect={false}>
+            <S.SelectLocalFood
+              isSelect={!props.isSelect}
+              onClick={props.onClickBfoodList}
+            >
               못난이 상품 구매내역
             </S.SelectLocalFood>
           </S.SelectListWrapper>
           <S.ListItemWrapper>
-            {new Array(2).fill(1).map((_, index) => {
-              return (
-                <S.ListItem key={index}>
-                  <S.ItemImg></S.ItemImg>
-                  <S.ItemInfoWrapper>
-                    <S.ItemTitle>달달한 충주 사과 1kg</S.ItemTitle>
-                    <S.ItemPrice>99000원</S.ItemPrice>
-                    <S.ItemCreateDate>구매 날짜 : 2022.10.23</S.ItemCreateDate>
-                  </S.ItemInfoWrapper>
-                  {/* <S.LengthDivideLine /> */}
-                  <S.ItemSubInfoWrapper>
-                    <S.ReturnButton>취소요청</S.ReturnButton>
-                  </S.ItemSubInfoWrapper>
-                  <S.ItemSubInfoWrapper>
-                    <S.SellerName>판매자 이름</S.SellerName>
-                    <S.SellerPhoneNum>010-xxxx-xxxx</S.SellerPhoneNum>
-                  </S.ItemSubInfoWrapper>
-                </S.ListItem>
-              );
-            })}
+            {props.isSelect
+              ? new Array(2).fill(1).map((_, index) => {
+                  return (
+                    // 라우터로 id 값을 통해서 이동하는데 id에 index가 들어가서 제대로 안들어감
+                    <S.ListItem key={index}>
+                      <S.ItemImg></S.ItemImg>
+                      <S.ItemInfoWrapper
+                        onClick={props.onClickLocalDetail}
+                        id={String(index)}
+                      >
+                        <S.ItemTitle>달달한 충주 사과 1kg</S.ItemTitle>
+                        <S.ItemPrice>99000원</S.ItemPrice>
+                        <S.ItemCreateDate>
+                          구매 날짜 : 2022.10.23
+                        </S.ItemCreateDate>
+                      </S.ItemInfoWrapper>
+                      {/* <S.LengthDivideLine /> */}
+                      <S.ItemSubInfoWrapper>
+                        <S.ReturnButton onClick={props.onClickPostTracking}>
+                          배송조회
+                          <Tracking trackingRef={props.trackingRef}></Tracking>
+                        </S.ReturnButton>
+                      </S.ItemSubInfoWrapper>
+                      <S.ItemSubInfoWrapper>
+                        <S.SellerName>판매자 이름</S.SellerName>
+                        <S.SellerPhoneNum>010-xxxx-xxxx</S.SellerPhoneNum>
+                      </S.ItemSubInfoWrapper>
+                    </S.ListItem>
+                  );
+                })
+              : new Array(2).fill(1).map((_, index) => {
+                  return (
+                    // 라우터로 id 값을 통해서 이동하는데 id에 index가 들어가서 제대로 안들어감
+                    <S.ListItem key={index} id={String(index)}>
+                      <S.ItemImg></S.ItemImg>
+                      <S.ItemInfoWrapper
+                        onClick={props.onClickBfoodDetail}
+                        id={String(index)}
+                      >
+                        <S.ItemTitle>달달한 충주 사과 10kg</S.ItemTitle>
+                        <S.ItemPrice>99000원</S.ItemPrice>
+                        <S.ItemCreateDate>
+                          구매 날짜 : 2022.10.23
+                        </S.ItemCreateDate>
+                      </S.ItemInfoWrapper>
+                      {/* <S.LengthDivideLine /> */}
+                      <S.ItemSubInfoWrapper>
+                        <S.ReturnButton>취소요청</S.ReturnButton>
+                      </S.ItemSubInfoWrapper>
+                      <S.ItemSubInfoWrapper>
+                        <S.SellerName>판매자 이름</S.SellerName>
+                        <S.SellerPhoneNum>010-xxxx-xxxx</S.SellerPhoneNum>
+                      </S.ItemSubInfoWrapper>
+                    </S.ListItem>
+                  );
+                })}
+
             <S.MoreItem>+</S.MoreItem>
           </S.ListItemWrapper>
         </S.ListWrapper>
       </S.Body>
+      <Tracking></Tracking>
     </S.Wrapper>
   );
 }

@@ -141,6 +141,7 @@ export const BoxTitle = styled.div`
 `;
 export const Count = styled.div`
   font-size: 3rem;
+  color: #f6651e;
   @media (max-width: 667px) {
     font-size: 1.5rem;
   }
@@ -160,7 +161,7 @@ export const OrderCheckBoxIcon = styled.img`
   padding: 10%;
 `;
 
-export const DeliveryBoxIcon = styled.img`
+export const SellBoxIcon = styled.img`
   width: 100%;
 `;
 
@@ -169,8 +170,9 @@ export const BoxBoxIcon = styled.img`
   padding: 10%;
 `;
 
-export const ReturnBoxIcon = styled.img`
+export const LikeBoxIcon = styled.img`
   width: 100%;
+  padding: 10%;
 `;
 
 export const LengthDivideLine = styled.div`
@@ -193,13 +195,18 @@ export const SelectListWrapper = styled.div`
   flex-direction: row;
 `;
 
+interface ISelectLocalFoodProps {
+  isSelect: boolean;
+}
 export const SelectLocalFood = styled.div`
   width: 50%;
   font-size: 1rem;
   padding: 1vw 0px;
   text-align: center;
-  border: ${(props) => (props.isSelect ? "2px solid #ccc" : "none")};
-  border-bottom: ${(props) => (props.isSelect ? "none" : "2px solid #ccc")};
+  border: ${(props: ISelectLocalFoodProps) =>
+    props.isSelect ? "2px solid #F6651E" : "none"};
+  border-bottom: ${(props: ISelectLocalFoodProps) =>
+    props.isSelect ? "none" : "2px solid #F6651E"};
 `;
 
 export const ListItemWrapper = styled.div`
