@@ -1,3 +1,4 @@
+import LocalListCapsule from "./LocalListCapsule";
 import * as S from "./Main.styles";
 import { IMainUIProps } from "./Main.types";
 
@@ -35,29 +36,25 @@ export default function MainUI(props: IMainUIProps) {
           <S.LocalRightWrapper>
             <S.LocalSearchBar>
               <S.LocalSearch
+                onChange={props.onChangeSearch}
                 placeholder="주소를 입력해 가장 가까운 로컬푸드 마켓을 찾아보세요!"
                 type="text"
               />
               <S.SearchIcon src="/icons/search.png" />
             </S.LocalSearchBar>
-            <S.LocalMarket>
-              <S.MarketName>원당농협 로컬푸드직매장</S.MarketName>
-              <S.MarketAddress>
-                경기도 고양시 덕양구 고양대로1369번길 69
-              </S.MarketAddress>
-            </S.LocalMarket>
-            <S.LocalMarket>
-              <S.MarketName>강서농협 로컬푸드직매장 마곡점</S.MarketName>
-              <S.MarketAddress>
-                서울 강서구 양천로30길 123-28 (마곡동)
-              </S.MarketAddress>
-            </S.LocalMarket>
-            <S.LocalMarket>
-              <S.MarketName>진양농협 로컬푸드직매장</S.MarketName>
-              <S.MarketAddress>
-                경남 진주시 일반성면 동부로 1947 (창촌리)
-              </S.MarketAddress>
-            </S.LocalMarket>
+            {(props.isSearch && (
+              <div>
+                <LocalListCapsule />
+                <LocalListCapsule />
+                <LocalListCapsule />
+              </div>
+            )) || (
+              <div
+                style={{ width: "100%", height: "500px", textAlign: "center" }}
+              >
+                주소지를 입력해주세요
+              </div>
+            )}
           </S.LocalRightWrapper>
         </S.LocalWrapper>
       </S.LocalScrollWrapper>
@@ -71,7 +68,9 @@ export default function MainUI(props: IMainUIProps) {
             <S.BfoodSubTitleLow>새로운 공생방법"</S.BfoodSubTitleLow>
           </S.BfoodSubTitleWrapper>
           <S.BfoodTitle>못난이 농산물 마켓</S.BfoodTitle>
-          <S.BfoodButton>바로가기</S.BfoodButton>
+          <S.BfoodButton onClick={props.onClickMove(`/bfood`)}>
+            바로가기
+          </S.BfoodButton>
         </S.BfoodRightWRapper>
       </S.BfoodWrapper>
     </S.Body>

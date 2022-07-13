@@ -292,6 +292,8 @@ export const BfoodButton = styled.button`
   margin: 30px 0px;
   font-size: 1.8vw;
   border-radius: 5px;
+  cursor: pointer;
+
   &:hover {
     background-color: white;
     color: #f6651e;
