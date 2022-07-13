@@ -16,6 +16,7 @@ export default function Login() {
         variables: {
           email: data.email,
           password: data.password,
+          userType: "user",
         },
       });
       router.push(`/main`);
