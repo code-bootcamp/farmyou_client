@@ -9,8 +9,8 @@ interface IButtonProps {
 }
 
 const Button = styled.button`
-  width: 10vw;
-  height: 2.5vw;
+  width: 10rem;
+  height: 2.5rem;
   min-height: 35px;
   font-size: 0.8vw;
   cursor: pointer;
