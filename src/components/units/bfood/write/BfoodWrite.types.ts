@@ -4,5 +4,6 @@ export interface IBfoodWriteUIProps {
   register: any;
   handleSubmit: UseFormHandleSubmit<FieldValues>;
   onClickToCancel: () => void;
-  onChangeContents: (value: string) => void;
+  onChangeContent: (value: string) => void;
+  onClickSubmit: (data: any) => Promise<void>;
 }
