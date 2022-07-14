@@ -7,10 +7,11 @@ import { useMutation } from "@apollo/client";
 import { CREATE_PRODUCT_UGLY } from "./BfoodWrite.queries";
 
 const schema = yup.object({
-  name: yup.string().required(),
-  price: yup.string().required(),
-  quantity: yup.string().required(),
-  area: yup.number().required(),
+  title: yup.string().required("필수입력사항입니다."),
+  price: yup.number().required("필수입력사항입니다."),
+  quantity: yup.number().required("필수입력사항입니다."),
+  origin: yup.string().required("필수입력사항입니다."),
+  content: yup.string().required("필수입력사항입니다."),
 });
 
 export default function BfoodWrite() {
@@ -28,21 +29,24 @@ export default function BfoodWrite() {
 
   const onClickToCancel = () => {
     router.push("/users/mypage");
+    // console.log(watch());
+    // console.log(formState.isValid);
   };
 
   const onClickSubmit = async (data: any) => {
     try {
-      const result = await createProductUgly({
+      await createProductUgly({
         variables: {
           title: data.title,
           content: data.content,
           price: data.price,
           quantity: data.quantity,
           origin: data.origin,
-          sellerId: "cfd4d744-0cf2-444f-9513-9bed0d96b19d",
+          sellerId: "0b152efe-736e-408d-afd8-3e320e0e94dd",
         },
       });
-      console.log(result);
+      // console.log(result);
+      router.push("/bfood");
     } catch (error) {
       console.log(error);
     }
