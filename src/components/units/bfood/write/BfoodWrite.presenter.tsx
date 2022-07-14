@@ -7,17 +7,17 @@ export default function BfoodWriteUI(props: IBfoodWriteUIProps) {
   return (
     <S.Wrapper>
       <S.PageTitle>상품 등록</S.PageTitle>
-      <form onSubmit={props.onClickSubmit}>
+      <form onSubmit={props.handleSubmit(props.onClickSubmit)}>
         <S.InnerWrapper>
           <S.ImageItemWrapper>
             <S.ImageItem>
-              <img src="/icons/write/defaultimg.png" alt="" />
+              <img src="/icons/write/defaultimg.png" />
             </S.ImageItem>
           </S.ImageItemWrapper>
           <S.Label>상품명</S.Label>
           <InputComponent
             placeholder={"상품명을 입력해주세요."}
-            type={"text"}
+            type="text"
             register={props.register("title")}
           />
           <S.FormWrapper>
@@ -25,7 +25,7 @@ export default function BfoodWriteUI(props: IBfoodWriteUIProps) {
               <S.Label>상품가격</S.Label>
               <InputComponent
                 placeholder={"40000"}
-                type={"number"}
+                type="number"
                 register={props.register("price")}
               />
             </S.InputWrapper>
@@ -33,7 +33,7 @@ export default function BfoodWriteUI(props: IBfoodWriteUIProps) {
               <S.Label>상품 총 수량</S.Label>
               <InputComponent
                 placeholder={"100"}
-                type={"number"}
+                type="number"
                 register={props.register("quantity")}
               />
             </S.InputWrapper>
@@ -41,7 +41,7 @@ export default function BfoodWriteUI(props: IBfoodWriteUIProps) {
           <S.Label>생산지역</S.Label>
           <InputComponent
             placeholder={"생산 지역을 입력해주세요."}
-            type={"text"}
+            type="text"
             register={props.register("origin")}
           />
           <S.Label>상품설명</S.Label>

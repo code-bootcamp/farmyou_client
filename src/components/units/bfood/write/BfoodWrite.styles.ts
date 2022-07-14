@@ -74,13 +74,13 @@ export const InputQuill = styled(ReactQuill)`
 `;
 
 export const ButtonWrapper = styled.div`
-  width: 20rem;
+  width: 30rem;
   /* min-width: 30rem; */
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   margin: 50px auto;
   @media (max-width: 575px) {
-    width: 15rem;
+    width: 14rem;
   }
 `;
