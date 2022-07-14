@@ -23,7 +23,7 @@ export default function BfoodListUI(props: IBfoodListUIProps) {
         </S.SearchWrapper>
         <S.ItemWrapper>
           {props.data?.fetchUglyProducts.map((el: any) => {
-            return <ListItem key={el.id} el={el}></ListItem>;
+            return <ListItem key={el.id} el={el} drag={props.drag} />;
           })}
         </S.ItemWrapper>
       </S.Wrapper>
