@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 20px;
-  border: 1px solid #f6e7d1;
+  /* border: 1px ; */
 
   @media (max-width: 689px) {
     display: flex;
@@ -26,7 +26,7 @@ const Wrapper = styled.div`
 const ItemImage = styled.img`
   width: 100%;
   height: 210px;
-  background-color: #bdbdbd;
+  background-color: #ccc;
 
   @media (max-width: 689px) {
     width: 137px;
@@ -64,14 +64,14 @@ const ItemPrice = styled.div`
   text-align: end;
 `;
 
-export default function ListItem() {
+export default function ListItem(props: any) {
   return (
     <Wrapper>
       <ItemImage />
       <ItemContentsWrapper>
-        <ItemSeller>연희네 농장</ItemSeller>
-        <ItemName>못난이 사과 1kg</ItemName>
-        <ItemPrice>10000원</ItemPrice>
+        <ItemSeller>{props.el.seller.name}</ItemSeller>
+        <ItemName>{props.el.title}</ItemName>
+        <ItemPrice>{props.el.price.toLocaleString()}원</ItemPrice>
       </ItemContentsWrapper>
     </Wrapper>
   );

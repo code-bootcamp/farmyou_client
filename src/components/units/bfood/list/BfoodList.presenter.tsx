@@ -1,9 +1,10 @@
 import ListItem from "../../../commons/items/list";
 import * as S from "./BfoodList.styles";
 import { Select } from "antd";
+import { IBfoodListUIProps } from "./BfoodList.types";
 const { Option } = Select;
 
-export default function BfoodListUI() {
+export default function BfoodListUI(props: IBfoodListUIProps) {
   return (
     <S.OutLine>
       <S.Wrapper>
@@ -21,8 +22,8 @@ export default function BfoodListUI() {
           <S.SearchInput placeholder="검색어를 입력해주세요." />
         </S.SearchWrapper>
         <S.ItemWrapper>
-          {new Array(50).fill(1).map((_, index) => {
-            return <ListItem key={index}></ListItem>;
+          {props.data?.fetchUglyProducts.map((el: any) => {
+            return <ListItem key={el.id} el={el}></ListItem>;
           })}
         </S.ItemWrapper>
       </S.Wrapper>
