@@ -3,11 +3,14 @@ import { RadioChangeEvent } from "antd";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRecoilState } from "recoil";
+import { TokenState } from "../../../commons/store";
 import LoginUI from "./login.presenter";
 import { LOG_IN_SELLER, LOG_IN_USER } from "./login.queries";
 import { IData } from "./login.types";
 
 export default function Login() {
+  const [token, setToken] = useRecoilState(TokenState);
   const [loginUser] = useMutation(LOG_IN_USER);
   const [loginSeller] = useMutation(LOG_IN_SELLER);
   const [isUser, setIsUser] = useState(true);
@@ -24,6 +27,8 @@ export default function Login() {
           password: data.password,
         },
       });
+      console.log(resultSeller);
+      setToken(resultSeller.data?.loginSeller);
     } catch (e: any) {
       alert(e.message);
     }
@@ -37,6 +42,8 @@ export default function Login() {
         },
       });
       router.push(`/main`);
+      console.log(result);
+      setToken(result.data?.loginUser);
     } catch (error: any) {
       console.log(error.message);
     }

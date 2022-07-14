@@ -1,3 +1,5 @@
+import { MouseEventHandler } from "react";
+
 export interface IBodyProps {
   isCheck: boolean;
   isCheckList: boolean;
@@ -32,4 +34,8 @@ export interface ILayoutHeaderUIProps {
     };
   };
   onClickToCart: () => void;
+  onClickMoveToSignup: () => void;
+  onClickMoveToLogin: () => void;
+  onClickMoveToMypage: () => void;
+  isLogged: boolean;
 }

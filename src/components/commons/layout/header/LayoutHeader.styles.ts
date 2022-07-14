@@ -33,6 +33,7 @@ export const MenuWrapper = styled.div`
 
 export const MenuFunction = styled.div`
   font-size: 20px;
+  cursor: pointer;
   margin-right: 40px;
   @media (max-width: 637px) {
     display: none;
@@ -69,4 +70,23 @@ export const Item = styled.div`
   :hover {
     color: #c84e50;
   }
+`;
+
+export const LoginWrapper = styled.div`
+  width: 20%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  @media (max-width: 575px) {
+    width: 40%;
+  }
+`;
+export const LoginMyPage = styled.div`
+  font-size: 1.2rem;
+  cursor: pointer;
+  @media (max-width: 575px) {
+    width: 100%;
+    font-size: 0.9rem;
+  } ;
 `;
