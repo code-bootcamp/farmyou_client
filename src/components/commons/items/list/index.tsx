@@ -66,12 +66,17 @@ const ItemPrice = styled.div`
 
 export default function ListItem(props: any) {
   return (
-    <Wrapper>
+    <Wrapper
+      key={props.key}
+      id={JSON.stringify(props.el)}
+      draggable={true}
+      onDragStart={props.drag}
+    >
       <ItemImage />
       <ItemContentsWrapper>
-        <ItemSeller>{props.el.seller.name}</ItemSeller>
-        <ItemName>{props.el.title}</ItemName>
-        <ItemPrice>{props.el.price.toLocaleString()}원</ItemPrice>
+        <ItemSeller>{props.el?.seller.name}</ItemSeller>
+        <ItemName>{props.el?.title}</ItemName>
+        <ItemPrice>{props.el?.price.toLocaleString()}원</ItemPrice>
       </ItemContentsWrapper>
     </Wrapper>
   );
