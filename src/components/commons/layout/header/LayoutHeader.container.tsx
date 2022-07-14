@@ -1,9 +1,13 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { TokenState } from "../../store";
 import LayoutHeaderUI from "./LayoutHeader.presenter";
 
 export default function LayoutHeader() {
   const router = useRouter();
+  const [token, setToken] = useRecoilState(TokenState);
+  const [isLogged, setIsLogged] = useState(false);
   const [isIn, setIsIn] = useState(false);
   const CHECK = ["/main"];
   const isCheck = CHECK.includes(router.asPath);
@@ -18,7 +22,20 @@ export default function LayoutHeader() {
   const onClickToCart = () => {
     router.push("/users/cart");
   };
-
+  const onClickMoveToSignup = () => {
+    router.push(`/users/signup`);
+  };
+  const onClickMoveToLogin = () => {
+    router.push(`/users/login`);
+  };
+  const onClickMoveToMypage = () => {
+    router.push(`/users/mypage`);
+  };
+  // 로그인 체크
+  useEffect(() => {
+    if (token === "") return;
+    setIsLogged(true);
+  });
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -127,6 +144,9 @@ export default function LayoutHeader() {
 
   return (
     <LayoutHeaderUI
+      onClickMoveToMypage={onClickMoveToMypage}
+      onClickMoveToSignup={onClickMoveToSignup}
+      onClickMoveToLogin={onClickMoveToLogin}
       isIn={isIn}
       isCheck={isCheck}
       isCheckList={isCheckList}
@@ -137,6 +157,7 @@ export default function LayoutHeader() {
       dragLeave={dragLeave}
       styles={styles}
       onClickToCart={onClickToCart}
+      isLogged={isLogged}
     />
   );
 }
