@@ -122,7 +122,7 @@ export const CountText = styled.div`
 export const CountInput = styled.input`
   font-size: 1.2rem;
   width: 100px;
-  height: 2rem;
+  /* height: 2rem; */
   padding: 0.5em;
   outline-color: #f66512;
 `;
