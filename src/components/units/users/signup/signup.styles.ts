@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0px auto;
-  background-image: url("/bgi/bgi.signup.png");
+  background-color: #f8f8f8;
   background-size: cover;
   padding: 7vh 5vw;
 
@@ -18,6 +18,11 @@ export const Header = styled.div`
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 15px;
+  color: #f6651e;
+`;
+
+export const HeaderDivideLine = styled.div`
+  border-top: 1px solid #f6651e;
 `;
 
 // 폼 랩
@@ -27,6 +32,7 @@ export const FormWrapper = styled.div`
   border: 1px solid #bdbdbd;
   border-radius: 5px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: #fff;
   padding: 4vw;
   /* margin: 8vw 0; */
   @media (max-width: 750px) {
@@ -45,21 +51,25 @@ export const InputWrapper = styled.div`
   justify-content: space-between;
   /* align-items: center; */
   text-align: center;
-  padding: 1vw;
+  padding: 1vw 0px;
   @media (max-width: 603px) {
     /* min-width: 0px; */
     flex-direction: column;
   }
 `;
-
+export const ErrWrapper = styled.div`
+  width: 100%;
+`;
+export const Err = styled.div`
+  color: red;
+  text-align: left;
+`;
 export const Text = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 700;
   width: 180px;
-  display: flex;
+  text-align: left;
 
-  align-items: center;
-  text-align: center;
   @media (max-width: 575px) {
     font-size: 1.2rem;
     width: 130px;
@@ -121,10 +131,18 @@ export const AddressSearchBtn = styled.button`
   min-width: 150px;
   height: 100%;
   background-color: #d9d9d9;
-  font-size: 1.2rem;
-  border: 0px solid;
+  font-size: 1rem;
+  font-weight: 500;
+  border: 1px solid #f6651e;
+  background-color: #fff;
+  color: #f6651e;
   border-radius: 35px;
   margin-left: 10px;
+  &:hover {
+    background-color: #f6651e;
+    border: 1px solid #f6651e;
+    color: #fff;
+  }
 
   @media (max-width: 575px) {
     min-width: 100px;
@@ -136,11 +154,20 @@ export const PhoneAgreementButton = styled.button`
   width: 10vw;
   min-width: 150px;
   height: 100%;
-  background-color: #d9d9d9;
-  font-size: 1.2rem;
-  border: 0px solid;
+  background-color: #fff;
+
+  border: 1px solid #f6651e;
+  color: #f6651e;
   border-radius: 35px;
   margin-left: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+
+  &:hover {
+    border: 1px solid #f6651e;
+    background-color: #f6651e;
+    color: #fff;
+  }
 
   @media (max-width: 575px) {
     min-width: 100px;
