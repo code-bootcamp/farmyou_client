@@ -12,14 +12,18 @@ export default function Basket() {
   useEffect(() => {
     const baskets = JSON.parse(localStorage.getItem("bfoodbaskets") || "[]");
     setBFoodBasketsItems(baskets);
-    const temp = baskets.map((el: any) => el.price);
-    setBFoodSum(temp.reduce((acc: number, cur: number) => acc + cur));
-    setBFoodSums(temp);
+    if (baskets.length !== 0) {
+      const temp = baskets.map((el: any) => el.price);
+      setBFoodSum(temp.reduce((acc: number, cur: number) => acc + cur));
+      setBFoodSums(temp);
+    } else {
+      setBFoodSum(0);
+    }
   }, [bfoodBasketsCount]);
 
   // console.log(bFoodSums);
   useEffect(() => {
-    if (bFoodSums !== undefined)
+    if (bFoodSums.length !== 0)
       setBFoodSum(bFoodSums.reduce((acc, cur) => acc + cur));
   }, [bFoodSums]);
 
