@@ -1,9 +1,9 @@
 import ButtonComponent from "../../commons/buttons";
 import * as S from "./Detail.styles";
-import { IDetailProps } from "./Detail.types";
+import { IDetailUIProps } from "./Detail.types";
 import Question from "./question/Question.container";
 
-export default function DetailUI(props: IDetailProps) {
+export default function DetailUI(props: IDetailUIProps) {
   const settings = {
     dots: false,
     infinite: true,
@@ -45,6 +45,7 @@ export default function DetailUI(props: IDetailProps) {
           </S.ImageWrapper>
           <S.MainContentsWrapper>
             <S.MainContentsHeader>
+              {/* 여기 아직 안들어감 아이디만 받아오게 되어있는데 일단 그거 아니고 seller 정보 전체가 필요 */}
               <S.ItemSeller>용현이네 과수원</S.ItemSeller>
               <S.IconWrapper>
                 <S.Icon src="/icons/list/carrot.png"></S.Icon>
@@ -52,8 +53,10 @@ export default function DetailUI(props: IDetailProps) {
               </S.IconWrapper>
             </S.MainContentsHeader>
             <S.MainContentsBody>
-              <S.ItemName>맛있는 사과 1KG 팜</S.ItemName>
-              <S.ItemPrice>19,000원</S.ItemPrice>
+              <S.ItemName>{props.data?.fetchUglyProduct?.title}</S.ItemName>
+              <S.ItemPrice>
+                {(props.data?.fetchUglyProduct?.price || 0).toLocaleString()}원
+              </S.ItemPrice>
             </S.MainContentsBody>
             <S.MainContentsFooter>
               <S.CountInput
@@ -62,7 +65,13 @@ export default function DetailUI(props: IDetailProps) {
                 onChange={props.onChangeBuyQuantity}
               ></S.CountInput>
               <S.TotalPrice>
-                {props.buyQuantity} X 19,000원 = {props.buyQuantity * 19000}원
+                {props.buyQuantity.toLocaleString()} X{" "}
+                {(props.data?.fetchUglyProduct?.price || 0).toLocaleString()}
+                원={" "}
+                {(
+                  props.buyQuantity * (props.data?.fetchUglyProduct?.price || 0)
+                ).toLocaleString()}
+                원
               </S.TotalPrice>
               <S.ButtonWrapper>
                 <ButtonComponent
@@ -77,21 +86,7 @@ export default function DetailUI(props: IDetailProps) {
             </S.MainContentsFooter>
           </S.MainContentsWrapper>
         </S.TopWrapper>
-        <S.Contents>
-          상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내
-          용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품
-          내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상
-          품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용
-          상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내
-          용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품
-          내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상
-          품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용
-          상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내
-          용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품
-          내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상
-          품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용 상 품 내 용
-          상 품 내 용 상 품 내 용 상 품 내 용
-        </S.Contents>
+        <S.Contents>{props.data?.fetchUglyProduct?.content}</S.Contents>
         <Question></Question>
       </S.Wrapper>
     </S.Body>
