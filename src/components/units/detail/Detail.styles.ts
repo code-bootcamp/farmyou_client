@@ -200,13 +200,13 @@ export const CountInput = styled(Input)`
 `;
 
 export const ButtonWrapper = styled.div`
-  width: 80%;
+  width: 100%;
   margin-top: 50px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 20%;
+  padding: 0px 10%;
 
   @media (max-width: 575px) {
     margin: 0px;
