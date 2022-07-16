@@ -12,6 +12,7 @@ export interface IDetailProps {
       price?: number;
       seller?: {
         id: string;
+        name: string;
       };
     };
   };
@@ -33,6 +34,7 @@ export interface IDetailUIProps {
       price?: number;
       seller?: {
         id: string;
+        name: string;
       };
     };
     fetchDirectProduct?: {

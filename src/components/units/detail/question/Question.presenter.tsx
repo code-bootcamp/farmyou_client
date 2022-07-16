@@ -1,50 +1,8 @@
+import { getDate } from "../../../commons/lib/utils";
 import * as S from "./Question.styles";
 import { IQuestionUIProps } from "./Question.types";
 
-const aaa = [
-  {
-    id: "1",
-    title: "제목 제목 제목",
-    contents: "내용 내용 내용",
-    writer: "원용현",
-    date: "2022. 07. 01",
-  },
-  {
-    id: "2",
-    title:
-      "제목 제목 제목제목 제목 제목제목 제목 제목제목 제목 제목제목 제목 제목제목 제목 제목제목 제목 제목제목 제목 제목제목 제목 제목제목 제목 제목",
-    contents:
-      "내용 내용 내용내용 내용 내용내용 내용 내용내용 내용 내용내용 내용 내용내용 내용 내용내용 내용 내용내용 내용 내용내용 내용 내용내용 내용 내용내용 내용 내용내용 내용 내용내용 내용 내용",
-    writer: "유연희",
-    date: "2022. 07. 01",
-  },
-  {
-    id: "3",
-    title: "제목 제목 제목",
-    contents: "내용 내용 내용",
-    writer: "김민승",
-    date: "2022. 07. 01",
-  },
-  {
-    id: "4",
-    title: "제목 제목 제목",
-    contents: "내용 내용 내용",
-    writer: "이승원",
-    date: "2022. 07. 01",
-  },
-  {
-    id: "5",
-    title: "제목 제목 제목",
-    contents: "내용 내용 내용",
-    writer: "김지영",
-    date: "2022. 07. 01",
-    seller_title: "셀러입니다~",
-    seller_contents: "문의 답변입니다~",
-  },
-];
-
 export default function QuestionUI(props: IQuestionUIProps) {
-  // 이 값 변경시키면 질문 내용이랑 답글 달렸으면 답글도 출력
   return (
     <>
       <S.Wrapper>
@@ -71,59 +29,66 @@ export default function QuestionUI(props: IQuestionUIProps) {
             <S.QuestionDateColumnHeader>작성일</S.QuestionDateColumnHeader>
           </S.QuestionTableRow>
 
-          {aaa.map((el) => {
-            return (
-              <S.QuestionAnswerWrapper key={el.id}>
-                <S.QuestionTableRow onClick={props.onClickQuestion} id={el.id}>
-                  <S.QuestionStatusColumn>
-                    {el.seller_title ? "답변 완료" : "답변 중"}
-                  </S.QuestionStatusColumn>
-                  <S.QuestionTitleColumn id={el.id}>
-                    <S.QText>Q. </S.QText>
-                    {el.title}
-                    {el.seller_title ? (
-                      <></>
-                    ) : (
-                      <S.EditImage
-                        src="/icons/edit.svg"
-                        onClick={props.onClickQuestionEdit}
-                      ></S.EditImage>
-                    )}
-                  </S.QuestionTitleColumn>
-                  <S.QuestionWriterColumn>{el.writer}</S.QuestionWriterColumn>
-                  <S.QuestionDateColumn>{el.date}</S.QuestionDateColumn>
-                </S.QuestionTableRow>
-                {el.id === props.isClick ? (
-                  <S.AnswerWrapper>
-                    <S.QuestionContents title={el.seller_title}>
-                      {el.contents}
-                    </S.QuestionContents>
-                    {el.seller_title ? (
-                      <>
-                        <S.AnswerTitle>
-                          <S.AText>A.</S.AText>
-                          {el.seller_title}{" "}
-                          <S.EditImage
-                            src="/icons/edit.svg"
-                            onClick={props.onClickAnswerEdit}
-                          ></S.EditImage>
-                        </S.AnswerTitle>
-                        <S.AnswerContents>
-                          {el.seller_contents}
-                        </S.AnswerContents>
-                      </>
-                    ) : (
-                      <S.AnswerButton onClick={props.onClickAnswerRegistration}>
-                        답변하기
-                      </S.AnswerButton>
-                    )}
-                  </S.AnswerWrapper>
-                ) : (
-                  <></>
-                )}
-              </S.QuestionAnswerWrapper>
-            );
-          })}
+          {props.fetchInquiriesByProductData?.fetchInquiriesByProduct.map(
+            (el) => {
+              return (
+                <S.QuestionAnswerWrapper key={el.id}>
+                  <S.QuestionTableRow
+                    onClick={props.onClickQuestion}
+                    id={el.id}
+                  >
+                    <S.QuestionStatusColumn>
+                      {el.status === "ANSWERED" ? "답변 완료" : "답변 중"}
+                    </S.QuestionStatusColumn>
+                    <S.QuestionTitleColumn id={el.id}>
+                      <S.QText>Q. </S.QText>
+                      {el.title}
+                      {el.status === "ANSWERED" ? (
+                        <></>
+                      ) : (
+                        <S.EditImage
+                          src="/icons/edit.svg"
+                          onClick={props.onClickQuestionEdit}
+                        ></S.EditImage>
+                      )}
+                    </S.QuestionTitleColumn>
+                    <S.QuestionWriterColumn>작성자</S.QuestionWriterColumn>
+                    <S.QuestionDateColumn>
+                      {getDate(el.createdAt)}
+                    </S.QuestionDateColumn>
+                  </S.QuestionTableRow>
+                  {el.id === props.isClick ? (
+                    <S.AnswerWrapper>
+                      <S.QuestionContents title={el.answer}>
+                        {el.question}
+                      </S.QuestionContents>
+                      {el.status === "ANSWERED" ? (
+                        <>
+                          <S.AnswerTitle>
+                            <S.AText>A.</S.AText>
+                            {el.answerTitle}{" "}
+                            <S.EditImage
+                              src="/icons/edit.svg"
+                              onClick={props.onClickAnswerEdit}
+                            ></S.EditImage>
+                          </S.AnswerTitle>
+                          <S.AnswerContents>{el.answer}</S.AnswerContents>
+                        </>
+                      ) : (
+                        <S.AnswerButton
+                          onClick={props.onClickAnswerRegistration}
+                        >
+                          답변하기
+                        </S.AnswerButton>
+                      )}
+                    </S.AnswerWrapper>
+                  ) : (
+                    <></>
+                  )}
+                </S.QuestionAnswerWrapper>
+              );
+            }
+          )}
         </S.QuestionTableWrapper>
       </S.Wrapper>
       {console.log(props.isVisible)}

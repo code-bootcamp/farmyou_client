@@ -11,7 +11,12 @@ export const FETCH_UGLY_PRODUCT = gql`
       quantity
       origin
       seller {
+        name
         id
+        email
+        phone
+        grade
+        like
       }
     }
   }
