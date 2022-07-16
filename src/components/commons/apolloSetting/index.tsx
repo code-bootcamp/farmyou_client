@@ -31,14 +31,15 @@ export default function ApolloSetting(props: IProps) {
         if (err.extensions.code === "UNAUTHENTICATED") {
           getAccessToken().then((newAccessToken) => {
             setAccessToken(newAccessToken);
+            // });
+            operation.setContext({
+              headers: {
+                ...operation.getContext().headers,
+                Authorization: `Bearer ${newAccessToken}`,
+              },
+            });
+            return forward(operation);
           });
-          operation.setContext({
-            headers: {
-              ...operation.getContext().headers,
-              Authorization: `Bearer ${accessToken}`,
-            },
-          });
-          return forward(operation);
         }
       }
     }

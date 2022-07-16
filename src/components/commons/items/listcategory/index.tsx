@@ -3,6 +3,8 @@ import styled from "@emotion/styled";
 interface ICategoryItemProps {
   src: string;
   name: string;
+  id: string;
+  onClick: any;
 }
 
 export const CategoryItemWrapper = styled.div`
@@ -52,7 +54,7 @@ export const CategoryImage = styled.img`
 `;
 export default function ListCategoryItem(props: ICategoryItemProps) {
   return (
-    <CategoryItemWrapper>
+    <CategoryItemWrapper id={props.id} onClick={props.onClick}>
       <CategoryItemCircle>
         <CategoryImage src={props.src}></CategoryImage>
       </CategoryItemCircle>
