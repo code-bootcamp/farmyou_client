@@ -1,13 +1,15 @@
+import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { TokenState } from "../../store";
 import LayoutHeaderUI from "./LayoutHeader.presenter";
+import { FETCH_USER_LOGGED_IN, LOG_OUT } from "./LayoutHeader.queries";
 
 export default function LayoutHeader() {
   const router = useRouter();
   const [token, setToken] = useRecoilState(TokenState);
-  const [isLogged, setIsLogged] = useState(false);
+
   const [isIn, setIsIn] = useState(false);
   const CHECK = ["/main"];
   const isCheck = CHECK.includes(router.asPath);
@@ -15,7 +17,16 @@ export default function LayoutHeader() {
   const isCheckList = CHECK_LIST.includes(router.asPath);
   const CHECK_BFOOD = ["/bfood"];
   const isCheckBFood = CHECK_BFOOD.includes(router.asPath);
+  const [logout] = useMutation(LOG_OUT);
 
+  const { data } = useQuery(FETCH_USER_LOGGED_IN);
+
+  const onClickLogout = async () => {
+    const resultLogout = await logout();
+    setToken("");
+    console.log(data, resultLogout, token);
+    router.push(`/main`);
+  };
   // 스크롤이 10px 이상 내려올경우 true값을 넣어줄 useState
   const [scroll, setScroll] = useState(false);
 
@@ -31,11 +42,7 @@ export default function LayoutHeader() {
   const onClickMoveToMypage = () => {
     router.push(`/users/mypage`);
   };
-  // 로그인 체크
-  useEffect(() => {
-    if (token === "") return;
-    setIsLogged(true);
-  });
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -147,6 +154,7 @@ export default function LayoutHeader() {
       onClickMoveToMypage={onClickMoveToMypage}
       onClickMoveToSignup={onClickMoveToSignup}
       onClickMoveToLogin={onClickMoveToLogin}
+      onClickLogout={onClickLogout}
       isIn={isIn}
       isCheck={isCheck}
       isCheckList={isCheckList}
@@ -157,7 +165,7 @@ export default function LayoutHeader() {
       dragLeave={dragLeave}
       styles={styles}
       onClickToCart={onClickToCart}
-      isLogged={isLogged}
+      data={data}
     />
   );
 }

@@ -18,10 +18,10 @@ export default function LayoutHeaderUI(props: ILayoutHeaderUIProps) {
               : "/logo/boldo.png"
           }
         />
-        {props.isLogged ? (
+        {props.data ? (
           <S.LoginWrapper>
             <S.LoginMyPage onClick={props.onClickMoveToMypage}>
-              ---님의 마이페이지
+              {props.data?.fetchUserLoggedIn.name}님의 마이페이지
             </S.LoginMyPage>
             {!props.isCheck && (
               <S.Cart
@@ -34,6 +34,7 @@ export default function LayoutHeaderUI(props: ILayoutHeaderUIProps) {
                 장바구니
               </S.Cart>
             )}
+            <S.LogOut onClick={props.onClickLogout}>로그아웃</S.LogOut>
             <S.HamburgerMenu>
               <Menu styles={props.styles} right>
                 <S.Item onClick={props.onClickMoveToLogin}>로그인</S.Item>
