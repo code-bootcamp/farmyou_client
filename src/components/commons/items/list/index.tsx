@@ -74,7 +74,7 @@ export default function ListItem(props: any) {
     >
       <ItemImage />
       <ItemContentsWrapper>
-        <ItemSeller>{props.el?.seller.name}</ItemSeller>
+        <ItemSeller>{props.el?.seller?.name}</ItemSeller>
         <ItemName>{props.el?.title}</ItemName>
         <ItemPrice>{props.el?.price.toLocaleString()}원</ItemPrice>
       </ItemContentsWrapper>
