@@ -1,11 +1,6 @@
 import { RadioChangeEvent } from "antd";
 
-import {
-  FieldValues,
-  SubmitHandler,
-  UseFormHandleSubmit,
-  UseFormRegister,
-} from "react-hook-form";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 
 export interface IData {
   email: string;
@@ -13,11 +8,11 @@ export interface IData {
 }
 
 export interface IPropsLogin {
-  onClickLogin: SubmitHandler<FieldValues>;
-  onClickSellerLogin: SubmitHandler<FieldValues>;
+  onClickLogin: (data: IData) => Promise<void>;
+  onClickSellerLogin: (data: IData) => Promise<void>;
   onClickMove: (move: string) => () => void;
   onChangeAuth: (event: RadioChangeEvent) => void;
   register: UseFormRegister<FieldValues>;
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
-  isUser: boolean;
+  handleSubmit: any;
+  isUser: string;
 }

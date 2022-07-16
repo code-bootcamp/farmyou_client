@@ -73,7 +73,7 @@ export const Item = styled.div`
 `;
 
 export const LoginWrapper = styled.div`
-  width: 20%;
+  width: 30%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -89,4 +89,8 @@ export const LoginMyPage = styled.div`
     width: 100%;
     font-size: 0.9rem;
   } ;
+`;
+
+export const LogOut = styled.div`
+  cursor: pointer;
 `;

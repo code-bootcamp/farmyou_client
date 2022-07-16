@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import { RadioChangeEvent } from "antd";
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import { TokenState } from "../../../commons/store";
@@ -13,13 +13,17 @@ export default function Login() {
   const [token, setToken] = useRecoilState(TokenState);
   const [loginUser] = useMutation(LOG_IN_USER);
   const [loginSeller] = useMutation(LOG_IN_SELLER);
-  const [isUser, setIsUser] = useState(true);
+  const [isUser, setIsUser] = useState("");
   const router = useRouter();
   const { handleSubmit, register } = useForm({
     mode: "onChange",
   });
 
   const onClickSellerLogin = async (data: IData) => {
+    if (isUser === "") {
+      alert("체크박스를 체크해주세요");
+      return;
+    }
     try {
       const resultSeller = await loginSeller({
         variables: {
@@ -34,6 +38,10 @@ export default function Login() {
     }
   };
   const onClickLogin = async (data: IData) => {
+    if (isUser === "") {
+      alert("체크박스를 체크해주세요");
+      return;
+    }
     try {
       const result = await loginUser({
         variables: {
@@ -45,7 +53,7 @@ export default function Login() {
       console.log(result);
       setToken(result.data?.loginUser);
     } catch (error: any) {
-      console.log(error.message);
+      alert(error.message);
     }
   };
   const onClickMove = (move: string) => () => {
