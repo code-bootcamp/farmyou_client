@@ -1,5 +1,18 @@
 import { MouseEvent } from "react";
 
+export interface IFetchInquiriesByProduct {
+  id: string;
+  question: string;
+  status: string;
+  title: string;
+  answerTitle: string;
+  answer: string;
+  createdAt: Date;
+  user?: {
+    id: string;
+  };
+}
+
 export interface IQuestionUIProps {
   isVisible: boolean;
   toggleModal: () => void;
@@ -16,4 +29,8 @@ export interface IQuestionUIProps {
 
   isClick: string;
   onClickQuestion: (event: MouseEvent<HTMLDivElement>) => void;
+
+  fetchInquiriesByProductData: {
+    fetchInquiriesByProduct: Array<IFetchInquiriesByProduct>;
+  };
 }

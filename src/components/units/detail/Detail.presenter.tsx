@@ -46,7 +46,9 @@ export default function DetailUI(props: IDetailUIProps) {
           <S.MainContentsWrapper>
             <S.MainContentsHeader>
               {/* 여기 아직 안들어감 아이디만 받아오게 되어있는데 일단 그거 아니고 seller 정보 전체가 필요 */}
-              <S.ItemSeller>용현이네 과수원</S.ItemSeller>
+              <S.ItemSeller>
+                {props.data?.fetchUglyProduct?.seller?.name}
+              </S.ItemSeller>
               <S.IconWrapper>
                 <S.Icon src="/icons/list/carrot.png"></S.Icon>
                 <S.Icon src="/icons/list/garlic.png"></S.Icon>
