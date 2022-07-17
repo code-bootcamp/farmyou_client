@@ -11,9 +11,18 @@ export default function BasketUI(props: IBasketUIProps) {
         <S.Header>로컬푸드 직매장 장바구니</S.Header>
         <S.DivideLine />
         <S.ListWrapper>
-          {/* 아래 내용 Map으로 뿌려서 el 받아오기 */}
-          <RowCapsule />
-          <RowCapsule />
+          {props.localFoodData.map((el: any, index: number) => (
+            <RowCapsule
+              key={el.id}
+              foodEl={el}
+              index={index}
+              foodSum={props.localFoodSum}
+              foodSums={props.localFoodSums}
+              setFoodSums={props.setLocalFoodSums}
+              setFoodBasketsCount={props.setLocalfoodBasketsCount}
+              id="localfood"
+            />
+          ))}
         </S.ListWrapper>
 
         <S.Header>못난이 상품 장바구니</S.Header>
@@ -22,12 +31,13 @@ export default function BasketUI(props: IBasketUIProps) {
           {props.bFoodData.map((el: any, index: number) => (
             <RowCapsule
               key={el.id}
-              bFoodEl={el}
+              foodEl={el}
               index={index}
-              bFoodSum={props.bFoodSum}
-              bFoodSums={props.bFoodSums}
-              setBFoodSums={props.setBFoodSums}
-              setBfoodBasketsCount={props.setBfoodBasketsCount}
+              foodSum={props.bFoodSum}
+              foodSums={props.bFoodSums}
+              setFoodSums={props.setBFoodSums}
+              setFoodBasketsCount={props.setBfoodBasketsCount}
+              id="bfood"
             />
           ))}
         </S.ListWrapper>
@@ -39,7 +49,7 @@ export default function BasketUI(props: IBasketUIProps) {
           <S.PriceWrapper>
             <S.Text>로컬푸드 상품금액</S.Text>
             <S.Price>
-              <S.Text>9,900</S.Text>
+              <S.Text>{props.localFoodSum}</S.Text>
               <S.Won>원</S.Won>
             </S.Price>
           </S.PriceWrapper>
@@ -61,7 +71,7 @@ export default function BasketUI(props: IBasketUIProps) {
           <S.Total style={{ fontWeight: "bold" }}>
             <S.Text>결제금액</S.Text>
             <S.PriceWrapper>
-              <S.Text>19,800</S.Text>
+              <S.Text>{props.bFoodSum + props.localFoodSum}</S.Text>
               <S.Won>원</S.Won>
             </S.PriceWrapper>
           </S.Total>

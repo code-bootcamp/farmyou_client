@@ -29,7 +29,7 @@ export default function LocalfoodList() {
   };
 
   const onClickCategory = (event: any) => {
-    console.log(event.currentTarget.id);
+    // console.log(event.currentTarget.id);
     setIsCategory(true);
     refetch({
       directStoreId: storeId,
