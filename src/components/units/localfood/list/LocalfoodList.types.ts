@@ -4,4 +4,5 @@ export interface ILocalfoodListUIProps {
   allData: any;
   categoryData: any;
   isCategory: boolean;
+  drag: (event: any) => void;
 }
