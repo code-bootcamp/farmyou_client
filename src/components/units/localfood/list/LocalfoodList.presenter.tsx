@@ -74,22 +74,19 @@ export default function LocalfoodListUI(props: ILocalfoodListUIProps) {
           <S.SearchInput placeholder="검색어를 입력해주세요." />
         </S.SearchWrapper>
         {!props.isCategory && (
-          <>
-            <div>처음이야</div>
-            <S.ItemWrapper>
-              {props.allData?.fetchDirectProductsByDirectStoreId?.map(
-                (el: any) => {
-                  return <ListItem key={el.id} el={el} />;
-                }
-              )}
-            </S.ItemWrapper>
-          </>
+          <S.ItemWrapper>
+            {props.allData?.fetchDirectProductsByDirectStoreId?.map(
+              (el: any) => {
+                return <ListItem key={el.id} el={el} drag={props.drag} />;
+              }
+            )}
+          </S.ItemWrapper>
         )}
         {props.isCategory && (
           <S.ItemWrapper>
             {props.categoryData?.fetchDirectProductsByStoreAndCategoryByDateCreated.map(
               (el: any) => {
-                return <ListItem key={el.id} el={el} />;
+                return <ListItem key={el.id} el={el} drag={props.drag} />;
               }
             )}
           </S.ItemWrapper>

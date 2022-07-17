@@ -37,7 +37,9 @@ export default function LocalfoodList() {
       page: 1,
     });
   };
-
+  const drag = (event: any) => {
+    event.dataTransfer.setData("object", event.target.id);
+  };
   return (
     <LocalfoodListUI
       onClickCategory={onClickCategory}
@@ -45,6 +47,7 @@ export default function LocalfoodList() {
       allData={allData}
       categoryData={categoryData}
       isCategory={isCategory}
+      drag={drag}
     />
   );
 }
