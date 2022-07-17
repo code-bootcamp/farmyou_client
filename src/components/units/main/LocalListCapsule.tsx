@@ -29,11 +29,11 @@ const MarketAddress = styled.div`
     font-size: 2vw;
   }
 `;
-export default function LocalListCapsule() {
+export default function LocalListCapsule(props: any) {
   return (
     <LocalMarket>
-      <MarketName>원당농협 로컬푸드직매장</MarketName>
-      <MarketAddress>경기도 고양시 덕양구 고양대로1369번길 69</MarketAddress>
+      <MarketName>{props.el?.place_name}</MarketName>
+      <MarketAddress>{props.el?.address_name}</MarketAddress>
     </LocalMarket>
   );
 }
