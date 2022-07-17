@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import RowCapsuleUI from "./rowCapsule.presenter";
 
 export default function RowCapsule(props: any) {
-  const [count, setCount] = useState(props.bFoodEl?.count || 1);
+  const [count, setCount] = useState(props.foodEl?.count || 1);
 
   const onClickCountUp = () => {
     setCount((prev: number) => prev + 1);
@@ -16,21 +16,34 @@ export default function RowCapsule(props: any) {
   const onChangeCount = (event: ChangeEvent<HTMLInputElement>) => {
     setCount(Number(event.target.value));
   };
-  const onCliCkDeleteBfood = (event: any) => {
-    const bFoodBaskets = JSON.parse(
-      localStorage.getItem("bfoodbaskets") || "[]"
-    );
-    const tempBaskets = bFoodBaskets.filter(
-      (el: any) => el.id !== event.target.id
-    );
-    props.setBfoodBasketsCount(tempBaskets.length);
-    localStorage.setItem("bfoodbaskets", JSON.stringify(tempBaskets));
+  const onCliCkDeleteFood = (event: any) => {
+    // console.log(event.target.id);
+    // console.log(event.currentTarget.id);
+    if (event.target.id === "bfood") {
+      const bFoodBaskets = JSON.parse(
+        localStorage.getItem("bfoodbaskets") || "[]"
+      );
+      const tempBaskets = bFoodBaskets.filter(
+        (el: any) => el.id !== event.currentTarget.id
+      );
+      props.setFoodBasketsCount(tempBaskets.length);
+      localStorage.setItem("bfoodbaskets", JSON.stringify(tempBaskets));
+    } else {
+      const localFoodBaskets = JSON.parse(
+        localStorage.getItem("localfoodbaskets") || "[]"
+      );
+      const tempBaskets = localFoodBaskets.filter(
+        (el: any) => el.id !== event.currentTarget.id
+      );
+      props.setFoodBasketsCount(tempBaskets.length);
+      localStorage.setItem("localfoodbaskets", JSON.stringify(tempBaskets));
+    }
   };
   useEffect(() => {
-    if (props.bFoodSums) {
-      const temp = [...props.bFoodSums];
-      temp.splice(props.index, 1, count * props.bFoodEl?.price);
-      props.setBFoodSums(temp);
+    if (props.foodSums) {
+      const temp = [...props.foodSums];
+      temp.splice(props.index, 1, count * props.foodEl?.price);
+      props.setFoodSums(temp);
       // console.log(temp);
     }
     // const a1 = JSON.stringify(props.bFoodSums);
@@ -46,13 +59,14 @@ export default function RowCapsule(props: any) {
 
   return (
     <RowCapsuleUI
-      bFoodEl={props.bFoodEl}
+      foodEl={props.foodEl}
       count={count}
       setCount={setCount}
       onClickCountUp={onClickCountUp}
       onClickCountDown={onClickCountDown}
       onChangeCount={onChangeCount}
-      onCliCkDeleteBfood={onCliCkDeleteBfood}
+      onCliCkDeleteFood={onCliCkDeleteFood}
+      id={props.id}
     />
   );
 }

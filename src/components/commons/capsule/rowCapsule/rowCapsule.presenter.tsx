@@ -6,9 +6,9 @@ export default function RowCapsuleUI(props: any) {
       <S.ImageWrapper src="/apple_slider.png" />
       <S.InfoWrapper>
         <S.InfoLeftWrapper>
-          <S.Name>{props.bFoodEl?.title}</S.Name>
-          <S.Seller>{props.bFoodEl?.seller.name}</S.Seller>
-          <S.Price>{props.bFoodEl?.price.toLocaleString()}원</S.Price>
+          <S.Name>{props.foodEl?.title}</S.Name>
+          <S.Seller>{props.foodEl?.seller?.name}</S.Seller>
+          <S.Price>{props.foodEl?.price.toLocaleString()}원</S.Price>
         </S.InfoLeftWrapper>
         <S.InfoRightWrapper>
           <S.CountWrapper>
@@ -28,12 +28,11 @@ export default function RowCapsuleUI(props: any) {
           </S.CountWrapper>
         </S.InfoRightWrapper>
       </S.InfoWrapper>
-      <S.DeleteButtonWrapper>
-        <S.DeleteButton
-          id={props.bFoodEl?.id}
-          src="/icons/delete.svg"
-          onClick={props.onCliCkDeleteBfood}
-        />
+      <S.DeleteButtonWrapper
+        onClick={props.onCliCkDeleteFood}
+        id={props.foodEl?.id}
+      >
+        <S.DeleteButton id={props.id} src="/icons/delete.svg" />
       </S.DeleteButtonWrapper>
     </S.Wrapper>
   );
