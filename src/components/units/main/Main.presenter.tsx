@@ -5,7 +5,6 @@ import { IMainUIProps } from "./Main.types";
 export default function MainUI(props: IMainUIProps) {
   return (
     <S.Body>
-      <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
       <S.VideoWrapper>
         <S.MainVideo
           muted={true}
@@ -44,11 +43,11 @@ export default function MainUI(props: IMainUIProps) {
               <S.SearchIcon src="/icons/search.png" />
             </S.LocalSearchBar>
             {(props.isSearch &&
-              props.listData.map((el: any, index: number) => {
+              props.listData?.map((el: any, index: number) => (
                 <div key={index}>
-                  <LocalListCapsule el={el} />;
-                </div>;
-              })) || (
+                  <LocalListCapsule el={el} />
+                </div>
+              ))) || (
               <div
                 style={{ width: "100%", height: "500px", textAlign: "center" }}
               >

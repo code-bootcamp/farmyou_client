@@ -1,8 +1,7 @@
-import { useQuery } from "@apollo/client";
+import _ from "lodash";
 import { useRouter } from "next/router";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import MainUI from "./Main.presenter";
-import { FETCH_DIRECT_STORE } from "./Main.queries";
 
 // window 에 kakao 추가하기
 declare const window: typeof globalThis & {
@@ -22,12 +21,16 @@ export default function Main() {
   const onClickMove = (move: string) => () => {
     router.push(move);
   };
+  const Debouncing = _.debounce((search: any) => {
+    setKeyword(search);
+  }, 1000);
   const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.value !== "") {
       setIsSearch(true);
-      setKeyword(event.target.value);
+      Debouncing(event.target.value);
     } else if (event.target.value === "") {
       setIsSearch(false);
+      Debouncing(event.target.value);
     }
   };
 
@@ -45,12 +48,6 @@ export default function Main() {
         const callback = function (result: any, status: any) {
           if (status === window.kakao.maps.services.Status.OK) {
             setListData(result.slice(0, 3));
-            console.log(listData);
-            // const { data } = useQuery(FETCH_DIRECT_STORE,{
-            //   variables:{
-            //     name: result.
-            //   }
-            // });
           }
         };
 
