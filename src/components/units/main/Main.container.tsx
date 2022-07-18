@@ -1,11 +1,21 @@
+import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import MainUI from "./Main.presenter";
+import { FETCH_DIRECT_STORE } from "./Main.queries";
+
+// window 에 kakao 추가하기
+declare const window: typeof globalThis & {
+  kakao: any;
+};
 
 export default function Main() {
   const [isSearch, setIsSearch] = useState(false);
+  const [keyword, setKeyword] = useState("");
+  const [listData, setListData] = useState([]);
   const router = useRouter();
   const localRef = useRef<HTMLDivElement>(null);
+
   const onClickLocal = () => {
     localRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -15,10 +25,40 @@ export default function Main() {
   const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.value !== "") {
       setIsSearch(true);
+      setKeyword(event.target.value);
     } else if (event.target.value === "") {
       setIsSearch(false);
     }
   };
+
+  // 로컬푸드 직매장 검색하기
+  // 834022f7a11709f54649f796dc004e21 카카오 자바스크립트 키
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src =
+      "//dapi.kakao.com/v2/maps/sdk.js?appkey=834022f7a11709f54649f796dc004e21&autoload=false&libraries=services,clusterer,drawing";
+    document.head.appendChild(script);
+    script.onload = () => {
+      window.kakao.maps.load(function () {
+        const places = new window.kakao.maps.services.Places();
+
+        const callback = function (result: any, status: any) {
+          if (status === window.kakao.maps.services.Status.OK) {
+            setListData(result.slice(0, 3));
+            console.log(listData);
+            // const { data } = useQuery(FETCH_DIRECT_STORE,{
+            //   variables:{
+            //     name: result.
+            //   }
+            // });
+          }
+        };
+
+        places.keywordSearch(keyword + "로컬푸드 직매장", callback);
+      });
+    };
+  }, [keyword]);
+
   return (
     <MainUI
       onChangeSearch={onChangeSearch}
@@ -26,6 +66,7 @@ export default function Main() {
       localRef={localRef}
       onClickLocal={onClickLocal}
       isSearch={isSearch}
+      listData={listData}
     />
   );
 }

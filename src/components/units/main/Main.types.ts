@@ -6,4 +6,5 @@ export interface IMainUIProps {
   onClickMove: (move: string) => () => void;
   onChangeSearch: (event: ChangeEvent<HTMLInputElement>) => void;
   isSearch: Boolean;
+  listData: any;
 }
