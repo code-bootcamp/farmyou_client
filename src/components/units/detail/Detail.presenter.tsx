@@ -89,7 +89,7 @@ export default function DetailUI(props: IDetailUIProps) {
           </S.MainContentsWrapper>
         </S.TopWrapper>
         <S.Contents>{props.data?.fetchUglyProduct?.content}</S.Contents>
-        <Question></Question>
+        <Question fetchUglyProductData={props.data}></Question>
       </S.Wrapper>
     </S.Body>
   );
