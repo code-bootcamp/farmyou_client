@@ -41,7 +41,7 @@ export const MenuFunction = styled.div`
 `;
 export const Cart = styled.div`
   font-size: 20px;
-  margin-right: 40px;
+  /* margin-right: 40px; */
   transform: scale(${(props: ICartProps) => (props.isIn ? "1.2" : "1")});
   transition: 0.3s;
   &:hover {
@@ -73,7 +73,7 @@ export const Item = styled.div`
 `;
 
 export const LoginWrapper = styled.div`
-  width: 30%;
+  width: 25%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -93,4 +93,5 @@ export const LoginMyPage = styled.div`
 
 export const LogOut = styled.div`
   cursor: pointer;
+  font-size: 1rem;
 `;
