@@ -247,3 +247,13 @@ export const CancelButton = styled.img`
   top: 20px;
   right: 20px;
 `;
+
+export const PaginationWrapper = styled.div`
+  cursor: pointer;
+  margin: 0px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+`;

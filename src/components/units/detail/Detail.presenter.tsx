@@ -45,19 +45,16 @@ export default function DetailUI(props: IDetailUIProps) {
           </S.ImageWrapper>
           <S.MainContentsWrapper>
             <S.MainContentsHeader>
-              {/* 여기 아직 안들어감 아이디만 받아오게 되어있는데 일단 그거 아니고 seller 정보 전체가 필요 */}
-              <S.ItemSeller>
-                {props.data?.fetchUglyProduct?.seller?.name}
-              </S.ItemSeller>
+              <S.ItemSeller>{props.data?.seller?.name}</S.ItemSeller>
               <S.IconWrapper>
                 <S.Icon src="/icons/list/carrot.png"></S.Icon>
                 <S.Icon src="/icons/list/garlic.png"></S.Icon>
               </S.IconWrapper>
             </S.MainContentsHeader>
             <S.MainContentsBody>
-              <S.ItemName>{props.data?.fetchUglyProduct?.title}</S.ItemName>
+              <S.ItemName>{props.data?.title}</S.ItemName>
               <S.ItemPrice>
-                {(props.data?.fetchUglyProduct?.price || 0).toLocaleString()}원
+                {(props.data?.price || 0).toLocaleString()}원
               </S.ItemPrice>
             </S.MainContentsBody>
             <S.MainContentsFooter>
@@ -68,10 +65,10 @@ export default function DetailUI(props: IDetailUIProps) {
               ></S.CountInput>
               <S.TotalPrice>
                 {props.buyQuantity.toLocaleString()} X{" "}
-                {(props.data?.fetchUglyProduct?.price || 0).toLocaleString()}
+                {(props.data?.price || 0).toLocaleString()}
                 원={" "}
                 {(
-                  props.buyQuantity * (props.data?.fetchUglyProduct?.price || 0)
+                  props.buyQuantity * (props.data?.price || 0)
                 ).toLocaleString()}
                 원
               </S.TotalPrice>
@@ -79,6 +76,7 @@ export default function DetailUI(props: IDetailUIProps) {
                 <ButtonComponent
                   buttonColor="#bdbdbd"
                   title="장바구니"
+                  onClick={props.onClickBasketsButton}
                 ></ButtonComponent>
                 <ButtonComponent
                   buttonColor="#F6651E"
@@ -88,8 +86,8 @@ export default function DetailUI(props: IDetailUIProps) {
             </S.MainContentsFooter>
           </S.MainContentsWrapper>
         </S.TopWrapper>
-        <S.Contents>{props.data?.fetchUglyProduct?.content}</S.Contents>
-        <Question fetchUglyProductData={props.data}></Question>
+        <S.Contents>{props.data?.content}</S.Contents>
+        <Question data={props.data}></Question>
       </S.Wrapper>
     </S.Body>
   );

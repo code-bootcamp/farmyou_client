@@ -12,5 +12,5 @@ export default function LocalFoodDetailPage() {
     },
   });
 
-  return loading || <Detail data={data}></Detail>;
+  return loading || <Detail data={data.fetchDirectProduct}></Detail>;
 }
