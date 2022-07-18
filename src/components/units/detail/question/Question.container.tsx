@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import QuestionUI from "./Question.presenter";
 import {
   CREATE_INQUIRY,
@@ -34,6 +34,8 @@ export default function Question(props: IQuestionProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [isAnswer, setIsAnswer] = useState(false);
   const [isClick, setIsClick] = useState("");
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(0);
 
   const [createInquiry] = useMutation(CREATE_INQUIRY);
   const [postResponse] = useMutation(POST_RESPONSE);
@@ -73,7 +75,7 @@ export default function Question(props: IQuestionProps) {
 
   const onClickQuestionEditButton = async (data: any) => {
     try {
-      const result = await editInquiry({
+      await editInquiry({
         variables: {
           inquiryId: isClick,
           title: data.title,
@@ -162,6 +164,14 @@ export default function Question(props: IQuestionProps) {
     }
   };
 
+  const onChangePage = (event: ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
+
+  useEffect(() => {
+    setCount(fetchInquiriesByProductData?.fetchInquiriesByProduct.length);
+  }, [fetchInquiriesByProductData]);
+
   return (
     <QuestionUI
       isVisible={isVisible}
@@ -180,9 +190,12 @@ export default function Question(props: IQuestionProps) {
       register={register}
       handleSubmit={handleSubmit}
       userLoggedData={userLoggedData}
-      fetchUglyProductData={props.fetchUglyProductData}
+      data={props.data}
       onClickAnswerRegistrationButton={onClickAnswerRegistrationButton}
       onClickQuestionEditButton={onClickQuestionEditButton}
+      page={page}
+      count={count}
+      onChangePage={onChangePage}
     ></QuestionUI>
   );
 }

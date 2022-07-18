@@ -1,8 +1,35 @@
+import { Pagination } from "@mui/material";
 import { getDate } from "../../../commons/lib/utils";
 import * as S from "./Question.styles";
 import { IQuestionUIProps } from "./Question.types";
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  paginationContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+
+    "& .MuiPaginationItem-root": {
+      margin: "0 6px",
+      fontSize: "14px",
+    },
+    "& .MuiPaginationItem-page": {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+
+      "&.Mui-selected": {
+        backgroundColor: "#F6651E",
+        color: "white",
+      },
+    },
+  },
+});
 
 export default function QuestionUI(props: IQuestionUIProps) {
+  const classes = useStyles();
+
   return (
     <>
       <S.Wrapper>
@@ -31,8 +58,9 @@ export default function QuestionUI(props: IQuestionUIProps) {
             <S.QuestionDateColumnHeader>작성일</S.QuestionDateColumnHeader>
           </S.QuestionTableRow>
 
-          {props.fetchInquiriesByProductData?.fetchInquiriesByProduct.map(
-            (el) => {
+          {props.fetchInquiriesByProductData?.fetchInquiriesByProduct
+            .slice(5 * (props.page - 1), 5 * props.page)
+            .map((el) => {
               return (
                 <S.QuestionAnswerWrapper key={el.id}>
                   <S.QuestionTableRow
@@ -83,8 +111,7 @@ export default function QuestionUI(props: IQuestionUIProps) {
                         </>
                       ) : (
                         props.userLoggedData.fetchUserLoggedIn.id ===
-                          props.fetchUglyProductData.fetchUglyProduct.seller
-                            .id && (
+                          props.data.seller?.id && (
                           <S.AnswerButton
                             onClick={props.onClickAnswerRegistration}
                           >
@@ -98,10 +125,22 @@ export default function QuestionUI(props: IQuestionUIProps) {
                   )}
                 </S.QuestionAnswerWrapper>
               );
-            }
-          )}
+            })}
         </S.QuestionTableWrapper>
       </S.Wrapper>
+
+      <S.PaginationWrapper>
+        <Pagination
+          className={classes.paginationContainer}
+          count={Math.ceil(props.count / 5)}
+          variant="outlined"
+          shape="rounded"
+          color="secondary"
+          // page={props.page}
+          onChange={props.onChangePage}
+        ></Pagination>
+      </S.PaginationWrapper>
+
       {props.isVisible && (
         <S.CustomModal>
           <S.ModalWrapper>
