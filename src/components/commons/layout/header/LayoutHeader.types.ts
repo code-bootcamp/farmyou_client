@@ -38,6 +38,6 @@ export interface ILayoutHeaderUIProps {
   onClickMoveToLogin: () => void;
   onClickMoveToMypage: () => void;
   onClickLogout: () => void;
-  isLogged: boolean;
+
   data: any;
 }
