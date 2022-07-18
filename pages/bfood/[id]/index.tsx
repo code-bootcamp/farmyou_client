@@ -12,5 +12,5 @@ export default function BfoodDetailPage() {
     },
   });
 
-  return loading || <Detail data={data}></Detail>;
+  return loading || <Detail data={data.fetchUglyProduct}></Detail>;
 }

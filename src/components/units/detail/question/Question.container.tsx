@@ -1,8 +1,9 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import QuestionUI from "./Question.presenter";
 import { FETCH_INQUIRIES_BY_PRODUCT } from "./Question.queries";
+import type { PaginationProps } from "antd";
 
 export default function Question() {
   const router = useRouter();
@@ -11,6 +12,8 @@ export default function Question() {
   const [isVisible, setIsVisible] = useState(false);
   const [isAnswer, setIsAnswer] = useState(false);
   const [isClick, setIsClick] = useState("");
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(0);
 
   const { data: fetchInquiriesByProductData } = useQuery(
     FETCH_INQUIRIES_BY_PRODUCT,
@@ -53,7 +56,14 @@ export default function Question() {
     console.log(event.currentTarget.id);
   };
 
-  console.log(fetchInquiriesByProductData);
+  const onChangePage = (event: ChangeEvent<unknown>, value: number) => {
+    console.log(value);
+    setPage(value);
+  };
+
+  useEffect(() => {
+    setCount(fetchInquiriesByProductData?.fetchInquiriesByProduct.length);
+  }, [fetchInquiriesByProductData]);
 
   return (
     <QuestionUI
@@ -69,6 +79,9 @@ export default function Question() {
       isClick={isClick}
       onClickQuestion={onClickQuestion}
       fetchInquiriesByProductData={fetchInquiriesByProductData}
+      page={page}
+      count={count}
+      onChangePage={onChangePage}
     ></QuestionUI>
   );
 }

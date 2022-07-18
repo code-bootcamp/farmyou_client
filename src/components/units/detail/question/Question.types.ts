@@ -1,4 +1,4 @@
-import { MouseEvent } from "react";
+import { ChangeEvent, MouseEvent } from "react";
 
 export interface IFetchInquiriesByProduct {
   id: string;
@@ -33,4 +33,8 @@ export interface IQuestionUIProps {
   fetchInquiriesByProductData: {
     fetchInquiriesByProduct: Array<IFetchInquiriesByProduct>;
   };
+
+  page: number;
+  count: number;
+  onChangePage: (event: ChangeEvent<unknown>, page: number) => void;
 }

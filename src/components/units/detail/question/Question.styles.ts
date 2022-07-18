@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { makeStyles } from "@material-ui/core";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -246,4 +247,40 @@ export const CancelButton = styled.img`
   position: absolute;
   top: 20px;
   right: 20px;
+`;
+
+const useStyles = makeStyles({
+  paginationContainer: {
+    marginBottom: "40px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "220px",
+
+    "& .MuiPaginationItem-root": {
+      margin: "0 6px",
+      fontSize: "14px",
+    },
+    "& .MuiPaginationItem-page": {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+
+      "&.Mui-selected": {
+        backgroundColor: "#F6651E",
+        color: "white",
+      },
+    },
+  },
+});
+
+export const PaginationWrapper = styled.div`
+  cursor: pointer;
+  margin: 0px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
 `;
