@@ -1,4 +1,5 @@
 import { MouseEvent } from "react";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 
 export interface IFetchInquiriesByProduct {
   id: string;
@@ -22,7 +23,7 @@ export interface IQuestionUIProps {
   onClickQuestionRegistration: () => void;
 
   isEdit: boolean;
-  onClickQuestionEdit: () => void;
+  onClickQuestionEdit: (el: any) => () => void;
   onClickAnswerEdit: () => void;
 
   onClickModalCancel: () => void;
@@ -30,7 +31,29 @@ export interface IQuestionUIProps {
   isClick: string;
   onClickQuestion: (event: MouseEvent<HTMLDivElement>) => void;
 
+  onClickQuestionRegistrationButton: () => void;
+
+  register: UseFormRegister<FieldValues>;
+
   fetchInquiriesByProductData: {
     fetchInquiriesByProduct: Array<IFetchInquiriesByProduct>;
+  };
+}
+
+export interface IQuestionProps {
+  fetchUglyProductData: {
+    fetchUglyProduct?: {
+      id?: string;
+      title?: string;
+      content?: string;
+      origin?: string;
+      quantity?: number;
+      createdAt?: Date;
+      price?: number;
+      seller?: {
+        id: string;
+        name: string;
+      };
+    };
   };
 }

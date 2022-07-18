@@ -8,9 +8,11 @@ export default function QuestionUI(props: IQuestionUIProps) {
       <S.Wrapper>
         <S.QuestionTitleWrapper>
           <S.QuestionTitle>상품문의</S.QuestionTitle>
-          <S.QuestionButton onClick={props.onClickQuestionRegistration}>
-            문의하기
-          </S.QuestionButton>
+          {props.userLoggedData?.fetchUserLoggedIn.type === "seller" || (
+            <S.QuestionButton onClick={props.onClickQuestionRegistration}>
+              문의하기
+            </S.QuestionButton>
+          )}
         </S.QuestionTitleWrapper>
         <S.QuestionTableWrapper>
           <S.QuestionTableRow
@@ -45,14 +47,19 @@ export default function QuestionUI(props: IQuestionUIProps) {
                       {el.title}
                       {el.status === "ANSWERED" ? (
                         <></>
-                      ) : (
+                      ) : el.user?.id ===
+                        props.userLoggedData?.fetchUserLoggedIn.id ? (
                         <S.EditImage
                           src="/icons/edit.svg"
-                          onClick={props.onClickQuestionEdit}
+                          onClick={props.onClickQuestionEdit(el)}
                         ></S.EditImage>
+                      ) : (
+                        <></>
                       )}
                     </S.QuestionTitleColumn>
-                    <S.QuestionWriterColumn>작성자</S.QuestionWriterColumn>
+                    <S.QuestionWriterColumn>
+                      {el.user?.name}
+                    </S.QuestionWriterColumn>
                     <S.QuestionDateColumn>
                       {getDate(el.createdAt)}
                     </S.QuestionDateColumn>
@@ -75,11 +82,15 @@ export default function QuestionUI(props: IQuestionUIProps) {
                           <S.AnswerContents>{el.answer}</S.AnswerContents>
                         </>
                       ) : (
-                        <S.AnswerButton
-                          onClick={props.onClickAnswerRegistration}
-                        >
-                          답변하기
-                        </S.AnswerButton>
+                        props.userLoggedData.fetchUserLoggedIn.id ===
+                          props.fetchUglyProductData.fetchUglyProduct.seller
+                            .id && (
+                          <S.AnswerButton
+                            onClick={props.onClickAnswerRegistration}
+                          >
+                            답변하기
+                          </S.AnswerButton>
+                        )
                       )}
                     </S.AnswerWrapper>
                   ) : (
@@ -91,23 +102,34 @@ export default function QuestionUI(props: IQuestionUIProps) {
           )}
         </S.QuestionTableWrapper>
       </S.Wrapper>
-      {console.log(props.isVisible)}
       {props.isVisible && (
         <S.CustomModal>
           <S.ModalWrapper>
-            <S.TitleContentsText>
-              {props.isAnswer ? "답변 제목" : "문의 제목"}
-            </S.TitleContentsText>
-            <S.TitleInput></S.TitleInput>
-            <S.TitleContentsText>
-              {props.isAnswer ? "답변 내용" : "문의 내용"}
-            </S.TitleContentsText>
-            <S.ContentsTextarea></S.ContentsTextarea>
-            <S.ButtonWrapper>
-              <S.RegistrationEditButton>
-                {props.isEdit ? "수정하기" : "등록하기"}
-              </S.RegistrationEditButton>
-            </S.ButtonWrapper>
+            <form
+              onSubmit={props.handleSubmit(
+                props.isAnswer
+                  ? props.onClickAnswerRegistrationButton
+                  : props.isEdit
+                  ? props.onClickQuestionEditButton
+                  : props.onClickQuestionRegistrationButton
+              )}
+            >
+              <S.TitleContentsText>
+                {props.isAnswer ? "답변 제목" : "문의 제목"}
+              </S.TitleContentsText>
+              <S.TitleInput {...props.register("title")}></S.TitleInput>
+              <S.TitleContentsText>
+                {props.isAnswer ? "답변 내용" : "문의 내용"}
+              </S.TitleContentsText>
+              <S.ContentsTextarea
+                {...props.register("content")}
+              ></S.ContentsTextarea>
+              <S.ButtonWrapper>
+                <S.RegistrationEditButton>
+                  {props.isEdit ? "수정하기" : "등록하기"}
+                </S.RegistrationEditButton>
+              </S.ButtonWrapper>
+            </form>
             <S.CancelButton
               src="/icons/delete.svg"
               onClick={props.onClickModalCancel}
