@@ -33,6 +33,7 @@ export default function Login() {
       });
       console.log(resultSeller);
       setToken(resultSeller.data?.loginSeller);
+      router.push(`/main`);
     } catch (e: any) {
       alert(e.message);
     }

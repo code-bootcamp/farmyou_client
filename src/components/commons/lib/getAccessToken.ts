@@ -9,7 +9,7 @@ const RESTORE_ACCESS_TOKEN = gql`
 
 export async function getAccessToken() {
   try {
-    const graphqlClient = new GraphQLClient("https://garbi.shop/graphql", {
+    const graphqlClient = new GraphQLClient("https://farmback.shop/graphql", {
       credentials: "include",
     });
     const result = await graphqlClient.request(RESTORE_ACCESS_TOKEN);
