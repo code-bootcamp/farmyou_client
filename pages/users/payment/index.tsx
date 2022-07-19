@@ -1,5 +1,5 @@
-import PaymentUI from "../../../src/components/units/users/payment/payment.presenter";
+import Payment from "../../../src/components/units/users/payment/payment.container";
 
 export default function PaymentPage() {
-  return <PaymentUI />;
+  return <Payment />;
 }
