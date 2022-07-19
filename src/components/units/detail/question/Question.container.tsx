@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Modal } from "antd";
-import { IQuestionProps } from "./Question.types";
+import { IFetchInquiriesByProduct, IQuestionProps } from "./Question.types";
 
 const IS_LOCAL = ["/localfood/[id]"];
 const schema = yup.object({
@@ -60,12 +60,12 @@ export default function Question(props: IQuestionProps) {
   };
 
   const onClickAnswerRegistration = () => {
-    setIsAnswer((prev) => !prev);
+    setIsAnswer(true);
     toggleModal();
   };
 
-  const onClickQuestionEdit = (el: any) => () => {
-    setIsEdit((prev) => !prev);
+  const onClickQuestionEdit = (el: IFetchInquiriesByProduct) => () => {
+    setIsEdit(true);
     setValue("title", el.title);
     setValue("content", el.question);
     trigger("title");
@@ -95,9 +95,13 @@ export default function Question(props: IQuestionProps) {
     }
   };
 
-  const onClickAnswerEdit = () => {
-    setIsAnswer((prev) => !prev);
-    setIsEdit((prev) => !prev);
+  const onClickAnswerEdit = (el: IFetchInquiriesByProduct) => () => {
+    setIsAnswer(true);
+    setIsEdit(true);
+    setValue("title", el.answerTitle);
+    setValue("content", el.answer);
+    trigger("title");
+    trigger("content");
     toggleModal();
   };
 
@@ -110,12 +114,10 @@ export default function Question(props: IQuestionProps) {
           answer: data.content,
         },
       });
+      onClickModalCancel();
+      await refetch();
       Modal.success({
-        content: result,
-        onOk() {
-          refetch();
-          onClickModalCancel();
-        },
+        content: result.data.postResponse,
       });
     } catch (error: any) {
       onClickModalCancel();
@@ -137,7 +139,6 @@ export default function Question(props: IQuestionProps) {
 
   const onClickQuestion = (event: MouseEvent<HTMLDivElement>) => {
     setIsClick(event.currentTarget.id);
-    console.log(event.currentTarget.id);
   };
 
   const onClickQuestionRegistrationButton = async (data: any) => {
