@@ -6,7 +6,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@apollo/client";
 import { Modal } from "antd";
-import { UPDATE_SELLER, UPLOAD_FILE } from "./SellerMypage.queries";
+import {
+  CHECK_IF_LOGGED_SELLER,
+  UPDATE_SELLER,
+  UPLOAD_FILE,
+} from "./SellerMypage.queries";
 
 export default function SellerMypage() {
   const schema = yup.object({
@@ -29,8 +33,10 @@ export default function SellerMypage() {
   const [isEditVisible, setIsEditVisible] = useState(false);
   const [password, setPassword] = useState("");
   const [fileUrl, setFileUrl] = useState("");
+  const [error, setError] = useState("");
   const [uploadFile] = useMutation(UPLOAD_FILE);
   const [updateSeller] = useMutation(UPDATE_SELLER);
+  const [checkIfLoggedSeller] = useMutation(CHECK_IF_LOGGED_SELLER);
   const [isSelect, setIsSelect] = useState(true);
   const trackingRef = useRef<HTMLFormElement>();
 
@@ -40,6 +46,7 @@ export default function SellerMypage() {
 
   const onClickBfoodList = () => {
     setIsSelect(false);
+    setError("");
   };
 
   const onClickLocalDetail = (event: MouseEvent<HTMLDivElement>) => {
@@ -65,9 +72,23 @@ export default function SellerMypage() {
   const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event?.target.value);
   };
-  const onClickConfirm = () => {
-    setIsUserVisible(false);
-    showEditModal();
+  const onClickConfirm = async () => {
+    try {
+      const result = await checkIfLoggedSeller({
+        variables: {
+          password,
+        },
+      });
+      if (result.data.checkIfLoggedSeller) {
+        setIsUserVisible(false);
+        setIsEditVisible(true);
+        setError("");
+      } else {
+        setError("비밀번호가 틀렸습니다.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // edit
@@ -136,6 +157,7 @@ export default function SellerMypage() {
       handleSubmit={handleSubmit}
       register={register}
       onClickEdit={onClickEdit}
+      error={error}
     />
   );
 }

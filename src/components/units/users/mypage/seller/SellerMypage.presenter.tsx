@@ -156,6 +156,7 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
               />
             </S.InputWrapper>
             <S.Button onClick={props.onClickConfirm}>확인</S.Button>
+            <S.Error>{props.error}</S.Error>
           </S.PasswordModalWrapper>
         </S.Model>
       )}

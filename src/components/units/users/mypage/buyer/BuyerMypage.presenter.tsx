@@ -100,6 +100,7 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
               />
             </S.InputWrapper>
             <S.Button onClick={props.onClickConfirm}>확인</S.Button>
+            <S.Error>{props.error}</S.Error>
           </S.PasswordModalWrapper>
         </S.Model>
       )}
@@ -146,12 +147,28 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                   (el: any) => (
                     <S.AddressWrapper key={el.id}>
                       <S.Address>
-                        <S.UserAddress>{el.address}</S.UserAddress>
+                        <S.UserAddress>주소 : {el.address}</S.UserAddress>
                         <S.UserAddressDetail>
-                          {el.detailedAddress}
+                          상세주소 : {el.detailedAddress}
                         </S.UserAddressDetail>
                       </S.Address>
-                      {/* <S.MainAddress>기본 주소지</S.MainAddress> */}
+                      {el.isMain && <S.MainAddress>기본 주소지</S.MainAddress>}
+                      {!el.isMain && (
+                        <S.AddressOption>
+                          <S.Option
+                            id={el.id}
+                            onClick={props.onClickMainAddress}
+                          >
+                            기본 주소지 설정
+                          </S.Option>
+                          <S.Option
+                            id={el.id}
+                            onClick={props.onClickDeleteAddress}
+                          >
+                            삭제
+                          </S.Option>
+                        </S.AddressOption>
+                      )}
                     </S.AddressWrapper>
                   )
                 )}
@@ -161,6 +178,7 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                 <InputComponent
                   register={props.register("password")}
                   placeholder="변경할 비밀번호를 입력해주세요."
+                  type="password"
                 />
               </S.InputWrapper>
               <ButtonComponent title="수정하기" buttonColor="#F6651E" />
