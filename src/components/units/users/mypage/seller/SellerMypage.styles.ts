@@ -93,7 +93,7 @@ export const FunctionWrapper = styled.div`
 `;
 
 export const Function = styled.div`
-  font-size: 1.2rem;
+  font-size: 1rem;
   cursor: pointer;
 `;
 
@@ -282,4 +282,118 @@ export const MoreItem = styled.div`
   text-align: center;
   align-items: center;
   margin-bottom: 50px;
+`;
+export const Model = styled.div`
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0px 10%;
+  z-index: 100;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+  background-color: rgba(0, 0, 0, 0.4);
+`;
+export const EditModalWrapper = styled.form`
+  width: 100%;
+  height: 100%;
+  max-height: 550px;
+  max-width: 650px;
+  min-width: 350px;
+  border-radius: 5px;
+  background-color: white;
+  padding: 30px;
+  /* position: relative; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+export const Title = styled.span`
+  font-size: 2rem;
+  font-weight: 700;
+  padding-bottom: 20px;
+`;
+export const CancelIcon = styled.img`
+  position: absolute;
+  top: 25px;
+  right: 25px;
+`;
+export const ModalDivideLine = styled.div`
+  width: 100%;
+  border-top: 1px solid #f6651e;
+`;
+export const EditWrapper = styled.div`
+  width: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+`;
+export const Img = styled.img`
+  object-fit: cover;
+  border-radius: 90%;
+  width: 120px;
+  height: 120px;
+  border: 1px solid black;
+  margin: 20px auto 10px auto;
+`;
+export const UploadFileHidden = styled.input`
+  display: none;
+`;
+export const UploadButton = styled.div`
+  border-radius: 90%;
+  width: 120px;
+  height: 120px;
+  border: 1px solid black;
+  margin: 20px auto 10px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+export const InputWrapper = styled.div`
+  width: 75%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+`;
+export const InputTitle = styled.div`
+  font-size: 1rem;
+  width: 100px;
+  margin-right: 5px;
+`;
+
+export const PasswordModalWrapper = styled.div`
+  width: 400px;
+  height: 200px;
+  /* max-height: 150px;
+  max-width: 450px;
+  min-width: 450px; */
+  border-radius: 5px;
+  background-color: white;
+  padding: 30px;
+  /* position: relative; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+`;
+
+export const Button = styled.button`
+  width: 70px;
+  height: 40px;
+  color: white;
+  border-radius: 5px;
+  background-color: #f6651e;
+  border: none;
 `;
