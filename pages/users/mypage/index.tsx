@@ -52,10 +52,10 @@ export default function MypagePage() {
 
   return (
     <>
-      <MessageBox>
+      {/* <MessageBox>
         빠른 가입으로 잔여농산물 판매자가 되어보세요!
         <Icon src="/icons/mypage/cancel.png" />
-      </MessageBox>
+      </MessageBox> */}
       <HeaderWrapper>
         <Header>
           {isCheck || "마이 페이지"}
@@ -70,8 +70,8 @@ export default function MypagePage() {
           />
         </ToggleWrapper>
       </HeaderWrapper>
-      {isCheck && <BuyerMypage />}
-      {isCheck || <SellerMypage />}
+      {isCheck && <SellerMypage />}
+      {isCheck || <BuyerMypage />}
     </>
   );
 }

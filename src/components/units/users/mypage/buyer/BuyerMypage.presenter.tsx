@@ -14,7 +14,9 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
               <S.FunctionWrapper>
                 <S.Function>로그아웃</S.Function>
                 <S.LengthDivideLine />
-                <S.Function onClick={props.showModal}>회원정보수정</S.Function>
+                <S.Function onClick={props.showPasswordModal}>
+                  회원정보수정
+                </S.Function>
               </S.FunctionWrapper>
             </S.InfoProfile>
             <S.InfoRightWrapper>
@@ -82,50 +84,89 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
           </S.ListWrapper>
         </S.Body>
       </S.Wrapper>
-      {props.isVisible && (
-        <S.EditModel>
-          <S.EditModalWrapper>
-            <S.Title>회원 정보 수정</S.Title>
+      {props.isUserVisible && (
+        <S.Model>
+          <S.PasswordModalWrapper>
             <S.CancelIcon
               src="/icons/cancel.png"
-              onClick={props.handleCancel}
+              onClick={props.passwordCancel}
             />
+            <S.InputWrapper>
+              <S.InputTitle>비밀번호 : </S.InputTitle>
+              <InputComponent
+                onChange={props.onChangePassword}
+                placeholder="비밀번호를 입력해주세요."
+                type="password"
+              />
+            </S.InputWrapper>
+            <S.Button onClick={props.onClickConfirm}>확인</S.Button>
+          </S.PasswordModalWrapper>
+        </S.Model>
+      )}
+      {props.isEditVisible && (
+        <S.Model>
+          <S.EditModalWrapper onSubmit={props.handleSubmit(props.onClickEdit)}>
+            <S.Title>회원 정보 수정</S.Title>
+            <S.CancelIcon src="/icons/cancel.png" onClick={props.editCancel} />
             <S.ModalDivideLine />
             <S.EditWrapper>
-              <S.Img />
+              {props.fileUrl ? (
+                <S.Img
+                  onClick={props.onClickUpload}
+                  src={`https://storage.googleapis.com/${props.fileUrl}`}
+                />
+              ) : (
+                <S.UploadButton onClick={props.onClickUpload}>
+                  <>+</>
+                  <>Upload</>
+                </S.UploadButton>
+              )}
+              <S.UploadFileHidden
+                type="file"
+                ref={props.fileRef}
+                onChange={props.onChangeFile}
+              />
               <S.InputWrapper>
                 <S.InputTitle>이름 : </S.InputTitle>
-                <InputComponent placeholder="이름을 입력해주세요." />
+                <InputComponent
+                  register={props.register("name")}
+                  placeholder="이름을 입력해주세요."
+                />
               </S.InputWrapper>
               <S.InputWrapper>
                 <S.InputTitle>전화번호 : </S.InputTitle>
-                <InputComponent placeholder="전화번호를 입력해주세요.( - 생략)" />
+                <InputComponent
+                  register={props.register("phone")}
+                  placeholder="전화번호를 입력해주세요.( - 생략)"
+                />
               </S.InputWrapper>
               <S.UserAddresses>
                 <S.InputTitle>주소정보 </S.InputTitle>
-                <S.AddressWrapper>
-                  <S.Address>
-                    <S.UserAddress>대전 동구 판교1길 3 (판암동)</S.UserAddress>
-                    <S.UserAddressDetail>20-30</S.UserAddressDetail>
-                  </S.Address>
-                  {/* <S.MainAddress>기본 주소지</S.MainAddress> */}
-                </S.AddressWrapper>
-                <S.AddressWrapper>
-                  <S.Address>
-                    <S.UserAddress>대전 동구 판교1길 3 (판암동)</S.UserAddress>
-                    <S.UserAddressDetail>20-30</S.UserAddressDetail>
-                  </S.Address>
-                  {/* <S.MainAddress>기본 주소지</S.MainAddress> */}
-                </S.AddressWrapper>
+                {props.userAddressData?.fetchAddressesOfTheUser.map(
+                  (el: any) => (
+                    <S.AddressWrapper key={el.id}>
+                      <S.Address>
+                        <S.UserAddress>{el.address}</S.UserAddress>
+                        <S.UserAddressDetail>
+                          {el.detailedAddress}
+                        </S.UserAddressDetail>
+                      </S.Address>
+                      {/* <S.MainAddress>기본 주소지</S.MainAddress> */}
+                    </S.AddressWrapper>
+                  )
+                )}
               </S.UserAddresses>
               <S.InputWrapper>
                 <S.InputTitle>비밀번호 : </S.InputTitle>
-                <InputComponent placeholder="변경할 비밀번호를 입력해주세요." />
+                <InputComponent
+                  register={props.register("password")}
+                  placeholder="변경할 비밀번호를 입력해주세요."
+                />
               </S.InputWrapper>
               <ButtonComponent title="수정하기" buttonColor="#F6651E" />
             </S.EditWrapper>
           </S.EditModalWrapper>
-        </S.EditModel>
+        </S.Model>
       )}
     </>
   );
