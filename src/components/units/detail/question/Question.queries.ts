@@ -40,7 +40,6 @@ export const FETCH_USER_LOGGED_IN = gql`
       id
       name
       email
-      phone
       type
     }
   }

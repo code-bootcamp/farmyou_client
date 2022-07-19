@@ -101,11 +101,14 @@ export default function QuestionUI(props: IQuestionUIProps) {
                         <>
                           <S.AnswerTitle>
                             <S.AText>A.</S.AText>
-                            {el.answerTitle}{" "}
-                            <S.EditImage
-                              src="/icons/edit.svg"
-                              onClick={props.onClickAnswerEdit}
-                            ></S.EditImage>
+                            {el.answerTitle} {/* 수정이 api에서 막혀있음 */}
+                            {/* {props.userLoggedData.fetchUserLoggedIn.id ===
+                              props.data.seller?.id && (
+                              <S.EditImage
+                                src="/icons/edit.svg"
+                                onClick={props.onClickAnswerEdit(el)}
+                              ></S.EditImage>
+                            )} */}
                           </S.AnswerTitle>
                           <S.AnswerContents>{el.answer}</S.AnswerContents>
                         </>
@@ -132,7 +135,7 @@ export default function QuestionUI(props: IQuestionUIProps) {
       <S.PaginationWrapper>
         <Pagination
           className={classes.paginationContainer}
-          count={Math.ceil(props.count / 5)}
+          count={Math.ceil(props.count / 5) || 0}
           variant="outlined"
           shape="rounded"
           color="secondary"

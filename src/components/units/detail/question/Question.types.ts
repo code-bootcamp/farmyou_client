@@ -34,7 +34,7 @@ export interface IQuestionUIProps {
 
   isEdit: boolean;
   onClickQuestionEdit: (el: any) => () => void;
-  onClickAnswerEdit: () => void;
+  onClickAnswerEdit: (el: any) => () => void;
 
   onClickModalCancel: () => void;
 
@@ -51,15 +51,16 @@ export interface IQuestionUIProps {
   fetchInquiriesByProductData: {
     fetchInquiriesByProduct: Array<IFetchInquiriesByProduct>;
   };
+
   userLoggedData: {
     fetchUserLoggedIn: {
       id: string;
       name: string;
       email: string;
-      phone: string;
       type: string;
     };
   };
+
   data: {
     id?: string;
     title?: string;
