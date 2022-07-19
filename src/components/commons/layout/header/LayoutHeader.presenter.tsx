@@ -17,6 +17,7 @@ export default function LayoutHeaderUI(props: ILayoutHeaderUIProps) {
                 : "/logo/boldw.png"
               : "/logo/boldo.png"
           }
+          onClick={props.onClickMoveToMain}
         />
         {props.data ? (
           <S.LoginWrapper>
@@ -37,9 +38,11 @@ export default function LayoutHeaderUI(props: ILayoutHeaderUIProps) {
             <S.LogOut onClick={props.onClickLogout}>로그아웃</S.LogOut>
             <S.HamburgerMenu>
               <Menu styles={props.styles} right>
-                <S.Item onClick={props.onClickMoveToLogin}>로그인</S.Item>
-                <S.Item onClick={props.onClickMoveToSignup}>회원가입</S.Item>
+                <S.Item>
+                  {props.data?.fetchUserLoggedIn.name}님의 마이페이지
+                </S.Item>
                 {!props.isCheck && <S.Item>장바구니</S.Item>}
+                <S.Item onClick={props.onClickLogout}>로그아웃</S.Item>
               </Menu>
             </S.HamburgerMenu>
           </S.LoginWrapper>
