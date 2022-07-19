@@ -3,6 +3,7 @@ import * as S from "./BfoodWrite.styles";
 import "react-quill/dist/quill.snow.css";
 import ButtonComponent from "../../../commons/buttons";
 import { IBfoodWriteUIProps } from "./BfoodWrite.types";
+import UploadImage from "./UploadImage/UploadImage.container";
 export default function BfoodWriteUI(props: IBfoodWriteUIProps) {
   return (
     <S.Wrapper>
@@ -10,9 +11,14 @@ export default function BfoodWriteUI(props: IBfoodWriteUIProps) {
       <form onSubmit={props.handleSubmit(props.onClickSubmit)}>
         <S.InnerWrapper>
           <S.ImageItemWrapper>
-            <S.ImageItem>
-              <img src="/icons/write/defaultimg.png" />
-            </S.ImageItem>
+            {new Array(props.fileUrls.length + 1).fill(1).map((data, index) => (
+              <UploadImage
+                key={`${data}_${index}`}
+                index={index}
+                onChangeFiles={props.onChangeFiles}
+                fileUrls={props.fileUrls}
+              />
+            ))}
           </S.ImageItemWrapper>
           <S.Label>상품명</S.Label>
           <InputComponent

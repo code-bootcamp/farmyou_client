@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
 import { CREATE_PRODUCT_UGLY } from "./BfoodWrite.queries";
+import { useState } from "react";
 
 const schema = yup.object({
   title: yup.string().required("필수입력사항입니다."),
@@ -16,11 +17,26 @@ const schema = yup.object({
 
 export default function BfoodWrite() {
   const router = useRouter();
+  const [fileUrls, setFileUrls] = useState([]);
   const [createProductUgly] = useMutation(CREATE_PRODUCT_UGLY);
   const { register, handleSubmit, setValue, trigger } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
+  function onChangeFiles(index: number, url: string) {
+    // 기존 state들을 담아줍니다.
+    const newFileUrls = [...fileUrls];
+    // 세개의 버튼 중 이미 사진이 들어있는 곳을 클릭했다면 덮어씌워줍니다.
+    if (newFileUrls[index]) {
+      newFileUrls[index] = url;
+    } else {
+      // 빈 곳이라면 맨 뒤에 추가해줍니다.
+      newFileUrls.push(url);
+    }
+    // 변경된 배열을 state에 저장해줍니다.
+    setFileUrls([...newFileUrls]);
+  }
+  console.log(fileUrls);
 
   const onChangeContent = (value: string) => {
     setValue("content", value === "<p><br></p>" ? "" : value);
@@ -43,9 +59,10 @@ export default function BfoodWrite() {
           quantity: data.quantity,
           origin: data.origin,
           sellerId: "0b152efe-736e-408d-afd8-3e320e0e94dd",
+          files: fileUrls,
         },
       });
-      // console.log(result);
+      console.log("등록완료");
       router.push("/bfood");
     } catch (error) {
       console.log(error);
@@ -59,6 +76,8 @@ export default function BfoodWrite() {
       onChangeContent={onChangeContent}
       onClickToCancel={onClickToCancel}
       onClickSubmit={onClickSubmit}
+      onChangeFiles={onChangeFiles}
+      fileUrls={fileUrls}
     />
   );
 }
