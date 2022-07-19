@@ -20,7 +20,7 @@ export default function LayoutHeader() {
   const [logout] = useMutation(LOG_OUT);
 
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
-
+  console.log(data);
   const onClickLogout = async () => {
     const resultLogout = await logout();
     setToken("");
@@ -41,6 +41,9 @@ export default function LayoutHeader() {
   };
   const onClickMoveToMypage = () => {
     router.push(`/users/mypage`);
+  };
+  const onCLickMoveToMain = () => {
+    router.push(`/main`);
   };
 
   useEffect(() => {
@@ -155,6 +158,7 @@ export default function LayoutHeader() {
       onClickMoveToSignup={onClickMoveToSignup}
       onClickMoveToLogin={onClickMoveToLogin}
       onClickLogout={onClickLogout}
+      onClickMoveToMain={onCLickMoveToMain}
       isIn={isIn}
       isCheck={isCheck}
       isCheckList={isCheckList}

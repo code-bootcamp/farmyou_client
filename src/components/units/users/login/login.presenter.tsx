@@ -21,6 +21,7 @@ export default function LoginUI(props: IPropsLogin) {
             register={props.register("email")}
           />
           <InputComponent
+            type="password"
             placeholder="Password"
             register={props.register("password")}
           />

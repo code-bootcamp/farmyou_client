@@ -23,6 +23,7 @@ export const Body = styled.div`
 export const LogoImg = styled.img`
   width: 15vw;
   min-width: 200px;
+  cursor: pointer;
 `;
 
 export const MenuWrapper = styled.div`
@@ -86,12 +87,14 @@ export const LoginMyPage = styled.div`
   font-size: 1.2rem;
   cursor: pointer;
   @media (max-width: 575px) {
-    width: 100%;
-    font-size: 0.9rem;
+    display: none;
   } ;
 `;
 
 export const LogOut = styled.div`
   cursor: pointer;
   font-size: 1rem;
+  @media (max-width: 575px) {
+    display: none;
+  }
 `;
