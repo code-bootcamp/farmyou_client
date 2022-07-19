@@ -1,7 +1,9 @@
 import InputComponent from "../../../commons/inputs";
 import * as S from "./payment.styles";
+import { IPaymentUIProps } from "./payment.types";
+import { v4 as uuidv4 } from "uuid";
 
-export default function PaymentUI() {
+export default function PaymentUI(props: IPaymentUIProps) {
   return (
     <>
       <S.Header>주문 / 결제</S.Header>
@@ -26,10 +28,6 @@ export default function PaymentUI() {
               <S.Text>휴대전화</S.Text>
               <S.ComponentWrapper>
                 <InputComponent placeholder="" />
-                <S.Text style={{ padding: "0 1vw" }}> - </S.Text>
-                <InputComponent placeholder="" />
-                <S.Text style={{ padding: "0 1vw" }}> - </S.Text>
-                <InputComponent placeholder="" />
               </S.ComponentWrapper>
             </S.InputWrapper>
             <S.Title>배송지</S.Title>
@@ -49,10 +47,6 @@ export default function PaymentUI() {
             <S.InputWrapper>
               <S.Text>휴대전화</S.Text>
               <S.ComponentWrapper>
-                <InputComponent placeholder="" />
-                <S.Text style={{ padding: "0 1vw" }}> - </S.Text>
-                <InputComponent placeholder="" />
-                <S.Text style={{ padding: "0 1vw" }}> - </S.Text>
                 <InputComponent placeholder="" />
               </S.ComponentWrapper>
             </S.InputWrapper>
@@ -78,14 +72,35 @@ export default function PaymentUI() {
           <S.RightWrapper>
             <S.PayBoxWrapper>
               <S.PayBoxTitle>결제금액</S.PayBoxTitle>
-              <S.BasketTotalPriceWrapper>
-                <S.BasketName>로컬푸드 결제금액</S.BasketName>
-                <S.BasketPrice>200,000원</S.BasketPrice>
-              </S.BasketTotalPriceWrapper>
-              <S.BasketTotalPriceWrapper>
-                <S.BasketName>못난이 상품 결제금액</S.BasketName>
-                <S.BasketPrice>200,000원</S.BasketPrice>
-              </S.BasketTotalPriceWrapper>
+              {props.isCart === "cart" ? (
+                <>
+                  <S.BasketTotalPriceWrapper>
+                    <S.BasketName>로컬푸드 결제금액</S.BasketName>
+                    <S.BasketPrice>
+                      {props.localPrice.toLocaleString()}원
+                    </S.BasketPrice>
+                  </S.BasketTotalPriceWrapper>
+                  <S.BasketTotalPriceWrapper>
+                    <S.BasketName>못난이 상품 결제금액</S.BasketName>
+                    <S.BasketPrice>
+                      {props.bPrice.toLocaleString()}원
+                    </S.BasketPrice>
+                  </S.BasketTotalPriceWrapper>
+                </>
+              ) : (
+                <>
+                  <S.BasketTotalPriceWrapper>
+                    <S.BasketName>결제금액</S.BasketName>
+                    <S.BasketPrice>
+                      {(
+                        props.payProduct.price * props.payProduct.count
+                      ).toLocaleString()}
+                      원
+                    </S.BasketPrice>
+                  </S.BasketTotalPriceWrapper>
+                </>
+              )}
+
               <S.BasketTotalPriceWrapper>
                 <S.BasketName>배송비</S.BasketName>
                 <S.BasketPrice>0원</S.BasketPrice>
@@ -94,7 +109,7 @@ export default function PaymentUI() {
               <S.BasketTotalPriceWrapper style={{ fontWeight: "bold" }}>
                 <S.BasketName>총 결제금액</S.BasketName>
                 <S.BasketPrice style={{ color: "red" }}>
-                  400,000원
+                  {(props.localPrice + props.bPrice).toLocaleString()}원
                 </S.BasketPrice>
               </S.BasketTotalPriceWrapper>
               <S.CheckBox>아래 내용에 모두 동의합니다.(필수)</S.CheckBox>
@@ -103,60 +118,74 @@ export default function PaymentUI() {
               본인은 만 14세 이상이며, 주문 내용을 모두 확인하였습니다.
             </S.PayBoxWarningWrapper>
             <S.PayOrCancelBtn style={{ backgroundColor: "red" }}>
-              400,000원 결제하기
+              {(props.localPrice + props.bPrice).toLocaleString()}원 결제하기
             </S.PayOrCancelBtn>
             <S.PayOrCancelBtn style={{ backgroundColor: "#bdbdbd" }}>
               이전으로
             </S.PayOrCancelBtn>
           </S.RightWrapper>
         </S.PayWrapper>
-        {/* <S.Header>주문상품</S.Header>
-        <S.DivideLine></S.DivideLine>
-        <div>깃최신화 하면 캡슐컴포넌트자리</div> */}
-        <S.BasketWrapper>
-          <S.Title>로컬푸드 주문내역</S.Title>
-          <S.DivideLine />
-          {new Array(3).fill(1).map((_, index) => {
-            return (
-              <S.BasketItemWrapper key={index}>
-                <S.BasketItemImage src="/logoimgs/FarmYouHeaderLogo.png" />
-                <S.BasketItemTextWrapper>
-                  <S.BasketItemName>
-                    못난이 같아도 맛있는 사과 1Kg 못난이 같아도 맛있는 사과 1Kg
-                    못난이 같아도 맛있는 사과 1Kg 못난이 같아도 맛있는 사과 1Kg
-                  </S.BasketItemName>
-                  <S.BasketItemSeller>로컬푸드 구로점</S.BasketItemSeller>
-                  <S.BasketItemPriceCount>
-                    {"19,000원"} / {"2"}
-                  </S.BasketItemPriceCount>
-                </S.BasketItemTextWrapper>
-              </S.BasketItemWrapper>
-            );
-          })}
-        </S.BasketWrapper>
-        <S.BasketWrapper>
-          <S.Title>못난이 상품 주문내역</S.Title>
-          <S.DivideLine />
-          {new Array(4).fill(1).map((_, index) => {
-            return (
-              <S.BasketItemWrapper key={index}>
-                <S.BasketItemImage src="/icons/list/apple.png" />
-                <S.BasketItemTextWrapper>
-                  <S.BasketItemName>
-                    못난이 같아도 맛있는 사과 1Kg 못난이 같아도 맛있는 사과 1Kg
-                    못난이 같아도 맛있는 사과 1Kg 못난이 같아도 맛있는 사과 1Kg
-                    못난이 같아도 맛있는 사과 1Kg 못난이 같아도 맛있는 사과 1Kg
-                    못난이 같아도 맛있는 사과 1Kg
-                  </S.BasketItemName>
-                  <S.BasketItemSeller>판매자 : {"홍길동"}</S.BasketItemSeller>
-                  <S.BasketItemPriceCount>
-                    {"19,000원"} / {"2"}
-                  </S.BasketItemPriceCount>
-                </S.BasketItemTextWrapper>
-              </S.BasketItemWrapper>
-            );
-          })}
-        </S.BasketWrapper>
+        {props.isCart === "cart" ? (
+          <>
+            <S.BasketWrapper>
+              <S.Title>로컬푸드 주문내역</S.Title>
+              <S.DivideLine />
+              {props.localfoodBaskets.map((el: any, index: number) => {
+                return (
+                  <S.BasketItemWrapper key={uuidv4()}>
+                    {console.log(el)}
+                    <S.BasketItemImage src="" />
+                    <S.BasketItemTextWrapper>
+                      <S.BasketItemName>{el.title}</S.BasketItemName>
+                      <S.BasketItemSeller>{el.name}</S.BasketItemSeller>
+                      <S.BasketItemPriceCount>
+                        {el.price.toLocaleString()}원 / {el.count}개
+                      </S.BasketItemPriceCount>
+                    </S.BasketItemTextWrapper>
+                  </S.BasketItemWrapper>
+                );
+              })}
+            </S.BasketWrapper>
+            <S.BasketWrapper>
+              <S.Title>못난이 상품 주문내역</S.Title>
+              <S.DivideLine />
+              {props.bfoodBaskets.map((el: any, index: number) => {
+                return (
+                  <S.BasketItemWrapper key={index}>
+                    <S.BasketItemImage src="" />
+                    <S.BasketItemTextWrapper>
+                      <S.BasketItemName>{el.title}</S.BasketItemName>
+                      <S.BasketItemSeller>
+                        판매자 : {el.seller.name}
+                      </S.BasketItemSeller>
+                      <S.BasketItemPriceCount>
+                        {el.price.toLocaleString()}원 / {el.count}개
+                      </S.BasketItemPriceCount>
+                    </S.BasketItemTextWrapper>
+                  </S.BasketItemWrapper>
+                );
+              })}
+            </S.BasketWrapper>
+          </>
+        ) : (
+          <S.BasketWrapper>
+            <S.Title>주문내역</S.Title>
+            <S.DivideLine />
+            <S.BasketItemWrapper>
+              <S.BasketItemImage src="" />
+              <S.BasketItemTextWrapper>
+                <S.BasketItemName>{props.payProduct.title}</S.BasketItemName>
+                <S.BasketItemSeller>
+                  {props.payProduct.seller?.name}
+                </S.BasketItemSeller>
+                <S.BasketItemPriceCount>
+                  {props.payProduct.price?.toLocaleString()}원 /{" "}
+                  {props.payProduct.count}개
+                </S.BasketItemPriceCount>
+              </S.BasketItemTextWrapper>
+            </S.BasketItemWrapper>
+          </S.BasketWrapper>
+        )}
       </S.Wrapper>
     </>
   );
