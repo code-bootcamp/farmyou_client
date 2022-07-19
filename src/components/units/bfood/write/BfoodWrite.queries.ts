@@ -8,6 +8,7 @@ export const CREATE_PRODUCT_UGLY = gql`
     $quantity: Float!
     $origin: String!
     $sellerId: String!
+    $files: [Upload!]
   ) {
     createProductUgly(
       title: $title
@@ -16,6 +17,7 @@ export const CREATE_PRODUCT_UGLY = gql`
       quantity: $quantity
       origin: $origin
       sellerId: $sellerId
+      files: $files
     ) {
       id
       title

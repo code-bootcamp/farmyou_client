@@ -6,4 +6,6 @@ export interface IBfoodWriteUIProps {
   onClickToCancel: () => void;
   onChangeContent: (value: string) => void;
   onClickSubmit: (data: any) => Promise<void>;
+  onChangeFiles: (index: number, url: string) => void;
+  fileUrls: any;
 }
