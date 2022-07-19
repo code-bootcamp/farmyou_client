@@ -373,7 +373,7 @@ export const InputTitle = styled.div`
 export const UserAddresses = styled.div`
   width: 75%;
   height: auto;
-  max-height: 200px;
+  max-height: 150px;
   overflow: scroll;
   &::-webkit-scrollbar {
     display: none;
@@ -384,8 +384,10 @@ export const AddressWrapper = styled.div`
   flex-direction: row;
   border: 0.5px solid #ccc;
   border-radius: 10px;
-  padding: 2px 5px;
+  padding: 10px 15px;
   margin-top: 10px;
+  min-height: 80px;
+  position: relative;
 `;
 export const Address = styled.div`
   display: flex;
@@ -397,10 +399,28 @@ export const UserAddress = styled.div`
 export const UserAddressDetail = styled.div`
   font-size: 0.8rem;
 `;
-// export const MainAddress = styled.div`
-//   text-decoration: underline;
-//   font-size: 0.5rem;
-// `;
+export const MainAddress = styled.div`
+  text-decoration: underline;
+  font-size: 0.7rem;
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+  color: #f6651e;
+`;
+export const AddressOption = styled.div`
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+`;
+export const Option = styled.div`
+  font-size: 0.7rem;
+  margin-left: 20px;
+  &:hover {
+    color: #f6651e;
+  }
+`;
 
 export const PasswordModalWrapper = styled.div`
   width: 400px;
@@ -429,4 +449,10 @@ export const Button = styled.button`
   border-radius: 5px;
   background-color: #f6651e;
   border: none;
+`;
+export const Error = styled.div`
+  color: red;
+  font-size: 1rem;
+  position: absolute;
+  bottom: 50px;
 `;

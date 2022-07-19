@@ -397,3 +397,9 @@ export const Button = styled.button`
   background-color: #f6651e;
   border: none;
 `;
+export const Error = styled.div`
+  color: red;
+  font-size: 1rem;
+  position: absolute;
+  bottom: 50px;
+`;

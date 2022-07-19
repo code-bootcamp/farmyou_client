@@ -27,4 +27,5 @@ export interface ISellerMypageUiProps {
   fileUrl: string;
   handleSubmit: UseFormHandleSubmit<FieldValues>;
   register: UseFormRegister<FieldValues>;
+  error: string;
 }

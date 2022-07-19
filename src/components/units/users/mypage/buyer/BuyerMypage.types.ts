@@ -22,4 +22,7 @@ export interface IBuyerMypageUIProps {
   handleSubmit: UseFormHandleSubmit<FieldValues>;
   register: UseFormRegister<FieldValues>;
   onClickEdit: () => void;
+  error: string;
+  onClickDeleteAddress: (event: any) => void;
+  onClickMainAddress: (event: any) => void;
 }

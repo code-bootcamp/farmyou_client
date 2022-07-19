@@ -1,6 +1,9 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { ChangeEvent, useRef, useState } from "react";
 import {
+  ASSIGN_MAIN,
+  CHECK_IF_LOGGED_USER,
+  DELETE_ADDRESS,
   FETCH_ADDRESSES_OF_THE_USER,
   FETCH_USER_LOGGED_IN,
   UPDATE_USER,
@@ -24,11 +27,7 @@ export default function BuyerMypage() {
         "영어,숫자,특수문자가 포함되어야 합니다."
       ),
   });
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm({
+  const { handleSubmit, register } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
@@ -36,8 +35,12 @@ export default function BuyerMypage() {
   const [isEditVisible, setIsEditVisible] = useState(false);
   const [password, setPassword] = useState("");
   const [fileUrl, setFileUrl] = useState("");
+  const [error, setError] = useState("");
   const [uploadFile] = useMutation(UPLOAD_FILE);
   const [updateUser] = useMutation(UPDATE_USER);
+  const [assignMain] = useMutation(ASSIGN_MAIN);
+  const [deleteAddress] = useMutation(DELETE_ADDRESS);
+  const [checkIfLoggedUser] = useMutation(CHECK_IF_LOGGED_USER);
 
   const { data: userData } = useQuery(FETCH_USER_LOGGED_IN);
   // console.log(userData.fetchUserLoggedIn.id);
@@ -52,13 +55,29 @@ export default function BuyerMypage() {
   };
   const passwordCancel = () => {
     setIsUserVisible(false);
+    setError("");
   };
   const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event?.target.value);
   };
-  const onClickConfirm = () => {
-    setIsUserVisible(false);
-    showEditModal();
+  const onClickConfirm = async () => {
+    try {
+      const result = await checkIfLoggedUser({
+        variables: {
+          password,
+        },
+      });
+      // console.log(result.data.checkIfLoggedUser);
+      if (result.data.checkIfLoggedUser) {
+        setIsUserVisible(false);
+        setIsEditVisible(true);
+        setError("");
+      } else {
+        setError("비밀번호가 틀렸습니다.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // edit
@@ -70,7 +89,7 @@ export default function BuyerMypage() {
   };
   const onClickEdit = async (data: any) => {
     try {
-      const result = await updateUser({
+      await updateUser({
         variables: {
           name: data.name,
           password: data.password,
@@ -78,7 +97,7 @@ export default function BuyerMypage() {
           imageUrl: fileUrl,
         },
       });
-      console.log(result);
+      setIsEditVisible(false);
     } catch (error) {
       console.log(error);
     }
@@ -103,8 +122,46 @@ export default function BuyerMypage() {
       Modal.error({ content: "에러!!" });
     }
   };
-  console.log(errors);
-
+  const onClickDeleteAddress = async (event: any) => {
+    try {
+      await deleteAddress({
+        variables: {
+          id: event.target.id,
+        },
+        refetchQueries: [
+          {
+            query: FETCH_ADDRESSES_OF_THE_USER,
+            variables: {
+              userId: userData?.fetchUserLoggedIn.id,
+            },
+          },
+        ],
+      });
+    } catch (error) {
+      Modal.error({ content: "에러!!" });
+    }
+    console.log(event.target.id);
+  };
+  const onClickMainAddress = async (event: any) => {
+    try {
+      await assignMain({
+        variables: {
+          userId: userData?.fetchUserLoggedIn.id,
+          addressId: event.target.id,
+        },
+        refetchQueries: [
+          {
+            query: FETCH_ADDRESSES_OF_THE_USER,
+            variables: {
+              userId: userData?.fetchUserLoggedIn.id,
+            },
+          },
+        ],
+      });
+    } catch (error) {
+      Modal.error({ content: "에러!!" });
+    }
+  };
   return (
     <BuyerMypageUI
       showEditModal={showEditModal}
@@ -123,6 +180,9 @@ export default function BuyerMypage() {
       handleSubmit={handleSubmit}
       register={register}
       onClickEdit={onClickEdit}
+      error={error}
+      onClickDeleteAddress={onClickDeleteAddress}
+      onClickMainAddress={onClickMainAddress}
     />
   );
 }

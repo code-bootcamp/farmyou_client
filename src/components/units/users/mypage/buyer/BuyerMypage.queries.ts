@@ -23,7 +23,7 @@ export const FETCH_ADDRESSES_OF_THE_USER = gql`
 `;
 
 export const CHECK_IF_LOGGED_USER = gql`
-  query checkIfLoggedUser($password: String!) {
+  mutation checkIfLoggedUser($password: String!) {
     checkIfLoggedUser(password: $password)
   }
 `;
@@ -49,5 +49,17 @@ export const UPDATE_USER = gql`
       name
       phone
     }
+  }
+`;
+export const ASSIGN_MAIN = gql`
+  mutation assignMain($userId: String!, $addressId: String!) {
+    assignMain(userId: $userId, addressId: $addressId) {
+      id
+    }
+  }
+`;
+export const DELETE_ADDRESS = gql`
+  mutation deleteAddress($id: String!) {
+    deleteAddress(id: $id)
   }
 `;

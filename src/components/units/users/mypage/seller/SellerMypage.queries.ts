@@ -22,9 +22,9 @@ export const FETCH_ADDRESSES_OF_THE_USER = gql`
   }
 `;
 
-export const CHECK_IF_LOGGED_USER = gql`
-  query checkIfLoggedUser($password: String!) {
-    checkIfLoggedUser(password: $password)
+export const CHECK_IF_LOGGED_SELLER = gql`
+  mutation checkIfLoggedSeller($password: String!) {
+    checkIfLoggedSeller(password: $password)
   }
 `;
 
