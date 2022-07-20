@@ -5,12 +5,27 @@ import {
   UseFormRegister,
 } from "react-hook-form";
 
+export interface IBaskets {
+  id: string;
+  count: number;
+  price: number;
+}
+
+export type IPayProduct = {
+  price: number;
+  count: number;
+};
 export interface IStorage {
   content?: string;
   count?: number;
   createdAt?: Date;
   id?: string;
   phone?: string;
+}
+
+export interface IDaumPostcode {
+  zonecode: string;
+  address: string;
 }
 
 export interface IFetchAddressOfTheUser {
@@ -54,4 +69,11 @@ export interface IPaymentUIProps {
   defaultValue: IFetchAddressOfTheUser;
   onClickMainAddressSetting: (el: IFetchAddressOfTheUser) => () => void;
   onChangeCheckBox: (event: CheckboxChangeEvent) => void;
+  onClickNewAddressButton: () => void;
+  newAddress: boolean;
+  onClickNewAddressCancel: () => void;
+  isModalVisible: boolean;
+  handleComplete: (data: IDaumPostcode) => void;
+  toggleDaumPostCode: () => void;
+  onClickNewAddressRegistration: () => void;
 }

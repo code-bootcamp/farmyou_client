@@ -3,6 +3,8 @@ import * as S from "./payment.styles";
 import { IPaymentUIProps } from "./payment.types";
 import { v4 as uuidv4 } from "uuid";
 import Head from "next/head";
+import { Modal } from "antd";
+import DaumPostcode from "react-daum-postcode";
 
 export default function PaymentUI(props: IPaymentUIProps) {
   return (
@@ -84,7 +86,7 @@ export default function PaymentUI(props: IPaymentUIProps) {
                   />
                   <S.Text>{"       "}</S.Text>
                   <S.AddressSearchBtn onClick={props.toggleModal}>
-                    주소찾기
+                    배송지찾기
                   </S.AddressSearchBtn>
                 </S.ComponentWrapper>
                 <S.ComponentWrapper>
@@ -260,7 +262,56 @@ export default function PaymentUI(props: IPaymentUIProps) {
               src="/icons/delete.svg"
               onClick={props.onClickModalCancel}
             />
+            <S.NewAddress onClick={props.onClickNewAddressButton}>
+              배송지 등록하기
+            </S.NewAddress>
           </S.ModalWrapper>
+        </S.CustomModal>
+      )}
+      {props.newAddress && (
+        <S.CustomModal>
+          <S.ModalWrapper>
+            <S.CancelButton
+              src="/icons/delete.svg"
+              onClick={props.onClickNewAddressCancel}
+            />
+            <S.Address>
+              <S.ZipcodeWrapper>
+                <S.AddressInput>
+                  <InputComponent
+                    readOnly
+                    placeholder="00000"
+                    register={props.register("newPostalCode")}
+                  />
+                </S.AddressInput>
+                <button onClick={props.toggleDaumPostCode}>
+                  다음포스트코드
+                </button>
+              </S.ZipcodeWrapper>
+              <InputComponent
+                readOnly
+                placeholder="주소"
+                register={props.register("newAddress")}
+              />
+              <InputComponent
+                placeholder="상세주소"
+                register={props.register("newDetailedAddress")}
+              />
+              <S.NewAddress onClick={props.onClickNewAddressRegistration}>
+                배송지 등록하기
+              </S.NewAddress>
+            </S.Address>
+          </S.ModalWrapper>
+          {props.isModalVisible && (
+            <Modal
+              zIndex={100000}
+              visible={true}
+              onOk={props.toggleDaumPostCode}
+              onCancel={props.toggleDaumPostCode}
+            >
+              <DaumPostcode onComplete={props.handleComplete} />
+            </Modal>
+          )}
         </S.CustomModal>
       )}
     </>
