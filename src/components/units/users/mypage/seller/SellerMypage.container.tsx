@@ -48,7 +48,6 @@ export default function SellerMypage() {
     setIsSelect(false);
     setError("");
   };
-
   const onClickLocalDetail = (event: MouseEvent<HTMLDivElement>) => {
     router.push(`/localfood/${event.currentTarget.id}`);
   };

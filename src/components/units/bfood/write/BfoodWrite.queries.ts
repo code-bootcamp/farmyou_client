@@ -8,7 +8,7 @@ export const CREATE_PRODUCT_UGLY = gql`
     $quantity: Float!
     $origin: String!
     $sellerId: String!
-    $files: [Upload!]
+    $createFileInput: CreateProductUglyInput!
   ) {
     createProductUgly(
       title: $title
@@ -17,13 +17,24 @@ export const CREATE_PRODUCT_UGLY = gql`
       quantity: $quantity
       origin: $origin
       sellerId: $sellerId
-      files: $files
+      createFileInput: $createFileInput
     ) {
       id
       title
       content
       price
       createdAt
+    }
+  }
+`;
+
+export const FETCH_USER_LOGGED_IN = gql`
+  query fetchUserLoggedIn {
+    fetchUserLoggedIn {
+      id
+      name
+      email
+      type
     }
   }
 `;

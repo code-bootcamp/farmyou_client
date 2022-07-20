@@ -3,8 +3,11 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
-import { useMutation } from "@apollo/client";
-import { CREATE_PRODUCT_UGLY } from "./BfoodWrite.queries";
+import { useMutation, useQuery } from "@apollo/client";
+import {
+  CREATE_PRODUCT_UGLY,
+  FETCH_USER_LOGGED_IN,
+} from "./BfoodWrite.queries";
 import { useState } from "react";
 
 const schema = yup.object({
@@ -23,6 +26,10 @@ export default function BfoodWrite() {
     resolver: yupResolver(schema),
     mode: "onChange",
   });
+
+  const { data: userData } = useQuery(FETCH_USER_LOGGED_IN);
+  console.log(userData?.fetchUserLoggedIn.id);
+
   function onChangeFiles(index: number, url: string) {
     // 기존 state들을 담아줍니다.
     const newFileUrls = [...fileUrls];
@@ -58,8 +65,10 @@ export default function BfoodWrite() {
           price: data.price,
           quantity: data.quantity,
           origin: data.origin,
-          sellerId: "0b152efe-736e-408d-afd8-3e320e0e94dd",
-          files: fileUrls,
+          sellerId: userData.fetchUserLoggedIn.id,
+          createFileInput: {
+            imageUrl: fileUrls,
+          },
         },
       });
       console.log("등록완료");
