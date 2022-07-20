@@ -22,4 +22,5 @@ export interface ISellerMypageUiProps {
   register: UseFormRegister<FieldValues>;
   error: string;
   onClickEdit: (data: any) => Promise<void>;
+  onClickToWrite: () => void;
 }
