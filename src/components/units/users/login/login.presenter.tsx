@@ -54,9 +54,13 @@ export default function LoginUI(props: IPropsLogin) {
         {/* <div>소셜로그인</div>
           <S.DivideLine></S.DivideLine> */}
         <S.SocialLogin>
-          <S.Img src="/icons/naver.png" alt="" />
-          <S.Img src="/icons/google.png" alt="" />
-          <S.Img src="/icons/kakao.png" alt="" />
+          <a href="https://farmback.shop/users/login/naver">
+            <S.Img src="/icons/naver.png" alt="" />
+          </a>
+          <a href="https://farmback.shop/users/login/google">
+            <S.Img src="/icons/google.png" alt="" />
+          </a>
+          <S.Img src="/icons/kakao.png" alt="" onClick={props.onClickKakao} />
         </S.SocialLogin>
       </S.LoginWrapper>
       {/* </form> */}
