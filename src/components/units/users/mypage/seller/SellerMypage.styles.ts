@@ -146,22 +146,7 @@ export const Count = styled.div`
     font-size: 1.5rem;
   }
 `;
-
-export const BoxIcons = styled.div`
-  width: 75px;
-  height: 75px;
-  @media (max-width: 667px) {
-    width: 50px;
-    height: 50px;
-  }
-`;
-
-export const OrderCheckBoxIcon = styled.img`
-  width: 100%;
-  padding: 10%;
-`;
-
-export const DeliveryBoxIcon = styled.img`
+export const SellBoxIcon = styled.img`
   width: 100%;
 `;
 
@@ -170,8 +155,18 @@ export const BoxBoxIcon = styled.img`
   padding: 10%;
 `;
 
-export const ReturnBoxIcon = styled.img`
+export const LikeBoxIcon = styled.img`
   width: 100%;
+  padding: 10%;
+`;
+
+export const BoxIcons = styled.div`
+  width: 75px;
+  height: 75px;
+  @media (max-width: 667px) {
+    width: 50px;
+    height: 50px;
+  }
 `;
 
 export const LengthDivideLine = styled.div`
@@ -183,6 +178,10 @@ export const LengthDivideLine = styled.div`
     width: 90%;
     height: 1px;
   }
+`;
+export const OrderCheckBoxIcon = styled.img`
+  width: 100%;
+  padding: 10%;
 `;
 
 export const ListWrapper = styled.div`

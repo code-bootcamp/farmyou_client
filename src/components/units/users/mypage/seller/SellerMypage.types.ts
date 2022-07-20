@@ -6,13 +6,6 @@ import {
 } from "react-hook-form";
 
 export interface ISellerMypageUiProps {
-  isSelect: boolean;
-  trackingRef: any;
-  onClickLocalList: () => void;
-  onClickBfoodList: () => void;
-  onClickLocalDetail: (event: MouseEvent<HTMLDivElement>) => void;
-  onClickBfoodDetail: (event: MouseEvent<HTMLDivElement>) => void;
-  onClickPostTracking: () => void;
   showEditModal: () => void;
   showPasswordModal: () => void;
   isUserVisible: boolean;
@@ -28,4 +21,5 @@ export interface ISellerMypageUiProps {
   handleSubmit: UseFormHandleSubmit<FieldValues>;
   register: UseFormRegister<FieldValues>;
   error: string;
+  onClickEdit: (data: any) => Promise<void>;
 }

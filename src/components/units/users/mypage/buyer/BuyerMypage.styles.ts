@@ -161,7 +161,7 @@ export const OrderCheckBoxIcon = styled.img`
   padding: 10%;
 `;
 
-export const SellBoxIcon = styled.img`
+export const DeliveryBoxIcon = styled.img`
   width: 100%;
 `;
 
@@ -170,9 +170,8 @@ export const BoxBoxIcon = styled.img`
   padding: 10%;
 `;
 
-export const LikeBoxIcon = styled.img`
+export const ReturnBoxIcon = styled.img`
   width: 100%;
-  padding: 10%;
 `;
 
 export const LengthDivideLine = styled.div`

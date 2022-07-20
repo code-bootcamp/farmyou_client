@@ -1,4 +1,4 @@
-import { ChangeEvent, MutableRefObject } from "react";
+import { ChangeEvent, MouseEvent, MutableRefObject } from "react";
 import {
   FieldValues,
   UseFormHandleSubmit,
@@ -6,6 +6,13 @@ import {
 } from "react-hook-form";
 
 export interface IBuyerMypageUIProps {
+  isSelect: boolean;
+  trackingRef: any;
+  onClickLocalList: () => void;
+  onClickBfoodList: () => void;
+  onClickLocalDetail: (event: MouseEvent<HTMLDivElement>) => void;
+  onClickBfoodDetail: (event: MouseEvent<HTMLDivElement>) => void;
+  onClickPostTracking: () => void;
   showEditModal: () => void;
   showPasswordModal: () => void;
   isUserVisible: boolean;

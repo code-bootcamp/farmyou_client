@@ -1,5 +1,4 @@
-import { useRouter } from "next/router";
-import { ChangeEvent, MouseEvent, useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import SellerMypageUI from "./SellerMypage.presenter";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -28,7 +27,7 @@ export default function SellerMypage() {
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-  const router = useRouter();
+
   const [isUserVisible, setIsUserVisible] = useState(false);
   const [isEditVisible, setIsEditVisible] = useState(false);
   const [password, setPassword] = useState("");
@@ -37,30 +36,6 @@ export default function SellerMypage() {
   const [uploadFile] = useMutation(UPLOAD_FILE);
   const [updateSeller] = useMutation(UPDATE_SELLER);
   const [checkIfLoggedSeller] = useMutation(CHECK_IF_LOGGED_SELLER);
-  const [isSelect, setIsSelect] = useState(true);
-  const trackingRef = useRef<HTMLFormElement>();
-
-  const onClickLocalList = () => {
-    setIsSelect(true);
-  };
-
-  const onClickBfoodList = () => {
-    setIsSelect(false);
-    setError("");
-  };
-
-  const onClickLocalDetail = (event: MouseEvent<HTMLDivElement>) => {
-    router.push(`/localfood/${event.currentTarget.id}`);
-  };
-
-  const onClickBfoodDetail = (event: MouseEvent<HTMLDivElement>) => {
-    router.push(`/bfood/${event.currentTarget.id}`);
-  };
-
-  const onClickPostTracking = () => {
-    trackingRef.current?.click();
-    console.log(trackingRef);
-  };
 
   // password
   const showPasswordModal = () => {
@@ -135,13 +110,6 @@ export default function SellerMypage() {
   };
   return (
     <SellerMypageUI
-      isSelect={isSelect}
-      onClickLocalList={onClickLocalList}
-      onClickBfoodList={onClickBfoodList}
-      onClickLocalDetail={onClickLocalDetail}
-      onClickBfoodDetail={onClickBfoodDetail}
-      onClickPostTracking={onClickPostTracking}
-      trackingRef={trackingRef}
       showEditModal={showEditModal}
       showPasswordModal={showPasswordModal}
       isUserVisible={isUserVisible}
