@@ -10,8 +10,10 @@ import {
   UPDATE_SELLER,
   UPLOAD_FILE,
 } from "./SellerMypage.queries";
+import { useRouter } from "next/router";
 
 export default function SellerMypage() {
+  const router = useRouter();
   const schema = yup.object({
     name: yup.string().max(7, "이름은 7자를 넘을 수 없습니다."),
     password: yup
@@ -108,6 +110,9 @@ export default function SellerMypage() {
       Modal.error({ content: "에러!!" });
     }
   };
+  const onClickToWrite = () => {
+    router.push(`/bfood/write`);
+  };
   return (
     <SellerMypageUI
       showEditModal={showEditModal}
@@ -126,6 +131,7 @@ export default function SellerMypage() {
       register={register}
       onClickEdit={onClickEdit}
       error={error}
+      onClickToWrite={onClickToWrite}
     />
   );
 }

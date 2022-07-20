@@ -18,6 +18,7 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
                   회원정보수정
                 </S.Function>
               </S.FunctionWrapper>
+              <div onClick={props.onClickToWrite}>못난이 상품 등록하기</div>
             </S.InfoProfile>
             <S.InfoRightWrapper>
               <S.InfoBoxWrapper>
