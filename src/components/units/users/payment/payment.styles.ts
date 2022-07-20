@@ -278,6 +278,7 @@ export const CancelButton = styled.img`
   position: absolute;
   top: 20px;
   right: 20px;
+  cursor: pointer;
 `;
 
 export const AddressListWrapper = styled.div`
@@ -314,4 +315,38 @@ export const AddressAddButton = styled.button`
   width: 100px;
   height: 30px;
   font-size: 1rem;
+`;
+
+export const NewAddress = styled.div`
+  padding: 10px;
+  font-size: 1rem;
+  width: 100%;
+  text-align: end;
+  cursor: pointer;
+  :hover {
+    color: #f6651e;
+  }
+`;
+
+export const Address = styled.div`
+  width: 100%;
+  height: 10vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 140px;
+  @media (max-width: 575px) {
+    /* height: 110px; */
+  }
+`;
+
+export const ZipcodeWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const AddressInput = styled.div`
+  width: 50%;
 `;

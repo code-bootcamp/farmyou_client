@@ -60,3 +60,43 @@ export const ASSIGN_MAIN = gql`
     }
   }
 `;
+
+export const CREATE_ADDRESS = gql`
+  mutation createAddress(
+    $address: String!
+    $detailedAddress: String
+    $postalCode: String!
+    $userId: String!
+    $isMain: Boolean!
+  ) {
+    createAddress(
+      address: $address
+      detailedAddress: $detailedAddress
+      postalCode: $postalCode
+      userId: $userId
+      isMain: $isMain
+    ) {
+      id
+      address
+      detailedAddress
+      postalCode
+      isMain
+    }
+  }
+`;
+
+export const BUY_PRODUCT = gql`
+  mutation buyProduct(
+    $productType: String!
+    $productId: String!
+    $quantity: Float!
+  ) {
+    buyProduct(
+      productType: $productType
+      productId: $productId
+      quantity: $quantity
+    ) {
+      id
+    }
+  }
+`;
