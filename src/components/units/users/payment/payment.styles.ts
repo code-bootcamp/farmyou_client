@@ -237,3 +237,81 @@ export const BasketItemPriceCount = styled.div`
     font-size: 4vw;
   }
 `;
+
+export const CustomModal = styled.div`
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0px 10%;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(0, 0, 0, 0.4);
+`;
+
+export const ModalWrapper = styled.div`
+  width: 100%;
+  max-width: 500px;
+  min-width: 300px;
+  border-radius: 5px;
+
+  background-color: white;
+  padding: 30px;
+  position: relative;
+`;
+
+export const TitleContentsText = styled.div`
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+`;
+
+export const CancelButton = styled.img`
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+`;
+
+export const AddressListWrapper = styled.div`
+  width: 100%;
+  /* height: 150px; */
+  padding: 5px;
+  border-bottom: 1px solid #bdbdbd;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+`;
+
+export const AddressListMain = styled.div`
+  width: 15%;
+`;
+
+export const AddressListAddress = styled.div`
+  width: 70%;
+`;
+
+export const AddressListCheck = styled.div`
+  cursor: pointer;
+  width: 15%;
+  text-align: center;
+
+  :hover {
+    color: #f6651e;
+  }
+`;
+
+export const AddressAddButton = styled.button`
+  width: 100px;
+  height: 30px;
+  font-size: 1rem;
+`;

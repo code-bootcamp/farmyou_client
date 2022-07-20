@@ -2,10 +2,23 @@ import InputComponent from "../../../commons/inputs";
 import * as S from "./payment.styles";
 import { IPaymentUIProps } from "./payment.types";
 import { v4 as uuidv4 } from "uuid";
+import Head from "next/head";
 
 export default function PaymentUI(props: IPaymentUIProps) {
   return (
     <>
+      <Head>
+        {/* <!-- jQuery --> */}
+        <script
+          type="text/javascript"
+          src="https://code.jquery.com/jquery-1.12.4.min.js"
+        ></script>
+        {/* <!-- iamport.payment.js --> */}
+        <script
+          type="text/javascript"
+          src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"
+        ></script>
+      </Head>
       <S.Header>주문 / 결제</S.Header>
       <S.Wrapper>
         <S.PayWrapper>
@@ -15,39 +28,48 @@ export default function PaymentUI(props: IPaymentUIProps) {
             <S.InputWrapper>
               <S.Text>이메일</S.Text>
               <S.ComponentWrapper>
-                <InputComponent placeholder="이메일을 입력해주세요." />
+                <InputComponent
+                  placeholder="이메일을 입력해주세요."
+                  register={props.register("email")}
+                />
               </S.ComponentWrapper>
             </S.InputWrapper>
             <S.InputWrapper>
               <S.Text>이름</S.Text>
               <S.ComponentWrapper>
-                <InputComponent placeholder="이름을 입력해주세요." />
+                <InputComponent
+                  placeholder="이름을 입력해주세요."
+                  register={props.register("name")}
+                />
               </S.ComponentWrapper>
             </S.InputWrapper>
             <S.InputWrapper>
               <S.Text>휴대전화</S.Text>
               <S.ComponentWrapper>
-                <InputComponent placeholder="" />
+                <InputComponent
+                  placeholder=""
+                  register={props.register("phone")}
+                />
               </S.ComponentWrapper>
             </S.InputWrapper>
             <S.Title>배송지</S.Title>
             <S.DivideLine />
             <S.InputWrapper>
-              <S.Text>배송지명</S.Text>
-              <S.ComponentWrapper>
-                <InputComponent placeholder="" />
-              </S.ComponentWrapper>
-            </S.InputWrapper>
-            <S.InputWrapper>
               <S.Text>받는사람</S.Text>
               <S.ComponentWrapper>
-                <InputComponent placeholder="" />
+                <InputComponent
+                  placeholder=""
+                  register={props.register("receiverName")}
+                />
               </S.ComponentWrapper>
             </S.InputWrapper>
             <S.InputWrapper>
               <S.Text>휴대전화</S.Text>
               <S.ComponentWrapper>
-                <InputComponent placeholder="" />
+                <InputComponent
+                  placeholder=""
+                  register={props.register("receiverPhone")}
+                />
               </S.ComponentWrapper>
             </S.InputWrapper>
             <S.InputWrapper>
@@ -56,15 +78,26 @@ export default function PaymentUI(props: IPaymentUIProps) {
               </S.Text>
               <S.AddressWrapper>
                 <S.ComponentWrapper>
-                  <InputComponent placeholder="00000" />
+                  <InputComponent
+                    placeholder="00000"
+                    register={props.register("receiverPostalCode")}
+                  />
                   <S.Text>{"       "}</S.Text>
-                  <S.AddressSearchBtn>우편번호 검색</S.AddressSearchBtn>
+                  <S.AddressSearchBtn onClick={props.toggleModal}>
+                    주소찾기
+                  </S.AddressSearchBtn>
                 </S.ComponentWrapper>
                 <S.ComponentWrapper>
-                  <InputComponent placeholder="" />
+                  <InputComponent
+                    placeholder=""
+                    register={props.register("receiverAddress")}
+                  />
                 </S.ComponentWrapper>
                 <S.ComponentWrapper>
-                  <InputComponent placeholder="" />
+                  <InputComponent
+                    placeholder=""
+                    register={props.register("receiverAddressDetail")}
+                  />
                 </S.ComponentWrapper>
               </S.AddressWrapper>
             </S.InputWrapper>
@@ -109,16 +142,29 @@ export default function PaymentUI(props: IPaymentUIProps) {
               <S.BasketTotalPriceWrapper style={{ fontWeight: "bold" }}>
                 <S.BasketName>총 결제금액</S.BasketName>
                 <S.BasketPrice style={{ color: "red" }}>
-                  {(props.localPrice + props.bPrice).toLocaleString()}원
+                  {(props.isCart === "cart"
+                    ? props.localPrice + props.bPrice
+                    : props.payProduct.price * props.payProduct.count
+                  ).toLocaleString()}
+                  원
                 </S.BasketPrice>
               </S.BasketTotalPriceWrapper>
-              <S.CheckBox>아래 내용에 모두 동의합니다.(필수)</S.CheckBox>
+              <S.CheckBox onChange={props.onChangeCheckBox}>
+                아래 내용에 모두 동의합니다.(필수)
+              </S.CheckBox>
             </S.PayBoxWrapper>
             <S.PayBoxWarningWrapper>
               본인은 만 14세 이상이며, 주문 내용을 모두 확인하였습니다.
             </S.PayBoxWarningWrapper>
-            <S.PayOrCancelBtn style={{ backgroundColor: "red" }}>
-              {(props.localPrice + props.bPrice).toLocaleString()}원 결제하기
+            <S.PayOrCancelBtn
+              onClick={props.requestPay}
+              style={{ backgroundColor: "red" }}
+            >
+              {(props.isCart === "cart"
+                ? props.localPrice + props.bPrice
+                : props.payProduct.price * props.payProduct.count
+              ).toLocaleString()}
+              원 결제하기
             </S.PayOrCancelBtn>
             <S.PayOrCancelBtn style={{ backgroundColor: "#bdbdbd" }}>
               이전으로
@@ -133,7 +179,6 @@ export default function PaymentUI(props: IPaymentUIProps) {
               {props.localfoodBaskets.map((el: any, index: number) => {
                 return (
                   <S.BasketItemWrapper key={uuidv4()}>
-                    {console.log(el)}
                     <S.BasketItemImage src="" />
                     <S.BasketItemTextWrapper>
                       <S.BasketItemName>{el.title}</S.BasketItemName>
@@ -187,6 +232,37 @@ export default function PaymentUI(props: IPaymentUIProps) {
           </S.BasketWrapper>
         )}
       </S.Wrapper>
+
+      {props.isVisible && (
+        <S.CustomModal>
+          <S.ModalWrapper>
+            {props.data?.fetchAddressesOfTheUser.map((el) => {
+              return (
+                <S.AddressListWrapper key={uuidv4()}>
+                  <S.AddressListMain>
+                    {el.isMain && "기본배송지"}
+                  </S.AddressListMain>
+                  <S.AddressListAddress>
+                    <div style={{ color: "#BDBDBD" }}>{el.postalCode}</div>
+                    <div>{el.address}</div>
+                    <div>{el.detailedAddress}</div>
+                  </S.AddressListAddress>
+                  <S.AddressListCheck
+                    onClick={props.onClickMainAddressSetting(el)}
+                  >
+                    {" "}
+                    선택
+                  </S.AddressListCheck>
+                </S.AddressListWrapper>
+              );
+            })}
+            <S.CancelButton
+              src="/icons/delete.svg"
+              onClick={props.onClickModalCancel}
+            />
+          </S.ModalWrapper>
+        </S.CustomModal>
+      )}
     </>
   );
 }
