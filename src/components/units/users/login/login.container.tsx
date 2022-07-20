@@ -8,7 +8,9 @@ import { TokenState } from "../../../commons/store";
 import LoginUI from "./login.presenter";
 import { LOG_IN_SELLER, LOG_IN_USER } from "./login.queries";
 import { IData } from "./login.types";
-
+declare const window: typeof globalThis & {
+  kakao: any;
+};
 export default function Login() {
   const [token, setToken] = useRecoilState(TokenState);
   const [loginUser] = useMutation(LOG_IN_USER);
@@ -18,6 +20,10 @@ export default function Login() {
   const { handleSubmit, register } = useForm({
     mode: "onChange",
   });
+  // 소셜로그인
+  const onClickKakao = () => {
+    window.kakao.Auth.authorize();
+  };
 
   const onClickSellerLogin = async (data: IData) => {
     if (isUser === "") {
