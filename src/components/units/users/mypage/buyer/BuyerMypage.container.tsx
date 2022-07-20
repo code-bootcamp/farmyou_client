@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, MouseEvent, useRef, useState } from "react";
 import {
   ASSIGN_MAIN,
   CHECK_IF_LOGGED_USER,
@@ -14,6 +14,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Modal } from "antd";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 
 export default function BuyerMypage() {
   const schema = yup.object({
@@ -31,6 +32,7 @@ export default function BuyerMypage() {
     resolver: yupResolver(schema),
     mode: "onChange",
   });
+  const router = useRouter();
   const [isUserVisible, setIsUserVisible] = useState(false);
   const [isEditVisible, setIsEditVisible] = useState(false);
   const [password, setPassword] = useState("");
@@ -41,6 +43,8 @@ export default function BuyerMypage() {
   const [assignMain] = useMutation(ASSIGN_MAIN);
   const [deleteAddress] = useMutation(DELETE_ADDRESS);
   const [checkIfLoggedUser] = useMutation(CHECK_IF_LOGGED_USER);
+  const [isSelect, setIsSelect] = useState(true);
+  const trackingRef = useRef<HTMLFormElement>();
 
   const { data: userData } = useQuery(FETCH_USER_LOGGED_IN);
   // console.log(userData.fetchUserLoggedIn.id);
@@ -49,6 +53,29 @@ export default function BuyerMypage() {
       userId: userData?.fetchUserLoggedIn.id,
     },
   });
+
+  const onClickLocalList = () => {
+    setIsSelect(true);
+  };
+
+  const onClickBfoodList = () => {
+    setIsSelect(false);
+    setError("");
+  };
+
+  const onClickLocalDetail = (event: MouseEvent<HTMLDivElement>) => {
+    router.push(`/localfood/${event.currentTarget.id}`);
+  };
+
+  const onClickBfoodDetail = (event: MouseEvent<HTMLDivElement>) => {
+    router.push(`/bfood/${event.currentTarget.id}`);
+  };
+
+  const onClickPostTracking = () => {
+    trackingRef.current?.click();
+    console.log(trackingRef);
+  };
+
   // password
   const showPasswordModal = () => {
     setIsUserVisible(true);
@@ -164,6 +191,13 @@ export default function BuyerMypage() {
   };
   return (
     <BuyerMypageUI
+      isSelect={isSelect}
+      onClickLocalList={onClickLocalList}
+      onClickBfoodList={onClickBfoodList}
+      onClickLocalDetail={onClickLocalDetail}
+      onClickBfoodDetail={onClickBfoodDetail}
+      onClickPostTracking={onClickPostTracking}
+      trackingRef={trackingRef}
       showEditModal={showEditModal}
       showPasswordModal={showPasswordModal}
       isUserVisible={isUserVisible}
