@@ -12,17 +12,21 @@ export default function BfoodListUI(props: IBfoodListUIProps) {
           <Select
             defaultValue="최신순"
             style={{ width: 150 }}
-            // onChange={handleChange}
+            onChange={props.onChangeSorted}
           >
             <Option value="최신순">최신순</Option>
             <Option value="높은가격순">높은가격순</Option>
             <Option value="낮은가격순">낮은가격순</Option>
-            <Option value="판매량순">판매량순</Option>
+            {/* <Option value="판매량순">판매량순</Option> */}
           </Select>
-          <S.SearchInput placeholder="검색어를 입력해주세요." />
+          <S.SearchInput
+            placeholder="검색어를 입력해주세요."
+            onChange={props.onChangeSearch}
+            value={props.text}
+          />
         </S.SearchWrapper>
         <S.ItemWrapper>
-          {props.data?.fetchUglyProducts.map((el: any) => {
+          {props.data?.fetchUglyProductsSortedByTitle.map((el: any) => {
             return <ListItem key={el.id} el={el} drag={props.drag} />;
           })}
         </S.ItemWrapper>
