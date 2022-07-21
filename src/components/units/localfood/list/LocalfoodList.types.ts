@@ -1,8 +1,11 @@
+import { ChangeEvent } from "react";
+
 export interface ILocalfoodListUIProps {
   onClickAll: (event: any) => void;
   onClickCategory: (event: any) => void;
-  allData: any;
-  categoryData: any;
-  isCategory: boolean;
+  data: any;
   drag: (event: any) => void;
+  onChangeSorted: (event: any) => void;
+  onChangeSearch: (event: ChangeEvent<HTMLInputElement>) => void;
+  text: string;
 }

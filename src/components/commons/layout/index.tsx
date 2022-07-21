@@ -21,8 +21,8 @@ interface ILayoutProps {
 const HIDDEN_HEADERS = ["/users/login", "/users/signup"];
 // const SHOW_BANNERS = ["/localfood", "/bfood"];
 const HIDDEN_FOOTERS = [
-  "/localfood",
-  "/bfood",
+  // "/localfood",
+  // "/bfood",
   "/users/login",
   "/users/signup",
 ];

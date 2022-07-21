@@ -7,6 +7,7 @@ export const OutLine = styled.div`
 
 export const Wrapper = styled.div`
   width: 80%;
+  max-width: 1000px;
   margin: 0px auto;
 
   @media (max-width: 689px) {
