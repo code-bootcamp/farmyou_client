@@ -25,6 +25,14 @@ export default function Detail(props: IDetailProps) {
 
   // 장바구니 기능
   const onClickBasketsButton = () => {
+    // buyQuantity가 0이면 장바구니 코드 실행 막기
+    if (buyQuantity === 0) {
+      Modal.error({
+        content: "구매 수량을 입력해주세요.",
+      });
+      return;
+    }
+
     // 1.기존 장바구니 가져오기
     const baskets = JSON.parse(
       localStorage.getItem(
