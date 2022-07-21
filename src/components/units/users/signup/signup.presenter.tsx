@@ -1,4 +1,7 @@
 import { Modal } from "antd";
+import { useCallback, useEffect, useMemo } from "react";
+
+import Countdown, { zeroPad } from "react-countdown";
 import DaumPostcodeEmbed from "react-daum-postcode";
 import ButtonComponent from "../../../commons/buttons";
 import InputComponent from "../../../commons/inputs";
@@ -101,20 +104,42 @@ export default function SignupUI(props: IPropsSignUp) {
             <S.PhoneWrapper>
               <InputComponent
                 placeholder="-을 제외하고 입력해 주세요"
-                register={props.register("phone")}
+                onChange={props.onChangePhone}
               />
             </S.PhoneWrapper>
           </S.InputWrapper>
           <S.InputWrapper>
             <S.Text></S.Text>
             <S.PhoneAgreementWrapper>
-              <InputComponent placeholder="인증번호 입력" />
-              <S.Text style={{ justifyContent: "center", paddingLeft: "10px" }}>
-                03:00
-              </S.Text>
-              <S.PhoneAgreementButton type="button">
-                인증번호 전송
-              </S.PhoneAgreementButton>
+              <InputComponent
+                placeholder="인증번호 입력"
+                onChange={props.onChangeToken}
+              />
+              <S.Text
+                style={{ justifyContent: "center", paddingLeft: "10px" }}
+              >{`${String(props.minutes).padStart(2, "0")} : ${String(
+                props.seconds
+              ).padStart(2, "0")}`}</S.Text>
+              {props.isCheck ? (
+                <S.PhoneAgreementButton
+                  type="button"
+                  disabled
+                  style={{ backgroundColor: "#f5561e", color: "#fff" }}
+                >
+                  인증완료
+                </S.PhoneAgreementButton>
+              ) : (
+                <S.PhoneAgreementButton
+                  type="button"
+                  onClick={
+                    props.isStart
+                      ? props.onClickSubmitToken
+                      : props.onClickCheckPhone
+                  }
+                >
+                  인증번호 {props.isStart ? "확인" : "전송"}
+                </S.PhoneAgreementButton>
+              )}
             </S.PhoneAgreementWrapper>
           </S.InputWrapper>
           <S.SubmitWrapper>

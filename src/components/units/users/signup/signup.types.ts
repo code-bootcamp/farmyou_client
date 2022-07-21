@@ -1,3 +1,6 @@
+import { jsx } from "@emotion/react";
+import { ChangeEvent, LegacyRef, MutableRefObject } from "react";
+import Countdown from "react-countdown";
 import {
   FieldValues,
   FormState,
@@ -17,5 +20,13 @@ export interface IPropsSignUp {
   formState: FormState<FieldValues>;
   onClickCreateUser: (data: any) => void;
   onClickCreateSeller: (data: any) => void;
+  onClickCheckPhone: () => void;
+  onClickSubmitToken: () => void;
+  onChangePhone: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeToken: (event: ChangeEvent<HTMLInputElement>) => void;
   isSeller: boolean;
+  isStart: boolean;
+  isCheck: boolean;
+  minutes: number;
+  seconds: number;
 }

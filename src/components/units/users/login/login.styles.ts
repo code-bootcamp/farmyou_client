@@ -12,6 +12,24 @@ export const Wrapper = styled.form`
     width: 100%;
   }
 `;
+
+export const Button = styled.button`
+  margin-left: 10px;
+  width: 85px;
+  height: 35px;
+  background-color: #fff;
+  border: 1px solid #f5561e;
+  border-radius: 5px;
+  color: #f5561e;
+  &:hover {
+    background-color: #f5561e;
+    color: #fff;
+  }
+`;
+export const FootWrapper = styled.div`
+  width: 100%;
+  padding-right: 9px;
+`;
 export const DivideLine = styled.div`
   width: 100%;
   border-top: 1px solid #f6651e;
@@ -30,6 +48,98 @@ export const LoginWrapper = styled.div`
   @media (max-width: 575px) {
     width: 100%;
   }
+`;
+export const FindPwd = styled.div`
+  width: 100%;
+  text-align: right;
+  color: #bdbdbd;
+  font-size: 0.5rem;
+  cursor: pointer;
+`;
+
+export const EmailWrapper = styled.div`
+  margin-top: 10px;
+`;
+export const EmailInput = styled.input`
+  width: 100%;
+  height: 40px;
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  &:focus {
+    outline-color: #f5561e;
+  }
+`;
+export const PhoneWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px 0px;
+`;
+export const PhoneInput = styled.input`
+  width: 80%;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #bdbdbd;
+  &:focus {
+    outline-color: #f5561e;
+  }
+`;
+export const PhoneButton = styled.button`
+  background-color: #fff;
+  border: 1px solid #f5561e;
+  border-radius: 9px;
+  color: #f5561e;
+  &:hover {
+    background-color: #f5561e;
+    color: #fff;
+  }
+`;
+export const TokenWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+export const PhoneToken = styled.input`
+  width: 80%;
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  &:focus {
+    outline-color: #f5561e;
+  }
+`;
+export const TokenCheckBtn = styled.button`
+  border: 1px solid #f5561e;
+  border-radius: 9px;
+  background-color: #fff;
+  color: #f5561e;
+  height: 40px;
+  &:hover {
+    background-color: #f5561e;
+    color: #fff;
+  }
+`;
+export const Contents = styled.div`
+  font-size: 1.5rem;
+  font-weight: 700;
+`;
+
+export const PwdWrapper = styled.form`
+  width: 100%;
+`;
+export const PwdInput = styled.input`
+  width: 80%;
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  &:focus {
+    outline-color: #f5561e;
+  }
+`;
+export const PwdErr = styled.div`
+  width: 100%;
+  color: red;
+  font-size: 0.5rem;
 `;
 
 export const Text = styled.div`

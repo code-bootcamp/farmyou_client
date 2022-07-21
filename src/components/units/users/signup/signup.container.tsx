@@ -1,44 +1,111 @@
 /* eslint-disable no-unused-expressions */
-import { useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import SignupUI from "./signup.presenter";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
-import { CREATE_SELLER, CREATE_USER } from "./signup.queries";
+import {
+  CHECK_TOKEN,
+  CREATE_SELLER,
+  CREATE_USER,
+  SEND_TOKEN,
+} from "./signup.queries";
+
 export default function Signup(props: any) {
   const router = useRouter();
   const [isModal, setIsModal] = useState(false);
   const [postalCode, setPostalCode] = useState("");
   const [address, setAddress] = useState("");
   const [detailedAddress, setDetailedAddress] = useState("");
-  const [timer, setTimer] = useState();
+  const [isStart, setIsStart] = useState(false);
   const [createUser] = useMutation(CREATE_USER);
   const [createSeller] = useMutation(CREATE_SELLER);
 
-  // interface IData {
-  //   email: string;
-  //   name: string;
-  //   password: string;
-  //   addressUser: {
-  //     address: string;
-  //     detailedAddress: string;
-  //     postalCode: string;
-  //   };
-  // }
+  // 타이머
+  const [minutes, setMinutes] = useState(3);
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    if (isStart === false) return;
+    const countdown = setInterval(() => {
+      if (parseInt(seconds) > 0) {
+        setSeconds(parseInt(seconds) - 1);
+      }
+      if (parseInt(seconds) === 0) {
+        if (parseInt(minutes) === 0) {
+          clearInterval(countdown);
+        } else {
+          setMinutes(parseInt(minutes) - 1);
+          setSeconds(59);
+        }
+      }
+    }, 1000);
+    return () => clearInterval(countdown);
+  }, [minutes, seconds, isStart]);
+
+  // 핸드폰 번호 인증
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [tokenSave, setTokenSave] = useState("");
+  const [sendToken] = useMutation(SEND_TOKEN);
+  const [checkToken] = useMutation(CHECK_TOKEN);
+  const [isCheck, setIsCheck] = useState(false);
+  const onChangePhone = (event: ChangeEvent<HTMLInputElement>) => {
+    setPhoneNumber(event.target.value);
+    console.log(phoneNumber);
+  };
+  const onChangeToken = (event: ChangeEvent<HTMLInputElement>) => {
+    setTokenSave(event.target.value);
+  };
+
+  const onClickSubmitToken = async () => {
+    try {
+      setIsStart((prev) => !prev);
+      const tokenCheck = await checkToken({
+        variables: {
+          phone: phoneNumber,
+          token: tokenSave,
+        },
+      });
+      setIsCheck((prev) => !prev);
+      console.log(tokenCheck);
+    } catch (e: any) {
+      alert(e.message);
+    }
+  };
+  const onClickCheckPhone = async () => {
+    try {
+      if (phoneNumber === "" || phoneNumber.includes("-") === true) {
+        alert("핸드폰 번호를 입력해주세요");
+        return;
+      }
+      setIsStart((prev) => !prev);
+      const phoneToken = await sendToken({
+        variables: {
+          phone: phoneNumber,
+        },
+      });
+      console.log(phoneToken);
+    } catch (e: any) {
+      alert(e.message);
+    }
+  };
+  // 회원가입
   const onClickCreateUser = async (data: any) => {
+    if (!isCheck) return;
+
     try {
       const result = await createUser({
         variables: {
           email: data.email,
           name: data.name,
           password: data.password,
-          phone: data.phone,
+          phone: String(data.phone),
           addressUser: {
-            address,
-            detailedAddress,
-            postalCode,
+            address: data.address,
+            detailedAddress: data.detailedAddress,
+            postalCode: data.postalCode,
           },
         },
       });
@@ -50,6 +117,7 @@ export default function Signup(props: any) {
   };
 
   const onClickCreateSeller = async (data: any) => {
+    if (!isCheck) return;
     try {
       const resultSeller = await createSeller({
         variables: {
@@ -127,6 +195,7 @@ export default function Signup(props: any) {
 
   return (
     <SignupUI
+      isStart={isStart}
       isSeller={props.isSeller}
       handleSubmit={handleSubmit}
       register={register}
@@ -139,6 +208,13 @@ export default function Signup(props: any) {
       onClickMove={onClickMove}
       formState={formState}
       onClickCreateSeller={onClickCreateSeller}
+      onClickCheckPhone={onClickCheckPhone}
+      onClickSubmitToken={onClickSubmitToken}
+      onChangePhone={onChangePhone}
+      onChangeToken={onChangeToken}
+      minutes={minutes}
+      seconds={seconds}
+      isCheck={isCheck}
     />
   );
 }

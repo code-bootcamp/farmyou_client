@@ -1,30 +1,158 @@
-import { useMutation } from "@apollo/client";
-import { RadioChangeEvent } from "antd";
+/* eslint-disable no-unused-expressions */
+import { useMutation, useQuery } from "@apollo/client";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Modal, RadioChangeEvent } from "antd";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import { TokenState } from "../../../commons/store";
 import LoginUI from "./login.presenter";
-import { LOG_IN_SELLER, LOG_IN_USER } from "./login.queries";
-import { IData } from "./login.types";
-declare const window: typeof globalThis & {
-  kakao: any;
-};
+import {
+  CHECK_TOKEN,
+  FETCH_USER_BY_EMAIL,
+  LOG_IN_SELLER,
+  LOG_IN_USER,
+  SEND_TOKEN,
+  UPDATE_SELLER_PASSWORD,
+  UPDATE_USER_PASSWORD,
+} from "./login.queries";
+import { IData, IDataChange } from "./login.types";
+import * as yup from "yup";
+
 export default function Login() {
   const [token, setToken] = useRecoilState(TokenState);
+  const [isCheck, setIsCheck] = useState(false);
   const [loginUser] = useMutation(LOG_IN_USER);
   const [loginSeller] = useMutation(LOG_IN_SELLER);
   const [isUser, setIsUser] = useState("");
+  const [isModal, setIsModal] = useState(false);
+  const [isModal2, setIsModal2] = useState(false);
   const router = useRouter();
-  const { handleSubmit, register } = useForm({
+
+  const schema = yup.object({
+    password: yup
+      .string()
+      .max(15, "최대 15자 입니다.")
+      .matches(
+        /^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
+        "영문,숫자,특수문자를 포함해야합니다."
+      )
+      .required(),
+  });
+  const { handleSubmit, register, formState } = useForm({
+    resolver: yupResolver(schema),
     mode: "onChange",
   });
-  // 소셜로그인
-  const onClickKakao = () => {
-    window.kakao.Auth.authorize();
+
+  // 비밀번호 찾기
+  const onClickModal = () => {
+    setIsModal((prev) => !prev);
+  };
+  const handleOk = () => {
+    if (userType === "") {
+      Modal.error({ content: "이메일이 존재하지 않습니다" });
+      return;
+    }
+    if (isCheck === false) {
+      Modal.error({ content: "인증을 진행해주세요" });
+      return;
+    }
+    setIsModal2(true); // 퍼블리싱 완료후 최하단으로 이동
+    setIsModal((prev) => !prev);
+  };
+  const handleCancel = () => {
+    setIsModal((prev) => !prev);
+  };
+  // 모달2
+  const handleOk2 = () => {
+    setIsModal((prev) => !prev);
+  };
+  const handleCancel2 = () => {
+    setIsModal2((prev) => !prev);
+  };
+  const [updateUserPassword] = useMutation(UPDATE_USER_PASSWORD);
+  const [updateSellerPassword] = useMutation(UPDATE_SELLER_PASSWORD);
+  const onSubmitChangeUser = async (data: IDataChange) => {
+    try {
+      const userPwd = await updateUserPassword({
+        variables: {
+          email,
+          newPassword: data.password,
+        },
+      });
+      alert(
+        userPwd.data?.updateUserPassword.name +
+          "님의 비밀번호가 변경되었습니다."
+      );
+    } catch (e: any) {
+      alert(e.message);
+    }
+  };
+  const onSubmitChangeSeller = async (data: IDataChange) => {
+    try {
+      const sellerPwd = await updateSellerPassword({
+        variables: {
+          email,
+          newPassword: data.password,
+        },
+      });
+      alert(sellerPwd.data?.updateSellerPassword.name);
+    } catch (e: any) {
+      alert(e.message);
+    }
   };
 
+  // 인증하기
+  const [email, setEmail] = useState("");
+  const [userType, setUserType] = useState("");
+  const [sendToken] = useMutation(SEND_TOKEN);
+  const [checkToken] = useMutation(CHECK_TOKEN);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [tokenSave, setTokenSave] = useState("");
+  const onChangePhone = (event: ChangeEvent<HTMLInputElement>) => {
+    setPhoneNumber(event.target.value);
+  };
+
+  const onChangeToken = (event: ChangeEvent<HTMLInputElement>) => {
+    setTokenSave(event.target.value);
+  };
+  const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+  const onClickSend = async () => {
+    if (phoneNumber === "" || phoneNumber.includes("-") === true) return;
+    try {
+      const { data } = useQuery(FETCH_USER_BY_EMAIL, {
+        variables: {
+          email,
+        },
+      });
+      setUserType(data?.fetchUserByEmail.type);
+      const send = await sendToken({
+        variables: {
+          phone: phoneNumber,
+        },
+      });
+      console.log(send);
+    } catch (e: any) {
+      Modal.success({ content: e.message });
+    }
+  };
+  const onClickCheck = async () => {
+    try {
+      const Check = await checkToken({
+        variables: {
+          phone: phoneNumber,
+          token: tokenSave,
+        },
+      });
+      Modal.success({ content: Check.data?.checkToken });
+      setIsCheck(true);
+    } catch (e: any) {
+      Modal.error({ content: e.message });
+    }
+  };
   const onClickSellerLogin = async (data: IData) => {
     if (isUser === "") {
       alert("체크박스를 체크해주세요");
@@ -69,8 +197,20 @@ export default function Login() {
   const onChangeAuth = (event: RadioChangeEvent) => {
     setIsUser(event.target.value);
   };
+  formState.isValid;
   return (
     <LoginUI
+      onSubmitChangeUser={onSubmitChangeUser}
+      onSubmitChangeSeller={onSubmitChangeSeller}
+      onChangePhone={onChangePhone}
+      onChangeToken={onChangeToken}
+      onChangeEmail={onChangeEmail}
+      onClickSend={onClickSend}
+      onClickCheck={onClickCheck}
+      isModal={isModal}
+      isModal2={isModal2}
+      isCheck={isCheck}
+      onClickModal={onClickModal}
       onClickLogin={onClickLogin}
       handleSubmit={handleSubmit}
       onClickSellerLogin={onClickSellerLogin}
@@ -78,6 +218,12 @@ export default function Login() {
       onClickMove={onClickMove}
       onChangeAuth={onChangeAuth}
       isUser={isUser}
+      handleOk={handleOk}
+      handleCancel={handleCancel}
+      handleOk2={handleOk2}
+      handleCancel2={handleCancel2}
+      formState={formState}
+      userType={userType}
     />
   );
 }
