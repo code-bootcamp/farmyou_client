@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import PaymentUI from "./payment.presenter";
 import {
-  BUY_PRODUCT,
+  // BUY_PRODUCT,
   CREATE_ADDRESS,
   CREATE_PAYMENT,
   FETCH_ADDRESSES_OF_THE_USER,
@@ -83,7 +83,7 @@ export default function Payment(props: IPaymentProps) {
 
   const [createPayment] = useMutation(CREATE_PAYMENT);
   const [createAddress] = useMutation(CREATE_ADDRESS);
-  const [buyProduct] = useMutation(BUY_PRODUCT);
+  // const [buyProduct] = useMutation(BUY_PRODUCT);
 
   const { data, refetch } = useQuery(FETCH_ADDRESSES_OF_THE_USER, {
     variables: {
@@ -195,13 +195,13 @@ export default function Payment(props: IPaymentProps) {
                   quantity: el.count,
                 },
               });
-              await buyProduct({
-                variables: {
-                  productType: "UGLY_PRODUCT",
-                  productId: el.id,
-                  quantity: el.count,
-                },
-              });
+              // await buyProduct({
+              //   variables: {
+              //     productType: "UGLY_PRODUCT",
+              //     productId: el.id,
+              //     quantity: el.count,
+              //   },
+              // });
             });
             // localStorage.removeItem("bfoodBaskets");
             localfoodBaskets.map(async (el: IBaskets) => {
@@ -214,13 +214,13 @@ export default function Payment(props: IPaymentProps) {
                   quantity: el.count,
                 },
               });
-              await buyProduct({
-                variables: {
-                  productType: "DIRECT_PRODUCT",
-                  productId: el.id,
-                  quantity: el.count,
-                },
-              });
+              // await buyProduct({
+              //   variables: {
+              //     productType: "DIRECT_PRODUCT",
+              //     productId: el.id,
+              //     quantity: el.count,
+              //   },
+              // });
             });
             // localStorage.removeItem("localfoodBaskets")
           } else {
@@ -234,14 +234,15 @@ export default function Payment(props: IPaymentProps) {
                 quantity: payProduct.count,
               },
             });
-            await buyProduct({
-              variables: {
-                productType:
-                  isCart === "bfood" ? "UGLY_PRODUCT" : "DIRECT_PRODUCT",
-                productId: payProduct.id,
-                quantity: payProduct.count,
-              },
-            });
+            // createPayment api안에서 buyProduct api가 다시 실행되는 것을 확인.
+            // await buyProduct({
+            //   variables: {
+            //     productType:
+            //       isCart === "bfood" ? "UGLY_PRODUCT" : "DIRECT_PRODUCT",
+            //     productId: payProduct.id,
+            //     quantity: payProduct.count,
+            //   },
+            // });
           }
           // router.push("/users/mypage");
           alert("결제성공");
