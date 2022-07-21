@@ -1,5 +1,6 @@
 import ButtonComponent from "../../../../commons/buttons";
 import InputComponent from "../../../../commons/inputs";
+import { getDate } from "../../../../commons/lib/utils";
 import * as S from "./SellerMypage.styles";
 import { ISellerMypageUiProps } from "./SellerMypage.types";
 export default function SellerMypageUI(props: ISellerMypageUiProps) {
@@ -10,7 +11,9 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
           <S.InfoWrapper>
             <S.InfoProfile>
               <S.ProfileImage />
-              <S.ProfileName>홍길동</S.ProfileName>
+              <S.ProfileName>
+                {props.userData.fetchUserLoggedIn.name}
+              </S.ProfileName>
               <S.FunctionWrapper>
                 <S.Function>로그아웃</S.Function>
                 <S.LengthDivideLine />
@@ -27,7 +30,12 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
                     <S.OrderCheckBoxIcon src="/icons/product_board.svg" />
                   </S.BoxIcons>
                   <S.BoxTitle>상품게시글</S.BoxTitle>
-                  <S.Count>3</S.Count>
+                  <S.Count>
+                    {
+                      props.fetchUglyProductsBySellerData
+                        ?.fetchUglyProductsBySeller?.length
+                    }
+                  </S.Count>
                 </S.Box>
                 <S.LengthDivideLine />
                 <S.Box>
@@ -35,7 +43,7 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
                     <S.SellBoxIcon src="/icons/sell.svg" />
                   </S.BoxIcons>
                   <S.BoxTitle>판매량</S.BoxTitle>
-                  <S.Count>1</S.Count>
+                  <S.Count>0</S.Count>
                 </S.Box>
                 <S.LengthDivideLine></S.LengthDivideLine>
                 <S.Box>
@@ -58,31 +66,29 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
               </S.SelectLocalFood>
             </S.SelectListWrapper>
             <S.ListItemWrapper>
-              {new Array(2).fill(1).map((_, index) => {
-                return (
-                  <S.ListItem key={index}>
-                    <S.ItemImg></S.ItemImg>
-                    <S.ItemInfoWrapper>
-                      <S.ItemTitle>달달한 충주 사과 1kg</S.ItemTitle>
-                      <S.ItemPrice>99000원</S.ItemPrice>
-                      <S.ItemCreateDate>2022.10.23</S.ItemCreateDate>
-                    </S.ItemInfoWrapper>
-                    {/* <S.LengthDivideLine /> */}
-                    <S.ItemSubInfoWrapper>
-                      {/* <S.ReturnButton>취소요청</S.ReturnButton> */}
-                    </S.ItemSubInfoWrapper>
-                    <S.ItemSubInfoWrapper>
-                      <S.SellerName>필요한 내용으로 수정 필요</S.SellerName>
-                      <S.SellerPhoneNum>수정</S.SellerPhoneNum>
-                    </S.ItemSubInfoWrapper>
-                  </S.ListItem>
-                );
-              })}
-              <S.MoreItem>+</S.MoreItem>
+              {props.fetchUglyProductsBySellerData?.fetchUglyProductsBySeller
+                ?.slice(0, props.sliceNumber)
+                .map((el, index) => {
+                  return (
+                    <S.ListItem key={index}>
+                      <S.ItemImg></S.ItemImg>
+                      <S.ItemInfoWrapper>
+                        <S.ItemTitle>{el.title}</S.ItemTitle>
+                        <S.ItemPrice>{el.price.toLocaleString()}원</S.ItemPrice>
+                        <S.ItemCreateDate>
+                          {getDate(el.createdAt)}
+                        </S.ItemCreateDate>
+                      </S.ItemInfoWrapper>
+                      <S.ItemSubInfoWrapper>
+                        <S.SellerName>수정</S.SellerName>
+                      </S.ItemSubInfoWrapper>
+                    </S.ListItem>
+                  );
+                })}
+              <S.MoreItem onClick={props.onClickFetchMore}>더보기</S.MoreItem>
             </S.ListItemWrapper>
           </S.ListWrapper>
         </S.Body>
-        {/* <Tracking></Tracking> */}
       </S.Wrapper>
       {props.isUserVisible && (
         <S.Model>

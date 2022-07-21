@@ -277,9 +277,11 @@ export const SellerPhoneNum = styled.div`
 `;
 export const MoreItem = styled.div`
   width: 100%;
+  height: 60px;
   border: 1px solid #ccc;
-  font-size: 2rem;
-  text-align: center;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: center;
   align-items: center;
   margin-bottom: 50px;
 `;

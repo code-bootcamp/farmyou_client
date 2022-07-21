@@ -225,14 +225,15 @@ export const ListItem = styled.div`
 export const ItemImg = styled.div`
   width: 50px;
   height: 50px;
+  margin-right: 3vw;
+
   background-color: rebeccapurple;
 `;
 
 export const ItemInfoWrapper = styled.div`
   position: relative;
-  width: 45%;
+  width: 63%;
   height: 100%;
-  margin-left: 3vw;
   padding: 0.5vw 0px;
   display: flex;
   flex-direction: column;
@@ -269,6 +270,10 @@ export const ItemSubInfoWrapper = styled.div`
 `;
 export const SellerName = styled.div`
   font-size: 0.9rem;
+  cursor: pointer;
+  :hover {
+    color: #f6651e;
+  }
 `;
 
 export const SellerPhoneNum = styled.div`
@@ -277,8 +282,9 @@ export const SellerPhoneNum = styled.div`
 export const MoreItem = styled.div`
   width: 100%;
   border: 1px solid #ccc;
-  font-size: 2rem;
-  text-align: center;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: center;
   align-items: center;
   margin-bottom: 50px;
 `;

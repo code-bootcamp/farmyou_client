@@ -51,3 +51,14 @@ export const UPDATE_SELLER = gql`
     }
   }
 `;
+
+export const FETCH_UGLY_PRODUCTS_BY_SELLER = gql`
+  query fetchUglyProductsBySeller {
+    fetchUglyProductsBySeller {
+      id
+      title
+      price
+      createdAt
+    }
+  }
+`;

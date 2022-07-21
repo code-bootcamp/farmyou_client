@@ -3,6 +3,8 @@ import InputComponent from "../../../../commons/inputs";
 import * as S from "./BuyerMypage.styles";
 import { IBuyerMypageUIProps } from "./BuyerMypage.types";
 import Tracking from "./tracking";
+import { v4 as uuidv4 } from "uuid";
+import { getDate } from "../../../../commons/lib/utils";
 export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
   return (
     <>
@@ -11,7 +13,9 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
           <S.InfoWrapper>
             <S.InfoProfile>
               <S.ProfileImage />
-              <S.ProfileName>홍길동</S.ProfileName>
+              <S.ProfileName>
+                {props.userData?.fetchUserLoggedIn.name}
+              </S.ProfileName>
               <S.FunctionWrapper>
                 <S.Function>로그아웃</S.Function>
                 <S.LengthDivideLine />
@@ -35,18 +39,18 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                     <S.DeliveryBoxIcon src="/icons/mypage/delivery.png" />
                   </S.BoxIcons>
                   <S.BoxTitle onClick={props.onClickPostTracking}>
-                    배송중
+                    배송
                   </S.BoxTitle>
                   <S.Count>1</S.Count>
                 </S.Box>
-                <S.LengthDivideLine></S.LengthDivideLine>
+                {/* <S.LengthDivideLine></S.LengthDivideLine>
                 <S.Box>
                   <S.BoxIcons>
                     <S.BoxBoxIcon src="/icons/mypage/box.png" />
                   </S.BoxIcons>
                   <S.BoxTitle>수령완료</S.BoxTitle>
                   <S.Count>6</S.Count>
-                </S.Box>
+                </S.Box> */}
                 <S.LengthDivideLine></S.LengthDivideLine>
                 <S.Box>
                   <S.BoxIcons>
@@ -76,65 +80,88 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
             </S.SelectListWrapper>
             <S.ListItemWrapper>
               {props.isSelect
-                ? new Array(2).fill(1).map((_, index) => {
-                    return (
-                      // 라우터로 id 값을 통해서 이동하는데 id에 index가 들어가서 제대로 안들어감
-                      <S.ListItem key={index}>
-                        <S.ItemImg></S.ItemImg>
-                        <S.ItemInfoWrapper
-                          onClick={props.onClickLocalDetail}
-                          id={String(index)}
-                        >
-                          <S.ItemTitle>달달한 충주 사과 1kg</S.ItemTitle>
-                          <S.ItemPrice>99000원</S.ItemPrice>
-                          <S.ItemCreateDate>
-                            구매 날짜 : 2022.10.23
-                          </S.ItemCreateDate>
-                        </S.ItemInfoWrapper>
-                        {/* <S.LengthDivideLine /> */}
-                        <S.ItemSubInfoWrapper>
-                          <S.ReturnButton onClick={props.onClickPostTracking}>
-                            배송조회
-                            <Tracking
-                              trackingRef={props.trackingRef}
-                            ></Tracking>
-                          </S.ReturnButton>
-                        </S.ItemSubInfoWrapper>
-                        <S.ItemSubInfoWrapper>
-                          <S.SellerName>판매자 이름</S.SellerName>
-                          <S.SellerPhoneNum>010-xxxx-xxxx</S.SellerPhoneNum>
-                        </S.ItemSubInfoWrapper>
-                      </S.ListItem>
-                    );
-                  })
-                : new Array(2).fill(1).map((_, index) => {
-                    return (
-                      // 라우터로 id 값을 통해서 이동하는데 id에 index가 들어가서 제대로 안들어감
-                      <S.ListItem key={index} id={String(index)}>
-                        <S.ItemImg></S.ItemImg>
-                        <S.ItemInfoWrapper
-                          onClick={props.onClickBfoodDetail}
-                          id={String(index)}
-                        >
-                          <S.ItemTitle>달달한 충주 사과 10kg</S.ItemTitle>
-                          <S.ItemPrice>99000원</S.ItemPrice>
-                          <S.ItemCreateDate>
-                            구매 날짜 : 2022.10.23
-                          </S.ItemCreateDate>
-                        </S.ItemInfoWrapper>
-                        {/* <S.LengthDivideLine /> */}
-                        <S.ItemSubInfoWrapper>
-                          <S.ReturnButton>취소요청</S.ReturnButton>
-                        </S.ItemSubInfoWrapper>
-                        <S.ItemSubInfoWrapper>
-                          <S.SellerName>판매자 이름</S.SellerName>
-                          <S.SellerPhoneNum>010-xxxx-xxxx</S.SellerPhoneNum>
-                        </S.ItemSubInfoWrapper>
-                      </S.ListItem>
-                    );
-                  })}
-
-              <S.MoreItem>+</S.MoreItem>
+                ? props.completePaymentsLocal
+                    ?.slice(0, props.sliceNumber)
+                    .map((el) => {
+                      return (
+                        // 라우터로 id 값을 통해서 이동하는데 id에 index가 들어가서 제대로 안들어감
+                        <S.ListItem key={uuidv4()}>
+                          {console.log(el)}
+                          <S.ItemImg></S.ItemImg>
+                          <S.ItemInfoWrapper
+                            onClick={props.onClickLocalDetail}
+                            id={el.id}
+                          >
+                            <S.ItemTitle>{el.productDirect?.title}</S.ItemTitle>
+                            <S.ItemPrice>
+                              {el.productDirect?.price?.toLocaleString()}원
+                            </S.ItemPrice>
+                            <S.ItemCreateDate>
+                              구매 날짜 : {getDate(el.createdAt)}
+                            </S.ItemCreateDate>
+                          </S.ItemInfoWrapper>
+                          <S.ItemSubInfoWrapper>
+                            {el.invoice ? (
+                              <S.ReturnButton
+                                onClick={props.onClickPostTracking}
+                              >
+                                배송조회
+                                <Tracking
+                                  trackingRef={props.trackingRef}
+                                ></Tracking>
+                              </S.ReturnButton>
+                            ) : (
+                              <S.ReturnButton>취소요청</S.ReturnButton>
+                            )}
+                          </S.ItemSubInfoWrapper>
+                          <S.ItemSubInfoWrapper>
+                            <S.SellerName>판매자 이름</S.SellerName>
+                            <S.SellerPhoneNum>010-xxxx-xxxx</S.SellerPhoneNum>
+                          </S.ItemSubInfoWrapper>
+                        </S.ListItem>
+                      );
+                    })
+                : props.canceledPaymentsLocal
+                    ?.slice(0, props.sliceNumber)
+                    .map((el) => {
+                      return (
+                        <S.ListItem key={uuidv4()} id={el.id}>
+                          <S.ItemImg></S.ItemImg>
+                          <S.ItemInfoWrapper
+                            onClick={props.onClickBfoodDetail}
+                            id={el.id}
+                          >
+                            <S.ItemTitle>{el.productUgly?.title}</S.ItemTitle>
+                            <S.ItemPrice>{el.productUgly?.price}</S.ItemPrice>
+                            <S.ItemCreateDate>
+                              구매 날짜 : {getDate(el.createdAt)}
+                            </S.ItemCreateDate>
+                          </S.ItemInfoWrapper>
+                          {/* <S.LengthDivideLine /> */}
+                          <S.ItemSubInfoWrapper>
+                            <S.ReturnButton>
+                              {el.invoice.length !== 0 ? (
+                                <S.ReturnButton
+                                  onClick={props.onClickPostTracking}
+                                >
+                                  배송조회
+                                  <Tracking
+                                    trackingRef={props.trackingRef}
+                                  ></Tracking>
+                                </S.ReturnButton>
+                              ) : (
+                                <S.ReturnButton>취소요청</S.ReturnButton>
+                              )}
+                            </S.ReturnButton>
+                          </S.ItemSubInfoWrapper>
+                          <S.ItemSubInfoWrapper>
+                            <S.SellerName>판매자 이름</S.SellerName>
+                            <S.SellerPhoneNum>010-xxxx-xxxx</S.SellerPhoneNum>
+                          </S.ItemSubInfoWrapper>
+                        </S.ListItem>
+                      );
+                    })}
+              <S.MoreItem onClick={props.onClickFetchMore}>더보기</S.MoreItem>
             </S.ListItemWrapper>
           </S.ListWrapper>
         </S.Body>

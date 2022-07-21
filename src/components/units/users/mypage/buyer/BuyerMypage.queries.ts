@@ -63,3 +63,63 @@ export const DELETE_ADDRESS = gql`
     deleteAddress(id: $id)
   }
 `;
+
+export const FETCH_COMPLETE_PAYMENTS = gql`
+  query fetchCompletePayments {
+    fetchCompletePayments {
+      id
+      impUid
+      amount
+      createdAt
+      productDirect {
+        id
+        title
+        price
+        files {
+          url
+        }
+        directStore {
+          id
+          name
+        }
+      }
+      productUgly {
+        id
+        title
+        price
+        files {
+          url
+        }
+      }
+      invoice
+    }
+  }
+`;
+
+export const FETCH_CANCELED_PAYMENTS = gql`
+  query fetchCanceledPayments {
+    fetchCanceledPayments {
+      id
+      impUid
+      amount
+      createdAt
+      productDirect {
+        id
+        title
+        price
+        files {
+          url
+        }
+      }
+      productUgly {
+        id
+        title
+        price
+        files {
+          url
+        }
+      }
+      invoice
+    }
+  }
+`;
