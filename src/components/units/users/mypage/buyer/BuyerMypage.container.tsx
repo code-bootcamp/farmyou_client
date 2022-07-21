@@ -1,11 +1,12 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { ChangeEvent, MouseEvent, useRef, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react";
 import {
   ASSIGN_MAIN,
   CHECK_IF_LOGGED_USER,
   DELETE_ADDRESS,
   FETCH_ADDRESSES_OF_THE_USER,
-  FETCH_USER_LOGGED_IN,
+  FETCH_CANCELED_PAYMENTS,
+  FETCH_COMPLETE_PAYMENTS,
   UPDATE_USER,
   UPLOAD_FILE,
 } from "./BuyerMypage.queries";
@@ -15,8 +16,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Modal } from "antd";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import {
+  IBuyerMypageProps,
+  IFetchCompletePayments,
+  IOnClickEdit,
+} from "./BuyerMypage.types";
 
-export default function BuyerMypage() {
+export default function BuyerMypage(props: IBuyerMypageProps) {
   const schema = yup.object({
     name: yup.string().max(7, "이름은 7자를 넘을 수 없습니다."),
     password: yup
@@ -44,15 +50,61 @@ export default function BuyerMypage() {
   const [deleteAddress] = useMutation(DELETE_ADDRESS);
   const [checkIfLoggedUser] = useMutation(CHECK_IF_LOGGED_USER);
   const [isSelect, setIsSelect] = useState(true);
-  const trackingRef = useRef<HTMLFormElement>();
+  const trackingRef = useRef<HTMLFormElement | undefined>();
+  const [completePaymentsLocal, setCompletePaymentsLocal] = useState();
+  const [completePaymentsUgly, setCompletePaymentsUgly] = useState();
+  const [canceledPaymentsLocal, setCanceledPaymentsLocal] = useState();
+  const [canceledPaymentsUgly, setCanceledPaymentsUgly] = useState();
+  const [sliceNumber, setSliceNumber] = useState(2);
 
-  const { data: userData } = useQuery(FETCH_USER_LOGGED_IN);
-  // console.log(userData.fetchUserLoggedIn.id);
   const { data: userAddressData } = useQuery(FETCH_ADDRESSES_OF_THE_USER, {
     variables: {
-      userId: userData?.fetchUserLoggedIn.id,
+      userId: props.userData?.fetchUserLoggedIn.id,
     },
   });
+
+  console.log(userAddressData);
+
+  const { data: fetchCompletePaymentsData } = useQuery(FETCH_COMPLETE_PAYMENTS);
+  const { data: fetchCanceledPaymentsData } = useQuery(FETCH_CANCELED_PAYMENTS);
+
+  const onClickFetchMore = () => {
+    setSliceNumber((prev) => prev + 2);
+  };
+
+  useEffect(() => {
+    setCompletePaymentsLocal(
+      fetchCompletePaymentsData?.fetchCompletePayments.filter(
+        (el: IFetchCompletePayments) => {
+          return el.productDirect !== null;
+        }
+      )
+    );
+    setCompletePaymentsUgly(
+      fetchCompletePaymentsData?.fetchCompletePayments.filter(
+        (el: IFetchCompletePayments) => {
+          return el.productUgly !== null;
+        }
+      )
+    );
+  }, [fetchCompletePaymentsData]);
+
+  useEffect(() => {
+    setCanceledPaymentsLocal(
+      fetchCanceledPaymentsData?.fetchCanceledPayments.filter(
+        (el: IFetchCompletePayments) => {
+          return el.productDirect !== null;
+        }
+      )
+    );
+    setCanceledPaymentsUgly(
+      fetchCanceledPaymentsData?.fetchCanceledPayments.filter(
+        (el: IFetchCompletePayments) => {
+          return el.productUgly !== null;
+        }
+      )
+    );
+  }, [fetchCanceledPaymentsData]);
 
   const onClickLocalList = () => {
     setIsSelect(true);
@@ -73,7 +125,6 @@ export default function BuyerMypage() {
 
   const onClickPostTracking = () => {
     trackingRef.current?.click();
-    console.log(trackingRef);
   };
 
   // password
@@ -114,7 +165,7 @@ export default function BuyerMypage() {
   const editCancel = () => {
     setIsEditVisible(false);
   };
-  const onClickEdit = async (data: any) => {
+  const onClickEdit = async (data: IOnClickEdit) => {
     try {
       await updateUser({
         variables: {
@@ -129,7 +180,7 @@ export default function BuyerMypage() {
       console.log(error);
     }
   };
-  const fileRef = useRef(null);
+  const fileRef = useRef<HTMLInputElement>(null);
 
   function onClickUpload() {
     // console.log(props.fileUrls);
@@ -149,17 +200,17 @@ export default function BuyerMypage() {
       Modal.error({ content: "에러!!" });
     }
   };
-  const onClickDeleteAddress = async (event: any) => {
+  const onClickDeleteAddress = async (event: MouseEvent<HTMLDivElement>) => {
     try {
       await deleteAddress({
         variables: {
-          id: event.target.id,
+          id: event.currentTarget.id,
         },
         refetchQueries: [
           {
             query: FETCH_ADDRESSES_OF_THE_USER,
             variables: {
-              userId: userData?.fetchUserLoggedIn.id,
+              userId: props.userData?.fetchUserLoggedIn.id,
             },
           },
         ],
@@ -167,20 +218,19 @@ export default function BuyerMypage() {
     } catch (error) {
       Modal.error({ content: "에러!!" });
     }
-    console.log(event.target.id);
   };
-  const onClickMainAddress = async (event: any) => {
+  const onClickMainAddress = async (event: MouseEvent<HTMLDivElement>) => {
     try {
       await assignMain({
         variables: {
-          userId: userData?.fetchUserLoggedIn.id,
-          addressId: event.target.id,
+          userId: props.userData?.fetchUserLoggedIn.id,
+          addressId: event.currentTarget.id,
         },
         refetchQueries: [
           {
             query: FETCH_ADDRESSES_OF_THE_USER,
             variables: {
-              userId: userData?.fetchUserLoggedIn.id,
+              userId: props.userData?.fetchUserLoggedIn.id,
             },
           },
         ],
@@ -189,6 +239,11 @@ export default function BuyerMypage() {
       Modal.error({ content: "에러!!" });
     }
   };
+
+  const onClickProductEditButton = (event: MouseEvent<HTMLDivElement>) => {
+    router.push(`/bfood/${event.currentTarget.id}/edit`);
+  };
+
   return (
     <BuyerMypageUI
       isSelect={isSelect}
@@ -217,6 +272,14 @@ export default function BuyerMypage() {
       error={error}
       onClickDeleteAddress={onClickDeleteAddress}
       onClickMainAddress={onClickMainAddress}
+      userData={props.userData}
+      completePaymentsLocal={completePaymentsLocal}
+      completePaymentsUgly={completePaymentsUgly}
+      canceledPaymentsLocal={canceledPaymentsLocal}
+      canceledPaymentsUgly={canceledPaymentsUgly}
+      sliceNumber={sliceNumber}
+      onClickFetchMore={onClickFetchMore}
+      onClickProductEditButton={onClickProductEditButton}
     />
   );
 }

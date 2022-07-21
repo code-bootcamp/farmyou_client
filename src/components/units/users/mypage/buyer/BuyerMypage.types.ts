@@ -1,13 +1,95 @@
-import { ChangeEvent, MouseEvent, MutableRefObject } from "react";
-import {
-  FieldValues,
-  UseFormHandleSubmit,
-  UseFormRegister,
-} from "react-hook-form";
+import { ChangeEvent, MouseEvent, MutableRefObject, RefObject } from "react";
+import { FieldValues, UseFormRegister } from "react-hook-form";
+
+export interface ICompletePaymentsLocal {
+  id: string;
+  impUid: string;
+  amount: number;
+  createdAt: Date;
+  productDirect?: {
+    id: string;
+    title: string;
+    price: number;
+    files?: {
+      url: string;
+    };
+    directStore?: {
+      id: string;
+      name: string;
+    };
+  };
+  invoice: string;
+}
+
+export interface ICanceledPaymentsLocal {
+  id: string;
+  impUid: string;
+  amount: number;
+  createdAt: Date;
+  productDirect?: {
+    id: string;
+    title: string;
+    price: number;
+    files?: {
+      url: string;
+    };
+  };
+  productUgly?: {
+    id: string;
+    title: string;
+    price: number;
+    files?: {
+      url: string;
+    };
+  };
+  invoice: string;
+}
+
+export interface IFetchCompletePayments {
+  id: string;
+  impUid: string;
+  amount: number;
+  createdAt: Date;
+  productDirect?: {
+    id: string;
+    title: string;
+    price: number;
+    files?: {
+      url: string;
+    };
+  };
+  productUgly?: {
+    id: string;
+    title: string;
+    price: number;
+    files?: {
+      url: string;
+    };
+  };
+  invoice: string;
+}
+
+export interface IOnClickEdit {
+  name: string;
+  password: string;
+  phone: string;
+  imageUrl: string;
+}
+
+export interface IFetchAddressesOfTheUser {
+  id: string;
+  address: string;
+  isMain: boolean;
+  detailedAddress: string;
+}
+
+export interface IUserAddressData {
+  fetchAddressesOfTheUser: Array<IFetchAddressesOfTheUser>;
+}
 
 export interface IBuyerMypageUIProps {
   isSelect: boolean;
-  trackingRef: any;
+  trackingRef: MutableRefObject<HTMLFormElement | undefined>;
   onClickLocalList: () => void;
   onClickBfoodList: () => void;
   onClickLocalDetail: (event: MouseEvent<HTMLDivElement>) => void;
@@ -19,17 +101,43 @@ export interface IBuyerMypageUIProps {
   passwordCancel: () => void;
   editCancel: () => void;
   isEditVisible: boolean;
-  userAddressData: any;
-  onChangePassword: (event: any) => void;
+  userAddressData: IUserAddressData;
+  onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickConfirm: () => void;
   onChangeFile: (event: ChangeEvent<HTMLInputElement>) => Promise<void>;
   onClickUpload: () => void;
-  fileRef: MutableRefObject<null>;
+  fileRef: RefObject<HTMLInputElement>;
   fileUrl: string;
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
+  handleSubmit: any;
   register: UseFormRegister<FieldValues>;
-  onClickEdit: () => void;
+  onClickEdit: (data: IOnClickEdit) => void;
   error: string;
-  onClickDeleteAddress: (event: any) => void;
-  onClickMainAddress: (event: any) => void;
+  onClickDeleteAddress: (event: MouseEvent<HTMLDivElement>) => void;
+  onClickMainAddress: (event: MouseEvent<HTMLDivElement>) => void;
+  userData: {
+    fetchUserLoggedIn: {
+      id?: string;
+      name?: string;
+      email?: string;
+      type?: string;
+    };
+  };
+  completePaymentsLocal: Array<ICompletePaymentsLocal> | undefined;
+  completePaymentsUgly: Array<ICompletePaymentsLocal> | undefined;
+  canceledPaymentsLocal: Array<ICanceledPaymentsLocal> | undefined;
+  canceledPaymentsUgly: Array<ICanceledPaymentsLocal> | undefined;
+  sliceNumber: number;
+  onClickFetchMore: () => void;
+  onClickProductEditButton: (event: MouseEvent<HTMLDivElement>) => void;
+}
+
+export interface IBuyerMypageProps {
+  userData: {
+    fetchUserLoggedIn: {
+      id?: string;
+      name?: string;
+      email?: string;
+      type?: string;
+    };
+  };
 }

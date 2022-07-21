@@ -3,16 +3,18 @@ import SellerMypageUI from "./SellerMypage.presenter";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
 import {
   CHECK_IF_LOGGED_SELLER,
+  FETCH_UGLY_PRODUCTS_BY_SELLER,
   UPDATE_SELLER,
   UPLOAD_FILE,
 } from "./SellerMypage.queries";
 import { useRouter } from "next/router";
+import { IOnClickEdit, ISellerMypageProps } from "./SellerMypage.types";
 
-export default function SellerMypage() {
+export default function SellerMypage(props: ISellerMypageProps) {
   const router = useRouter();
   const schema = yup.object({
     name: yup.string().max(7, "이름은 7자를 넘을 수 없습니다."),
@@ -38,6 +40,15 @@ export default function SellerMypage() {
   const [uploadFile] = useMutation(UPLOAD_FILE);
   const [updateSeller] = useMutation(UPDATE_SELLER);
   const [checkIfLoggedSeller] = useMutation(CHECK_IF_LOGGED_SELLER);
+  const [sliceNumber, setSliceNumber] = useState(2);
+
+  const { data: fetchUglyProductsBySellerData } = useQuery(
+    FETCH_UGLY_PRODUCTS_BY_SELLER
+  );
+
+  const onClickFetchMore = () => {
+    setSliceNumber((prev) => prev + 2);
+  };
 
   // password
   const showPasswordModal = () => {
@@ -75,7 +86,7 @@ export default function SellerMypage() {
   const editCancel = () => {
     setIsEditVisible(false);
   };
-  const onClickEdit = async (data: any) => {
+  const onClickEdit = async (data: IOnClickEdit) => {
     try {
       const result = await updateSeller({
         variables: {
@@ -90,7 +101,7 @@ export default function SellerMypage() {
       console.log(error);
     }
   };
-  const fileRef = useRef(null);
+  const fileRef = useRef<HTMLInputElement>(null);
 
   function onClickUpload() {
     // console.log(props.fileUrls);
@@ -132,6 +143,10 @@ export default function SellerMypage() {
       onClickEdit={onClickEdit}
       error={error}
       onClickToWrite={onClickToWrite}
+      fetchUglyProductsBySellerData={fetchUglyProductsBySellerData}
+      onClickFetchMore={onClickFetchMore}
+      sliceNumber={sliceNumber}
+      userData={props.userData}
     />
   );
 }
