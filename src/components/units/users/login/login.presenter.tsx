@@ -6,11 +6,7 @@ import { IPropsLogin } from "./login.types";
 
 export default function LoginUI(props: IPropsLogin) {
   return (
-    <S.Wrapper
-      onSubmit={props.handleSubmit(
-        props.isUser === "buyer" ? props.onClickLogin : props.onClickSellerLogin
-      )}
-    >
+    <>
       <Modal
         visible={props.isModal}
         footer={[
@@ -51,9 +47,9 @@ export default function LoginUI(props: IPropsLogin) {
       <Modal
         visible={props.isModal2}
         footer={[
-          <S.FootWrapper key="back">
+          <S.FootWrapper key="primary">
             <S.Button onClick={props.handleCancel2}>취소</S.Button>
-            <S.Button onClick={props.handleOk2}>재설정 하기</S.Button>
+            <S.Button onClick={props.handleOk2}>완료</S.Button>
           </S.FootWrapper>,
         ]}
       >
@@ -65,56 +61,68 @@ export default function LoginUI(props: IPropsLogin) {
               : props.onSubmitChangeSeller
           )}
         >
-          <S.PwdInput
-            {...props.register("password")}
-            placeholder="재설정 할 비밀번호를 입력하세요"
-          ></S.PwdInput>
-          <S.PwdErr>{props.formState.errors.password?.message}</S.PwdErr>
+          <S.PwdInputWrapper>
+            <S.PwdInput
+              {...props.register("password2")}
+              placeholder="재설정 할 비밀번호를 입력하세요"
+            ></S.PwdInput>
+            <S.PwdChangeBtn type="submit">변경하기</S.PwdChangeBtn>
+          </S.PwdInputWrapper>
+          <S.PwdErr>{props.formState.errors.password2?.message}</S.PwdErr>
         </S.PwdWrapper>
       </Modal>
-      <S.LoginWrapper>
-        <S.InputWrapper>
-          <S.Text>로그인</S.Text>
-          <S.DivideLine></S.DivideLine>
-          <InputComponent
-            placeholder="Email address"
-            register={props.register("email")}
-          />
-          <InputComponent
-            type="password"
-            placeholder="Password"
-            register={props.register("password")}
-          />
-          <S.FindPwd onClick={props.onClickModal}>
-            <u>비밀번호를 잊어버리셧나요?</u>
-          </S.FindPwd>
-        </S.InputWrapper>
-        <Radio.Group onChange={props.onChangeAuth}>
-          <Radio value={"buyer"}>구매자 로그인</Radio>
-          <Radio value={"seller"}>판매자 로그인</Radio>
-        </Radio.Group>
-        <S.BtnWrapper>
-          <ButtonComponent
-            type="button"
-            title="회원가입"
-            buttonColor="#bdbdbd"
-            onClick={props.onClickMove(`/users/signup`)}
-          />
-          {props.isUser === "buyer" ? (
-            <ButtonComponent
-              type="submit"
-              title="로그인"
-              buttonColor="#F6651E"
+      <S.Wrapper
+        onSubmit={props.handleSubmit(
+          props.isUser === "buyer"
+            ? props.onClickLogin
+            : props.onClickSellerLogin
+        )}
+      >
+        <S.LoginWrapper>
+          <S.InputWrapper>
+            <S.Text>로그인</S.Text>
+            <S.DivideLine></S.DivideLine>
+            <InputComponent
+              placeholder="Email address"
+              register={props.register("email")}
             />
-          ) : (
-            <ButtonComponent
-              type="submit"
-              title="로그인"
-              buttonColor="#F6651E"
+            <InputComponent
+              type="password"
+              placeholder="Password"
+              register={props.register("password")}
             />
-          )}
-        </S.BtnWrapper>
-      </S.LoginWrapper>
-    </S.Wrapper>
+            <S.FindPwd onClick={props.onClickModal}>
+              <u>비밀번호를 잊어버리셧나요?</u>
+            </S.FindPwd>
+          </S.InputWrapper>
+          <Radio.Group onChange={props.onChangeAuth}>
+            <Radio value={"buyer"}>구매자 로그인</Radio>
+            <Radio value={"seller"}>판매자 로그인</Radio>
+          </Radio.Group>
+          <S.BtnWrapper>
+            <ButtonComponent
+              type="button"
+              title="회원가입"
+              buttonColor="#bdbdbd"
+              onClick={props.onClickMove(`/users/signup`)}
+            />
+            {props.isModal2 ? (
+              <ButtonComponent
+                type="button"
+                disabled
+                title="로그인"
+                buttonColor="#F6651E"
+              />
+            ) : (
+              <ButtonComponent
+                type="submit"
+                title="로그인"
+                buttonColor="#F6651E"
+              />
+            )}
+          </S.BtnWrapper>
+        </S.LoginWrapper>
+      </S.Wrapper>
+    </>
   );
 }
