@@ -20,7 +20,7 @@ export default function LayoutHeader() {
   const [logout] = useMutation(LOG_OUT);
 
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
-  console.log(data);
+
   const onClickLogout = async () => {
     const resultLogout = await logout();
     setToken("");
