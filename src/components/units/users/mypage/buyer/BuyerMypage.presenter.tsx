@@ -14,7 +14,7 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
             <S.InfoProfile>
               <S.ProfileImage />
               <S.ProfileName>
-                {props.userData?.fetchUserLoggedIn.name}
+                {props.userData?.fetchUserLoggedIn?.name}
               </S.ProfileName>
               <S.FunctionWrapper>
                 <S.Function>로그아웃</S.Function>
@@ -31,7 +31,7 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                     <S.OrderCheckBoxIcon src="/icons/mypage/ordercheck.png" />
                   </S.BoxIcons>
                   <S.BoxTitle>결제완료</S.BoxTitle>
-                  <S.Count>3</S.Count>
+                  <S.Count>{props.count}</S.Count>
                 </S.Box>
                 <S.LengthDivideLine />
                 <S.Box>
@@ -86,7 +86,6 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                       return (
                         // 라우터로 id 값을 통해서 이동하는데 id에 index가 들어가서 제대로 안들어감
                         <S.ListItem key={uuidv4()}>
-                          {console.log(el)}
                           <S.ItemImg></S.ItemImg>
                           <S.ItemInfoWrapper
                             onClick={props.onClickLocalDetail}
@@ -121,7 +120,7 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                         </S.ListItem>
                       );
                     })
-                : props.canceledPaymentsLocal
+                : props.completePaymentsUgly
                     ?.slice(0, props.sliceNumber)
                     .map((el) => {
                       return (
@@ -132,7 +131,9 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                             id={el.id}
                           >
                             <S.ItemTitle>{el.productUgly?.title}</S.ItemTitle>
-                            <S.ItemPrice>{el.productUgly?.price}</S.ItemPrice>
+                            <S.ItemPrice>
+                              {el.productUgly?.price.toLocaleString()}원
+                            </S.ItemPrice>
                             <S.ItemCreateDate>
                               구매 날짜 : {getDate(el.createdAt)}
                             </S.ItemCreateDate>
@@ -140,7 +141,7 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                           {/* <S.LengthDivideLine /> */}
                           <S.ItemSubInfoWrapper>
                             <S.ReturnButton>
-                              {el.invoice.length !== 0 ? (
+                              {el.invoice ? (
                                 <S.ReturnButton
                                   onClick={props.onClickPostTracking}
                                 >

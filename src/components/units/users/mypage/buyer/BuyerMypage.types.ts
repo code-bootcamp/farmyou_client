@@ -21,7 +21,7 @@ export interface ICompletePaymentsLocal {
   invoice: string;
 }
 
-export interface ICanceledPaymentsLocal {
+export interface IFetchCanceledPayments {
   id: string;
   impUid: string;
   amount: number;
@@ -57,6 +57,10 @@ export interface IFetchCompletePayments {
     files?: {
       url: string;
     };
+    directStore?: {
+      id: string;
+      name: string;
+    };
   };
   productUgly?: {
     id: string;
@@ -64,6 +68,11 @@ export interface IFetchCompletePayments {
     price: number;
     files?: {
       url: string;
+    };
+    seller?: {
+      id: string;
+      name: string;
+      phone: string;
     };
   };
   invoice: string;
@@ -88,6 +97,7 @@ export interface IUserAddressData {
 }
 
 export interface IBuyerMypageUIProps {
+  count: number;
   isSelect: boolean;
   trackingRef: MutableRefObject<HTMLFormElement | undefined>;
   onClickLocalList: () => void;
@@ -122,10 +132,10 @@ export interface IBuyerMypageUIProps {
       type?: string;
     };
   };
-  completePaymentsLocal: Array<ICompletePaymentsLocal> | undefined;
-  completePaymentsUgly: Array<ICompletePaymentsLocal> | undefined;
-  canceledPaymentsLocal: Array<ICanceledPaymentsLocal> | undefined;
-  canceledPaymentsUgly: Array<ICanceledPaymentsLocal> | undefined;
+  completePaymentsLocal: Array<IFetchCompletePayments> | undefined;
+  completePaymentsUgly: Array<IFetchCompletePayments> | undefined;
+  canceledPaymentsLocal: Array<IFetchCanceledPayments> | undefined;
+  canceledPaymentsUgly: Array<IFetchCanceledPayments> | undefined;
   sliceNumber: number;
   onClickFetchMore: () => void;
   onClickProductEditButton: (event: MouseEvent<HTMLDivElement>) => void;

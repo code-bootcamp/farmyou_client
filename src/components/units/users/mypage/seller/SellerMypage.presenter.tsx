@@ -12,7 +12,7 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
             <S.InfoProfile>
               <S.ProfileImage />
               <S.ProfileName>
-                {props.userData.fetchUserLoggedIn.name}
+                {props.userData?.fetchUserLoggedIn?.name}
               </S.ProfileName>
               <S.FunctionWrapper>
                 <S.Function>로그아웃</S.Function>
