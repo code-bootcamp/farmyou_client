@@ -37,8 +37,7 @@ export default function Login() {
       .matches(
         /^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
         "영문,숫자,특수문자를 포함해야합니다."
-      )
-      .required(),
+      ),
   });
   const { handleSubmit, register, formState } = useForm({
     resolver: yupResolver(schema),
