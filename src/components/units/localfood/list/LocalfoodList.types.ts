@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, MouseEvent } from "react";
 
 export interface ILocalfoodListUIProps {
   onClickAll: (event: any) => void;
@@ -8,4 +8,5 @@ export interface ILocalfoodListUIProps {
   onChangeSorted: (event: any) => void;
   onChangeSearch: (event: ChangeEvent<HTMLInputElement>) => void;
   text: string;
+  onClickToDetail: (event: MouseEvent<HTMLDivElement>) => void;
 }

@@ -6,7 +6,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 20px;
-  /* border: 1px ; */
 
   @media (max-width: 689px) {
     display: flex;
@@ -66,15 +65,16 @@ const ItemPrice = styled.div`
 `;
 
 export default function ListItem(props: any) {
-  // console.log(props.el.files[0]?.url.split(",")[0]);
   return (
     <Wrapper
       key={props.key}
       id={JSON.stringify(props.el)}
       draggable={true}
       onDragStart={props.drag}
+      onClick={props.onClickToDetail}
     >
       <ItemImage
+        draggable={false}
         src={`https://storage.googleapis.com/${
           props.el.files[0]?.url.split(",")[0]
         }`}

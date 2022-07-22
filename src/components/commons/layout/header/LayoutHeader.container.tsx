@@ -106,11 +106,9 @@ export default function LayoutHeader() {
   const dragOver = (event: any) => {
     event.preventDefault();
     setIsIn(true);
-    console.log("in");
   };
   const dragLeave = () => {
     setIsIn(false);
-    console.log("leave");
   };
 
   const styles = {

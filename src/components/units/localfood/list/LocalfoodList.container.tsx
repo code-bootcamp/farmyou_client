@@ -1,18 +1,19 @@
 import { useQuery } from "@apollo/client";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import LocalfoodListUI from "./LocalfoodList.presenter";
 import { FETCH_DIRECT_PRODUCTS } from "./LocalfoodList.queries";
 import _ from "lodash";
+import { useRouter } from "next/router";
 
 export default function LocalfoodList() {
+  const router = useRouter();
   const [storeId, setStoreId] = useState<string | null>(null);
   const [categoryId, setCategoryId] = useState("");
   const [text, setText] = useState();
   const [sorted, setSorted] = useState("최신순");
   useEffect(() => {
-    setStoreId(sessionStorage.getItem("DirectStoreId" || ""));
+    setStoreId(JSON.parse(sessionStorage.getItem("DirectStoreId" || "")).id);
   }, []);
-
   const { data, refetch } = useQuery(FETCH_DIRECT_PRODUCTS, {
     variables: { page: 1, directStoreId: storeId },
   });
@@ -58,6 +59,9 @@ export default function LocalfoodList() {
       page: 1,
     });
   }, 200);
+  const onClickToDetail = (event: MouseEvent<HTMLDivElement>) => {
+    router.push(`/localfood/${JSON.parse(event.currentTarget.id).id}`);
+  };
   return (
     <LocalfoodListUI
       onClickCategory={onClickCategory}
@@ -66,6 +70,7 @@ export default function LocalfoodList() {
       drag={drag}
       onChangeSorted={onChangeSorted}
       onChangeSearch={onChangeSearch}
+      onClickToDetail={onClickToDetail}
       text={text}
     />
   );

@@ -74,11 +74,19 @@ export default function LocalfoodListUI(props: ILocalfoodListUIProps) {
           <S.SearchInput
             onChange={props.onChangeSearch}
             placeholder="검색어를 입력해주세요."
+            value={props.text}
           />
         </S.SearchWrapper>
         <S.ItemWrapper>
           {props.data?.fetchDirectProductsSortedByTitle.map((el: any) => {
-            return <ListItem key={el.id} el={el} drag={props.drag} />;
+            return (
+              <ListItem
+                key={el.id}
+                el={el}
+                drag={props.drag}
+                onClickToDetail={props.onClickToDetail}
+              />
+            );
           })}
         </S.ItemWrapper>
       </S.Wrapper>
