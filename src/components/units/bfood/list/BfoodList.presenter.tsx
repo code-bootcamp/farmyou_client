@@ -2,6 +2,7 @@ import ListItem from "../../../commons/items/list";
 import * as S from "./BfoodList.styles";
 import { Select } from "antd";
 import { IBfoodListUIProps } from "./BfoodList.types";
+import InfiniteScroll from "react-infinite-scroller";
 const { Option } = Select;
 
 export default function BfoodListUI(props: IBfoodListUIProps) {
@@ -25,11 +26,18 @@ export default function BfoodListUI(props: IBfoodListUIProps) {
             value={props.text}
           />
         </S.SearchWrapper>
+        {/* <InfiniteScroll
+          pageStart={0}
+          loadMore={props.loadFunc}
+          hasMore={true}
+          useWindow={false}
+        > */}
         <S.ItemWrapper>
           {props.data?.fetchUglyProductsSortedByTitle.map((el: any) => {
             return <ListItem key={el.id} el={el} drag={props.drag} />;
           })}
         </S.ItemWrapper>
+        {/* </InfiniteScroll> */}
       </S.Wrapper>
     </S.OutLine>
   );

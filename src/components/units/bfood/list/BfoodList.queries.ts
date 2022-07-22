@@ -4,7 +4,7 @@ export const FETCH_UGLY_PRODUCTS = gql`
   query fetchUglyProductsSortedByTitle(
     $title: String
     $sortBy: String = "최신순"
-    $page: Float!
+    $page: Float
   ) {
     fetchUglyProductsSortedByTitle(
       title: $title
@@ -25,6 +25,9 @@ export const FETCH_UGLY_PRODUCTS = gql`
         id
         like
         phone
+      }
+      files {
+        url
       }
     }
   }
