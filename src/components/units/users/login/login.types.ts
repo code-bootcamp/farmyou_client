@@ -8,7 +8,7 @@ export interface IData {
   password: string;
 }
 export interface IDataChange {
-  password: string;
+  password2: string;
 }
 export interface IPropsLogin {
   onChangePhone: (event: ChangeEvent<HTMLInputElement>) => void;

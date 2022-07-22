@@ -127,19 +127,36 @@ export const Contents = styled.div`
 
 export const PwdWrapper = styled.form`
   width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 export const PwdInput = styled.input`
-  width: 80%;
+  width: 70%;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
   &:focus {
     outline-color: #f5561e;
   }
 `;
+
+export const PwdInputWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
 export const PwdErr = styled.div`
   width: 100%;
   color: red;
   font-size: 0.5rem;
+`;
+
+export const PwdChangeBtn = styled.button`
+  width: 20%;
+  border: none;
+  background-color: #f5561e;
+  color: #fff;
+  border-radius: 5px;
 `;
 
 export const Text = styled.div`
@@ -148,7 +165,7 @@ export const Text = styled.div`
   padding-bottom: 20px;
 `;
 
-export const InputWrapper = styled.div`
+export const InputWrapper = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

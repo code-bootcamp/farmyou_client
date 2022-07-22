@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Modal, RadioChangeEvent } from "antd";
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import { TokenState } from "../../../commons/store";
@@ -31,7 +31,7 @@ export default function Login() {
   const router = useRouter();
 
   const schema = yup.object({
-    password: yup
+    password2: yup
       .string()
       .max(15, "최대 15자 입니다.")
       .matches(
@@ -50,6 +50,7 @@ export default function Login() {
     setIsModal((prev) => !prev);
   };
   const handleOk = () => {
+    setIsModal2(true); // 퍼블리싱 완료후 최하단으로 이동
     if (userType === "") {
       Modal.error({ content: "이메일이 존재하지 않습니다" });
       return;
@@ -58,7 +59,6 @@ export default function Login() {
       Modal.error({ content: "인증을 진행해주세요" });
       return;
     }
-    setIsModal2(true); // 퍼블리싱 완료후 최하단으로 이동
     setIsModal((prev) => !prev);
   };
   const handleCancel = () => {
@@ -66,7 +66,7 @@ export default function Login() {
   };
   // 모달2
   const handleOk2 = () => {
-    setIsModal((prev) => !prev);
+    setIsModal2((prev) => !prev);
   };
   const handleCancel2 = () => {
     setIsModal2((prev) => !prev);
@@ -78,9 +78,10 @@ export default function Login() {
       const userPwd = await updateUserPassword({
         variables: {
           email,
-          newPassword: data.password,
+          newPassword: data.password2,
         },
       });
+      console.log(userPwd);
       alert(
         userPwd.data?.updateUserPassword.name +
           "님의 비밀번호가 변경되었습니다."
@@ -94,9 +95,11 @@ export default function Login() {
       const sellerPwd = await updateSellerPassword({
         variables: {
           email,
-          newPassword: data.password,
+          newPassword: data.password2,
         },
       });
+      console.log(sellerPwd);
+
       alert(sellerPwd.data?.updateSellerPassword.name);
     } catch (e: any) {
       alert(e.message);
@@ -114,6 +117,15 @@ export default function Login() {
     setPhoneNumber(event.target.value);
   };
 
+  const { data } = useQuery(FETCH_USER_BY_EMAIL, {
+    variables: {
+      email,
+    },
+  });
+  useEffect(() => {
+    setUserType(data?.fetchUserByEmail.type);
+  }, [email]);
+
   const onChangeToken = (event: ChangeEvent<HTMLInputElement>) => {
     setTokenSave(event.target.value);
   };
@@ -122,13 +134,8 @@ export default function Login() {
   };
   const onClickSend = async () => {
     if (phoneNumber === "" || phoneNumber.includes("-") === true) return;
+
     try {
-      const { data } = useQuery(FETCH_USER_BY_EMAIL, {
-        variables: {
-          email,
-        },
-      });
-      setUserType(data?.fetchUserByEmail.type);
       const send = await sendToken({
         variables: {
           phone: phoneNumber,
