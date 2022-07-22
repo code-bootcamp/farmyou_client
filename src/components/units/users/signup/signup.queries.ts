@@ -39,3 +39,15 @@ export const CREATE_USER = gql`
     }
   }
 `;
+
+export const SEND_TOKEN = gql`
+  mutation sendToken($phone: String!) {
+    sendToken(phone: $phone)
+  }
+`;
+
+export const CHECK_TOKEN = gql`
+  mutation checkToken($phone: String!, $token: String!) {
+    checkToken(phone: $phone, token: $token)
+  }
+`;

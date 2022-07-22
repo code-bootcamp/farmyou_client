@@ -1,4 +1,4 @@
-import { Radio } from "antd";
+import { Modal, Radio } from "antd";
 import ButtonComponent from "../../../commons/buttons";
 import InputComponent from "../../../commons/inputs";
 import * as S from "./login.styles";
@@ -11,7 +11,67 @@ export default function LoginUI(props: IPropsLogin) {
         props.isUser === "buyer" ? props.onClickLogin : props.onClickSellerLogin
       )}
     >
-      {/* <form onSubmit={props.handleSubmit(props.onClickLogin)}> */}
+      <Modal
+        visible={props.isModal}
+        footer={[
+          <S.FootWrapper key="back">
+            <S.Button onClick={props.handleCancel}>취소</S.Button>
+            <S.Button onClick={props.handleOk}>재설정 하기</S.Button>
+          </S.FootWrapper>,
+        ]}
+      >
+        <S.Contents>비밀번호 재설정</S.Contents>
+        <S.DivideLine></S.DivideLine>
+        <S.EmailWrapper>
+          <S.EmailInput
+            placeholder="이메일(아이디)를 입력해주세요"
+            onChange={props.onChangeEmail}
+          />
+        </S.EmailWrapper>
+        <S.PhoneWrapper>
+          <S.PhoneInput
+            onChange={props.onChangePhone}
+            placeholder="핸드폰 번호를 입력하세요"
+          ></S.PhoneInput>
+          <S.PhoneButton onClick={props.onClickSend}>
+            인증번호전송
+          </S.PhoneButton>
+        </S.PhoneWrapper>
+        <S.TokenWrapper>
+          <S.PhoneToken
+            placeholder="인증번호를 입력하세요"
+            onChange={props.onChangeToken}
+          ></S.PhoneToken>
+          <S.TokenCheckBtn onClick={props.onClickCheck}>
+            인증번호제출
+          </S.TokenCheckBtn>
+        </S.TokenWrapper>
+      </Modal>
+      {/* 모달 2 */}
+      <Modal
+        visible={props.isModal2}
+        footer={[
+          <S.FootWrapper key="back">
+            <S.Button onClick={props.handleCancel2}>취소</S.Button>
+            <S.Button onClick={props.handleOk2}>재설정 하기</S.Button>
+          </S.FootWrapper>,
+        ]}
+      >
+        <S.Contents>비밀번호 재설정</S.Contents>
+        <S.PwdWrapper
+          onSubmit={props.handleSubmit(
+            props.userType === "user"
+              ? props.onSubmitChangeUser
+              : props.onSubmitChangeSeller
+          )}
+        >
+          <S.PwdInput
+            {...props.register("password")}
+            placeholder="재설정 할 비밀번호를 입력하세요"
+          ></S.PwdInput>
+          <S.PwdErr>{props.formState.errors.password?.message}</S.PwdErr>
+        </S.PwdWrapper>
+      </Modal>
       <S.LoginWrapper>
         <S.InputWrapper>
           <S.Text>로그인</S.Text>
@@ -25,6 +85,9 @@ export default function LoginUI(props: IPropsLogin) {
             placeholder="Password"
             register={props.register("password")}
           />
+          <S.FindPwd onClick={props.onClickModal}>
+            <u>비밀번호를 잊어버리셧나요?</u>
+          </S.FindPwd>
         </S.InputWrapper>
         <Radio.Group onChange={props.onChangeAuth}>
           <Radio value={"buyer"}>구매자 로그인</Radio>
@@ -51,19 +114,7 @@ export default function LoginUI(props: IPropsLogin) {
             />
           )}
         </S.BtnWrapper>
-        {/* <div>소셜로그인</div>
-          <S.DivideLine></S.DivideLine> */}
-        <S.SocialLogin>
-          <a href="https://farmback.shop/users/login/naver">
-            <S.Img src="/icons/naver.png" alt="" />
-          </a>
-          <a href="https://farmback.shop/users/login/google">
-            <S.Img src="/icons/google.png" alt="" />
-          </a>
-          <S.Img src="/icons/kakao.png" alt="" onClick={props.onClickKakao} />
-        </S.SocialLogin>
       </S.LoginWrapper>
-      {/* </form> */}
     </S.Wrapper>
   );
 }
