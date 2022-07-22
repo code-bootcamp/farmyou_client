@@ -43,7 +43,7 @@ export default function BfoodWrite() {
     // 변경된 배열을 state에 저장해줍니다.
     setFileUrls([...newFileUrls]);
   }
-  console.log(fileUrls);
+  console.log(fileUrls.join(","));
 
   const onChangeContent = (value: string) => {
     setValue("content", value === "<p><br></p>" ? "" : value);
@@ -67,11 +67,11 @@ export default function BfoodWrite() {
           origin: data.origin,
           sellerId: userData.fetchUserLoggedIn.id,
           createFileInput: {
-            imageUrl: fileUrls,
+            imageUrl: fileUrls.join(","),
           },
         },
       });
-      console.log(result);
+      // console.log(result);
       router.push("/bfood");
     } catch (error) {
       console.log(error);

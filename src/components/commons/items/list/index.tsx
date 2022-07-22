@@ -27,6 +27,7 @@ const ItemImage = styled.img`
   width: 100%;
   height: 210px;
   background-color: #ccc;
+  object-fit: cover;
 
   @media (max-width: 689px) {
     width: 137px;
@@ -65,6 +66,7 @@ const ItemPrice = styled.div`
 `;
 
 export default function ListItem(props: any) {
+  // console.log(props.el.files[0]?.url.split(",")[0]);
   return (
     <Wrapper
       key={props.key}
@@ -72,7 +74,11 @@ export default function ListItem(props: any) {
       draggable={true}
       onDragStart={props.drag}
     >
-      <ItemImage />
+      <ItemImage
+        src={`https://storage.googleapis.com/${
+          props.el.files[0]?.url.split(",")[0]
+        }`}
+      />
       <ItemContentsWrapper>
         <ItemSeller>{props.el?.seller?.name}</ItemSeller>
         <ItemName>{props.el?.title}</ItemName>

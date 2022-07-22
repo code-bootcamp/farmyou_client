@@ -6,7 +6,7 @@ export const FETCH_DIRECT_PRODUCTS = gql`
     $sortBy: String = "최신순"
     $directStoreId: String
     $categoryId: String
-    $page: Float!
+    $page: Float
   ) {
     fetchDirectProductsSortedByTitle(
       title: $title
@@ -21,9 +21,11 @@ export const FETCH_DIRECT_PRODUCTS = gql`
       price
       createdAt
       quantity
-      origin
       directStore {
         name
+      }
+      files {
+        url
       }
     }
   }

@@ -6,4 +6,6 @@ export interface IBfoodListUIProps {
   onChangeSorted: (event: any) => void;
   onChangeSearch: (event: ChangeEvent<HTMLInputElement>) => void;
   text: string;
+  loadFunc: () => void;
+  onClickToDetail: () => void;
 }
