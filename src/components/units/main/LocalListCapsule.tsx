@@ -37,6 +37,7 @@ const FETCH_DIRECT_STORE = gql`
   query fetchDirectStore($name: String!) {
     fetchDirectStore(name: $name) {
       id
+      name
     }
   }
 `;
@@ -49,7 +50,11 @@ export default function LocalListCapsule(props: any) {
     },
   });
   const onClickMoveToList = (event: MouseEvent<HTMLDivElement>) => {
-    sessionStorage.setItem("DirectStoreId", data?.fetchDirectStore.id);
+    const directStoreData = {
+      id: data?.fetchDirectStore.id,
+      name: data?.fetchDirectStore.name,
+    };
+    sessionStorage.setItem("DirectStoreId", JSON.stringify(directStoreData));
     router.push(`/localfood`);
   };
   return (
