@@ -7,6 +7,8 @@ import {
   FETCH_ADDRESSES_OF_THE_USER,
   FETCH_CANCELED_PAYMENTS,
   FETCH_COMPLETE_PAYMENTS,
+  FETCH_DIRECT_PRODUCTS_BY_USER,
+  UPDATE_INVOICE,
   UPDATE_USER,
   UPLOAD_FILE,
 } from "./BuyerMypage.queries";
@@ -22,18 +24,19 @@ import {
   IOnClickEdit,
 } from "./BuyerMypage.types";
 
+const schema = yup.object({
+  name: yup.string().max(7, "이름은 7자를 넘을 수 없습니다."),
+  password: yup
+    .string()
+    .max(15, "비밀번호는 15자를 넘을 수 없습니다.")
+    .nullable(true)
+    .matches(
+      /^$|^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
+      "영어,숫자,특수문자가 포함되어야 합니다."
+    ),
+});
+
 export default function BuyerMypage(props: IBuyerMypageProps) {
-  const schema = yup.object({
-    name: yup.string().max(7, "이름은 7자를 넘을 수 없습니다."),
-    password: yup
-      .string()
-      .max(15, "비밀번호는 15자를 넘을 수 없습니다.")
-      .nullable(true)
-      .matches(
-        /^$|^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
-        "영어,숫자,특수문자가 포함되어야 합니다."
-      ),
-  });
   const { handleSubmit, register } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
@@ -57,17 +60,23 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
   const [canceledPaymentsUgly, setCanceledPaymentsUgly] = useState();
   const [sliceNumber, setSliceNumber] = useState(2);
 
+  const [updateInvoice] = useMutation(UPDATE_INVOICE);
+
   const { data: userAddressData } = useQuery(FETCH_ADDRESSES_OF_THE_USER, {
     variables: {
       userId: props.userData?.fetchUserLoggedIn.id,
     },
   });
 
-  console.log(userAddressData);
-
   const { data: fetchCompletePaymentsData } = useQuery(FETCH_COMPLETE_PAYMENTS);
   const { data: fetchCanceledPaymentsData } = useQuery(FETCH_CANCELED_PAYMENTS);
+  const { data: fetchDirectProductsByUserData } = useQuery(
+    FETCH_DIRECT_PRODUCTS_BY_USER
+  );
 
+  const count = fetchCompletePaymentsData?.fetchCompletePayments?.length;
+
+  console.log(fetchDirectProductsByUserData);
   const onClickFetchMore = () => {
     setSliceNumber((prev) => prev + 2);
   };
@@ -107,10 +116,12 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
   }, [fetchCanceledPaymentsData]);
 
   const onClickLocalList = () => {
+    setSliceNumber(2);
     setIsSelect(true);
   };
 
   const onClickBfoodList = () => {
+    setSliceNumber(2);
     setIsSelect(false);
     setError("");
   };
@@ -145,7 +156,7 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
           password,
         },
       });
-      // console.log(result.data.checkIfLoggedUser);
+
       if (result.data.checkIfLoggedUser) {
         setIsUserVisible(false);
         setIsEditVisible(true);
@@ -153,8 +164,10 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
       } else {
         setError("비밀번호가 틀렸습니다.");
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      Modal.error({
+        content: error.message,
+      });
     }
   };
 
@@ -176,14 +189,15 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
         },
       });
       setIsEditVisible(false);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      Modal.error({
+        content: error.message,
+      });
     }
   };
   const fileRef = useRef<HTMLInputElement>(null);
 
   function onClickUpload() {
-    // console.log(props.fileUrls);
     fileRef.current?.click();
   }
 
@@ -196,8 +210,8 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
         },
       });
       setFileUrl(result.data.uploadFile[0]);
-    } catch (error) {
-      Modal.error({ content: "에러!!" });
+    } catch (error: any) {
+      Modal.error({ content: error.message });
     }
   };
   const onClickDeleteAddress = async (event: MouseEvent<HTMLDivElement>) => {
@@ -215,8 +229,8 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
           },
         ],
       });
-    } catch (error) {
-      Modal.error({ content: "에러!!" });
+    } catch (error: any) {
+      Modal.error({ content: error.message });
     }
   };
   const onClickMainAddress = async (event: MouseEvent<HTMLDivElement>) => {
@@ -235,8 +249,8 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
           },
         ],
       });
-    } catch (error) {
-      Modal.error({ content: "에러!!" });
+    } catch (error: any) {
+      Modal.error({ content: error.message });
     }
   };
 
@@ -280,6 +294,7 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
       sliceNumber={sliceNumber}
       onClickFetchMore={onClickFetchMore}
       onClickProductEditButton={onClickProductEditButton}
+      count={count}
     />
   );
 }

@@ -90,6 +90,11 @@ export const FETCH_COMPLETE_PAYMENTS = gql`
         files {
           url
         }
+        seller {
+          id
+          name
+          phone
+        }
       }
       invoice
     }
@@ -120,6 +125,34 @@ export const FETCH_CANCELED_PAYMENTS = gql`
         }
       }
       invoice
+    }
+  }
+`;
+
+export const UPDATE_INVOICE = gql`
+  mutation updateInvoice($paymentId: String!, $invoiceNum: String!) {
+    updateInvoice(paymentId: $paymentId, invoiceNum: $invoiceNum) {
+      id
+      impUid
+      amount
+      paymentComplete
+    }
+  }
+`;
+
+export const FETCH_DIRECT_PRODUCTS_BY_USER = gql`
+  query fetchDirectProductsByUser {
+    fetchDirectProductsByUser {
+      id
+      title
+      price
+      createdAt
+      isDeleted
+      quantity
+      directStore {
+        id
+        name
+      }
     }
   }
 `;
