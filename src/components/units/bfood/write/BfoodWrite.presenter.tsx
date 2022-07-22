@@ -8,7 +8,11 @@ export default function BfoodWriteUI(props: IBfoodWriteUIProps) {
   return (
     <S.Wrapper>
       <S.PageTitle>상품 등록</S.PageTitle>
-      <form onSubmit={props.handleSubmit(props.onClickSubmit)}>
+      <form
+        onSubmit={props.handleSubmit(
+          props.isEdit ? props.onClickEdit : props.onClickSubmit
+        )}
+      >
         <S.InnerWrapper>
           <S.ImageItemWrapper>
             {new Array(props.fileUrls.length + 1).fill(1).map((data, index) => (
@@ -25,6 +29,7 @@ export default function BfoodWriteUI(props: IBfoodWriteUIProps) {
             placeholder={"상품명을 입력해주세요."}
             type="text"
             register={props.register("title")}
+            defaultValue={props.fetchProductUglyData?.fetchProductUgly.title}
           />
           <S.FormWrapper>
             <S.InputWrapper>
@@ -33,6 +38,9 @@ export default function BfoodWriteUI(props: IBfoodWriteUIProps) {
                 placeholder={"40000"}
                 type="number"
                 register={props.register("price")}
+                defaultValue={String(
+                  props.fetchProductUglyData?.fetchProductUgly.price
+                )}
               />
             </S.InputWrapper>
             <S.InputWrapper>
@@ -41,6 +49,9 @@ export default function BfoodWriteUI(props: IBfoodWriteUIProps) {
                 placeholder={"100"}
                 type="number"
                 register={props.register("quantity")}
+                defaultValue={String(
+                  props.fetchProductUglyData?.fetchProductUgly.quantity || ""
+                )}
               />
             </S.InputWrapper>
           </S.FormWrapper>
@@ -49,13 +60,17 @@ export default function BfoodWriteUI(props: IBfoodWriteUIProps) {
             placeholder={"생산 지역을 입력해주세요."}
             type="text"
             register={props.register("origin")}
+            defaultValue={props.fetchProductUglyData?.fetchProductUgly.origin}
           />
           <S.Label>상품설명</S.Label>
-          <S.InputQuill onChange={props.onChangeContent} />
+          <S.InputQuill
+            onChange={props.onChangeContent}
+            defaultValue={props.fetchProductUglyData?.fetchProductUgly.content}
+          />
           <S.ButtonWrapper>
             <ButtonComponent
               buttonColor="#f6651e"
-              title="등록하기"
+              title={props.isEdit ? "수정하기" : "등록하기"}
               type="submit"
             />
             <ButtonComponent
