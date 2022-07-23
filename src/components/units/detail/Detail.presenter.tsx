@@ -2,6 +2,7 @@ import ButtonComponent from "../../commons/buttons";
 import * as S from "./Detail.styles";
 import { IDetailUIProps } from "./Detail.types";
 import Question from "./question/Question.container";
+import { v4 as uuidv4 } from "uuid";
 
 export default function DetailUI(props: IDetailUIProps) {
   const settings = {
@@ -18,26 +19,23 @@ export default function DetailUI(props: IDetailUIProps) {
         <S.TopWrapper>
           <S.ImageWrapper>
             <S.MainImage
-              src={props.mainImageSrc || "/apple_slider.png"}
+              src={`https://storage.googleapis.com/${
+                props.data.files[0]?.url.split(",")[0]
+              }`}
             ></S.MainImage>
             <S.SubImageWrapper>
               <S.StyledSlider {...settings}>
-                {new Array(3).fill(1).map((_, index) => {
+                {props.data.files[0]?.url.split(",").map((el, index) => {
                   return (
-                    <S.SubImage
-                      onClick={props.onClickSubImage}
-                      key={index}
-                      src="/apple_slider.png"
-                    ></S.SubImage>
-                  );
-                })}
-                {new Array(4).fill(1).map((_, index) => {
-                  return (
-                    <S.SubImage
-                      onClick={props.onClickSubImage}
-                      key={index}
-                      src="/icons/delete.svg"
-                    ></S.SubImage>
+                    <>
+                      {console.log(el)}
+                      <S.SubImage
+                        onClick={props.onClickSubImage}
+                        key={uuidv4()}
+                        id={el}
+                        src={`https://storage.googleapis.com/${el}`}
+                      ></S.SubImage>
+                    </>
                   );
                 })}
               </S.StyledSlider>
@@ -45,7 +43,9 @@ export default function DetailUI(props: IDetailUIProps) {
           </S.ImageWrapper>
           <S.MainContentsWrapper>
             <S.MainContentsHeader>
-              <S.ItemSeller>{props.data?.seller?.name}</S.ItemSeller>
+              <S.ItemSeller>
+                {props.data?.seller?.name || props.data?.directStore?.name}
+              </S.ItemSeller>
               <S.IconWrapper>
                 <S.Icon src="/icons/list/carrot.png"></S.Icon>
                 <S.Icon src="/icons/list/garlic.png"></S.Icon>

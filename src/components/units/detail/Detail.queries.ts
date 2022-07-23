@@ -18,6 +18,9 @@ export const FETCH_PRODUCT_UGLY = gql`
         grade
         like
       }
+      files {
+        url
+      }
     }
   }
 `;
@@ -31,6 +34,12 @@ export const FETCH_PRODUCT_DIRECT = gql`
       price
       createdAt
       quantity
+      files {
+        url
+      }
+      directStore {
+        name
+      }
     }
   }
 `;

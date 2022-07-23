@@ -12,11 +12,11 @@ export default function Detail(props: IDetailProps) {
   const [buyQuantity, setBuyQuantity] = useState(0);
 
   const onClickSubImage = (event: MouseEvent<HTMLImageElement>) => {
-    setMainImageSrc(event.currentTarget.src);
+    setMainImageSrc(event.currentTarget.id);
   };
 
   const onChangeBuyQuantity = (event: ChangeEvent<HTMLInputElement>) => {
-    getDebounce(Number(event.target.value));
+    getDebounce(Number(event.target.id));
   };
 
   const getDebounce = _.debounce((input: number) => {
