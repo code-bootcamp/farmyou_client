@@ -31,7 +31,6 @@ export const FETCH_PRODUCT_DIRECT = gql`
       price
       createdAt
       quantity
-      origin
     }
   }
 `;
