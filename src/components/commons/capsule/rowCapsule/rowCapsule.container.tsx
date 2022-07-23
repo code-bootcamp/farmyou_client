@@ -6,20 +6,35 @@ export default function RowCapsule(props: IRowCapsuleProps) {
   const [count, setCount] = useState(props.foodEl?.count || 1);
   const onClickCountUp = () => {
     setCount((prev: number) => prev + 1);
+    // const baskets = JSON.parse(
+    //   localStorage.getItem(
+    //     props.id === "bfood" ? "bfoodbaskets" : "localfoodbaskets"
+    //   ) || "[]"
+    // );
+    // baskets[props.index].count = baskets[props.index].count + 1;
+    // console.log(baskets[props.index]);
   };
   const onClickCountDown = () => {
     if (count === 1) {
       return;
     }
     setCount((prev: number) => prev - 1);
+    // const baskets = JSON.parse(
+    //   localStorage.getItem(
+    //     props.id === "bfood" ? "bfoodbaskets" : "localfoodbaskets"
+    //   ) || "[]"
+    // );
+    // baskets[props.index].count = baskets[props.index].count - 1;
+    // console.log(baskets[props.index].count);
   };
   const onChangeCount = (event: ChangeEvent<HTMLInputElement>) => {
     setCount(Number(event.target.value));
   };
   const onCliCkDeleteFood = (event: MouseEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLDivElement;
     // console.log(event.target.id);
     // console.log(event.currentTarget.id);
-    if (event.currentTarget.id === "bfood") {
+    if (target.id === "bfood") {
       const bFoodBaskets = JSON.parse(
         localStorage.getItem("bfoodbaskets") || "[]"
       );
@@ -46,15 +61,16 @@ export default function RowCapsule(props: IRowCapsuleProps) {
       props.setFoodSums(temp);
       // console.log(temp);
     }
-    // const a1 = JSON.stringify(props.bFoodSums);
-    // console.log(a1);
-    // const a2 = JSON.parse(a1);
-    // console.log(a2);
-    // const temp = JSON.parse(JSON.stringify(props.bFoodSums));
-    // const temp = [...props.bFoodSums];
-    // temp.splice(props.index, 1, count * props.bFoodEl?.price);
-    // console.log(temp);
-    // props.bFoodSums[props.index] = count * props.bFoodEl?.price;
+    const baskets = JSON.parse(
+      localStorage.getItem(
+        props.id === "bfood" ? "bfoodbaskets" : "localfoodbaskets"
+      ) || "[]"
+    );
+    baskets[props.index].count = count;
+    localStorage.setItem(
+      props.id === "bfood" ? "bfoodbaskets" : "localfoodbaskets",
+      JSON.stringify(baskets)
+    );
   }, [count]);
 
   return (
