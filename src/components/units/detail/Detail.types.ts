@@ -1,5 +1,9 @@
 import { ChangeEvent, MouseEvent } from "react";
 
+export interface IFiles {
+  url: string;
+}
+
 export interface IDetailProps {
   data: {
     __typename?: string;
@@ -14,6 +18,10 @@ export interface IDetailProps {
       id: string;
       name: string;
     };
+    directStore?: {
+      name: string;
+    };
+    files: Array<IFiles>;
   };
 }
 
@@ -24,6 +32,7 @@ export interface IDetailUIProps {
   buyQuantity: number;
   onClickBasketsButton: () => void;
   data: {
+    __typename?: string;
     id?: string;
     title?: string;
     content?: string;
@@ -35,5 +44,9 @@ export interface IDetailUIProps {
       id: string;
       name: string;
     };
+    directStore?: {
+      name: string;
+    };
+    files: Array<IFiles>;
   };
 }
