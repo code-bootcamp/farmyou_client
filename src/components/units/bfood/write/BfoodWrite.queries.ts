@@ -38,3 +38,27 @@ export const FETCH_USER_LOGGED_IN = gql`
     }
   }
 `;
+
+export const UPDATE_PRODUCT_UGLY = gql`
+  mutation updateProductUgly(
+    $productId: String!
+    $title: String
+    $content: String
+    $price: Float
+    $quantity: Float
+    $origin: String
+    $createFileInput: CreateProductUglyInput
+  ) {
+    updateProductUgly(
+      productId: $productId
+      title: $title
+      content: $content
+      price: $price
+      quantity: $quantity
+      origin: $origin
+      createFileInput: $createFileInput
+    ) {
+      id
+    }
+  }
+`;

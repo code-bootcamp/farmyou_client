@@ -7,8 +7,11 @@ import { useMutation, useQuery } from "@apollo/client";
 import {
   CREATE_PRODUCT_UGLY,
   FETCH_USER_LOGGED_IN,
+  UPDATE_PRODUCT_UGLY,
 } from "./BfoodWrite.queries";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { IBfoodWriteProps, IData } from "./BfoodWrite.types";
+import { Modal } from "antd";
 
 const schema = yup.object({
   title: yup.string().required("필수입력사항입니다."),
@@ -18,17 +21,18 @@ const schema = yup.object({
   content: yup.string().required("필수입력사항입니다."),
 });
 
-export default function BfoodWrite() {
+export default function BfoodWrite(props: IBfoodWriteProps) {
   const router = useRouter();
-  const [fileUrls, setFileUrls] = useState([]);
+  const [fileUrls, setFileUrls] = useState<string[]>([]);
   const [createProductUgly] = useMutation(CREATE_PRODUCT_UGLY);
-  const { register, handleSubmit, setValue, trigger } = useForm({
+  const [updateProductUgly] = useMutation(UPDATE_PRODUCT_UGLY);
+
+  const { register, handleSubmit, setValue, trigger } = useForm<IData>({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
 
   const { data: userData } = useQuery(FETCH_USER_LOGGED_IN);
-  // console.log(userData.fetchUserLoggedIn.id);
 
   function onChangeFiles(index: number, url: string) {
     // 기존 state들을 담아줍니다.
@@ -43,7 +47,6 @@ export default function BfoodWrite() {
     // 변경된 배열을 state에 저장해줍니다.
     setFileUrls([...newFileUrls]);
   }
-  console.log(fileUrls.join(","));
 
   const onChangeContent = (value: string) => {
     setValue("content", value === "<p><br></p>" ? "" : value);
@@ -52,13 +55,11 @@ export default function BfoodWrite() {
 
   const onClickToCancel = () => {
     router.push("/users/mypage");
-    // console.log(watch());
-    // console.log(formState.isValid);
   };
 
-  const onClickSubmit = async (data: any) => {
+  const onClickSubmit = async (data: IData) => {
     try {
-      const result = await createProductUgly({
+      await createProductUgly({
         variables: {
           title: data.title,
           content: data.content,
@@ -71,22 +72,59 @@ export default function BfoodWrite() {
           },
         },
       });
-      // console.log(result);
       router.push("/bfood");
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      Modal.error({
+        content: error.message,
+      });
     }
   };
-  // console.log(watch());
+
+  const onClickEdit = async (data: IData) => {
+    try {
+      updateProductUgly({
+        variables: {
+          productId: router.query.id,
+          title: data.title,
+          content: data.content,
+          price: data.price,
+          quantity: data.quantity,
+          origin: data.origin,
+          createFileInput: {
+            imageUrl: fileUrls.join(","),
+          },
+        },
+      });
+      router.push(`/bfood/${router.query.id}`);
+    } catch (error: any) {
+      Modal.error({
+        content: error.message,
+      });
+    }
+  };
+
+  useEffect(() => {
+    setFileUrls(
+      props.fetchProductUglyData?.fetchProductUgly?.files[0].url?.split(",") ||
+        []
+    );
+    onChangeContent(props.fetchProductUglyData?.fetchProductUgly?.content);
+  }, []);
+
+  // console.log(props.fetchProductUglyData);
+
   return (
     <BfoodWriteUI
+      isEdit={props.isEdit}
       register={register}
       handleSubmit={handleSubmit}
       onChangeContent={onChangeContent}
       onClickToCancel={onClickToCancel}
       onClickSubmit={onClickSubmit}
+      onClickEdit={onClickEdit}
       onChangeFiles={onChangeFiles}
       fileUrls={fileUrls}
+      fetchProductUglyData={props.fetchProductUglyData}
     />
   );
 }
