@@ -34,7 +34,14 @@ export default function BfoodListUI(props: IBfoodListUIProps) {
         > */}
         <S.ItemWrapper>
           {props.data?.fetchUglyProductsSortedByTitle.map((el: any) => {
-            return <ListItem key={el.id} el={el} drag={props.drag} />;
+            return (
+              <ListItem
+                key={el.id}
+                el={el}
+                drag={props.drag}
+                onClickToDetail={props.onClickToDetail}
+              />
+            );
           })}
         </S.ItemWrapper>
         {/* </InfiniteScroll> */}
