@@ -9,4 +9,5 @@ export interface ILocalfoodListUIProps {
   onChangeSearch: (event: ChangeEvent<HTMLInputElement>) => void;
   text: string;
   onClickToDetail: (event: MouseEvent<HTMLDivElement>) => void;
+  storeName: string;
 }

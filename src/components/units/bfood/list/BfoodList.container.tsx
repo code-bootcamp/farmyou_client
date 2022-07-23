@@ -8,7 +8,6 @@ import { useRouter } from "next/router";
 export default function BfoodList() {
   const router = useRouter();
   const [sorted, setSorted] = useState<string>("최신순");
-
   const { data, refetch } = useQuery(FETCH_UGLY_PRODUCTS, {
     variables: {},
   });

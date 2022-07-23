@@ -110,7 +110,7 @@ export default function LayoutBanner() {
           </LocalFoodTextFront>
           <LocalFoodContent>지역과 건강을 생각한 올바른 선택</LocalFoodContent>
           <LocalFoodContentEmphasis>
-            신선한 먹거리<LocalFoodContent>로컬푸드</LocalFoodContent>
+            신선한 먹거리<LocalFoodContent> 로컬푸드</LocalFoodContent>
           </LocalFoodContentEmphasis>
         </LocalFoodBannerTextWrapper>
       )}
