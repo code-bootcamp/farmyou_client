@@ -1,7 +1,10 @@
 import ListItem from "../../../commons/items/list";
 import * as S from "./BfoodList.styles";
 import { Select } from "antd";
-import { IBfoodListUIProps } from "./BfoodList.types";
+import {
+  IBfoodListUIProps,
+  IFetchUglyProductsSortedByTitle,
+} from "./BfoodList.types";
 // import InfiniteScroll from "react-infinite-scroller";
 import PopUp from "../../../commons/popup";
 const { Option } = Select;
@@ -25,7 +28,6 @@ export default function BfoodListUI(props: IBfoodListUIProps) {
             <S.SearchInput
               placeholder="검색어를 입력해주세요."
               onChange={props.onChangeSearch}
-              value={props.text}
             />
           </S.SearchWrapper>
           {/* <InfiniteScroll
@@ -35,16 +37,18 @@ export default function BfoodListUI(props: IBfoodListUIProps) {
           useWindow={false}
         > */}
           <S.ItemWrapper>
-            {props.data?.fetchUglyProductsSortedByTitle.map((el: any) => {
-              return (
-                <ListItem
-                  key={el.id}
-                  el={el}
-                  drag={props.drag}
-                  onClickToDetail={props.onClickToDetail}
-                />
-              );
-            })}
+            {props.data?.fetchUglyProductsSortedByTitle.map(
+              (el: IFetchUglyProductsSortedByTitle) => {
+                return (
+                  <ListItem
+                    key={el.id}
+                    el={el}
+                    drag={props.drag}
+                    onClickToDetail={props.onClickToDetail}
+                  />
+                );
+              }
+            )}
           </S.ItemWrapper>
           {/* </InfiniteScroll> */}
         </S.Wrapper>

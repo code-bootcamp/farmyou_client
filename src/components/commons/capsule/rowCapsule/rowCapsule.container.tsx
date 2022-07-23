@@ -1,9 +1,9 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import RowCapsuleUI from "./rowCapsule.presenter";
+import { IBaskets, IRowCapsuleProps } from "./rowCapsule.types";
 
-export default function RowCapsule(props: any) {
+export default function RowCapsule(props: IRowCapsuleProps) {
   const [count, setCount] = useState(props.foodEl?.count || 1);
-
   const onClickCountUp = () => {
     setCount((prev: number) => prev + 1);
   };
@@ -16,15 +16,15 @@ export default function RowCapsule(props: any) {
   const onChangeCount = (event: ChangeEvent<HTMLInputElement>) => {
     setCount(Number(event.target.value));
   };
-  const onCliCkDeleteFood = (event: any) => {
+  const onCliCkDeleteFood = (event: MouseEvent<HTMLDivElement>) => {
     // console.log(event.target.id);
     // console.log(event.currentTarget.id);
-    if (event.target.id === "bfood") {
+    if (event.currentTarget.id === "bfood") {
       const bFoodBaskets = JSON.parse(
         localStorage.getItem("bfoodbaskets") || "[]"
       );
       const tempBaskets = bFoodBaskets.filter(
-        (el: any) => el.id !== event.currentTarget.id
+        (el: IBaskets) => el.id !== event.currentTarget.id
       );
       props.setFoodBasketsCount(tempBaskets.length);
       localStorage.setItem("bfoodbaskets", JSON.stringify(tempBaskets));
@@ -33,7 +33,7 @@ export default function RowCapsule(props: any) {
         localStorage.getItem("localfoodbaskets") || "[]"
       );
       const tempBaskets = localFoodBaskets.filter(
-        (el: any) => el.id !== event.currentTarget.id
+        (el: IBaskets) => el.id !== event.currentTarget.id
       );
       props.setFoodBasketsCount(tempBaskets.length);
       localStorage.setItem("localfoodbaskets", JSON.stringify(tempBaskets));
@@ -61,7 +61,7 @@ export default function RowCapsule(props: any) {
     <RowCapsuleUI
       foodEl={props.foodEl}
       count={count}
-      setCount={setCount}
+      // setCount={setCount}
       onClickCountUp={onClickCountUp}
       onClickCountDown={onClickCountDown}
       onChangeCount={onChangeCount}

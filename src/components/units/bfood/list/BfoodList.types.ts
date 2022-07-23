@@ -1,11 +1,33 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, DragEvent, MouseEvent } from "react";
+
+export interface IFiles {
+  url: string;
+}
+export interface IFetchUglyProductsSortedByTitle {
+  id: string;
+  title: string;
+  price: number;
+  origin: string;
+  quantity: number;
+  createdAt: Date;
+  content: string;
+  seller: {
+    name: string;
+    email: string;
+    grade: string;
+    id: string;
+    like: number;
+    phone: string;
+  };
+  files: Array<IFiles>;
+}
 
 export interface IBfoodListUIProps {
-  data: any;
-  drag: (event: any) => void;
-  onChangeSorted: (event: any) => void;
+  data: {
+    fetchUglyProductsSortedByTitle: Array<IFetchUglyProductsSortedByTitle>;
+  };
+  drag: (event: DragEvent<HTMLDivElement>) => void;
+  onChangeSorted: (event: string) => void;
   onChangeSearch: (event: ChangeEvent<HTMLInputElement>) => void;
-  text: string;
-  loadFunc: () => void;
-  onClickToDetail: () => void;
+  onClickToDetail: (event: MouseEvent<HTMLDivElement>) => void;
 }

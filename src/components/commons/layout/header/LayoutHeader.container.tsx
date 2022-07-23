@@ -1,10 +1,11 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { DragEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { TokenState } from "../../store";
 import LayoutHeaderUI from "./LayoutHeader.presenter";
 import { FETCH_USER_LOGGED_IN, LOG_OUT } from "./LayoutHeader.queries";
+import { IDrag } from "./LayoutHeader.types";
 
 export default function LayoutHeader() {
   const router = useRouter();
@@ -69,7 +70,7 @@ export default function LayoutHeader() {
   };
 
   // 장바구니 기능
-  const dragAndDropBasket = (el: any) => {
+  const dragAndDropBasket = (el: IDrag) => {
     // 1.기존 장바구니 가져오기
     const baskets = JSON.parse(
       localStorage.getItem(
@@ -78,7 +79,7 @@ export default function LayoutHeader() {
     );
     console.log(baskets);
     // 2. 이미 담겼는지 확인하기
-    const temp = baskets.filter((basketEl: any) => basketEl.id === el.id);
+    const temp = baskets.filter((basketEl: IDrag) => basketEl.id === el.id);
     if (temp.length === 1) {
       alert("이미 담으신 물품입니다.");
       return;
@@ -93,7 +94,7 @@ export default function LayoutHeader() {
     );
   };
 
-  const drop = (event: any) => {
+  const drop = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     const data = event.dataTransfer.getData("object");
     // console.log(data);
@@ -103,7 +104,7 @@ export default function LayoutHeader() {
     dragAndDropBasket(temp);
     setIsIn(false);
   };
-  const dragOver = (event: any) => {
+  const dragOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsIn(true);
   };

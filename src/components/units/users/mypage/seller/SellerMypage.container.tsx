@@ -12,7 +12,7 @@ import {
   UPLOAD_FILE,
 } from "./SellerMypage.queries";
 import { useRouter } from "next/router";
-import { IOnClickEdit, ISellerMypageProps } from "./SellerMypage.types";
+import { IForm, ISellerMypageProps } from "./SellerMypage.types";
 
 export default function SellerMypage(props: ISellerMypageProps) {
   const router = useRouter();
@@ -27,7 +27,7 @@ export default function SellerMypage(props: ISellerMypageProps) {
         "영어,숫자,특수문자가 포함되어야 합니다."
       ),
   });
-  const { handleSubmit, register } = useForm({
+  const { handleSubmit, register } = useForm<IForm>({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
@@ -86,7 +86,7 @@ export default function SellerMypage(props: ISellerMypageProps) {
   const editCancel = () => {
     setIsEditVisible(false);
   };
-  const onClickEdit = async (data: IOnClickEdit) => {
+  const onClickEdit = async (data: IForm) => {
     try {
       const result = await updateSeller({
         variables: {

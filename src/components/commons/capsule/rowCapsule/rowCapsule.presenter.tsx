@@ -1,6 +1,7 @@
 import * as S from "./rowCapsule.styles";
+import { IRowCapsuleUIProps } from "./rowCapsule.types";
 
-export default function RowCapsuleUI(props: any) {
+export default function RowCapsuleUI(props: IRowCapsuleUIProps) {
   return (
     <S.Wrapper>
       <S.ImageWrapper src="/apple_slider.png" />

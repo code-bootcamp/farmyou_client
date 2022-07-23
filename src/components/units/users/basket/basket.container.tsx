@@ -1,25 +1,23 @@
 import { useEffect, useState } from "react";
 import BasketUI from "./basket.presenter";
-import { IBFoodBasketsItems, ILocalFoodBasketsItems } from "./basket.types";
+import { IBaskets } from "./basket.types";
 
 export default function Basket() {
   const [bfoodBasketsCount, setBfoodBasketsCount] = useState(0);
   const [bFoodSum, setBFoodSum] = useState(0);
-  const [bFoodSums, setBFoodSums] = useState([]);
-  const [bFoodBasketsItems, setBFoodBasketsItems] = useState<
-    IBFoodBasketsItems[]
-  >([]);
+  const [bFoodSums, setBFoodSums] = useState<number[]>([]);
+  const [bFoodBasketsItems, setBFoodBasketsItems] = useState<IBaskets[]>([]);
   const [localFoodBasketsCount, setLocalFoodBasketsCount] = useState(0);
   const [localFoodSum, setLocalFoodSum] = useState(0);
-  const [localFoodSums, setLocalFoodSums] = useState([]);
+  const [localFoodSums, setLocalFoodSums] = useState<number[]>([]);
   const [localFoodBasketsItems, setLocalFoodBasketsItems] = useState<
-    ILocalFoodBasketsItems[]
+    IBaskets[]
   >([]);
   useEffect(() => {
     const baskets = JSON.parse(localStorage.getItem("bfoodbaskets") || "[]");
     setBFoodBasketsItems(baskets);
     if (baskets.length !== 0) {
-      const temp = baskets.map((el: any) => el.price);
+      const temp = baskets.map((el: IBaskets) => el.price);
       setBFoodSum(temp.reduce((acc: number, cur: number) => acc + cur));
       setBFoodSums(temp);
     } else {
@@ -32,7 +30,7 @@ export default function Basket() {
     );
     setLocalFoodBasketsItems(baskets);
     if (baskets.length !== 0) {
-      const temp = baskets.map((el: any) => el.price);
+      const temp = baskets.map((el: IBaskets) => el.price);
       setLocalFoodSum(temp.reduce((acc: number, cur: number) => acc + cur));
       setLocalFoodSums(temp);
     } else {
@@ -43,11 +41,13 @@ export default function Basket() {
   // console.log(bFoodSums);
   useEffect(() => {
     if (bFoodSums.length !== 0)
-      setBFoodSum(bFoodSums.reduce((acc, cur) => acc + cur));
+      setBFoodSum(bFoodSums.reduce((acc: number, cur: number) => acc + cur));
   }, [bFoodSums]);
+
   useEffect(() => {
     if (localFoodSums.length !== 0)
       setLocalFoodSum(localFoodSums.reduce((acc, cur) => acc + cur));
+    // console.log(localFoodSums);
   }, [localFoodSums]);
 
   return (

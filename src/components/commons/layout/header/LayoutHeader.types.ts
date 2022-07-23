@@ -1,4 +1,4 @@
-import { MouseEventHandler } from "react";
+import { DragEvent } from "react";
 
 export interface IBodyProps {
   isCheck: boolean;
@@ -9,14 +9,47 @@ export interface IBodyProps {
 export interface ICartProps {
   isIn: boolean;
 }
+export interface IFetchUserLoggedIn {
+  id: string;
+  name: string;
+  email: string;
+  type: string;
+}
+interface IFiles {
+  url: string;
+}
+export interface IDrag {
+  __typename: string;
+  id: string;
+  title: string;
+  price: number;
+  origin?: string;
+  quantity: number;
+  createdAt: Date;
+  count: number;
+  content: string;
+  seller?: {
+    name: string;
+    email: string;
+    grade: string;
+    id: string;
+    like: number;
+    phone: string;
+  };
+  directStore?: {
+    name: string;
+  };
+  files: Array<IFiles>;
+}
+
 export interface ILayoutHeaderUIProps {
   isIn: boolean;
   isCheck: boolean;
   isCheckList: boolean;
   scroll: boolean;
   onClickScroll: () => void;
-  drop: (event: any) => void;
-  dragOver: (event: any) => void;
+  drop: (event: DragEvent<HTMLDivElement>) => void;
+  dragOver: (event: DragEvent<HTMLDivElement>) => void;
   dragLeave: () => void;
   styles: {
     bmBurgerButton: {
@@ -39,5 +72,7 @@ export interface ILayoutHeaderUIProps {
   onClickMoveToMypage: () => void;
   onClickLogout: () => void;
   onClickMoveToMain: () => void;
-  data: any;
+  data: {
+    fetchUserLoggedIn: IFetchUserLoggedIn;
+  };
 }

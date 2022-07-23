@@ -1,4 +1,37 @@
 import styled from "@emotion/styled";
+import { DragEvent, MouseEvent } from "react";
+
+interface IFiles {
+  url: string;
+}
+
+interface IFetchProductsSortedByTitle {
+  id: string;
+  title: string;
+  price: number;
+  origin?: string;
+  quantity: number;
+  createdAt: Date;
+  content: string;
+  seller?: {
+    name: string;
+    email: string;
+    grade: string;
+    id: string;
+    like: number;
+    phone: string;
+  };
+  directStore?: {
+    name: string;
+  };
+  files: Array<IFiles>;
+}
+interface IListItemProps {
+  key: string;
+  el: IFetchProductsSortedByTitle;
+  drag: (event: DragEvent<HTMLDivElement>) => void;
+  onClickToDetail: (event: MouseEvent<HTMLDivElement>) => void;
+}
 
 const Wrapper = styled.div`
   width: 236px;
@@ -64,7 +97,7 @@ const ItemPrice = styled.div`
   text-align: end;
 `;
 
-export default function ListItem(props: any) {
+export default function ListItem(props: IListItemProps) {
   return (
     <Wrapper
       key={props.key}

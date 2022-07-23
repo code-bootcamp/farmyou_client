@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, DragEvent, MouseEvent, useState } from "react";
 import BfoodListUI from "./BfoodList.presenter";
 import { FETCH_UGLY_PRODUCTS } from "./BfoodList.queries";
 import _ from "lodash";
@@ -11,7 +11,7 @@ export default function BfoodList() {
   const { data, refetch } = useQuery(FETCH_UGLY_PRODUCTS, {
     variables: {},
   });
-  const onChangeSorted = (event: ChangeEvent<HTMLSelectElement>) => {
+  const onChangeSorted = (event: string) => {
     setSorted(event);
     refetch({ sortBy: event });
   };
@@ -19,12 +19,12 @@ export default function BfoodList() {
     getDebounce(event.target.value);
   };
 
-  const getDebounce = _.debounce((data) => {
+  const getDebounce = _.debounce((data: string) => {
     refetch({ title: data, sortBy: sorted });
   }, 200);
 
-  const drag = (event: any) => {
-    event.dataTransfer.setData("object", event.target.id);
+  const drag = (event: DragEvent<HTMLDivElement>) => {
+    event.dataTransfer.setData("object", event.currentTarget.id);
   };
   const onClickToDetail = (event: MouseEvent<HTMLDivElement>) => {
     router.push(`/bfood/${JSON.parse(event.currentTarget.id).id}`);
