@@ -24,10 +24,18 @@ export const Divide = styled.div`
 export const SearchWrapper = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: end;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
   height: 70px;
+`;
+export const MarketName = styled.div`
+  width: auto;
+  font-size: 1.2rem;
+  margin: 0px 45px 10px 20px;
+`;
+export const SearchOption = styled.div`
+  width: auto;
 `;
 
 export const SearchInput = styled(Input)`

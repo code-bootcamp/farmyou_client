@@ -8,11 +8,15 @@ import { useRouter } from "next/router";
 export default function LocalfoodList() {
   const router = useRouter();
   const [storeId, setStoreId] = useState<string | null>(null);
+  const [storeName, setStoreName] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [text, setText] = useState();
   const [sorted, setSorted] = useState("최신순");
   useEffect(() => {
     setStoreId(JSON.parse(sessionStorage.getItem("DirectStoreId" || "")).id);
+    setStoreName(
+      JSON.parse(sessionStorage.getItem("DirectStoreId" || "")).name
+    );
   }, []);
   const { data, refetch } = useQuery(FETCH_DIRECT_PRODUCTS, {
     variables: { page: 1, directStoreId: storeId },
@@ -72,6 +76,7 @@ export default function LocalfoodList() {
       onChangeSearch={onChangeSearch}
       onClickToDetail={onClickToDetail}
       text={text}
+      storeName={storeName}
     />
   );
 }
