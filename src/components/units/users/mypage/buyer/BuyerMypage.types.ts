@@ -1,6 +1,12 @@
 import { ChangeEvent, MouseEvent, MutableRefObject, RefObject } from "react";
-import { FieldValues, UseFormRegister } from "react-hook-form";
+import { UseFormHandleSubmit, UseFormRegister } from "react-hook-form";
 
+export interface IForm {
+  name: string;
+  password: string;
+  phone: string;
+  imageUrl: string;
+}
 export interface ICompletePaymentsLocal {
   id: string;
   impUid: string;
@@ -118,9 +124,9 @@ export interface IBuyerMypageUIProps {
   onClickUpload: () => void;
   fileRef: RefObject<HTMLInputElement>;
   fileUrl: string;
-  handleSubmit: any;
-  register: UseFormRegister<FieldValues>;
-  onClickEdit: (data: IOnClickEdit) => void;
+  handleSubmit: UseFormHandleSubmit<IForm>;
+  register: UseFormRegister<IForm>;
+  onClickEdit: (data: IForm) => void;
   error: string;
   onClickDeleteAddress: (event: MouseEvent<HTMLDivElement>) => void;
   onClickMainAddress: (event: MouseEvent<HTMLDivElement>) => void;

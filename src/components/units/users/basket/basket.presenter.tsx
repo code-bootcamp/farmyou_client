@@ -1,7 +1,8 @@
 import ButtonComponent from "../../../commons/buttons";
 import RowCapsule from "../../../commons/capsule/rowCapsule/rowCapsule.container";
 import * as S from "./basket.styles";
-import { IBasketUIProps } from "./basket.types";
+import { IBaskets, IBasketUIProps } from "./basket.types";
+// import { v4 as uuidv4 } from "uuid";
 
 export default function BasketUI(props: IBasketUIProps) {
   return (
@@ -11,7 +12,7 @@ export default function BasketUI(props: IBasketUIProps) {
         <S.Header>로컬푸드 직매장 장바구니</S.Header>
         <S.DivideLine />
         <S.ListWrapper>
-          {props.localFoodData.map((el: any, index: number) => (
+          {props.localFoodData.map((el: IBaskets, index: number) => (
             <RowCapsule
               key={el.id}
               foodEl={el}
@@ -28,7 +29,7 @@ export default function BasketUI(props: IBasketUIProps) {
         <S.Header>못난이 상품 장바구니</S.Header>
         <S.DivideLine />
         <S.ListWrapper>
-          {props.bFoodData.map((el: any, index: number) => (
+          {props.bFoodData.map((el: IBaskets, index: number) => (
             <RowCapsule
               key={el.id}
               foodEl={el}

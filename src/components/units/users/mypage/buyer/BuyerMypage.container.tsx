@@ -21,6 +21,7 @@ import { useRouter } from "next/router";
 import {
   IBuyerMypageProps,
   IFetchCompletePayments,
+  IForm,
   IOnClickEdit,
 } from "./BuyerMypage.types";
 
@@ -37,7 +38,7 @@ const schema = yup.object({
 });
 
 export default function BuyerMypage(props: IBuyerMypageProps) {
-  const { handleSubmit, register } = useForm({
+  const { handleSubmit, register } = useForm<IForm>({
     resolver: yupResolver(schema),
     mode: "onChange",
   });

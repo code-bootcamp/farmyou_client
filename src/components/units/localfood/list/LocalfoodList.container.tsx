@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
+import { ChangeEvent, DragEvent, MouseEvent, useEffect, useState } from "react";
 import LocalfoodListUI from "./LocalfoodList.presenter";
 import { FETCH_DIRECT_PRODUCTS } from "./LocalfoodList.queries";
 import _ from "lodash";
@@ -7,19 +7,25 @@ import { useRouter } from "next/router";
 
 export default function LocalfoodList() {
   const router = useRouter();
-  const [storeId, setStoreId] = useState<string | null>(null);
+  const [storeId, setStoreId] = useState<string>("");
   const [storeName, setStoreName] = useState("");
-  const [categoryId, setCategoryId] = useState("");
-  const [text, setText] = useState();
-  const [sorted, setSorted] = useState("최신순");
+  // const [categoryId, setCategoryId] = useState<string>("");
+  const [text, setText] = useState("");
+  const [sorted, setSorted] = useState<string>("최신순");
   useEffect(() => {
-    setStoreId(JSON.parse(sessionStorage.getItem("DirectStoreId" || "")).id);
+    setStoreId(JSON.parse(sessionStorage.getItem("DirectStoreId") || "").id);
     setStoreName(
-      JSON.parse(sessionStorage.getItem("DirectStoreId" || "")).name
+      JSON.parse(sessionStorage.getItem("DirectStoreId") || "").name
     );
   }, []);
   const { data, refetch } = useQuery(FETCH_DIRECT_PRODUCTS, {
-    variables: { page: 1, directStoreId: storeId },
+    variables: {
+      page: 1,
+      directStoreId: storeId,
+      sortBy: "최신순",
+      categoryId: "",
+      title: "",
+    },
   });
 
   const onClickAll = () => {
@@ -32,8 +38,8 @@ export default function LocalfoodList() {
     });
   };
 
-  const onClickCategory = (event: any) => {
-    setCategoryId(event.currentTarget.id);
+  const onClickCategory = (event: MouseEvent<HTMLDivElement>) => {
+    // setCategoryId(event.currentTarget.id);
     refetch({
       directStoreId: storeId,
       categoryId: event.currentTarget.id,
@@ -43,10 +49,10 @@ export default function LocalfoodList() {
     });
     setText("");
   };
-  const drag = (event: any) => {
-    event.dataTransfer.setData("object", event.target.id);
+  const drag = (event: DragEvent<HTMLDivElement>) => {
+    event.dataTransfer.setData("object", event.currentTarget.id);
   };
-  const onChangeSorted = (event: any) => {
+  const onChangeSorted = (event: string) => {
     setSorted(event);
     refetch({ sortBy: event, directStoreId: storeId, page: 1 });
   };
@@ -54,7 +60,7 @@ export default function LocalfoodList() {
     setText(event.target.value);
     getDebounce(event.target.value);
   };
-  const getDebounce = _.debounce((data) => {
+  const getDebounce = _.debounce((data: string) => {
     refetch({
       title: data,
       directStoreId: storeId,

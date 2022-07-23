@@ -1,27 +1,42 @@
-export interface IBFoodBasketsItems {
-  _id: string;
-  title: string;
-  quantity: number;
-  price: number;
-  name: string;
+import { Dispatch, SetStateAction } from "react";
+
+interface IFiles {
+  url: string;
 }
-export interface ILocalFoodBasketsItems {
-  _id: string;
+export interface IBaskets {
+  __typename: string;
+  id: string;
   title: string;
-  quantity: number;
   price: number;
+  origin?: string;
+  quantity: number;
+  createdAt: Date;
+  count: number;
+  content: string;
+  seller?: {
+    name: string;
+    email: string;
+    grade: string;
+    id: string;
+    like: number;
+    phone: string;
+  };
+  directStore?: {
+    name: string;
+  };
+  files: Array<IFiles>;
 }
 export interface IBasketUIProps {
-  bFoodData: any;
-  setBfoodBasketsCount: any;
+  bFoodData: IBaskets[];
+  setBfoodBasketsCount: Dispatch<SetStateAction<number>>;
   bFoodSum: number;
-  bFoodSums: any;
-  setBFoodSums: any;
-  localFoodData: any;
-  setLocalfoodBasketsCount: any;
+  bFoodSums: number[];
+  setBFoodSums: Dispatch<SetStateAction<number[]>>;
+  localFoodData: IBaskets[];
+  setLocalfoodBasketsCount: Dispatch<SetStateAction<number>>;
   localFoodSum: number;
-  localFoodSums: any;
-  setLocalFoodSums: any;
+  localFoodSums: number[];
+  setLocalFoodSums: Dispatch<SetStateAction<number[]>>;
 
   //   {
   //     _id: string;

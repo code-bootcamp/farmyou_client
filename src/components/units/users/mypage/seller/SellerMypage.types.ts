@@ -1,7 +1,7 @@
 import { ChangeEvent, RefObject } from "react";
-import { FieldValues, UseFormRegister } from "react-hook-form";
+import { UseFormHandleSubmit, UseFormRegister } from "react-hook-form";
 
-export interface IOnClickEdit {
+export interface IForm {
   name: string;
   password: string;
   phone: string;
@@ -27,10 +27,10 @@ export interface ISellerMypageUiProps {
   onClickUpload: () => void;
   fileRef: RefObject<HTMLInputElement>;
   fileUrl: string;
-  handleSubmit: any;
-  register: UseFormRegister<FieldValues>;
+  handleSubmit: UseFormHandleSubmit<IForm>;
+  register: UseFormRegister<IForm>;
   error: string;
-  onClickEdit: (data: IOnClickEdit) => Promise<void>;
+  onClickEdit: (data: IForm) => Promise<void>;
   onClickToWrite: () => void;
   fetchUglyProductsBySellerData: {
     fetchUglyProductsBySeller?: Array<IFetchUglyProductsBySeller>;

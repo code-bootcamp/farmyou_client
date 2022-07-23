@@ -2,7 +2,10 @@ import ListItem from "../../../commons/items/list";
 import * as S from "./LocalfoodList.styles";
 import { Select } from "antd";
 import ListCategoryItem from "../../../commons/items/listcategory";
-import { ILocalfoodListUIProps } from "./LocalfoodList.types";
+import {
+  IFetchDirectProductsSortedByTitle,
+  ILocalfoodListUIProps,
+} from "./LocalfoodList.types";
 import PopUp from "../../../commons/popup";
 
 const { Option } = Select;
@@ -83,16 +86,18 @@ export default function LocalfoodListUI(props: ILocalfoodListUIProps) {
             </S.SearchOption>
           </S.SearchWrapper>
           <S.ItemWrapper>
-            {props.data?.fetchDirectProductsSortedByTitle.map((el: any) => {
-              return (
-                <ListItem
-                  key={el.id}
-                  el={el}
-                  drag={props.drag}
-                  onClickToDetail={props.onClickToDetail}
-                />
-              );
-            })}
+            {props.data?.fetchDirectProductsSortedByTitle.map(
+              (el: IFetchDirectProductsSortedByTitle) => {
+                return (
+                  <ListItem
+                    key={el.id}
+                    el={el}
+                    drag={props.drag}
+                    onClickToDetail={props.onClickToDetail}
+                  />
+                );
+              }
+            )}
           </S.ItemWrapper>
         </S.Wrapper>
       </S.OutLine>
