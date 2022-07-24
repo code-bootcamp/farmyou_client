@@ -11,6 +11,7 @@ export default function DetailUI(props: IDetailUIProps) {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
+    auto: false,
   };
 
   return (
@@ -25,18 +26,22 @@ export default function DetailUI(props: IDetailUIProps) {
             ></S.MainImage>
             <S.SubImageWrapper>
               <S.StyledSlider {...settings}>
-                {props.data.files[0]?.url.split(",").map((el, index) => {
+                {props.data.files[0]?.url.split(",").map((el) => {
                   return (
-                    <>
-                      <S.SubImage
-                        onClick={props.onClickSubImage}
-                        key={uuidv4()}
-                        id={el}
-                        src={`https://storage.googleapis.com/${el}`}
-                      ></S.SubImage>
-                    </>
+                    <S.SubImage
+                      onClick={props.onClickSubImage}
+                      key={uuidv4()}
+                      id={el}
+                      src={`https://storage.googleapis.com/${el}`}
+                    ></S.SubImage>
                   );
                 })}
+                {props.data.files[0]?.url.split(",").length < 5 &&
+                  new Array(5 - props.data.files[0]?.url.split(",").length)
+                    .fill(1)
+                    .map((_) => {
+                      return <div key={uuidv4()}></div>;
+                    })}
               </S.StyledSlider>
             </S.SubImageWrapper>
           </S.ImageWrapper>
@@ -45,10 +50,10 @@ export default function DetailUI(props: IDetailUIProps) {
               <S.ItemSeller>
                 {props.data?.seller?.name || props.data?.directStore?.name}
               </S.ItemSeller>
-              <S.IconWrapper>
+              {/* <S.IconWrapper>
                 <S.Icon src="/icons/list/carrot.png"></S.Icon>
                 <S.Icon src="/icons/list/garlic.png"></S.Icon>
-              </S.IconWrapper>
+              </S.IconWrapper> */}
             </S.MainContentsHeader>
             <S.MainContentsBody>
               <S.ItemName>{props.data?.title}</S.ItemName>
