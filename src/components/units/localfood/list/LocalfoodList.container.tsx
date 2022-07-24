@@ -27,7 +27,6 @@ export default function LocalfoodList() {
       title: "",
     },
   });
-
   const onClickAll = () => {
     refetch({
       directStoreId: storeId,
