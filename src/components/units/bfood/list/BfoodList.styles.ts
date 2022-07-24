@@ -20,17 +20,18 @@ export const Text = styled.div`
 `;
 
 export const SearchWrapper = styled.div`
-  width: 100%;
+  width: auto;
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
   height: 70px;
 `;
 
 export const SearchInput = styled(Input)`
   width: 20vw;
-  margin: 0px 45px 0px 20px;
+  margin-right: 45px;
+  margin-left: 20px;
 `;
 
 export const CategoryWrapper = styled.div`

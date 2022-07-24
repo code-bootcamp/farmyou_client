@@ -38,7 +38,6 @@ export default function LocalfoodList() {
   };
 
   const onClickCategory = (event: MouseEvent<HTMLDivElement>) => {
-    // setCategoryId(event.currentTarget.id);
     refetch({
       directStoreId: storeId,
       categoryId: event.currentTarget.id,
