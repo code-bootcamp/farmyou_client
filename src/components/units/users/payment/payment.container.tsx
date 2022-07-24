@@ -1,9 +1,8 @@
 import { useMutation, useQuery } from "@apollo/client";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import PaymentUI from "./payment.presenter";
 import {
-  // BUY_PRODUCT,
   CREATE_ADDRESS,
   CREATE_PAYMENT,
   FETCH_ADDRESSES_OF_THE_USER,
@@ -13,6 +12,7 @@ import {
   IDaumPostcode,
   IFetchAddressOfTheUser,
   IPaymentProps,
+  IPayProduct,
 } from "./payment.types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -45,7 +45,7 @@ const schema = yup.object({
 });
 
 export default function Payment(props: IPaymentProps) {
-  // const router = useRouter();
+  const router = useRouter();
 
   const { register, handleSubmit, setValue, trigger, getValues } = useForm({
     resolver: yupResolver(schema),
@@ -56,14 +56,15 @@ export default function Payment(props: IPaymentProps) {
   const [isCart, setIsCart] = useState("");
   const [localfoodBaskets, setLocalfoodBaskets] = useState([]);
   const [bfoodBaskets, setBfoodBaskets] = useState([]);
-  const [payProduct, setPayProduct] = useState({
+  const [payProduct, setPayProduct] = useState<IPayProduct>({
     content: "",
-    count: 1,
-    createdAt: "",
-    id: "c",
+    count: 0,
+    createdAt: new Date(),
+    id: "",
     origin: "",
     price: 0,
     quantity: 0,
+    files: [{ url: "" }],
     seller: {
       email: "",
       grade: "",
@@ -83,7 +84,6 @@ export default function Payment(props: IPaymentProps) {
 
   const [createPayment] = useMutation(CREATE_PAYMENT);
   const [createAddress] = useMutation(CREATE_ADDRESS);
-  // const [buyProduct] = useMutation(BUY_PRODUCT);
 
   const { data, refetch } = useQuery(FETCH_ADDRESSES_OF_THE_USER, {
     variables: {
@@ -195,15 +195,8 @@ export default function Payment(props: IPaymentProps) {
                   quantity: el.count,
                 },
               });
-              // await buyProduct({
-              //   variables: {
-              //     productType: "UGLY_PRODUCT",
-              //     productId: el.id,
-              //     quantity: el.count,
-              //   },
-              // });
             });
-            // localStorage.removeItem("bfoodBaskets");
+            localStorage.removeItem("bfoodBaskets");
             localfoodBaskets.map(async (el: IBaskets) => {
               await createPayment({
                 variables: {
@@ -214,15 +207,8 @@ export default function Payment(props: IPaymentProps) {
                   quantity: el.count,
                 },
               });
-              // await buyProduct({
-              //   variables: {
-              //     productType: "DIRECT_PRODUCT",
-              //     productId: el.id,
-              //     quantity: el.count,
-              //   },
-              // });
             });
-            // localStorage.removeItem("localfoodBaskets")
+            localStorage.removeItem("localfoodBaskets");
           } else {
             await createPayment({
               variables: {
@@ -234,17 +220,8 @@ export default function Payment(props: IPaymentProps) {
                 quantity: payProduct.count,
               },
             });
-            // createPayment api안에서 buyProduct api가 다시 실행되는 것을 확인.
-            // await buyProduct({
-            //   variables: {
-            //     productType:
-            //       isCart === "bfood" ? "UGLY_PRODUCT" : "DIRECT_PRODUCT",
-            //     productId: payProduct.id,
-            //     quantity: payProduct.count,
-            //   },
-            // });
           }
-          // router.push("/users/mypage");
+          router.push("/users/mypage");
           alert("결제성공");
         } else {
           alert("결제에 실패했습니다. 다시 시도해주세요.");
@@ -256,9 +233,9 @@ export default function Payment(props: IPaymentProps) {
   useEffect(() => {
     setIsCart(sessionStorage.getItem("isCart") || "");
     setLocalfoodBaskets(
-      JSON.parse(localStorage.getItem("localfoodbaskets") || "")
+      JSON.parse(localStorage.getItem("localfoodbaskets") || "[]")
     );
-    setBfoodBaskets(JSON.parse(localStorage.getItem("bfoodbaskets") || ""));
+    setBfoodBaskets(JSON.parse(localStorage.getItem("bfoodbaskets") || "[]"));
     setPayProduct(JSON.parse(localStorage.getItem("payProduct") || ""));
   }, []);
 

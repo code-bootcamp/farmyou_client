@@ -12,8 +12,23 @@ export interface IBaskets {
 }
 
 export type IPayProduct = {
-  price: number;
+  content: string;
   count: number;
+  createdAt: Date;
+  id: string;
+  origin: string;
+  price: number;
+  quantity: number;
+  files: Array<{ url: string }>;
+  seller: {
+    email: string;
+    grade: string;
+    id: string;
+    like: number;
+    name: string;
+    phone: string;
+  };
+  title: string;
 };
 export interface IStorage {
   content?: string;
