@@ -28,7 +28,6 @@ export default function DetailUI(props: IDetailUIProps) {
                 {props.data.files[0]?.url.split(",").map((el, index) => {
                   return (
                     <>
-                      {console.log(el)}
                       <S.SubImage
                         onClick={props.onClickSubImage}
                         key={uuidv4()}
@@ -79,6 +78,7 @@ export default function DetailUI(props: IDetailUIProps) {
                   onClick={props.onClickBasketsButton}
                 ></ButtonComponent>
                 <ButtonComponent
+                  onClick={props.onClickBuyButton}
                   buttonColor="#F6651E"
                   title="구매하기"
                 ></ButtonComponent>

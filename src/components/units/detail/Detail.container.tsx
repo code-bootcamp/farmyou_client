@@ -16,7 +16,7 @@ export default function Detail(props: IDetailProps) {
   };
 
   const onChangeBuyQuantity = (event: ChangeEvent<HTMLInputElement>) => {
-    getDebounce(Number(event.target.id));
+    getDebounce(Number(event.target.value));
   };
 
   const getDebounce = _.debounce((input: number) => {
@@ -69,6 +69,22 @@ export default function Detail(props: IDetailProps) {
     });
   };
 
+  const onClickBuyButton = () => {
+    if (buyQuantity === 0) {
+      Modal.error({
+        content: "구매 수량을 입력해주세요.",
+      });
+      return;
+    }
+
+    const buy = { ...props.data, count: buyQuantity };
+
+    localStorage.setItem("payProduct", JSON.stringify(buy));
+    sessionStorage.setItem("isCart", "pay");
+
+    router.push("/users/payment");
+  };
+
   return (
     <DetailUI
       data={props.data}
@@ -77,6 +93,7 @@ export default function Detail(props: IDetailProps) {
       onChangeBuyQuantity={onChangeBuyQuantity}
       buyQuantity={buyQuantity}
       onClickBasketsButton={onClickBasketsButton}
+      onClickBuyButton={onClickBuyButton}
     ></DetailUI>
   );
 }
