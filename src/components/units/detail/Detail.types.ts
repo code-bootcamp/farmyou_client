@@ -31,6 +31,7 @@ export interface IDetailUIProps {
   onChangeBuyQuantity: (event: ChangeEvent<HTMLInputElement>) => void;
   buyQuantity: number;
   onClickBasketsButton: () => void;
+  onClickBuyButton: () => void;
   data: {
     __typename?: string;
     id?: string;
