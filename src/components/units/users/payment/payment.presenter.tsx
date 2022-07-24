@@ -219,7 +219,15 @@ export default function PaymentUI(props: IPaymentUIProps) {
             <S.Title>주문내역</S.Title>
             <S.DivideLine />
             <S.BasketItemWrapper>
-              <S.BasketItemImage src="" />
+              <S.BasketItemImage
+                src={
+                  props.payProduct.files[0]?.url?.split(",")[0]
+                    ? `https://storage.googleapis.com/${
+                        props.payProduct.files[0]?.url?.split(",")[0]
+                      }`
+                    : ""
+                }
+              />
               <S.BasketItemTextWrapper>
                 <S.BasketItemName>{props.payProduct.title}</S.BasketItemName>
                 <S.BasketItemSeller>
