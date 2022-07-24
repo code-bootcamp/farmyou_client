@@ -61,6 +61,16 @@ export const SubImageWrapper = styled.div`
 `;
 
 export const StyledSlider = styled(Slider)`
+  /* background-color: blue; */
+  /* width: 100%; */
+  /* height: 100px; */
+
+  .slick-slide slick-active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .slick-prev:before {
     font-size: 1.3rem;
     color: #ccc;
@@ -78,6 +88,10 @@ export const SubImage = styled.img`
   min-width: 5vw;
   height: 5vw;
   margin: 50px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   @media (max-width: 575px) {
     width: 10vw;
     height: 10vw;
