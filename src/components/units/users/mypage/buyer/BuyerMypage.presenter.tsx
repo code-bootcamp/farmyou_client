@@ -1,7 +1,10 @@
 import ButtonComponent from "../../../../commons/buttons";
 import InputComponent from "../../../../commons/inputs";
 import * as S from "./BuyerMypage.styles";
-import { IBuyerMypageUIProps } from "./BuyerMypage.types";
+import {
+  IBuyerMypageUIProps,
+  IFetchCanceledPayments,
+} from "./BuyerMypage.types";
 import Tracking from "./tracking";
 import { v4 as uuidv4 } from "uuid";
 import { getDate } from "../../../../commons/lib/utils";
@@ -26,7 +29,7 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
             </S.InfoProfile>
             <S.InfoRightWrapper>
               <S.InfoBoxWrapper>
-                <S.Box>
+                <S.Box style={{ cursor: "pointer" }} onClick={props.onClickPay}>
                   <S.BoxIcons>
                     <S.OrderCheckBoxIcon src="/icons/mypage/ordercheck.png" />
                   </S.BoxIcons>
@@ -41,24 +44,19 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                   <S.BoxTitle onClick={props.onClickPostTracking}>
                     배송
                   </S.BoxTitle>
-                  <S.Count>1</S.Count>
+                  <S.Count>{props.invoiceCount}</S.Count>
                 </S.Box>
-                {/* <S.LengthDivideLine></S.LengthDivideLine>
-                <S.Box>
-                  <S.BoxIcons>
-                    <S.BoxBoxIcon src="/icons/mypage/box.png" />
-                  </S.BoxIcons>
-                  <S.BoxTitle>수령완료</S.BoxTitle>
-                  <S.Count>6</S.Count>
-                </S.Box> */}
                 <S.LengthDivideLine></S.LengthDivideLine>
-                <S.Box>
+                <S.Box
+                  style={{ cursor: "pointer" }}
+                  onClick={props.onClickCancel}
+                >
                   <S.BoxIcons>
                     {" "}
                     <S.ReturnBoxIcon src="/icons/mypage/return.png" />
                   </S.BoxIcons>
                   <S.BoxTitle>결제취소</S.BoxTitle>
-                  <S.Count>0</S.Count>
+                  <S.Count>{props.count2}</S.Count>
                 </S.Box>
               </S.InfoBoxWrapper>
             </S.InfoRightWrapper>
@@ -69,58 +67,98 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                 isSelect={props.isSelect}
                 onClick={props.onClickLocalList}
               >
-                로컬푸드 구매내역
+                {props.payOrCancel === "pay"
+                  ? "로컬푸드 구매내역"
+                  : "로컬푸드 취소내역"}
               </S.SelectLocalFood>
               <S.SelectLocalFood
                 isSelect={!props.isSelect}
                 onClick={props.onClickBfoodList}
               >
-                못난이 상품 구매내역
+                {props.payOrCancel === "pay"
+                  ? "못난이 상품 구매내역"
+                  : "못난이 상품 취소내역"}
               </S.SelectLocalFood>
             </S.SelectListWrapper>
             <S.ListItemWrapper>
               {props.isSelect
-                ? props.completePaymentsLocal
-                    ?.slice(0, props.sliceNumber)
-                    .map((el) => {
-                      return (
-                        // 라우터로 id 값을 통해서 이동하는데 id에 index가 들어가서 제대로 안들어감
-                        <S.ListItem key={uuidv4()}>
-                          <S.ItemImg></S.ItemImg>
-                          <S.ItemInfoWrapper
-                            onClick={props.onClickLocalDetail}
-                            id={el.id}
-                          >
-                            <S.ItemTitle>{el.productDirect?.title}</S.ItemTitle>
-                            <S.ItemPrice>
-                              {el.productDirect?.price?.toLocaleString()}원
-                            </S.ItemPrice>
-                            <S.ItemCreateDate>
-                              구매 날짜 : {getDate(el.createdAt)}
-                            </S.ItemCreateDate>
-                          </S.ItemInfoWrapper>
-                          <S.ItemSubInfoWrapper>
-                            {el.invoice ? (
-                              <S.ReturnButton
-                                onClick={props.onClickPostTracking}
-                              >
-                                배송조회
-                                <Tracking
-                                  trackingRef={props.trackingRef}
-                                ></Tracking>
-                              </S.ReturnButton>
-                            ) : (
-                              <S.ReturnButton>취소요청</S.ReturnButton>
-                            )}
-                          </S.ItemSubInfoWrapper>
-                          <S.ItemSubInfoWrapper>
-                            <S.SellerName>판매자 이름</S.SellerName>
-                            <S.SellerPhoneNum>010-xxxx-xxxx</S.SellerPhoneNum>
-                          </S.ItemSubInfoWrapper>
-                        </S.ListItem>
-                      );
-                    })
-                : props.completePaymentsUgly
+                ? props.payOrCancel === "pay"
+                  ? props.completePaymentsLocal
+                      ?.slice(0, props.sliceNumber)
+                      .map((el) => {
+                        return (
+                          <S.ListItem key={uuidv4()}>
+                            <S.ItemImg></S.ItemImg>
+                            <S.ItemInfoWrapper
+                              onClick={props.onClickLocalDetail}
+                              id={el.id}
+                            >
+                              <S.ItemTitle>
+                                {el.productDirect?.title}
+                              </S.ItemTitle>
+                              <S.ItemPrice>
+                                {el.productDirect?.price?.toLocaleString()}원
+                              </S.ItemPrice>
+                              <S.ItemCreateDate>
+                                구매 날짜 : {getDate(el.createdAt)}
+                              </S.ItemCreateDate>
+                            </S.ItemInfoWrapper>
+                            <S.ItemSubInfoWrapper>
+                              {el.invoice ? (
+                                <S.ReturnButton
+                                  onClick={props.onClickPostTracking}
+                                >
+                                  배송조회
+                                  <Tracking
+                                    trackingRef={props.trackingRef}
+                                  ></Tracking>
+                                </S.ReturnButton>
+                              ) : (
+                                <S.ReturnButton
+                                  id={el.id}
+                                  onClick={props.onClickCancelPayment(el)}
+                                >
+                                  취소요청
+                                </S.ReturnButton>
+                              )}
+                            </S.ItemSubInfoWrapper>
+                            <S.ItemSubInfoWrapper>
+                              <S.SellerName>판매자 이름</S.SellerName>
+                              <S.SellerPhoneNum>010-xxxx-xxxx</S.SellerPhoneNum>
+                            </S.ItemSubInfoWrapper>
+                          </S.ListItem>
+                        );
+                      })
+                  : props.canceledPaymentsLocal
+                      ?.slice(0, props.sliceNumber)
+                      .map((el) => {
+                        return (
+                          <S.ListItem key={uuidv4()}>
+                            <S.ItemImg></S.ItemImg>
+                            <S.ItemInfoWrapper
+                              onClick={props.onClickLocalDetail}
+                              id={el.id}
+                            >
+                              <S.ItemTitle>
+                                {el.productDirect?.title}
+                              </S.ItemTitle>
+                              <S.ItemPrice>
+                                {el.productDirect?.price?.toLocaleString()}원
+                              </S.ItemPrice>
+                              <S.ItemCreateDate>
+                                구매 날짜 : {getDate(el.createdAt)}
+                              </S.ItemCreateDate>
+                            </S.ItemInfoWrapper>
+                            <S.ItemSubInfoWrapper></S.ItemSubInfoWrapper>
+                            <S.ItemSubInfoWrapper>
+                              <S.SellerName>판매자 이름</S.SellerName>
+                              <S.SellerPhoneNum>010-xxxx-xxxx</S.SellerPhoneNum>
+                            </S.ItemSubInfoWrapper>
+                          </S.ListItem>
+                        );
+                      })
+                : props.payOrCancel === "pay"
+                ? props.completePaymentsUgly
                     ?.slice(0, props.sliceNumber)
                     .map((el) => {
                       return (
@@ -147,16 +185,57 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                                 >
                                   배송조회
                                   <Tracking
+                                    invoice={el.invoice}
                                     trackingRef={props.trackingRef}
                                   ></Tracking>
                                 </S.ReturnButton>
                               ) : (
-                                <S.ReturnButton>취소요청</S.ReturnButton>
+                                <S.ReturnButton
+                                  id={el.id}
+                                  onClick={props.onClickCancelPayment(el)}
+                                >
+                                  취소요청
+                                </S.ReturnButton>
                               )}
                             </S.ReturnButton>
                           </S.ItemSubInfoWrapper>
                           <S.ItemSubInfoWrapper>
-                            <S.SellerName>판매자 이름</S.SellerName>
+                            <S.SellerName>
+                              {el.productUgly?.seller?.name}
+                            </S.SellerName>
+                            <S.SellerPhoneNum>010-xxxx-xxxx</S.SellerPhoneNum>
+                          </S.ItemSubInfoWrapper>
+                        </S.ListItem>
+                      );
+                    })
+                : props.canceledPaymentsUgly
+                    ?.slice(0, props.sliceNumber)
+                    .map((el: IFetchCanceledPayments) => {
+                      return (
+                        <S.ListItem key={uuidv4()} id={el.id}>
+                          <S.ItemImg
+                          // src={`https://storage.googleapis.com/${
+                          //   el.productUgly?.files[0].url.split(",")[0]
+                          // }`}
+                          ></S.ItemImg>
+                          <S.ItemInfoWrapper
+                            onClick={props.onClickBfoodDetail}
+                            id={el.id}
+                          >
+                            <S.ItemTitle>{el.productUgly?.title}</S.ItemTitle>
+                            <S.ItemPrice>
+                              {el.productUgly?.price.toLocaleString()}원
+                            </S.ItemPrice>
+                            <S.ItemCreateDate>
+                              구매 날짜 : {getDate(el.createdAt)}
+                            </S.ItemCreateDate>
+                          </S.ItemInfoWrapper>
+                          {/* <S.LengthDivideLine /> */}
+                          <S.ItemSubInfoWrapper></S.ItemSubInfoWrapper>
+                          <S.ItemSubInfoWrapper>
+                            <S.SellerName>
+                              {el.productUgly?.seller?.name}
+                            </S.SellerName>
                             <S.SellerPhoneNum>010-xxxx-xxxx</S.SellerPhoneNum>
                           </S.ItemSubInfoWrapper>
                         </S.ListItem>

@@ -16,7 +16,7 @@ export interface ICompletePaymentsLocal {
     id: string;
     title: string;
     price: number;
-    files?: {
+    files: {
       url: string;
     };
     directStore?: {
@@ -36,7 +36,7 @@ export interface IFetchCanceledPayments {
     id: string;
     title: string;
     price: number;
-    files?: {
+    files: {
       url: string;
     };
   };
@@ -46,6 +46,10 @@ export interface IFetchCanceledPayments {
     price: number;
     files?: {
       url: string;
+    };
+    seller?: {
+      name: string;
+      phone: string;
     };
   };
   invoice: string;
@@ -60,7 +64,7 @@ export interface IFetchCompletePayments {
     id: string;
     title: string;
     price: number;
-    files?: {
+    files: {
       url: string;
     };
     directStore?: {
@@ -72,7 +76,7 @@ export interface IFetchCompletePayments {
     id: string;
     title: string;
     price: number;
-    files?: {
+    files: {
       url: string;
     };
     seller?: {
@@ -104,6 +108,7 @@ export interface IUserAddressData {
 
 export interface IBuyerMypageUIProps {
   count: number;
+  count2: number;
   isSelect: boolean;
   trackingRef: MutableRefObject<HTMLFormElement | undefined>;
   onClickLocalList: () => void;
@@ -130,6 +135,7 @@ export interface IBuyerMypageUIProps {
   error: string;
   onClickDeleteAddress: (event: MouseEvent<HTMLDivElement>) => void;
   onClickMainAddress: (event: MouseEvent<HTMLDivElement>) => void;
+
   userData: {
     fetchUserLoggedIn: {
       id?: string;
@@ -145,6 +151,13 @@ export interface IBuyerMypageUIProps {
   sliceNumber: number;
   onClickFetchMore: () => void;
   onClickProductEditButton: (event: MouseEvent<HTMLDivElement>) => void;
+  onClickCancelPayment: (
+    el: IFetchCanceledPayments
+  ) => (event: MouseEvent<HTMLDivElement>) => void;
+  invoiceCount: number;
+  payOrCancel: string;
+  onClickPay: () => void;
+  onClickCancel: () => void;
 }
 
 export interface IBuyerMypageProps {

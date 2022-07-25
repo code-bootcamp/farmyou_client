@@ -16,7 +16,8 @@ export default function Tracking(props) {
             id="t_key"
             name="t_key"
             placeholder="제공받은 APIKEY"
-            value={"uDoOXokWAiIlA5yJfJf8fA"}
+            value="uDoOXokWAiIlA5yJfJf8fA"
+            readOnly
           />
         </div>
         <div className="form-group">
@@ -27,7 +28,8 @@ export default function Tracking(props) {
             name="t_code"
             id="t_code"
             placeholder="택배사 코드"
-            value={"04"}
+            value="04"
+            readOnly
           />
         </div>
         <div className="form-group">
@@ -38,7 +40,8 @@ export default function Tracking(props) {
             name="t_invoice"
             id="t_invoice"
             placeholder="운송장 번호"
-            value={"343056477465"}
+            value={props.invoice}
+            readOnly
           />
         </div>
         <button

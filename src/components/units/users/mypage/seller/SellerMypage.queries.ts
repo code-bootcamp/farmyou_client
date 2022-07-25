@@ -62,3 +62,51 @@ export const FETCH_UGLY_PRODUCTS_BY_SELLER = gql`
     }
   }
 `;
+
+export const FETCH_COMPLETED_PAYMENTS_FOR_SELLER = gql`
+  query fetchCompletedPaymentsForSeller($sellerId: String!) {
+    fetchCompletedPaymentsForSeller(sellerId: $sellerId) {
+      id
+      impUid
+      amount
+      createdAt
+      productDirect {
+        id
+        title
+        price
+        files {
+          url
+        }
+        directStore {
+          id
+          name
+        }
+      }
+      productUgly {
+        id
+        title
+        price
+        files {
+          url
+        }
+        seller {
+          id
+          name
+          phone
+        }
+      }
+      invoice
+    }
+  }
+`;
+
+export const UPDATE_INVOICE = gql`
+  mutation updateInvoice($paymentId: String!, $invoiceNum: String!) {
+    updateInvoice(paymentId: $paymentId, invoiceNum: $invoiceNum) {
+      id
+      impUid
+      amount
+      paymentComplete
+    }
+  }
+`;

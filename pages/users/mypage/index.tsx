@@ -49,7 +49,6 @@ export default function MypagePage() {
   const { data, loading } = useQuery(FETCH_USER_LOGGED_IN);
 
   useEffect(() => {
-    console.log(data);
     if (data?.fetchUserLoggedIn.type === "user") {
       setIsCheck(false);
       setIsWhoPage("마이 페이지");
@@ -58,7 +57,6 @@ export default function MypagePage() {
       setIsWhoPage("판매자 페이지");
     }
   }, [data]);
-  console.log(isCheck, loading, data);
 
   return (
     <>
