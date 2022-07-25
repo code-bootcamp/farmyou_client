@@ -3,6 +3,7 @@ import * as S from "./Detail.styles";
 import { IDetailUIProps } from "./Detail.types";
 import Question from "./question/Question.container";
 import { v4 as uuidv4 } from "uuid";
+import Dompurify from "dompurify";
 
 export default function DetailUI(props: IDetailUIProps) {
   const settings = {
@@ -48,10 +49,6 @@ export default function DetailUI(props: IDetailUIProps) {
               <S.ItemSeller>
                 {props.data?.seller?.name || props.data?.directStore?.name}
               </S.ItemSeller>
-              {/* <S.IconWrapper>
-                <S.Icon src="/icons/list/carrot.png"></S.Icon>
-                <S.Icon src="/icons/list/garlic.png"></S.Icon>
-              </S.IconWrapper> */}
             </S.MainContentsHeader>
             <S.MainContentsBody>
               <S.ItemName>{props.data?.title}</S.ItemName>
@@ -89,7 +86,11 @@ export default function DetailUI(props: IDetailUIProps) {
             </S.MainContentsFooter>
           </S.MainContentsWrapper>
         </S.TopWrapper>
-        <S.Contents>{props.data?.content}</S.Contents>
+        <S.Contents
+          dangerouslySetInnerHTML={{
+            __html: Dompurify.sanitize(props.data.content),
+          }}
+        ></S.Contents>
         <Question data={props.data}></Question>
       </S.Wrapper>
     </S.Body>

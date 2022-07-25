@@ -6,14 +6,14 @@ export interface IFiles {
 
 export interface IDetailProps {
   data: {
-    __typename?: string;
-    id?: string;
-    title?: string;
-    content?: string;
+    __typename: string;
+    id: string;
+    title: string;
+    content: string;
     origin?: string;
-    quantity?: number;
-    createdAt?: Date;
-    price?: number;
+    quantity: number;
+    createdAt: Date;
+    price: number;
     seller?: {
       id: string;
       name: string;
@@ -33,14 +33,14 @@ export interface IDetailUIProps {
   onClickBasketsButton: () => void;
   onClickBuyButton: () => void;
   data: {
-    __typename?: string;
-    id?: string;
-    title?: string;
-    content?: string;
+    __typename: string;
+    id: string;
+    title: string;
+    content: string;
     origin?: string;
-    quantity?: number;
-    createdAt?: Date;
-    price?: number;
+    quantity: number;
+    createdAt: Date;
+    price: number;
     seller?: {
       id: string;
       name: string;
