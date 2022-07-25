@@ -42,7 +42,7 @@ export const MenuFunction = styled.div`
 `;
 export const Cart = styled.div`
   font-size: 20px;
-  /* margin-right: 40px; */
+  margin-right: 1.2vw;
   transform: scale(${(props: ICartProps) => (props.isIn ? "1.2" : "1")});
   transition: 0.3s;
   &:hover {
@@ -64,7 +64,7 @@ export const HamburgerMenu = styled.div`
 
 export const Item = styled.div`
   cursor: pointer;
-  font-size: 2rem;
+  font-size: 1.4rem;
   padding: 10px 20px;
   width: 100%;
   color: #b8b7ad;
@@ -74,27 +74,28 @@ export const Item = styled.div`
 `;
 
 export const LoginWrapper = styled.div`
-  width: 25%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   @media (max-width: 575px) {
     width: 40%;
   }
 `;
 export const LoginMyPage = styled.div`
   font-size: 1.2rem;
+  margin-right: 1.2vw;
   cursor: pointer;
-  @media (max-width: 575px) {
+  @media (max-width: 637px) {
     display: none;
   } ;
 `;
 
 export const LogOut = styled.div`
   cursor: pointer;
-  font-size: 1rem;
-  @media (max-width: 575px) {
+  font-size: 1.2rem;
+  @media (max-width: 637px) {
     display: none;
   }
 `;

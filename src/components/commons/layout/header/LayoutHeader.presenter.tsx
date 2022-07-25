@@ -22,7 +22,7 @@ export default function LayoutHeaderUI(props: ILayoutHeaderUIProps) {
         {props.data ? (
           <S.LoginWrapper>
             <S.LoginMyPage onClick={props.onClickMoveToMypage}>
-              {props.data?.fetchUserLoggedIn.name}님의 마이페이지
+              <b>{props.data?.fetchUserLoggedIn.name}</b>님의 마이페이지
             </S.LoginMyPage>
             {!props.isCheck && (
               <S.Cart
@@ -48,11 +48,11 @@ export default function LayoutHeaderUI(props: ILayoutHeaderUIProps) {
           </S.LoginWrapper>
         ) : (
           <S.MenuWrapper>
-            <S.MenuFunction onClick={props.onClickMoveToSignup}>
-              회원가입
-            </S.MenuFunction>
             <S.MenuFunction onClick={props.onClickMoveToLogin}>
               로그인
+            </S.MenuFunction>
+            <S.MenuFunction onClick={props.onClickMoveToSignup}>
+              회원가입
             </S.MenuFunction>
             {!props.isCheck && (
               <S.Cart
