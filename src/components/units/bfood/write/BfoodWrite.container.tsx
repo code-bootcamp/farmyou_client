@@ -105,7 +105,7 @@ export default function BfoodWrite(props: IBfoodWriteProps) {
 
   useEffect(() => {
     setFileUrls(
-      props.fetchProductUglyData?.fetchProductUgly?.files[0].url?.split(",") ||
+      props.fetchProductUglyData?.fetchProductUgly?.files[0]?.url?.split(",") ||
         []
     );
     onChangeContent(props.fetchProductUglyData?.fetchProductUgly?.content);
