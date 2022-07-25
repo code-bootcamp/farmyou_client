@@ -20,9 +20,7 @@ export default function DetailUI(props: IDetailUIProps) {
         <S.TopWrapper>
           <S.ImageWrapper>
             <S.MainImage
-              src={`https://storage.googleapis.com/${
-                props.data.files[0]?.url.split(",")[0]
-              }`}
+              src={`https://storage.googleapis.com/${props.mainImageSrc}`}
             ></S.MainImage>
             <S.SubImageWrapper>
               <S.StyledSlider {...settings}>
