@@ -59,7 +59,7 @@ export default function SellerMypage(props: ISellerMypageProps) {
     FETCH_COMPLETED_PAYMENTS_FOR_SELLER,
     {
       variables: {
-        sellerId: props.userData.fetchUserLoggedIn.id,
+        sellerId: props.userData?.fetchUserLoggedIn?.id,
       },
     }
   );
