@@ -64,9 +64,9 @@ export const DELETE_ADDRESS = gql`
   }
 `;
 
-export const FETCH_COMPLETE_PAYMENTS = gql`
-  query fetchCompletePayments {
-    fetchCompletePayments {
+export const FETCH_COMPLETED_PAYMENTS_OF_USER = gql`
+  query fetchCompletedPaymentsOfUser($userId: String!) {
+    fetchCompletedPaymentsOfUser(userId: $userId) {
       id
       impUid
       amount
@@ -101,9 +101,9 @@ export const FETCH_COMPLETE_PAYMENTS = gql`
   }
 `;
 
-export const FETCH_CANCELED_PAYMENTS = gql`
-  query fetchCanceledPayments {
-    fetchCanceledPayments {
+export const FETCH_CANCELED_PAYMENTS_OF_USER = gql`
+  query fetchCanceledPaymentsOfUser($userId: String!) {
+    fetchCanceledPaymentsOfUser(userId: $userId) {
       id
       impUid
       amount
@@ -129,17 +129,6 @@ export const FETCH_CANCELED_PAYMENTS = gql`
   }
 `;
 
-export const UPDATE_INVOICE = gql`
-  mutation updateInvoice($paymentId: String!, $invoiceNum: String!) {
-    updateInvoice(paymentId: $paymentId, invoiceNum: $invoiceNum) {
-      id
-      impUid
-      amount
-      paymentComplete
-    }
-  }
-`;
-
 export const FETCH_DIRECT_PRODUCTS_BY_USER = gql`
   query fetchDirectProductsByUser {
     fetchDirectProductsByUser {
@@ -153,6 +142,14 @@ export const FETCH_DIRECT_PRODUCTS_BY_USER = gql`
         id
         name
       }
+    }
+  }
+`;
+
+export const CANCEL_PAYMENT = gql`
+  mutation cancelPayment($paymentId: String!) {
+    cancelPayment(paymentId: $paymentId) {
+      id
     }
   }
 `;

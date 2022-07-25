@@ -272,6 +272,7 @@ export const SellerName = styled.div`
   font-size: 0.9rem;
   cursor: pointer;
   :hover {
+    text-decoration: underline;
     color: #f6651e;
   }
 `;
@@ -407,4 +408,8 @@ export const Error = styled.div`
   font-size: 1rem;
   position: absolute;
   bottom: 50px;
+`;
+
+export const InvoiceInput = styled.div`
+  width: 80%;
 `;

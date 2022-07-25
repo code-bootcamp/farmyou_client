@@ -3,6 +3,9 @@ import InputComponent from "../../../../commons/inputs";
 import { getDate } from "../../../../commons/lib/utils";
 import * as S from "./SellerMypage.styles";
 import { ISellerMypageUiProps } from "./SellerMypage.types";
+import { v4 as uuidv4 } from "uuid";
+import { Modal } from "antd";
+
 export default function SellerMypageUI(props: ISellerMypageUiProps) {
   return (
     <>
@@ -43,7 +46,12 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
                     <S.SellBoxIcon src="/icons/sell.svg" />
                   </S.BoxIcons>
                   <S.BoxTitle>판매량</S.BoxTitle>
-                  <S.Count>0</S.Count>
+                  <S.Count>
+                    {
+                      props.fetchCompletedPaymentsForSellerData
+                        ?.fetchCompletedPaymentsForSeller.length
+                    }
+                  </S.Count>
                 </S.Box>
                 <S.LengthDivideLine></S.LengthDivideLine>
                 <S.Box>
@@ -58,33 +66,78 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
           </S.InfoWrapper>
           <S.ListWrapper>
             <S.SelectListWrapper>
-              <S.SelectLocalFood isSelect={true}>
+              <S.SelectLocalFood
+                isSelect={props.isSelect}
+                onClick={props.onClickSellingList}
+              >
                 못난이 상품 게시글 내역
               </S.SelectLocalFood>
-              <S.SelectLocalFood isSelect={false}>
+              <S.SelectLocalFood
+                isSelect={!props.isSelect}
+                onClick={props.onClickPaymentList}
+              >
                 못난이 상품 판매내역
               </S.SelectLocalFood>
             </S.SelectListWrapper>
             <S.ListItemWrapper>
-              {props.fetchUglyProductsBySellerData?.fetchUglyProductsBySeller
-                ?.slice(0, props.sliceNumber)
-                .map((el, index) => {
-                  return (
-                    <S.ListItem key={index}>
-                      <S.ItemImg></S.ItemImg>
-                      <S.ItemInfoWrapper>
-                        <S.ItemTitle>{el.title}</S.ItemTitle>
-                        <S.ItemPrice>{el.price.toLocaleString()}원</S.ItemPrice>
-                        <S.ItemCreateDate>
-                          {getDate(el.createdAt)}
-                        </S.ItemCreateDate>
-                      </S.ItemInfoWrapper>
-                      <S.ItemSubInfoWrapper>
-                        <S.SellerName>수정</S.SellerName>
-                      </S.ItemSubInfoWrapper>
-                    </S.ListItem>
-                  );
-                })}
+              {props.isSelect
+                ? props.fetchUglyProductsBySellerData?.fetchUglyProductsBySeller
+                    ?.slice(0, props.sliceNumber)
+                    .map((el) => {
+                      return (
+                        <S.ListItem key={uuidv4()}>
+                          <S.ItemImg></S.ItemImg>
+                          <S.ItemInfoWrapper>
+                            <S.ItemTitle>{el.title}</S.ItemTitle>
+                            <S.ItemPrice>
+                              {el.price.toLocaleString()}원
+                            </S.ItemPrice>
+                            <S.ItemCreateDate>
+                              {getDate(el.createdAt)}
+                            </S.ItemCreateDate>
+                          </S.ItemInfoWrapper>
+                          <S.ItemSubInfoWrapper>
+                            <S.SellerName
+                              id={el.id}
+                              onClick={props.onClickMoveToEditPage}
+                            >
+                              수정
+                            </S.SellerName>
+                          </S.ItemSubInfoWrapper>
+                        </S.ListItem>
+                      );
+                    })
+                : props.fetchCompletedPaymentsForSellerData?.fetchCompletedPaymentsForSeller
+                    ?.slice(0, props.sliceNumber)
+                    .map((el) => {
+                      return (
+                        <S.ListItem key={uuidv4()}>
+                          <S.ItemImg></S.ItemImg>
+                          <S.ItemInfoWrapper>
+                            <S.ItemTitle>{el.productUgly?.title}</S.ItemTitle>
+                            <S.ItemPrice>
+                              {el.productUgly?.price.toLocaleString()}원
+                            </S.ItemPrice>
+                            <S.ItemCreateDate>
+                              {getDate(el.createdAt)}
+                            </S.ItemCreateDate>
+                          </S.ItemInfoWrapper>
+                          <S.ItemSubInfoWrapper>
+                            {el.invoice}
+                            <S.SellerName
+                              id={el.id}
+                              onClick={
+                                el.invoice
+                                  ? props.onClickInvoiceEdit
+                                  : props.toggleModal
+                              }
+                            >
+                              {el.invoice ? "운송장 수정" : "운송장 등록"}
+                            </S.SellerName>
+                          </S.ItemSubInfoWrapper>
+                        </S.ListItem>
+                      );
+                    })}
               <S.MoreItem onClick={props.onClickFetchMore}>더보기</S.MoreItem>
             </S.ListItemWrapper>
           </S.ListWrapper>
@@ -158,6 +211,22 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
             </S.EditWrapper>
           </S.EditModalWrapper>
         </S.Model>
+      )}
+
+      {props.isModalVisible && (
+        <Modal
+          visible={props.isModalVisible}
+          onOk={props.handleOk}
+          onCancel={props.handleCancel}
+        >
+          <S.InvoiceInput>
+            <InputComponent
+              placeholder="운송장 번호를 입력해주세요."
+              onChange={props.onChangeInvoiceNum}
+              defaultValue={props.invoiceNum}
+            ></InputComponent>
+          </S.InvoiceInput>
+        </Modal>
       )}
     </>
   );

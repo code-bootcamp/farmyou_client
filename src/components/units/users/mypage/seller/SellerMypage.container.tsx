@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, MouseEvent, useRef, useState } from "react";
 import SellerMypageUI from "./SellerMypage.presenter";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -7,7 +7,9 @@ import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
 import {
   CHECK_IF_LOGGED_SELLER,
+  FETCH_COMPLETED_PAYMENTS_FOR_SELLER,
   FETCH_UGLY_PRODUCTS_BY_SELLER,
+  UPDATE_INVOICE,
   UPDATE_SELLER,
   UPLOAD_FILE,
 } from "./SellerMypage.queries";
@@ -26,6 +28,7 @@ export default function SellerMypage(props: ISellerMypageProps) {
         /^$|^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
         "영어,숫자,특수문자가 포함되어야 합니다."
       ),
+    invoice: yup.string(),
   });
   const { handleSubmit, register } = useForm<IForm>({
     resolver: yupResolver(schema),
@@ -37,14 +40,93 @@ export default function SellerMypage(props: ISellerMypageProps) {
   const [password, setPassword] = useState("");
   const [fileUrl, setFileUrl] = useState("");
   const [error, setError] = useState("");
+  const [sliceNumber, setSliceNumber] = useState(2);
+  const [isSelect, setIsSelect] = useState(true);
+  const [invoiceNum, setInvoiceNum] = useState("");
+  const [paymentId, setPaymentId] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   const [uploadFile] = useMutation(UPLOAD_FILE);
   const [updateSeller] = useMutation(UPDATE_SELLER);
   const [checkIfLoggedSeller] = useMutation(CHECK_IF_LOGGED_SELLER);
-  const [sliceNumber, setSliceNumber] = useState(2);
+  const [updateInvoice] = useMutation(UPDATE_INVOICE);
 
   const { data: fetchUglyProductsBySellerData } = useQuery(
     FETCH_UGLY_PRODUCTS_BY_SELLER
   );
+
+  const { data: fetchCompletedPaymentsForSellerData, refetch } = useQuery(
+    FETCH_COMPLETED_PAYMENTS_FOR_SELLER,
+    {
+      variables: {
+        sellerId: props.userData.fetchUserLoggedIn.id,
+      },
+    }
+  );
+
+  const onClickInvoiceEdit = async (event: MouseEvent<HTMLDivElement>) => {
+    try {
+      await updateInvoice({
+        variables: {
+          paymentId: event.currentTarget.id,
+          invoiceNum,
+        },
+      });
+      setInvoiceNum("");
+      await refetch();
+    } catch (error: any) {
+      Modal.error({
+        content: error.message,
+      });
+    }
+  };
+
+  const onClickInvoiceRegistration = async () => {
+    try {
+      await updateInvoice({
+        variables: {
+          paymentId,
+          invoiceNum,
+        },
+      });
+      setInvoiceNum("");
+      await refetch();
+    } catch (error: any) {
+      Modal.error({
+        content: error.message,
+      });
+    }
+  };
+
+  const onChangeInvoiceNum = (event: ChangeEvent<HTMLInputElement>) => {
+    setInvoiceNum(event.target.value);
+  };
+
+  const toggleModal = (event: MouseEvent<HTMLDivElement>) => {
+    setIsModalVisible((prev) => !prev);
+    setInvoiceNum("");
+    setPaymentId(event.currentTarget.id);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+    onClickInvoiceRegistration();
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const onClickSellingList = () => {
+    setSliceNumber(2);
+    setIsSelect(true);
+  };
+
+  const onClickPaymentList = () => {
+    setSliceNumber(2);
+    setIsSelect(false);
+    setError("");
+  };
 
   const onClickFetchMore = () => {
     setSliceNumber((prev) => prev + 2);
@@ -54,12 +136,15 @@ export default function SellerMypage(props: ISellerMypageProps) {
   const showPasswordModal = () => {
     setIsUserVisible(true);
   };
+
   const passwordCancel = () => {
     setIsUserVisible(false);
   };
+
   const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event?.target.value);
+    setPassword(event.target.value);
   };
+
   const onClickConfirm = async () => {
     try {
       const result = await checkIfLoggedSeller({
@@ -104,7 +189,6 @@ export default function SellerMypage(props: ISellerMypageProps) {
   const fileRef = useRef<HTMLInputElement>(null);
 
   function onClickUpload() {
-    // console.log(props.fileUrls);
     fileRef.current?.click();
   }
 
@@ -123,6 +207,10 @@ export default function SellerMypage(props: ISellerMypageProps) {
   };
   const onClickToWrite = () => {
     router.push(`/bfood/write`);
+  };
+
+  const onClickMoveToEditPage = (event: MouseEvent<HTMLDivElement>) => {
+    router.push(`/bfood/${event.currentTarget.id}/edit`);
   };
   return (
     <SellerMypageUI
@@ -147,6 +235,19 @@ export default function SellerMypage(props: ISellerMypageProps) {
       onClickFetchMore={onClickFetchMore}
       sliceNumber={sliceNumber}
       userData={props.userData}
+      isSelect={isSelect}
+      onClickSellingList={onClickSellingList}
+      onClickPaymentList={onClickPaymentList}
+      fetchCompletedPaymentsForSellerData={fetchCompletedPaymentsForSellerData}
+      onClickMoveToEditPage={onClickMoveToEditPage}
+      onClickInvoiceRegistration={onClickInvoiceRegistration}
+      onClickInvoiceEdit={onClickInvoiceEdit}
+      onChangeInvoiceNum={onChangeInvoiceNum}
+      invoiceNum={invoiceNum}
+      toggleModal={toggleModal}
+      isModalVisible={isModalVisible}
+      handleOk={handleOk}
+      handleCancel={handleCancel}
     />
   );
 }

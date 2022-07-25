@@ -1,10 +1,11 @@
-import { ChangeEvent, RefObject } from "react";
+import { ChangeEvent, MouseEvent, RefObject } from "react";
 import { UseFormHandleSubmit, UseFormRegister } from "react-hook-form";
 
 export interface IForm {
   name: string;
   password: string;
   phone: string;
+  invoice: string;
 }
 
 export interface IFetchUglyProductsBySeller {
@@ -12,6 +13,39 @@ export interface IFetchUglyProductsBySeller {
   title: string;
   price: number;
   createdAt: Date;
+}
+
+export interface IFetchCompletedPaymentsForSeller {
+  id: string;
+  impUid: string;
+  amount: number;
+  createdAt: Date;
+  productDirect?: {
+    id: string;
+    title: string;
+    price: number;
+    files: {
+      url: string;
+    };
+    directStore?: {
+      id: string;
+      name: string;
+    };
+  };
+  productUgly?: {
+    id: string;
+    title: string;
+    price: number;
+    files: {
+      url: string;
+    };
+    seller?: {
+      id: string;
+      name: string;
+      phone: string;
+    };
+  };
+  invoice: string;
 }
 
 export interface ISellerMypageUiProps {
@@ -32,6 +66,19 @@ export interface ISellerMypageUiProps {
   error: string;
   onClickEdit: (data: IForm) => Promise<void>;
   onClickToWrite: () => void;
+  isSelect: boolean;
+  onClickSellingList: () => void;
+  onClickPaymentList: () => void;
+  onClickMoveToEditPage: (event: MouseEvent<HTMLDivElement>) => void;
+  onClickInvoiceRegistration: () => void;
+  onChangeInvoiceNum: (event: ChangeEvent<HTMLInputElement>) => void;
+  toggleModal: (event: MouseEvent<HTMLDivElement>) => void;
+  onClickInvoiceEdit: (event: MouseEvent<HTMLDivElement>) => void;
+  isModalVisible: boolean;
+  handleOk: () => void;
+  handleCancel: () => void;
+  invoiceNum: string;
+
   fetchUglyProductsBySellerData: {
     fetchUglyProductsBySeller?: Array<IFetchUglyProductsBySeller>;
   };
@@ -44,6 +91,9 @@ export interface ISellerMypageUiProps {
       email?: string;
       type?: string;
     };
+  };
+  fetchCompletedPaymentsForSellerData: {
+    fetchCompletedPaymentsForSeller: Array<IFetchCompletedPaymentsForSeller>;
   };
 }
 

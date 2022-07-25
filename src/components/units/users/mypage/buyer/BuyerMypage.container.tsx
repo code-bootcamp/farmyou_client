@@ -2,13 +2,12 @@ import { useMutation, useQuery } from "@apollo/client";
 import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react";
 import {
   ASSIGN_MAIN,
+  CANCEL_PAYMENT,
   CHECK_IF_LOGGED_USER,
   DELETE_ADDRESS,
   FETCH_ADDRESSES_OF_THE_USER,
-  FETCH_CANCELED_PAYMENTS,
-  FETCH_COMPLETE_PAYMENTS,
-  FETCH_DIRECT_PRODUCTS_BY_USER,
-  UPDATE_INVOICE,
+  FETCH_CANCELED_PAYMENTS_OF_USER,
+  FETCH_COMPLETED_PAYMENTS_OF_USER,
   UPDATE_USER,
   UPLOAD_FILE,
 } from "./BuyerMypage.queries";
@@ -20,10 +19,12 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import {
   IBuyerMypageProps,
+  IFetchCanceledPayments,
   IFetchCompletePayments,
   IForm,
   IOnClickEdit,
 } from "./BuyerMypage.types";
+import axios from "axios";
 
 const schema = yup.object({
   name: yup.string().max(7, "이름은 7자를 넘을 수 없습니다."),
@@ -60,8 +61,10 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
   const [canceledPaymentsLocal, setCanceledPaymentsLocal] = useState();
   const [canceledPaymentsUgly, setCanceledPaymentsUgly] = useState();
   const [sliceNumber, setSliceNumber] = useState(2);
+  const [invoiceCount, setInvoiceCount] = useState(0);
+  const [payOrCancel, setPayOrCancel] = useState("pay");
 
-  const [updateInvoice] = useMutation(UPDATE_INVOICE);
+  const [cancelPayment] = useMutation(CANCEL_PAYMENT);
 
   const { data: userAddressData } = useQuery(FETCH_ADDRESSES_OF_THE_USER, {
     variables: {
@@ -69,52 +72,77 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
     },
   });
 
-  const { data: fetchCompletePaymentsData } = useQuery(FETCH_COMPLETE_PAYMENTS);
-  const { data: fetchCanceledPaymentsData } = useQuery(FETCH_CANCELED_PAYMENTS);
-  const { data: fetchDirectProductsByUserData } = useQuery(
-    FETCH_DIRECT_PRODUCTS_BY_USER
+  const { data: fetchCompletePaymentsData, refetch } = useQuery(
+    FETCH_COMPLETED_PAYMENTS_OF_USER,
+    {
+      variables: {
+        userId: props.userData?.fetchUserLoggedIn.id,
+      },
+    }
+  );
+  const { data: fetchCanceledPaymentsData } = useQuery(
+    FETCH_CANCELED_PAYMENTS_OF_USER,
+    {
+      variables: {
+        userId: props.userData?.fetchUserLoggedIn.id,
+      },
+    }
   );
 
-  const count = fetchCompletePaymentsData?.fetchCompletePayments?.length;
-
-  console.log(fetchDirectProductsByUserData);
+  const count = fetchCompletePaymentsData?.fetchCompletedPaymentsOfUser?.length;
+  const count2 = fetchCanceledPaymentsData?.fetchCanceledPaymentsOfUser?.length;
   const onClickFetchMore = () => {
     setSliceNumber((prev) => prev + 2);
   };
 
   useEffect(() => {
     setCompletePaymentsLocal(
-      fetchCompletePaymentsData?.fetchCompletePayments.filter(
+      fetchCompletePaymentsData?.fetchCompletedPaymentsOfUser.filter(
         (el: IFetchCompletePayments) => {
           return el.productDirect !== null;
         }
       )
     );
     setCompletePaymentsUgly(
-      fetchCompletePaymentsData?.fetchCompletePayments.filter(
+      fetchCompletePaymentsData?.fetchCompletedPaymentsOfUser.filter(
         (el: IFetchCompletePayments) => {
           return el.productUgly !== null;
         }
       )
+    );
+    setInvoiceCount(
+      fetchCompletePaymentsData?.fetchCompletedPaymentsOfUser.filter(
+        (el: IFetchCompletePayments) => {
+          return el.invoice !== null;
+        }
+      ).length
     );
   }, [fetchCompletePaymentsData]);
 
   useEffect(() => {
     setCanceledPaymentsLocal(
-      fetchCanceledPaymentsData?.fetchCanceledPayments.filter(
-        (el: IFetchCompletePayments) => {
+      fetchCanceledPaymentsData?.fetchCanceledPaymentsOfUser.filter(
+        (el: IFetchCanceledPayments) => {
           return el.productDirect !== null;
         }
       )
     );
     setCanceledPaymentsUgly(
-      fetchCanceledPaymentsData?.fetchCanceledPayments.filter(
-        (el: IFetchCompletePayments) => {
+      fetchCanceledPaymentsData?.fetchCanceledPaymentsOfUser.filter(
+        (el: IFetchCanceledPayments) => {
           return el.productUgly !== null;
         }
       )
     );
   }, [fetchCanceledPaymentsData]);
+
+  const onClickPay = () => {
+    setPayOrCancel("pay");
+  };
+
+  const onClickCancel = () => {
+    setPayOrCancel("cancel");
+  };
 
   const onClickLocalList = () => {
     setSliceNumber(2);
@@ -259,6 +287,37 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
     router.push(`/bfood/${event.currentTarget.id}/edit`);
   };
 
+  const onClickCancelPayment =
+    (el: IFetchCanceledPayments) =>
+    async (event: MouseEvent<HTMLDivElement>) => {
+      try {
+        console.log(el);
+
+        const result2 = await cancelPayment({
+          variables: {
+            paymentId: event.currentTarget.id,
+          },
+        });
+        console.log(result2);
+        const result1 = await axios({
+          url: "http://localhost:3000/users/mypage",
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: {
+            imp_uid: el.impUid, // 주문번호
+            cancel_request_amount: 100, // 환불금액
+            reason: "테스트 결제 환불", // 환불사유
+          },
+        });
+        await refetch();
+        console.log(result1);
+      } catch (error: any) {
+        Modal.error({ content: error.message });
+      }
+    };
+
   return (
     <BuyerMypageUI
       isSelect={isSelect}
@@ -296,6 +355,12 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
       onClickFetchMore={onClickFetchMore}
       onClickProductEditButton={onClickProductEditButton}
       count={count}
+      count2={count2}
+      onClickCancelPayment={onClickCancelPayment}
+      invoiceCount={invoiceCount}
+      payOrCancel={payOrCancel}
+      onClickPay={onClickPay}
+      onClickCancel={onClickCancel}
     />
   );
 }
