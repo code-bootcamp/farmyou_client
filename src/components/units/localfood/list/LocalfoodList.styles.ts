@@ -15,10 +15,10 @@ export const Wrapper = styled.div`
 `;
 
 export const Divide = styled.div`
+  margin: 20px 0px;
   width: 100%;
   height: 1px;
   border: 1px solid #bdbdbd;
-  margin: 20px 0px;
 `;
 
 export const SearchWrapper = styled.div`
@@ -39,9 +39,12 @@ export const SearchOption = styled.div`
   display: flex;
   flex-direction: row;
 `;
-
+export const SearchInputWrapper = styled.div`
+  width: 20rem;
+  margin: 0px 45px 0px 20px;
+`;
 export const SearchInput = styled(Input)`
-  width: 20vw;
+  width: 20rem;
   margin-right: 45px;
   margin-left: 20px;
 `;

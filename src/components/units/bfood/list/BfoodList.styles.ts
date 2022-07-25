@@ -20,57 +20,20 @@ export const Text = styled.div`
 `;
 
 export const SearchWrapper = styled.div`
-  width: auto;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
   height: 70px;
 `;
-
+export const SearchInputWrapper = styled.div`
+  width: 20rem;
+  margin: 0px 45px 0px 20px;
+`;
 export const SearchInput = styled(Input)`
-  width: 20vw;
-  margin-right: 45px;
-  margin-left: 20px;
-`;
-
-export const CategoryWrapper = styled.div`
-  width: 100%;
-  padding: 20px 0px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  overflow: auto;
-  white-space: nowrap;
-
-  @media (max-width: 689px) {
-    display: grid;
-    align-items: center;
-    justify-items: center;
-    grid-template-columns: repeat(4, 1fr);
-  }
-`;
-
-export const ImageWrapper = styled.span`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-`;
-
-export const CategoryImage = styled.img`
-  width: 65px;
-  height: 65px;
-  margin: 10px 20px;
-  background-color: #c6d8f2;
-  border-radius: 10px;
-
-  @media (max-width: 689px) {
-    width: 50px;
-    height: 50px;
-    margin: 10px 20px;
-  }
+  width: 20rem;
+  margin: 0px 45px 0px 20px;
 `;
 
 export const ItemWrapper = styled.div`

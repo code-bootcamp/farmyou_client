@@ -25,11 +25,14 @@ export default function BfoodListUI(props: IBfoodListUIProps) {
               <Option value="낮은가격순">낮은가격순</Option>
               {/* <Option value="판매량순">판매량순</Option> */}
             </Select>
-            <S.SearchInput
-              placeholder="검색어를 입력해주세요."
-              onChange={props.onChangeSearch}
-            />
+            <S.SearchInputWrapper>
+              <S.SearchInput
+                placeholder="검색어를 입력해주세요."
+                onChange={props.onChangeSearch}
+              />
+            </S.SearchInputWrapper>
           </S.SearchWrapper>
+
           {/* <InfiniteScroll
           pageStart={0}
           loadMore={props.loadFunc}

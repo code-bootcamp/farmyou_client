@@ -78,11 +78,13 @@ export default function LocalfoodListUI(props: ILocalfoodListUIProps) {
                 <Option value="낮은가격순">낮은가격순</Option>
                 {/* <Option value="판매량순">판매량순</Option> */}
               </Select>
-              <S.SearchInput
-                onChange={props.onChangeSearch}
-                placeholder="검색어를 입력해주세요."
-                value={props.text}
-              />
+              <S.SearchInputWrapper>
+                <S.SearchInput
+                  onChange={props.onChangeSearch}
+                  placeholder="검색어를 입력해주세요."
+                  value={props.text}
+                />
+              </S.SearchInputWrapper>
             </S.SearchOption>
           </S.SearchWrapper>
           <S.ItemWrapper>
