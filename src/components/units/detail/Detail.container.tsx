@@ -8,7 +8,9 @@ import { Modal } from "antd";
 export default function Detail(props: IDetailProps) {
   const router = useRouter();
   const isCheckBFood = ["/bfood/[id]"].includes(router.pathname);
-  const [mainImageSrc, setMainImageSrc] = useState("");
+  const [mainImageSrc, setMainImageSrc] = useState(
+    props.data.files[0]?.url.split(",")[0]
+  );
   const [buyQuantity, setBuyQuantity] = useState(0);
 
   const onClickSubImage = (event: MouseEvent<HTMLImageElement>) => {
