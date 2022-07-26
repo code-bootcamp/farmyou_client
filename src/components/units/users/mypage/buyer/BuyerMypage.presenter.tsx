@@ -4,6 +4,7 @@ import * as S from "./BuyerMypage.styles";
 import {
   IBuyerMypageUIProps,
   IFetchCanceledPayments,
+  IFetchCompletePayments,
 } from "./BuyerMypage.types";
 import Tracking from "./tracking";
 import { v4 as uuidv4 } from "uuid";
@@ -88,7 +89,12 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                       .map((el) => {
                         return (
                           <S.ListItem key={uuidv4()}>
-                            <S.ItemImg></S.ItemImg>
+                            {console.log(el)}
+                            <S.ItemImg
+                              src={`https://storage.googleapis.com/${
+                                el.productDirect?.files[0].url.split(",")[0]
+                              }`}
+                            ></S.ItemImg>
                             <S.ItemInfoWrapper
                               onClick={props.onClickLocalDetail}
                               id={el.id}
@@ -123,18 +129,24 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                               )}
                             </S.ItemSubInfoWrapper>
                             <S.ItemSubInfoWrapper>
-                              <S.SellerName>판매자 이름</S.SellerName>
-                              <S.SellerPhoneNum>010-xxxx-xxxx</S.SellerPhoneNum>
+                              <S.SellerName>
+                                {el.productDirect?.directStore?.name}
+                              </S.SellerName>
+                              <S.SellerPhoneNum></S.SellerPhoneNum>
                             </S.ItemSubInfoWrapper>
                           </S.ListItem>
                         );
                       })
                   : props.canceledPaymentsLocal
                       ?.slice(0, props.sliceNumber)
-                      .map((el) => {
+                      .map((el: IFetchCanceledPayments) => {
                         return (
                           <S.ListItem key={uuidv4()}>
-                            <S.ItemImg></S.ItemImg>
+                            <S.ItemImg
+                              src={`https://storage.googleapis.com/${
+                                el.productDirect?.files[0].url.split(",")[0]
+                              }`}
+                            ></S.ItemImg>
                             <S.ItemInfoWrapper
                               onClick={props.onClickLocalDetail}
                               id={el.id}
@@ -151,8 +163,10 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                             </S.ItemInfoWrapper>
                             <S.ItemSubInfoWrapper></S.ItemSubInfoWrapper>
                             <S.ItemSubInfoWrapper>
-                              <S.SellerName>판매자 이름</S.SellerName>
-                              <S.SellerPhoneNum>010-xxxx-xxxx</S.SellerPhoneNum>
+                              <S.SellerName>
+                                {el.productDirect?.directStore?.name}
+                              </S.SellerName>
+                              <S.SellerPhoneNum></S.SellerPhoneNum>
                             </S.ItemSubInfoWrapper>
                           </S.ListItem>
                         );
@@ -160,10 +174,15 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                 : props.payOrCancel === "pay"
                 ? props.completePaymentsUgly
                     ?.slice(0, props.sliceNumber)
-                    .map((el) => {
+                    .map((el: IFetchCompletePayments) => {
                       return (
                         <S.ListItem key={uuidv4()} id={el.id}>
-                          <S.ItemImg></S.ItemImg>
+                          {console.log(el)}
+                          <S.ItemImg
+                            src={`https://storage.googleapis.com/${
+                              el.productUgly?.files[0].url.split(",")[0]
+                            }`}
+                          ></S.ItemImg>
                           <S.ItemInfoWrapper
                             onClick={props.onClickBfoodDetail}
                             id={el.id}
@@ -203,7 +222,9 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                             <S.SellerName>
                               {el.productUgly?.seller?.name}
                             </S.SellerName>
-                            <S.SellerPhoneNum>010-xxxx-xxxx</S.SellerPhoneNum>
+                            <S.SellerPhoneNum>
+                              {el.productUgly?.seller?.phone}
+                            </S.SellerPhoneNum>
                           </S.ItemSubInfoWrapper>
                         </S.ListItem>
                       );
@@ -214,9 +235,9 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                       return (
                         <S.ListItem key={uuidv4()} id={el.id}>
                           <S.ItemImg
-                          // src={`https://storage.googleapis.com/${
-                          //   el.productUgly?.files[0].url.split(",")[0]
-                          // }`}
+                            src={`https://storage.googleapis.com/${
+                              el.productUgly?.files[0].url.split(",")[0]
+                            }`}
                           ></S.ItemImg>
                           <S.ItemInfoWrapper
                             onClick={props.onClickBfoodDetail}
@@ -236,7 +257,9 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                             <S.SellerName>
                               {el.productUgly?.seller?.name}
                             </S.SellerName>
-                            <S.SellerPhoneNum>010-xxxx-xxxx</S.SellerPhoneNum>
+                            <S.SellerPhoneNum>
+                              {el.productUgly?.seller?.phone}
+                            </S.SellerPhoneNum>
                           </S.ItemSubInfoWrapper>
                         </S.ListItem>
                       );

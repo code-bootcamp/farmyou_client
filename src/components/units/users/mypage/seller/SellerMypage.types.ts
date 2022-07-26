@@ -13,6 +13,7 @@ export interface IFetchUglyProductsBySeller {
   title: string;
   price: number;
   createdAt: Date;
+  files: Array<{ url: string }>;
 }
 
 export interface IFetchCompletedPaymentsForSeller {
@@ -36,9 +37,9 @@ export interface IFetchCompletedPaymentsForSeller {
     id: string;
     title: string;
     price: number;
-    files: {
+    files: Array<{
       url: string;
-    };
+    }>;
     seller?: {
       id: string;
       name: string;

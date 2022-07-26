@@ -86,7 +86,11 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
                     .map((el) => {
                       return (
                         <S.ListItem key={uuidv4()}>
-                          <S.ItemImg></S.ItemImg>
+                          <S.ItemImg
+                            src={`https://storage.googleapis.com/${
+                              el.files[0]?.url.split(",")[0]
+                            }`}
+                          ></S.ItemImg>
                           <S.ItemInfoWrapper>
                             <S.ItemTitle>{el.title}</S.ItemTitle>
                             <S.ItemPrice>
@@ -112,7 +116,11 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
                     .map((el) => {
                       return (
                         <S.ListItem key={uuidv4()}>
-                          <S.ItemImg></S.ItemImg>
+                          <S.ItemImg
+                            src={`https://storage.googleapis.com/${
+                              el.productUgly?.files[0].url.split(",")[0]
+                            }`}
+                          ></S.ItemImg>
                           <S.ItemInfoWrapper>
                             <S.ItemTitle>{el.productUgly?.title}</S.ItemTitle>
                             <S.ItemPrice>

@@ -59,6 +59,9 @@ export const FETCH_UGLY_PRODUCTS_BY_SELLER = gql`
       title
       price
       createdAt
+      files {
+        url
+      }
     }
   }
 `;
