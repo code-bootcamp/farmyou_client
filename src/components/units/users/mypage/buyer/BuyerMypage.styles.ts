@@ -68,11 +68,18 @@ export const InfoProfile = styled.div`
   padding: 10px;
 `;
 
-export const ProfileImage = styled.div`
-  width: 120px;
-  height: 120px;
+export const ProfileImage = styled.img`
+  width: 150px;
+  height: 150px;
   border-radius: 90%;
   border: 1px solid #ccc;
+`;
+export const NoProfileImage = styled.img`
+  width: 150px;
+  height: 150px;
+  border-radius: 90%;
+  border: 1px solid #ccc;
+  padding: 10px;
 `;
 
 export const ProfileName = styled.div`
@@ -199,7 +206,8 @@ interface ISelectLocalFoodProps {
 }
 export const SelectLocalFood = styled.div`
   width: 50%;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
   padding: 1vw 0px;
   text-align: center;
   border: ${(props: ISelectLocalFoodProps) =>
@@ -276,13 +284,13 @@ export const SellerPhoneNum = styled.div`
 `;
 export const MoreItem = styled.div`
   width: 100%;
-  height: 60px;
+  height: 50px;
   border: 1px solid #ccc;
-  font-size: 1.3rem;
+  font-size: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 50px;
+  margin: 20px 0px;
 `;
 
 export const Model = styled.div`

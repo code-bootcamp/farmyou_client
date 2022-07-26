@@ -8,6 +8,7 @@ import {
   FETCH_ADDRESSES_OF_THE_USER,
   FETCH_CANCELED_PAYMENTS_OF_USER,
   FETCH_COMPLETED_PAYMENTS_OF_USER,
+  FETCH_USER_LOGGED_IN,
   UPDATE_USER,
   UPLOAD_FILE,
 } from "./BuyerMypage.queries";
@@ -88,6 +89,7 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
       },
     }
   );
+  const { data, refetch: dataRefetch } = useQuery(FETCH_USER_LOGGED_IN);
 
   const count = fetchCompletePaymentsData?.fetchCompletedPaymentsOfUser?.length;
   const count2 = fetchCanceledPaymentsData?.fetchCanceledPaymentsOfUser?.length;
@@ -208,15 +210,19 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
     setIsEditVisible(false);
   };
   const onClickEdit = async (data: IOnClickEdit) => {
+    console.log(fileUrl);
     try {
       await updateUser({
         variables: {
           name: data.name,
           password: data.password,
           phone: data.phone,
-          imageUrl: fileUrl,
+          createFileInput: {
+            imageUrl: String(fileUrl),
+          },
         },
       });
+      dataRefetch();
       setIsEditVisible(false);
     } catch (error: any) {
       Modal.error({
@@ -346,7 +352,7 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
       error={error}
       onClickDeleteAddress={onClickDeleteAddress}
       onClickMainAddress={onClickMainAddress}
-      userData={props.userData}
+      // userData={props.userData}
       completePaymentsLocal={completePaymentsLocal}
       completePaymentsUgly={completePaymentsUgly}
       canceledPaymentsLocal={canceledPaymentsLocal}
@@ -361,6 +367,7 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
       payOrCancel={payOrCancel}
       onClickPay={onClickPay}
       onClickCancel={onClickCancel}
+      data={data}
     />
   );
 }

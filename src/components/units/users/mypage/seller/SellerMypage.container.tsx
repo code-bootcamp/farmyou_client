@@ -9,6 +9,7 @@ import {
   CHECK_IF_LOGGED_SELLER,
   FETCH_COMPLETED_PAYMENTS_FOR_SELLER,
   FETCH_UGLY_PRODUCTS_BY_SELLER,
+  FETCH_USER_LOGGED_IN,
   UPDATE_INVOICE,
   UPDATE_SELLER,
   UPLOAD_FILE,
@@ -54,6 +55,7 @@ export default function SellerMypage(props: ISellerMypageProps) {
   const { data: fetchUglyProductsBySellerData } = useQuery(
     FETCH_UGLY_PRODUCTS_BY_SELLER
   );
+  const { data, refetch: dataRefetch } = useQuery(FETCH_USER_LOGGED_IN);
 
   const { data: fetchCompletedPaymentsForSellerData, refetch } = useQuery(
     FETCH_COMPLETED_PAYMENTS_FOR_SELLER,
@@ -173,15 +175,18 @@ export default function SellerMypage(props: ISellerMypageProps) {
   };
   const onClickEdit = async (data: IForm) => {
     try {
-      const result = await updateSeller({
+      await updateSeller({
         variables: {
           name: data.name,
           password: data.password,
           phone: data.phone,
-          imageUrl: fileUrl,
+          createFileInput: {
+            imageUrl: String(fileUrl),
+          },
         },
       });
-      console.log(result);
+      dataRefetch();
+      setIsEditVisible(false);
     } catch (error) {
       console.log(error);
     }
@@ -234,7 +239,7 @@ export default function SellerMypage(props: ISellerMypageProps) {
       fetchUglyProductsBySellerData={fetchUglyProductsBySellerData}
       onClickFetchMore={onClickFetchMore}
       sliceNumber={sliceNumber}
-      userData={props.userData}
+      // userData={props.userData}
       isSelect={isSelect}
       onClickSellingList={onClickSellingList}
       onClickPaymentList={onClickPaymentList}
@@ -248,6 +253,7 @@ export default function SellerMypage(props: ISellerMypageProps) {
       isModalVisible={isModalVisible}
       handleOk={handleOk}
       handleCancel={handleCancel}
+      data={data}
     />
   );
 }

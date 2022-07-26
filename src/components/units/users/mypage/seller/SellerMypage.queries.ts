@@ -7,6 +7,9 @@ export const FETCH_USER_LOGGED_IN = gql`
       name
       email
       type
+      files {
+        url
+      }
     }
   }
 `;
@@ -38,13 +41,13 @@ export const UPDATE_SELLER = gql`
     $name: String
     $password: String
     $phone: String
-    $imageUrl: String
+    $createFileInput: CreateSellerInput
   ) {
-    updateUser(
+    updateSeller(
       name: $name
       password: $password
       phone: $phone
-      imageUrl: $imageUrl
+      createFileInput: $createFileInput
     ) {
       name
       phone
