@@ -12,13 +12,14 @@ import {
   CREATE_USER,
   SEND_TOKEN,
 } from "./signup.queries";
+import { Modal } from "antd";
 
 export default function Signup(props: any) {
   const router = useRouter();
   const [isModal, setIsModal] = useState(false);
   const [postalCode, setPostalCode] = useState("");
   const [address, setAddress] = useState("");
-  const [detailedAddress, setDetailedAddress] = useState("");
+
   const [isStart, setIsStart] = useState(false);
   const [createUser] = useMutation(CREATE_USER);
   const [createSeller] = useMutation(CREATE_SELLER);
@@ -53,7 +54,6 @@ export default function Signup(props: any) {
   const [isCheck, setIsCheck] = useState(false);
   const onChangePhone = (event: ChangeEvent<HTMLInputElement>) => {
     setPhoneNumber(event.target.value);
-    console.log(phoneNumber);
   };
   const onChangeToken = (event: ChangeEvent<HTMLInputElement>) => {
     setTokenSave(event.target.value);
@@ -93,7 +93,10 @@ export default function Signup(props: any) {
   };
   // 회원가입
   const onClickCreateUser = async (data: any) => {
-    if (!isCheck) return;
+    if (!isCheck) {
+      Modal.error({ content: "휴대전화 인증을 진행 해 주세요" });
+      return;
+    }
 
     try {
       const result = await createUser({
@@ -101,11 +104,11 @@ export default function Signup(props: any) {
           email: data.email,
           name: data.name,
           password: data.password,
-          phone: String(data.phone),
+          phone: phoneNumber,
           addressUser: {
-            address: data.address,
+            address,
             detailedAddress: data.detailedAddress,
-            postalCode: data.postalCode,
+            postalCode,
           },
         },
       });
@@ -117,14 +120,17 @@ export default function Signup(props: any) {
   };
 
   const onClickCreateSeller = async (data: any) => {
-    if (!isCheck) return;
+    if (!isCheck) {
+      Modal.error({ content: "휴대전화 인증을 진행 해 주세요" });
+      return;
+    }
     try {
       const resultSeller = await createSeller({
         variables: {
           name: data.name,
           email: data.email,
           password: data.password,
-          phone: String(data.phone),
+          phone: phoneNumber,
         },
       });
       console.log(resultSeller);
