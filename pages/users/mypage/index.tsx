@@ -38,6 +38,9 @@ export const FETCH_USER_LOGGED_IN = gql`
       name
       email
       type
+      files {
+        url
+      }
     }
   }
 `;

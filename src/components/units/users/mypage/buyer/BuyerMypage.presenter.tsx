@@ -16,9 +16,16 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
         <S.Body>
           <S.InfoWrapper>
             <S.InfoProfile>
-              <S.ProfileImage />
+              {props.data?.fetchUserLoggedIn.files[0] &&
+              props.data?.fetchUserLoggedIn.files[0].url !== "" ? (
+                <S.ProfileImage
+                  src={`https://storage.googleapis.com/${props.data?.fetchUserLoggedIn.files[0].url}`}
+                />
+              ) : (
+                <S.NoProfileImage src={`/icons/mypage/employee.png`} />
+              )}
               <S.ProfileName>
-                {props.userData?.fetchUserLoggedIn?.name}
+                {props.data?.fetchUserLoggedIn?.name}
               </S.ProfileName>
               <S.FunctionWrapper>
                 <S.Function>로그아웃</S.Function>

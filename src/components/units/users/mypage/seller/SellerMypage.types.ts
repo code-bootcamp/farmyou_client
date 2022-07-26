@@ -48,6 +48,9 @@ export interface IFetchCompletedPaymentsForSeller {
   };
   invoice: string;
 }
+export interface IFiles {
+  url: string;
+}
 
 export interface ISellerMypageUiProps {
   showEditModal: () => void;
@@ -85,12 +88,13 @@ export interface ISellerMypageUiProps {
   };
   onClickFetchMore: () => void;
   sliceNumber: number;
-  userData: {
+  data: {
     fetchUserLoggedIn: {
       id?: string;
       name?: string;
       email?: string;
       type?: string;
+      files: Array<IFiles>;
     };
   };
   fetchCompletedPaymentsForSellerData: {
@@ -105,6 +109,7 @@ export interface ISellerMypageProps {
       name?: string;
       email?: string;
       type?: string;
+      files: Array<IFiles>;
     };
   };
 }

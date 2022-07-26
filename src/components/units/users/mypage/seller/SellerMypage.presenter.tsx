@@ -13,9 +13,16 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
         <S.Body>
           <S.InfoWrapper>
             <S.InfoProfile>
-              <S.ProfileImage />
+              {props.data?.fetchUserLoggedIn.files[0] &&
+              props.data?.fetchUserLoggedIn.files[0].url !== "" ? (
+                <S.ProfileImage
+                  src={`https://storage.googleapis.com/${props.data?.fetchUserLoggedIn.files[0].url}`}
+                />
+              ) : (
+                <S.NoProfileImage src={`/icons/mypage/farmer.png`} />
+              )}
               <S.ProfileName>
-                {props.userData?.fetchUserLoggedIn?.name}
+                {props.data?.fetchUserLoggedIn?.name}
               </S.ProfileName>
               <S.FunctionWrapper>
                 <S.Function>로그아웃</S.Function>
@@ -24,7 +31,10 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
                   회원정보수정
                 </S.Function>
               </S.FunctionWrapper>
-              <div onClick={props.onClickToWrite}>못난이 상품 등록하기</div>
+              <S.NewFunction onClick={props.onClickToWrite}>
+                <S.NewImg src="/icons/mypage/write.png" />
+                못난이 상품 등록하기
+              </S.NewFunction>
             </S.InfoProfile>
             <S.InfoRightWrapper>
               <S.InfoBoxWrapper>

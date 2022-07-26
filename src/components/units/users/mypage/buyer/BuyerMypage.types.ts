@@ -109,7 +109,9 @@ export interface IFetchAddressesOfTheUser {
 export interface IUserAddressData {
   fetchAddressesOfTheUser: Array<IFetchAddressesOfTheUser>;
 }
-
+export interface IFiles {
+  url: string;
+}
 export interface IBuyerMypageUIProps {
   count: number;
   count2: number;
@@ -140,12 +142,13 @@ export interface IBuyerMypageUIProps {
   onClickDeleteAddress: (event: MouseEvent<HTMLDivElement>) => void;
   onClickMainAddress: (event: MouseEvent<HTMLDivElement>) => void;
 
-  userData: {
+  data: {
     fetchUserLoggedIn: {
       id?: string;
       name?: string;
       email?: string;
       type?: string;
+      files: Array<IFiles>;
     };
   };
   completePaymentsLocal: Array<IFetchCompletePayments> | undefined;
@@ -171,6 +174,7 @@ export interface IBuyerMypageProps {
       name?: string;
       email?: string;
       type?: string;
+      files: Array<IFiles>;
     };
   };
 }
