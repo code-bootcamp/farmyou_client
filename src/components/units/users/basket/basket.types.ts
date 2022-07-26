@@ -1,3 +1,4 @@
+import { NextRouter } from "next/router";
 import { Dispatch, SetStateAction } from "react";
 
 interface IFiles {
@@ -37,6 +38,8 @@ export interface IBasketUIProps {
   localFoodSum: number;
   localFoodSums: number[];
   setLocalFoodSums: Dispatch<SetStateAction<number[]>>;
+  router: NextRouter;
+  onClickToPayment: () => void;
 
   //   {
   //     _id: string;

@@ -236,7 +236,7 @@ export default function Payment(props: IPaymentProps) {
       JSON.parse(localStorage.getItem("localfoodbaskets") || "[]")
     );
     setBfoodBaskets(JSON.parse(localStorage.getItem("bfoodbaskets") || "[]"));
-    setPayProduct(JSON.parse(localStorage.getItem("payProduct") || ""));
+    setPayProduct(JSON.parse(localStorage.getItem("payProduct") || "[]"));
   }, []);
 
   useEffect(() => {

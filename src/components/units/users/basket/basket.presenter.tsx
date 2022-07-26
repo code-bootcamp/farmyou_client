@@ -78,8 +78,16 @@ export default function BasketUI(props: IBasketUIProps) {
           </S.Total>
         </S.Payment>
         <S.BtnWrapper>
-          <ButtonComponent title="취소하기" buttonColor="#bdbdbd" />
-          <ButtonComponent title="구매하기" buttonColor="#F6651E" />
+          <ButtonComponent
+            onClick={() => props.router.back()}
+            title="취소하기"
+            buttonColor="#bdbdbd"
+          />
+          <ButtonComponent
+            onClick={props.onClickToPayment}
+            title="구매하기"
+            buttonColor="#F6651E"
+          />
         </S.BtnWrapper>
       </S.Wrapper>
     </S.Body>
