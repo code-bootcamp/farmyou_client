@@ -226,7 +226,6 @@ export const ListItem = styled.div`
 export const ItemImg = styled.img`
   width: 50px;
   height: 50px;
-  background-color: rebeccapurple;
 `;
 
 export const ItemInfoWrapper = styled.div`

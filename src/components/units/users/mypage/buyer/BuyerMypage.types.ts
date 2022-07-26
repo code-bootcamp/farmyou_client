@@ -16,9 +16,9 @@ export interface ICompletePaymentsLocal {
     id: string;
     title: string;
     price: number;
-    files: {
+    files: Array<{
       url: string;
-    };
+    }>;
     directStore?: {
       id: string;
       name: string;
@@ -36,17 +36,21 @@ export interface IFetchCanceledPayments {
     id: string;
     title: string;
     price: number;
-    files: {
+    files: Array<{
       url: string;
+    }>;
+    directStore?: {
+      id: string;
+      name: string;
     };
   };
   productUgly?: {
     id: string;
     title: string;
     price: number;
-    files?: {
+    files: Array<{
       url: string;
-    };
+    }>;
     seller?: {
       name: string;
       phone: string;
@@ -64,9 +68,9 @@ export interface IFetchCompletePayments {
     id: string;
     title: string;
     price: number;
-    files: {
+    files: Array<{
       url: string;
-    };
+    }>;
     directStore?: {
       id: string;
       name: string;
@@ -76,9 +80,9 @@ export interface IFetchCompletePayments {
     id: string;
     title: string;
     price: number;
-    files: {
+    files: Array<{
       url: string;
-    };
+    }>;
     seller?: {
       id: string;
       name: string;
