@@ -1,8 +1,10 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import BasketUI from "./basket.presenter";
 import { IBaskets } from "./basket.types";
 
 export default function Basket() {
+  const router = useRouter();
   const [bfoodBasketsCount, setBfoodBasketsCount] = useState(0);
   const [bFoodSum, setBFoodSum] = useState(0);
   const [bFoodSums, setBFoodSums] = useState<number[]>([]);
@@ -50,6 +52,10 @@ export default function Basket() {
     // console.log(localFoodSums);
   }, [localFoodSums]);
 
+  const onClickToPayment = () => {
+    sessionStorage.setItem("isCart", "cart");
+    router.push(`/users/payment`);
+  };
   return (
     <BasketUI
       bFoodData={bFoodBasketsItems}
@@ -62,6 +68,8 @@ export default function Basket() {
       localFoodSum={localFoodSum}
       localFoodSums={localFoodSums}
       setLocalFoodSums={setLocalFoodSums}
+      router={router}
+      onClickToPayment={onClickToPayment}
     />
   );
 }
