@@ -27,10 +27,11 @@ export default function BfoodWrite(props: IBfoodWriteProps) {
   const [createProductUgly] = useMutation(CREATE_PRODUCT_UGLY);
   const [updateProductUgly] = useMutation(UPDATE_PRODUCT_UGLY);
 
-  const { register, handleSubmit, setValue, trigger } = useForm<IData>({
-    resolver: yupResolver(schema),
-    mode: "onChange",
-  });
+  const { register, handleSubmit, setValue, trigger, getValues } =
+    useForm<IData>({
+      resolver: yupResolver(schema),
+      mode: "onChange",
+    });
 
   const { data: userData } = useQuery(FETCH_USER_LOGGED_IN);
 
@@ -111,13 +112,12 @@ export default function BfoodWrite(props: IBfoodWriteProps) {
     onChangeContent(props.fetchProductUglyData?.fetchProductUgly?.content);
   }, []);
 
-  // console.log(props.fetchProductUglyData);
-
   return (
     <BfoodWriteUI
       isEdit={props.isEdit}
       register={register}
       handleSubmit={handleSubmit}
+      getValues={getValues}
       onChangeContent={onChangeContent}
       onClickToCancel={onClickToCancel}
       onClickSubmit={onClickSubmit}

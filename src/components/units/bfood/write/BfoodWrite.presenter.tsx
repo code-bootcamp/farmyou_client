@@ -4,6 +4,8 @@ import "react-quill/dist/quill.snow.css";
 import ButtonComponent from "../../../commons/buttons";
 import { IBfoodWriteUIProps } from "./BfoodWrite.types";
 import UploadImage from "./UploadImage/UploadImage.container";
+import ReactQuillContainer from "../../../commons/quill";
+
 export default function BfoodWriteUI(props: IBfoodWriteUIProps) {
   return (
     <S.Wrapper>
@@ -63,9 +65,9 @@ export default function BfoodWriteUI(props: IBfoodWriteUIProps) {
             defaultValue={props.fetchProductUglyData?.fetchProductUgly.origin}
           />
           <S.Label>상품설명</S.Label>
-          <S.InputQuill
-            onChange={props.onChangeContent}
-            defaultValue={props.fetchProductUglyData?.fetchProductUgly.content}
+          <ReactQuillContainer
+            getValues={props.getValues}
+            onChangeContent={props.onChangeContent}
           />
           <S.ButtonWrapper>
             <ButtonComponent

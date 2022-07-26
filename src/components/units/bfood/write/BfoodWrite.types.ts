@@ -1,4 +1,8 @@
-import { UseFormHandleSubmit, UseFormRegister } from "react-hook-form";
+import {
+  UseFormGetValues,
+  UseFormHandleSubmit,
+  UseFormRegister,
+} from "react-hook-form";
 
 export interface IData {
   title: string;
@@ -16,6 +20,7 @@ export interface IBfoodWriteUIProps {
   isEdit: boolean;
   register: UseFormRegister<IData>;
   handleSubmit: UseFormHandleSubmit<IData>;
+  getValues: UseFormGetValues<IData>;
   onClickToCancel: () => void;
   onChangeContent: (value: string) => void;
   onClickSubmit: (data: IData) => Promise<void>;
