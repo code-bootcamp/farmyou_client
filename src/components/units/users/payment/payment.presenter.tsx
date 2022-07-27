@@ -152,7 +152,7 @@ export default function PaymentUI(props: IPaymentUIProps) {
                 </S.BasketPrice>
               </S.BasketTotalPriceWrapper>
               <S.CheckBox onChange={props.onChangeCheckBox}>
-                아래 내용에 모두 동의합니다.(필수)
+                아래 내용에 모두 동의합니다. (필수)
               </S.CheckBox>
             </S.PayBoxWrapper>
             <S.PayBoxWarningWrapper>
@@ -178,13 +178,19 @@ export default function PaymentUI(props: IPaymentUIProps) {
             <S.BasketWrapper>
               <S.Title>로컬푸드 주문내역</S.Title>
               <S.DivideLine />
-              {props.localfoodBaskets.map((el: any, index: number) => {
+              {props.localfoodBaskets.map((el) => {
                 return (
                   <S.BasketItemWrapper key={uuidv4()}>
-                    <S.BasketItemImage src="" />
+                    <S.BasketItemImage
+                      src={`https://storage.googleapis.com/${
+                        el.files[0]?.url?.split(",")[0]
+                      }`}
+                    />
                     <S.BasketItemTextWrapper>
                       <S.BasketItemName>{el.title}</S.BasketItemName>
-                      <S.BasketItemSeller>{el.name}</S.BasketItemSeller>
+                      <S.BasketItemSeller>
+                        {el.directStore.name}
+                      </S.BasketItemSeller>
                       <S.BasketItemPriceCount>
                         {el.price.toLocaleString()}원 / {el.count}개
                       </S.BasketItemPriceCount>
@@ -196,15 +202,17 @@ export default function PaymentUI(props: IPaymentUIProps) {
             <S.BasketWrapper>
               <S.Title>못난이 상품 주문내역</S.Title>
               <S.DivideLine />
-              {props.bfoodBaskets.map((el: any, index: number) => {
+              {props.bfoodBaskets.map((el) => {
                 return (
-                  <S.BasketItemWrapper key={index}>
-                    <S.BasketItemImage src="" />
+                  <S.BasketItemWrapper key={uuidv4()}>
+                    <S.BasketItemImage
+                      src={`https://storage.googleapis.com/${
+                        el.files[0]?.url?.split(",")[0]
+                      }`}
+                    />
                     <S.BasketItemTextWrapper>
                       <S.BasketItemName>{el.title}</S.BasketItemName>
-                      <S.BasketItemSeller>
-                        판매자 : {el.seller.name}
-                      </S.BasketItemSeller>
+                      <S.BasketItemSeller>{el.seller.name}</S.BasketItemSeller>
                       <S.BasketItemPriceCount>
                         {el.price.toLocaleString()}원 / {el.count}개
                       </S.BasketItemPriceCount>

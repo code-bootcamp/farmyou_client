@@ -67,9 +67,51 @@ export interface IPaymentProps {
 
 export interface IPaymentUIProps {
   isCart: string;
-  localfoodBaskets: any;
-  bfoodBaskets: any;
-  payProduct: any;
+  localfoodBaskets: Array<{
+    content: string;
+    count: number;
+    createdAt: Date;
+    files: Array<{ url: string }>;
+    id: string;
+    price: number;
+    quantity: number;
+    title: string;
+    directStore: {
+      name: string;
+    };
+  }>;
+  bfoodBaskets: Array<{
+    content: string;
+    count: number;
+    createdAt: Date;
+    files: Array<{ url: string }>;
+    id: string;
+    price: number;
+    quantity: number;
+    title: string;
+    origin: string;
+    seller: {
+      name: string;
+      id: string;
+      phone: string;
+    };
+  }>;
+  payProduct: {
+    content: string;
+    count: number;
+    createdAt: Date;
+    files: Array<{ url: string }>;
+    id: string;
+    price: number;
+    quantity: number;
+    title: string;
+    origin: string;
+    seller: {
+      name: string;
+      id: string;
+      phone: string;
+    };
+  };
   localPrice: number;
   bPrice: number;
   requestPay: () => void;
