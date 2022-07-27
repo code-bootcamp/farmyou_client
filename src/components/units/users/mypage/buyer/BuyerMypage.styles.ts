@@ -237,9 +237,18 @@ export const ListItem = styled.div`
   }
 `;
 
+export const ItemImgWrapper = styled.div`
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const ItemImg = styled.img`
   width: 80px;
   height: 80px;
+  object-fit: contain;
 `;
 
 export const ItemInfoWrapper = styled.div`

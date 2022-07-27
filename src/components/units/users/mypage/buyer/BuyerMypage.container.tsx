@@ -40,39 +40,42 @@ const schema = yup.object({
 });
 
 export default function BuyerMypage(props: IBuyerMypageProps) {
-  const { handleSubmit, register } = useForm<IForm>({
-    resolver: yupResolver(schema),
-    mode: "onChange",
-  });
   const router = useRouter();
+
   const [isUserVisible, setIsUserVisible] = useState(false);
   const [isEditVisible, setIsEditVisible] = useState(false);
   const [password, setPassword] = useState("");
   const [fileUrl, setFileUrl] = useState("");
   const [error, setError] = useState("");
+  const [isSelect, setIsSelect] = useState(true);
+  const [completePaymentsLocal, setCompletePaymentsLocal] = useState([]);
+  const [completePaymentsUgly, setCompletePaymentsUgly] = useState([]);
+  const [canceledPaymentsLocal, setCanceledPaymentsLocal] = useState([]);
+  const [canceledPaymentsUgly, setCanceledPaymentsUgly] = useState([]);
+  const [sliceNumber, setSliceNumber] = useState(2);
+  const [invoiceCount, setInvoiceCount] = useState(0);
+  const [payOrCancel, setPayOrCancel] = useState("pay");
+
+  const fileRef = useRef<HTMLInputElement>(null);
+  const trackingRef = useRef<HTMLFormElement | undefined>();
+
   const [uploadFile] = useMutation(UPLOAD_FILE);
   const [updateUser] = useMutation(UPDATE_USER);
   const [assignMain] = useMutation(ASSIGN_MAIN);
   const [deleteAddress] = useMutation(DELETE_ADDRESS);
   const [checkIfLoggedUser] = useMutation(CHECK_IF_LOGGED_USER);
-  const [isSelect, setIsSelect] = useState(true);
-  const trackingRef = useRef<HTMLFormElement | undefined>();
-  const [completePaymentsLocal, setCompletePaymentsLocal] = useState();
-  const [completePaymentsUgly, setCompletePaymentsUgly] = useState();
-  const [canceledPaymentsLocal, setCanceledPaymentsLocal] = useState();
-  const [canceledPaymentsUgly, setCanceledPaymentsUgly] = useState();
-  const [sliceNumber, setSliceNumber] = useState(2);
-  const [invoiceCount, setInvoiceCount] = useState(0);
-  const [payOrCancel, setPayOrCancel] = useState("pay");
-
   const [cancelPayment] = useMutation(CANCEL_PAYMENT);
+
+  const { handleSubmit, register } = useForm<IForm>({
+    resolver: yupResolver(schema),
+    mode: "onChange",
+  });
 
   const { data: userAddressData } = useQuery(FETCH_ADDRESSES_OF_THE_USER, {
     variables: {
       userId: props.userData?.fetchUserLoggedIn.id,
     },
   });
-
   const { data: fetchCompletePaymentsData, refetch } = useQuery(
     FETCH_COMPLETED_PAYMENTS_OF_USER,
     {
@@ -91,8 +94,15 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
   );
   const { data, refetch: dataRefetch } = useQuery(FETCH_USER_LOGGED_IN);
 
-  const count = fetchCompletePaymentsData?.fetchCompletedPaymentsOfUser?.length;
-  const count2 = fetchCanceledPaymentsData?.fetchCanceledPaymentsOfUser?.length;
+  const fetchCompletePaymentsCount =
+    fetchCompletePaymentsData?.fetchCompletedPaymentsOfUser?.length;
+  const fetchCanceledPaymentsCount =
+    fetchCanceledPaymentsData?.fetchCanceledPaymentsOfUser?.length;
+  const fetchCompletedPaymentsLocalCount = completePaymentsLocal?.length;
+  const fetchCompletePaymentsUglyCount = completePaymentsUgly?.length;
+  const fetchCanceledPaymentsLocalCount = canceledPaymentsLocal?.length;
+  const fetchCanceledPaymentsUglyCount = canceledPaymentsUgly?.length;
+
   const onClickFetchMore = () => {
     setSliceNumber((prev) => prev + 2);
   };
@@ -193,7 +203,6 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
           password,
         },
       });
-
       if (result.data.checkIfLoggedUser) {
         setIsUserVisible(false);
         setIsEditVisible(true);
@@ -236,7 +245,6 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
       });
     }
   };
-  const fileRef = useRef<HTMLInputElement>(null);
 
   function onClickUpload() {
     fileRef.current?.click();
@@ -303,15 +311,12 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
     (el: IFetchCanceledPayments) =>
     async (event: MouseEvent<HTMLDivElement>) => {
       try {
-        console.log(el);
-
-        const result2 = await cancelPayment({
+        await cancelPayment({
           variables: {
             paymentId: event.currentTarget.id,
           },
         });
-        console.log(result2);
-        const result1 = await axios({
+        await axios({
           url: "http://localhost:3000/users/mypage",
           method: "POST",
           headers: {
@@ -319,12 +324,11 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
           },
           data: {
             imp_uid: el.impUid, // 주문번호
-            cancel_request_amount: 100, // 환불금액
+            cancel_request_amount: el.amount, // 환불금액
             reason: "테스트 결제 환불", // 환불사유
           },
         });
         await refetch();
-        console.log(result1);
       } catch (error: any) {
         Modal.error({ content: error.message });
       }
@@ -361,7 +365,6 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
       error={error}
       onClickDeleteAddress={onClickDeleteAddress}
       onClickMainAddress={onClickMainAddress}
-      // userData={props.userData}
       completePaymentsLocal={completePaymentsLocal}
       completePaymentsUgly={completePaymentsUgly}
       canceledPaymentsLocal={canceledPaymentsLocal}
@@ -369,8 +372,12 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
       sliceNumber={sliceNumber}
       onClickFetchMore={onClickFetchMore}
       onClickProductEditButton={onClickProductEditButton}
-      count={count}
-      count2={count2}
+      fetchCompletePaymentsCount={fetchCompletePaymentsCount}
+      fetchCanceledPaymentsCount={fetchCanceledPaymentsCount}
+      fetchCompletedPaymentsLocalCount={fetchCompletedPaymentsLocalCount}
+      fetchCompletePaymentsUglyCount={fetchCompletePaymentsUglyCount}
+      fetchCanceledPaymentsLocalCount={fetchCanceledPaymentsLocalCount}
+      fetchCanceledPaymentsUglyCount={fetchCanceledPaymentsUglyCount}
       onClickCancelPayment={onClickCancelPayment}
       invoiceCount={invoiceCount}
       payOrCancel={payOrCancel}
