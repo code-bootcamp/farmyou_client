@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent, useRef, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react";
 import SellerMypageUI from "./SellerMypage.presenter";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -66,6 +66,11 @@ export default function SellerMypage(props: ISellerMypageProps) {
     }
   );
 
+  useEffect(() => {
+    if (data?.fetchUserLoggedIn.files[0]) {
+      setFileUrl(data?.fetchUserLoggedIn.files[0].url);
+    }
+  }, []);
   const onClickInvoiceEdit = async (event: MouseEvent<HTMLDivElement>) => {
     try {
       await updateInvoice({
@@ -217,6 +222,9 @@ export default function SellerMypage(props: ISellerMypageProps) {
   const onClickMoveToEditPage = (event: MouseEvent<HTMLDivElement>) => {
     router.push(`/bfood/${event.currentTarget.id}/edit`);
   };
+  const onClickDefaultFile = () => {
+    setFileUrl("");
+  };
   return (
     <SellerMypageUI
       showEditModal={showEditModal}
@@ -254,6 +262,7 @@ export default function SellerMypage(props: ISellerMypageProps) {
       handleOk={handleOk}
       handleCancel={handleCancel}
       data={data}
+      onClickDefaultFile={onClickDefaultFile}
     />
   );
 }

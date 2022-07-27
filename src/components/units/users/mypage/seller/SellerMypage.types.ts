@@ -82,6 +82,7 @@ export interface ISellerMypageUiProps {
   handleOk: () => void;
   handleCancel: () => void;
   invoiceNum: string;
+  onClickDefaultFile: () => void;
 
   fetchUglyProductsBySellerData: {
     fetchUglyProductsBySeller?: Array<IFetchUglyProductsBySeller>;
