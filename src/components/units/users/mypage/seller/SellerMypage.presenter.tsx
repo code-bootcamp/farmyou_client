@@ -156,7 +156,10 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
                         </S.ListItem>
                       );
                     })}
-              <S.MoreItem onClick={props.onClickFetchMore}>더보기</S.MoreItem>
+              <S.MoreItemWrapper>
+                <S.MoreItem onClick={props.onClickFetchMore}>더보기</S.MoreItem>
+                <S.DivideLine style={{ borderTop: "1px solid #ccc" }} />
+              </S.MoreItemWrapper>
             </S.ListItemWrapper>
           </S.ListWrapper>
         </S.Body>
@@ -205,6 +208,9 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
                 onChange={props.onChangeFile}
               />
               <S.InputWrapper>
+                <S.DefaultImg onClick={props.onClickDefaultFile}>
+                  이미지 초기화
+                </S.DefaultImg>
                 <S.InputTitle>이름 : </S.InputTitle>
                 <InputComponent
                   register={props.register("name")}

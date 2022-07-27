@@ -210,10 +210,13 @@ export const SelectLocalFood = styled.div`
   font-weight: 500;
   padding: 1vw 0px;
   text-align: center;
+  cursor: pointer;
   border: ${(props: ISelectLocalFoodProps) =>
     props.isSelect ? "2px solid #F6651E" : "none"};
   border-bottom: ${(props: ISelectLocalFoodProps) =>
     props.isSelect ? "none" : "2px solid #F6651E"};
+  background-color: ${(props: ISelectLocalFoodProps) =>
+    props.isSelect ? "white" : "#F5F4F4"};
 `;
 
 export const ListItemWrapper = styled.div`
@@ -228,17 +231,20 @@ export const ListItem = styled.div`
   flex-direction: row;
   align-items: center;
   padding: 1vw 2vw;
-  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  &:first-child {
+    border-top: none;
+  }
 `;
 
 export const ItemImg = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 80px;
 `;
 
 export const ItemInfoWrapper = styled.div`
   position: relative;
-  width: 45%;
+  width: 95%;
   height: 100%;
   margin-left: 3vw;
   padding: 0.5vw 0px;
@@ -261,7 +267,7 @@ export const ItemCreateDate = styled.div`
 `;
 
 export const ReturnButton = styled.div`
-  font-size: 0.7rem;
+  font-size: 1rem;
   &:hover {
     border-bottom: 1px solid black;
     cursor: pointer;
@@ -282,17 +288,33 @@ export const SellerName = styled.div`
 export const SellerPhoneNum = styled.div`
   font-size: 0.8rem;
 `;
-export const MoreItem = styled.div`
+export const MoreItemWrapper = styled.div`
   width: 100%;
   height: 50px;
-  border: 1px solid #ccc;
   font-size: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px 0px;
+  margin: 10px 0px;
 `;
-
+export const MoreItem = styled.div`
+  width: 120px;
+  height: 50px;
+  border-radius: 30px;
+  background-color: white;
+  border: 1.5px solid #ccc;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  margin: 0px auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+`;
 export const Model = styled.div`
   position: fixed;
   overflow: hidden;
@@ -343,12 +365,19 @@ export const EditWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
+export const DefaultImg = styled.div`
+  position: absolute;
+  top: 200px;
+  right: 120px;
+  font-size: 0.8rem;
+  cursor: pointer;
+`;
 export const Img = styled.img`
   object-fit: cover;
   border-radius: 90%;
   width: 120px;
   height: 120px;
-  border: 1px solid black;
+  border: 1.2px solid #cccccc;
   margin: 20px auto 10px auto;
 `;
 export const UploadFileHidden = styled.input`

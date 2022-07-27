@@ -138,6 +138,12 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
     );
   }, [fetchCanceledPaymentsData]);
 
+  useEffect(() => {
+    if (data?.fetchUserLoggedIn.files[0]) {
+      setFileUrl(data?.fetchUserLoggedIn.files[0].url);
+    }
+  }, []);
+
   const onClickPay = () => {
     setPayOrCancel("pay");
   };
@@ -323,6 +329,9 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
         Modal.error({ content: error.message });
       }
     };
+  const onClickDefaultFile = () => {
+    setFileUrl("");
+  };
 
   return (
     <BuyerMypageUI
@@ -368,6 +377,7 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
       onClickPay={onClickPay}
       onClickCancel={onClickCancel}
       data={data}
+      onClickDefaultFile={onClickDefaultFile}
     />
   );
 }
