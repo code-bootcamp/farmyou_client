@@ -189,26 +189,26 @@ export default function Payment(props: IPaymentProps) {
               await createPayment({
                 variables: {
                   impUid: rsp.imp_uid,
-                  amount: rsp.paid_amount,
+                  amount: el.price,
                   productType: "UGLY_PRODUCT",
                   productId: el.id,
                   quantity: el.count,
                 },
               });
             });
-            localStorage.removeItem("bfoodBaskets");
+            localStorage.removeItem("bfoodbaskets");
             localfoodBaskets.map(async (el: IBaskets) => {
               await createPayment({
                 variables: {
                   impUid: rsp.imp_uid,
-                  amount: rsp.paid_amount,
+                  amount: el.price,
                   productType: "DIRECT_PRODUCT",
                   productId: el.id,
                   quantity: el.count,
                 },
               });
             });
-            localStorage.removeItem("localfoodBaskets");
+            localStorage.removeItem("localfoodbaskets");
           } else {
             await createPayment({
               variables: {
@@ -220,11 +220,19 @@ export default function Payment(props: IPaymentProps) {
                 quantity: payProduct.count,
               },
             });
+            sessionStorage.removeItem("payment");
           }
-          router.push("/users/mypage");
-          alert("결제성공");
+          sessionStorage.removeItem("isCart");
+          Modal.success({
+            content: "결제에 성공했습니다",
+            onOk() {
+              router.push("/users/mypage");
+            },
+          });
         } else {
-          alert("결제에 실패했습니다. 다시 시도해주세요.");
+          Modal.error({
+            content: "결제에 실패했습니다. 다시 시도해주세요.",
+          });
         }
       }
     );
