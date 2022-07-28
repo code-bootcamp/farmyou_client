@@ -74,6 +74,7 @@ export const FETCH_COMPLETED_PAYMENTS_OF_USER = gql`
       impUid
       amount
       createdAt
+      quantity
       productDirect {
         id
         title
@@ -111,6 +112,7 @@ export const FETCH_CANCELED_PAYMENTS_OF_USER = gql`
       impUid
       amount
       createdAt
+      quantity
       productDirect {
         id
         title

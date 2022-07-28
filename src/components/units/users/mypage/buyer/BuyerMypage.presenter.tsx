@@ -112,7 +112,8 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                                 {el.productDirect?.title}
                               </S.ItemTitle>
                               <S.ItemPrice>
-                                {el.productDirect?.price?.toLocaleString()}원
+                                {el.productDirect?.price?.toLocaleString()}원 /{" "}
+                                {el.quantity}개
                               </S.ItemPrice>
                               <S.ItemCreateDate>
                                 구매 날짜 : {getDate(el.createdAt)}
@@ -167,7 +168,8 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                                 {el.productDirect?.title}
                               </S.ItemTitle>
                               <S.ItemPrice>
-                                {el.productDirect?.price?.toLocaleString()}원
+                                {el.productDirect?.price?.toLocaleString()}원 /{" "}
+                                {el.quantity}개
                               </S.ItemPrice>
                               <S.ItemCreateDate>
                                 구매 날짜 : {getDate(el.createdAt)}
@@ -203,7 +205,8 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                           <S.ItemInfoWrapper>
                             <S.ItemTitle>{el.productUgly?.title}</S.ItemTitle>
                             <S.ItemPrice>
-                              {el.productUgly?.price.toLocaleString()}원
+                              {el.productUgly?.price.toLocaleString()}원 /{" "}
+                              {el.quantity}개
                             </S.ItemPrice>
                             <S.ItemCreateDate>
                               구매 날짜 : {getDate(el.createdAt)}
@@ -262,7 +265,8 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                           <S.ItemInfoWrapper>
                             <S.ItemTitle>{el.productUgly?.title}</S.ItemTitle>
                             <S.ItemPrice>
-                              {el.productUgly?.price.toLocaleString()}원
+                              {el.productUgly?.price.toLocaleString()}원 /{" "}
+                              {el.quantity}개
                             </S.ItemPrice>
                             <S.ItemCreateDate>
                               구매 날짜 : {getDate(el.createdAt)}
