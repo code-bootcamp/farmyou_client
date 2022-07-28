@@ -12,7 +12,7 @@ export const getDate = (value: Date) => {
   const todayDate: string = String(today.getDate()).padStart(2, "0");
 
   if (todayYear === year && todayMonth === month && todayDate === date) {
-    return `${month}/${date}`;
+    return `${hours}:${minutes}`;
   } else {
     return `${year}-${month}-${date} ${hours}:${minutes}`;
   }

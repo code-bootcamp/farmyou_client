@@ -17,7 +17,7 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
           <S.InfoWrapper>
             <S.InfoProfile>
               {props.data?.fetchUserLoggedIn.files[0] &&
-              props.data?.fetchUserLoggedIn.files[0].url !== "" ? (
+              props.data?.fetchUserLoggedIn.files[0]?.url !== "" ? (
                 <S.ProfileImage
                   src={`https://storage.googleapis.com/${props.data?.fetchUserLoggedIn.files[0].url}`}
                 />
@@ -42,7 +42,7 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                     <S.OrderCheckBoxIcon src="/icons/mypage/ordercheck.png" />
                   </S.BoxIcons>
                   <S.BoxTitle>결제완료</S.BoxTitle>
-                  <S.Count>{props.count}</S.Count>
+                  <S.Count>{props.fetchCompletePaymentsCount}</S.Count>
                 </S.Box>
                 <S.LengthDivideLine />
                 <S.Box>
@@ -64,7 +64,7 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                     <S.ReturnBoxIcon src="/icons/mypage/return.png" />
                   </S.BoxIcons>
                   <S.BoxTitle>결제취소</S.BoxTitle>
-                  <S.Count>{props.count2}</S.Count>
+                  <S.Count>{props.fetchCanceledPaymentsCount}</S.Count>
                 </S.Box>
               </S.InfoBoxWrapper>
             </S.InfoRightWrapper>
@@ -95,17 +95,19 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                       ?.slice(0, props.sliceNumber)
                       .map((el) => {
                         return (
-                          <S.ListItem key={uuidv4()}>
-                            {console.log(el)}
-                            <S.ItemImg
-                              src={`https://storage.googleapis.com/${
-                                el.productDirect?.files[0].url.split(",")[0]
-                              }`}
-                            ></S.ItemImg>
-                            <S.ItemInfoWrapper
-                              onClick={props.onClickLocalDetail}
-                              id={el.id}
-                            >
+                          <S.ListItem
+                            key={uuidv4()}
+                            onClick={props.onClickLocalDetail}
+                            id={el.productDirect?.id}
+                          >
+                            <S.ItemImgWrapper>
+                              <S.ItemImg
+                                src={`https://storage.googleapis.com/${
+                                  el.productDirect?.files[0]?.url.split(",")[0]
+                                }`}
+                              ></S.ItemImg>
+                            </S.ItemImgWrapper>
+                            <S.ItemInfoWrapper>
                               <S.ItemTitle>
                                 {el.productDirect?.title}
                               </S.ItemTitle>
@@ -148,16 +150,19 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                       ?.slice(0, props.sliceNumber)
                       .map((el: IFetchCanceledPayments) => {
                         return (
-                          <S.ListItem key={uuidv4()}>
-                            <S.ItemImg
-                              src={`https://storage.googleapis.com/${
-                                el.productDirect?.files[0].url.split(",")[0]
-                              }`}
-                            ></S.ItemImg>
-                            <S.ItemInfoWrapper
-                              onClick={props.onClickLocalDetail}
-                              id={el.id}
-                            >
+                          <S.ListItem
+                            key={uuidv4()}
+                            onClick={props.onClickLocalDetail}
+                            id={el.productDirect?.id}
+                          >
+                            <S.ItemImgWrapper>
+                              <S.ItemImg
+                                src={`https://storage.googleapis.com/${
+                                  el.productDirect?.files[0]?.url.split(",")[0]
+                                }`}
+                              ></S.ItemImg>
+                            </S.ItemImgWrapper>
+                            <S.ItemInfoWrapper>
                               <S.ItemTitle>
                                 {el.productDirect?.title}
                               </S.ItemTitle>
@@ -183,17 +188,19 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                     ?.slice(0, props.sliceNumber)
                     .map((el: IFetchCompletePayments) => {
                       return (
-                        <S.ListItem key={uuidv4()} id={el.id}>
-                          {console.log(el)}
-                          <S.ItemImg
-                            src={`https://storage.googleapis.com/${
-                              el.productUgly?.files[0].url.split(",")[0]
-                            }`}
-                          ></S.ItemImg>
-                          <S.ItemInfoWrapper
-                            onClick={props.onClickBfoodDetail}
-                            id={el.id}
-                          >
+                        <S.ListItem
+                          key={uuidv4()}
+                          id={el.productUgly?.id}
+                          onClick={props.onClickBfoodDetail}
+                        >
+                          <S.ItemImgWrapper>
+                            <S.ItemImg
+                              src={`https://storage.googleapis.com/${
+                                el.productUgly?.files[0]?.url.split(",")[0]
+                              }`}
+                            ></S.ItemImg>
+                          </S.ItemImgWrapper>
+                          <S.ItemInfoWrapper>
                             <S.ItemTitle>{el.productUgly?.title}</S.ItemTitle>
                             <S.ItemPrice>
                               {el.productUgly?.price.toLocaleString()}원
@@ -240,16 +247,19 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                     ?.slice(0, props.sliceNumber)
                     .map((el: IFetchCanceledPayments) => {
                       return (
-                        <S.ListItem key={uuidv4()} id={el.id}>
-                          <S.ItemImg
-                            src={`https://storage.googleapis.com/${
-                              el.productUgly?.files[0].url.split(",")[0]
-                            }`}
-                          ></S.ItemImg>
-                          <S.ItemInfoWrapper
-                            onClick={props.onClickBfoodDetail}
-                            id={el.id}
-                          >
+                        <S.ListItem
+                          key={uuidv4()}
+                          onClick={props.onClickBfoodDetail}
+                          id={el.productUgly?.id}
+                        >
+                          <S.ItemImgWrapper>
+                            <S.ItemImg
+                              src={`https://storage.googleapis.com/${
+                                el.productUgly?.files[0]?.url.split(",")[0]
+                              }`}
+                            ></S.ItemImg>
+                          </S.ItemImgWrapper>
+                          <S.ItemInfoWrapper>
                             <S.ItemTitle>{el.productUgly?.title}</S.ItemTitle>
                             <S.ItemPrice>
                               {el.productUgly?.price.toLocaleString()}원
@@ -271,10 +281,21 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                         </S.ListItem>
                       );
                     })}
-              <S.MoreItemWrapper>
-                <S.MoreItem onClick={props.onClickFetchMore}>더보기</S.MoreItem>
-                <S.DivideLine style={{ borderTop: "1px solid #ccc" }} />
-              </S.MoreItemWrapper>
+
+              {(props.isSelect
+                ? props.payOrCancel === "pay"
+                  ? props.fetchCompletedPaymentsLocalCount
+                  : props.fetchCanceledPaymentsLocalCount
+                : props.payOrCancel === "pay"
+                ? props.fetchCompletePaymentsUglyCount
+                : props.fetchCanceledPaymentsUglyCount) > props.sliceNumber && (
+                <S.MoreItemWrapper>
+                  <S.MoreItem onClick={props.onClickFetchMore}>
+                    더보기
+                  </S.MoreItem>
+                  <S.DivideLine style={{ borderTop: "1px solid #ccc" }} />
+                </S.MoreItemWrapper>
+              )}
             </S.ListItemWrapper>
           </S.ListWrapper>
         </S.Body>

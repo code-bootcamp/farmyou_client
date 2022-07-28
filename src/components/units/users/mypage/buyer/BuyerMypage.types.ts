@@ -113,8 +113,12 @@ export interface IFiles {
   url: string;
 }
 export interface IBuyerMypageUIProps {
-  count: number;
-  count2: number;
+  fetchCompletePaymentsCount: number;
+  fetchCanceledPaymentsCount: number;
+  fetchCompletedPaymentsLocalCount: number;
+  fetchCompletePaymentsUglyCount: number;
+  fetchCanceledPaymentsLocalCount: number;
+  fetchCanceledPaymentsUglyCount: number;
   isSelect: boolean;
   trackingRef: MutableRefObject<HTMLFormElement | undefined>;
   onClickLocalList: () => void;
