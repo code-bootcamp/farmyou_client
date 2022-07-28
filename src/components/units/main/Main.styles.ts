@@ -287,10 +287,11 @@ export const BfoodButton = styled.button`
   border: 2px solid white;
   color: white;
   background-color: transparent;
-  width: 22vw;
+  width: 14vw;
   padding: 1vw 0;
   margin: 30px 0px;
-  font-size: 1.8vw;
+  font-size: 1.2vw;
+  font-weight: 700;
   border-radius: 5px;
   cursor: pointer;
 
