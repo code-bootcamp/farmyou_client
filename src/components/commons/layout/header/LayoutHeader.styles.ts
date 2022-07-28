@@ -9,6 +9,8 @@ export const Body = styled.div`
     props.isCheckList ? (props.scroll ? "white" : "none") : "white"};
   border-bottom: ${(props: IBodyProps) =>
     props.isCheck ? "1px solid white" : "none"};
+  box-shadow: ${(props: IBodyProps) =>
+    props.isCheckList ? "none" : "2px 2px 2px #dbdbdb;"};
   padding: 15px 10vw;
   display: flex;
   flex-direction: row;
