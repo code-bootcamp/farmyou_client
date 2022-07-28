@@ -42,6 +42,7 @@ export default function MainUI(props: IMainUIProps) {
               />
               <S.SearchIcon src="/icons/search.png" />
             </S.LocalSearchBar>
+
             {(props.isSearch &&
               props.listData?.map((el: any, index: number) => (
                 <div key={index}>
@@ -51,7 +52,11 @@ export default function MainUI(props: IMainUIProps) {
               <div
                 style={{ width: "100%", height: "500px", textAlign: "center" }}
               >
-                주소지를 입력해주세요
+                <img
+                  style={{ width: "100%" }}
+                  src="/main/NoResultGray.png"
+                  alt="검색결과 없을때 이미지입니다."
+                />
               </div>
             )}
           </S.LocalRightWrapper>

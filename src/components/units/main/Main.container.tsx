@@ -23,13 +23,11 @@ export default function Main() {
   };
   const Debouncing = _.debounce((search: any) => {
     setKeyword(search);
-  }, 1000);
+  }, 500);
   const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.value !== "") {
-      setIsSearch(true);
       Debouncing(event.target.value);
     } else if (event.target.value === "") {
-      setIsSearch(false);
       Debouncing(event.target.value);
     }
   };
@@ -41,19 +39,29 @@ export default function Main() {
     script.src =
       "//dapi.kakao.com/v2/maps/sdk.js?appkey=834022f7a11709f54649f796dc004e21&autoload=false&libraries=services,clusterer,drawing";
     document.head.appendChild(script);
-    script.onload = () => {
-      window.kakao.maps.load(function () {
-        const places = new window.kakao.maps.services.Places();
+    if (
+      isNaN(Number(keyword)) &&
+      !keyword.match(/^(?=.*[a-z])/) &&
+      !keyword.match(/([^가-힣\x20])/i)
+    ) {
+      setIsSearch(true);
 
-        const callback = function (result: any, status: any) {
-          if (status === window.kakao.maps.services.Status.OK) {
-            setListData(result.slice(0, 3));
-          }
-        };
+      script.onload = () => {
+        window.kakao.maps.load(function () {
+          const places = new window.kakao.maps.services.Places();
 
-        places.keywordSearch(keyword + "로컬푸드 직매장", callback);
-      });
-    };
+          const callback = function (result: any, status: any) {
+            if (status === window.kakao.maps.services.Status.OK) {
+              setListData(result.slice(0, 3));
+            }
+          };
+
+          places.keywordSearch(keyword + "농협 로컬푸드 직매장", callback);
+        });
+      };
+    } else {
+      setIsSearch(false);
+    }
   }, [keyword]);
 
   return (
