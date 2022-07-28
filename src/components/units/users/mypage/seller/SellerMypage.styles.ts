@@ -250,9 +250,11 @@ export const ItemImg = styled.img`
   width: 80px;
   height: 80px;
   margin-right: 3vw;
+  cursor: pointer;
 `;
 
 export const ItemInfoWrapper = styled.div`
+  cursor: pointer;
   position: relative;
   width: 63%;
   height: 100%;

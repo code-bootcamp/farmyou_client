@@ -52,11 +52,10 @@ export default function SellerMypage(props: ISellerMypageProps) {
   const [checkIfLoggedSeller] = useMutation(CHECK_IF_LOGGED_SELLER);
   const [updateInvoice] = useMutation(UPDATE_INVOICE);
 
+  const { data, refetch: dataRefetch } = useQuery(FETCH_USER_LOGGED_IN);
   const { data: fetchUglyProductsBySellerData } = useQuery(
     FETCH_UGLY_PRODUCTS_BY_SELLER
   );
-  const { data, refetch: dataRefetch } = useQuery(FETCH_USER_LOGGED_IN);
-
   const { data: fetchCompletedPaymentsForSellerData, refetch } = useQuery(
     FETCH_COMPLETED_PAYMENTS_FOR_SELLER,
     {
@@ -65,6 +64,12 @@ export default function SellerMypage(props: ISellerMypageProps) {
       },
     }
   );
+
+  const fetchUglyProductsCount =
+    fetchUglyProductsBySellerData?.fetchUglyProductsBySeller?.length;
+  const fetchCompletedPaymentsCount =
+    fetchCompletedPaymentsForSellerData?.fetchCompletedPaymentsForSeller
+      ?.length;
 
   useEffect(() => {
     if (data?.fetchUserLoggedIn.files[0]) {
@@ -137,6 +142,11 @@ export default function SellerMypage(props: ISellerMypageProps) {
 
   const onClickFetchMore = () => {
     setSliceNumber((prev) => prev + 2);
+  };
+
+  const onClickMoveToUglyDetail = (event: MouseEvent<HTMLDivElement>) => {
+    console.log("click");
+    router.push(`/bfood/${event.currentTarget.id}`);
   };
 
   // password
@@ -263,6 +273,9 @@ export default function SellerMypage(props: ISellerMypageProps) {
       handleCancel={handleCancel}
       data={data}
       onClickDefaultFile={onClickDefaultFile}
+      onClickMoveToUglyDetail={onClickMoveToUglyDetail}
+      fetchUglyProductsCount={fetchUglyProductsCount}
+      fetchCompletedPaymentsCount={fetchCompletedPaymentsCount}
     />
   );
 }

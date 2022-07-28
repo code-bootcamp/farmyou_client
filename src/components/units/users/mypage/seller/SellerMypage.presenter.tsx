@@ -100,8 +100,13 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
                             src={`https://storage.googleapis.com/${
                               el.files[0]?.url.split(",")[0]
                             }`}
+                            onClick={props.onClickMoveToUglyDetail}
+                            id={el.id}
                           ></S.ItemImg>
-                          <S.ItemInfoWrapper>
+                          <S.ItemInfoWrapper
+                            onClick={props.onClickMoveToUglyDetail}
+                            id={el.id}
+                          >
                             <S.ItemTitle>{el.title}</S.ItemTitle>
                             <S.ItemPrice>
                               {el.price.toLocaleString()}원
@@ -156,10 +161,16 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
                         </S.ListItem>
                       );
                     })}
-              <S.MoreItemWrapper>
-                <S.MoreItem onClick={props.onClickFetchMore}>더보기</S.MoreItem>
-                <S.DivideLine style={{ borderTop: "1px solid #ccc" }} />
-              </S.MoreItemWrapper>
+              {(props.isSelect
+                ? props.fetchUglyProductsCount > props.sliceNumber
+                : props.fetchCompletedPaymentsCount > props.sliceNumber) && (
+                <S.MoreItemWrapper>
+                  <S.MoreItem onClick={props.onClickFetchMore}>
+                    더보기
+                  </S.MoreItem>
+                  <S.DivideLine style={{ borderTop: "1px solid #ccc" }} />
+                </S.MoreItemWrapper>
+              )}
             </S.ListItemWrapper>
           </S.ListWrapper>
         </S.Body>

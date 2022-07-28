@@ -78,11 +78,14 @@ export interface ISellerMypageUiProps {
   onChangeInvoiceNum: (event: ChangeEvent<HTMLInputElement>) => void;
   toggleModal: (event: MouseEvent<HTMLDivElement>) => void;
   onClickInvoiceEdit: (event: MouseEvent<HTMLDivElement>) => void;
+  onClickMoveToUglyDetail: (event: MouseEvent<HTMLDivElement>) => void;
   isModalVisible: boolean;
   handleOk: () => void;
   handleCancel: () => void;
   invoiceNum: string;
   onClickDefaultFile: () => void;
+  fetchUglyProductsCount: number;
+  fetchCompletedPaymentsCount: number;
 
   fetchUglyProductsBySellerData: {
     fetchUglyProductsBySeller?: Array<IFetchUglyProductsBySeller>;
