@@ -12,6 +12,7 @@ export interface ICompletePaymentsLocal {
   impUid: string;
   amount: number;
   createdAt: Date;
+  quantity: string;
   productDirect?: {
     id: string;
     title: string;
@@ -32,6 +33,7 @@ export interface IFetchCanceledPayments {
   impUid: string;
   amount: number;
   createdAt: Date;
+  quantity: string;
   productDirect?: {
     id: string;
     title: string;
@@ -64,6 +66,7 @@ export interface IFetchCompletePayments {
   impUid: string;
   amount: number;
   createdAt: Date;
+  quantity: string;
   productDirect?: {
     id: string;
     title: string;
