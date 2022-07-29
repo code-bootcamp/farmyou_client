@@ -41,6 +41,7 @@ export default function LocalfoodList() {
     },
   });
   const onClickAll = () => {
+    myRef.current.value = "";
     refetch({
       directStoreId: storeId,
       sortBy: sorted,
@@ -51,7 +52,7 @@ export default function LocalfoodList() {
   };
 
   const onClickCategory = (event: MouseEvent<HTMLDivElement>) => {
-    myRef.current.input.value = "";
+    myRef.current.value = "";
     setCategoryId(event.currentTarget.id);
     refetch({
       directStoreId: storeId,
@@ -61,7 +62,6 @@ export default function LocalfoodList() {
       page: 1,
     });
     setText("");
-    console.log(myRef.current.input.value);
   };
   const drag = (event: DragEvent<HTMLDivElement>) => {
     event.dataTransfer.setData("object", event.currentTarget.id);
