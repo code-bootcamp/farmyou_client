@@ -57,9 +57,11 @@ export const ChooseClose = styled.div`
 `;
 export const OneDay = styled.div`
   font-size: 1rem;
+  cursor: pointer;
 `;
 export const Close = styled.div`
   font-size: 1rem;
+  cursor: pointer;
 `;
 
 export default function PopUp() {
