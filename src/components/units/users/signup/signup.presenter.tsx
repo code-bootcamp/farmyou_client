@@ -1,14 +1,11 @@
 import { Modal } from "antd";
-import { useCallback, useEffect, useMemo } from "react";
-
-import Countdown, { zeroPad } from "react-countdown";
 import DaumPostcodeEmbed from "react-daum-postcode";
 import ButtonComponent from "../../../commons/buttons";
 import InputComponent from "../../../commons/inputs";
 import * as S from "./signup.styles";
-import { IPropsSignUp } from "./signup.types";
+import { IPropsSignUpUI } from "./signup.types";
 
-export default function SignupUI(props: IPropsSignUp) {
+export default function SignupUI(props: IPropsSignUpUI) {
   return (
     <S.Wrapper>
       <Modal visible={props.isModal}>

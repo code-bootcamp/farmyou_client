@@ -1,6 +1,5 @@
-import { jsx } from "@emotion/react";
-import { ChangeEvent, LegacyRef, MutableRefObject } from "react";
-import Countdown from "react-countdown";
+import { ChangeEvent } from "react";
+
 import {
   FieldValues,
   FormState,
@@ -9,6 +8,15 @@ import {
 } from "react-hook-form";
 
 export interface IPropsSignUp {
+  isSeller: boolean;
+}
+export interface IData {
+  email?: string;
+  name?: string;
+  password?: string;
+  detailedAddress?: string;
+}
+export interface IPropsSignUpUI {
   handleSubmit: UseFormHandleSubmit<FieldValues>;
   register: UseFormRegister<FieldValues>;
   onClickShowModal: () => void;
@@ -18,8 +26,8 @@ export interface IPropsSignUp {
   postalCode: string;
   onClickMove: (move: string) => () => void;
   formState: FormState<FieldValues>;
-  onClickCreateUser: (data: any) => void;
-  onClickCreateSeller: (data: any) => void;
+  onClickCreateUser: (data: IData) => Promise<void>;
+  onClickCreateSeller: (data: IData) => Promise<void>;
   onClickCheckPhone: () => void;
   onClickSubmitToken: () => void;
   onChangePhone: (event: ChangeEvent<HTMLInputElement>) => void;

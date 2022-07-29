@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 declare const window: typeof globalThis & {
   IMP: any;
@@ -10,7 +10,7 @@ export default function PaymentPage() {
   const router = useRouter();
   const [selected, setSelected] = useState(500);
 
-  const onChangeAmount = (event: any) => {
+  const onChangeAmount = (event: ChangeEvent<HTMLSelectElement>) => {
     setSelected(Number(event.target.value));
   };
 

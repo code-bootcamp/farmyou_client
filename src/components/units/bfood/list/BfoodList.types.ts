@@ -30,4 +30,5 @@ export interface IBfoodListUIProps {
   onChangeSorted: (event: string) => void;
   onChangeSearch: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickToDetail: (event: MouseEvent<HTMLDivElement>) => void;
+  loadFunc: () => void;
 }

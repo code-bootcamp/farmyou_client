@@ -5,7 +5,7 @@ import {
   UseFormRegister,
 } from "react-hook-form";
 
-interface IData {
+export interface IData {
   title: string;
   content: string;
 }
@@ -33,15 +33,15 @@ export interface IQuestionUIProps {
   onClickQuestionRegistration: () => void;
 
   isEdit: boolean;
-  onClickQuestionEdit: (el: any) => () => void;
-  onClickAnswerEdit: (el: any) => () => void;
+  onClickQuestionEdit: (el: IFetchInquiriesByProduct) => () => void;
+  onClickAnswerEdit: (el: IFetchInquiriesByProduct) => () => void;
 
   onClickModalCancel: () => void;
 
   isClick: string;
   onClickQuestion: (event: MouseEvent<HTMLDivElement>) => void;
 
-  onClickQuestionRegistrationButton: any;
+  onClickQuestionRegistrationButton: (data: IData) => Promise<void>;
   onClickAnswerRegistrationButton: (data: IData) => Promise<void>;
   onClickQuestionEditButton: (data: IData) => Promise<void>;
 

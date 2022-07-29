@@ -3,6 +3,7 @@ import * as S from "./LocalfoodList.styles";
 import { Select } from "antd";
 import ListCategoryItem from "../../../commons/items/listcategory";
 import { v4 as uuidv4 } from "uuid";
+import InfiniteScroll from "react-infinite-scroller";
 import {
   IFetchDirectProductsSortedByTitle,
   ILocalfoodListUIProps,
@@ -83,25 +84,33 @@ export default function LocalfoodListUI(props: ILocalfoodListUIProps) {
                 <S.SearchInput
                   onChange={props.onChangeSearch}
                   placeholder="검색어를 입력해주세요."
-                  value={props.text}
+                  ref={props.myRef}
+                  // value={props.text}
                 />
               </S.SearchInputWrapper>
             </S.SearchOption>
           </S.SearchWrapper>
-          <S.ItemWrapper>
-            {props.data?.fetchDirectProductsSortedByTitle.map(
-              (el: IFetchDirectProductsSortedByTitle) => {
-                return (
-                  <ListItem
-                    key={uuidv4()}
-                    el={el}
-                    drag={props.drag}
-                    onClickToDetail={props.onClickToDetail}
-                  />
-                );
-              }
-            )}
-          </S.ItemWrapper>
+          <InfiniteScroll
+            pageStart={1}
+            loadMore={props.loadFunc}
+            hasMore={true}
+            useWindow={false}
+          >
+            <S.ItemWrapper>
+              {props.data?.fetchDirectProductsSortedByTitle.map(
+                (el: IFetchDirectProductsSortedByTitle) => {
+                  return (
+                    <ListItem
+                      key={uuidv4()}
+                      el={el}
+                      drag={props.drag}
+                      onClickToDetail={props.onClickToDetail}
+                    />
+                  );
+                }
+              )}
+            </S.ItemWrapper>
+          </InfiniteScroll>
         </S.Wrapper>
       </S.OutLine>
       <PopUp />

@@ -5,7 +5,7 @@ import { Modal, RadioChangeEvent } from "antd";
 import { useRouter } from "next/router";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { TokenState } from "../../../commons/store";
 import LoginUI from "./login.presenter";
 import {
@@ -17,11 +17,11 @@ import {
   UPDATE_SELLER_PASSWORD,
   UPDATE_USER_PASSWORD,
 } from "./login.queries";
-import { IData, IDataChange } from "./login.types";
+import { IData } from "./login.types";
 import * as yup from "yup";
 
 export default function Login() {
-  const [token, setToken] = useRecoilState(TokenState);
+  const setToken = useSetRecoilState(TokenState);
   const [isCheck, setIsCheck] = useState(false);
   const [loginUser] = useMutation(LOG_IN_USER);
   const [loginSeller] = useMutation(LOG_IN_SELLER);
@@ -72,7 +72,7 @@ export default function Login() {
   };
   const [updateUserPassword] = useMutation(UPDATE_USER_PASSWORD);
   const [updateSellerPassword] = useMutation(UPDATE_SELLER_PASSWORD);
-  const onSubmitChangeUser = async (data: IDataChange) => {
+  const onSubmitChangeUser = async (data: IData) => {
     try {
       const userPwd = await updateUserPassword({
         variables: {
@@ -89,7 +89,7 @@ export default function Login() {
       Modal.error({ content: e.message });
     }
   };
-  const onSubmitChangeSeller = async (data: IDataChange) => {
+  const onSubmitChangeSeller = async (data: IData) => {
     try {
       const sellerPwd = await updateSellerPassword({
         variables: {
@@ -138,7 +138,7 @@ export default function Login() {
     if (phoneNumber === "" || phoneNumber.includes("-") === true) return;
 
     try {
-      const send = await sendToken({
+      await sendToken({
         variables: {
           phone: phoneNumber,
         },
