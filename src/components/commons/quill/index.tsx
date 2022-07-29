@@ -52,7 +52,7 @@ interface IProps {
   onChangeContent: (value: string) => void;
 }
 
-function ReactQuillContainer(props: IProps) {
+export default function ReactQuillContainer(props: IProps) {
   const QuillRef = useRef<any>();
   const [uploadFile] = useMutation(UPLOAD_FILE);
 
@@ -150,5 +150,3 @@ function ReactQuillContainer(props: IProps) {
     />
   );
 }
-
-export default ReactQuillContainer;
