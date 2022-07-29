@@ -225,7 +225,6 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
     setIsEditVisible(false);
   };
   const onClickEdit = async (data: IOnClickEdit) => {
-    console.log(fileUrl);
     try {
       await updateUser({
         variables: {

@@ -1,6 +1,7 @@
 import ListItem from "../../../commons/items/list";
 import * as S from "./BfoodList.styles";
 import { Select } from "antd";
+import { v4 as uuidv4 } from "uuid";
 import {
   IBfoodListUIProps,
   IFetchUglyProductsSortedByTitle,
@@ -44,7 +45,7 @@ export default function BfoodListUI(props: IBfoodListUIProps) {
               (el: IFetchUglyProductsSortedByTitle) => {
                 return (
                   <ListItem
-                    key={el.id}
+                    key={uuidv4()}
                     el={el}
                     drag={props.drag}
                     onClickToDetail={props.onClickToDetail}
