@@ -28,6 +28,7 @@ const HIDDEN_FOOTERS = [
 ];
 
 const CHECK = [
+  "/",
   "/main",
   "/users/login",
   "/users/signup",

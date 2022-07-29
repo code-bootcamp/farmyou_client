@@ -12,9 +12,9 @@ export default function LayoutHeader() {
   const [token, setToken] = useRecoilState(TokenState);
 
   const [isIn, setIsIn] = useState(false);
-  const CHECK = ["/main"];
+  const CHECK = ["/", "/main"];
   const isCheck = CHECK.includes(router.asPath);
-  const CHECK_LIST = ["/main", "/localfood", "/bfood"];
+  const CHECK_LIST = ["/main", "/localfood", "/bfood", "/"];
   const isCheckList = CHECK_LIST.includes(router.asPath);
   const CHECK_BFOOD = ["/bfood"];
   const isCheckBFood = CHECK_BFOOD.includes(router.asPath);

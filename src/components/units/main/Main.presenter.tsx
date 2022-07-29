@@ -54,7 +54,7 @@ export default function MainUI(props: IMainUIProps) {
               >
                 <img
                   style={{ width: "100%" }}
-                  src="/main/NoResultGray.png"
+                  src="/main/NoResult.png"
                   alt="검색결과 없을때 이미지입니다."
                 />
               </div>
