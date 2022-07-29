@@ -10,10 +10,10 @@ export interface ICartProps {
   isIn: boolean;
 }
 export interface IFetchUserLoggedIn {
-  id: string;
-  name: string;
-  email: string;
-  type: string;
+  id?: string;
+  name?: string;
+  email?: string;
+  type?: string;
 }
 interface IFiles {
   url: string;

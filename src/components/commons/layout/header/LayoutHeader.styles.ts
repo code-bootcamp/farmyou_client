@@ -97,6 +97,7 @@ export const LoginMyPage = styled.div`
 export const LogOut = styled.div`
   cursor: pointer;
   font-size: 1.2rem;
+  margin-right: 1.2vw;
   @media (max-width: 637px) {
     display: none;
   }

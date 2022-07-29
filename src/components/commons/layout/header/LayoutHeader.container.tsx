@@ -1,7 +1,8 @@
 import { useMutation, useQuery } from "@apollo/client";
+import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { DragEvent, useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { TokenState } from "../../store";
 import LayoutHeaderUI from "./LayoutHeader.presenter";
 import { FETCH_USER_LOGGED_IN, LOG_OUT } from "./LayoutHeader.queries";
@@ -9,7 +10,7 @@ import { IDrag } from "./LayoutHeader.types";
 
 export default function LayoutHeader() {
   const router = useRouter();
-  const [token, setToken] = useRecoilState(TokenState);
+  const setToken = useSetRecoilState(TokenState);
 
   const [isIn, setIsIn] = useState(false);
   const CHECK = ["/", "/main"];
@@ -23,10 +24,15 @@ export default function LayoutHeader() {
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
 
   const onClickLogout = async () => {
-    const resultLogout = await logout();
-    setToken("");
-    console.log(data, resultLogout, token);
-    router.push(`/main`);
+    try {
+      await logout();
+      setToken("");
+      router.push(`/main`);
+    } catch (error: any) {
+      Modal.error({
+        content: error.message,
+      });
+    }
   };
   // 스크롤이 10px 이상 내려올경우 true값을 넣어줄 useState
   const [scroll, setScroll] = useState(false);
@@ -58,7 +64,6 @@ export default function LayoutHeader() {
     // 스크롤이 Top에서 50px 이상 내려오면 true값을 useState에 넣어줌
     if (window.scrollY >= 10) {
       setScroll(true);
-      // console.log(scroll);
     } else {
       // 스크롤이 50px 미만일경우 false를 넣어줌
       setScroll(false);
@@ -77,7 +82,6 @@ export default function LayoutHeader() {
         isCheckBFood ? "bfoodbaskets" : "localfoodbaskets"
       ) || "[]"
     );
-    console.log(baskets);
     // 2. 이미 담겼는지 확인하기
     const temp = baskets.filter((basketEl: IDrag) => basketEl.id === el.id);
     if (temp.length === 1) {
@@ -97,10 +101,8 @@ export default function LayoutHeader() {
   const drop = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     const data = event.dataTransfer.getData("object");
-    // console.log(data);
     let temp = JSON.parse(data);
     temp = { ...temp, count: 1 };
-    console.log(temp);
     dragAndDropBasket(temp);
     setIsIn(false);
   };
