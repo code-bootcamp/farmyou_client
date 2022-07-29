@@ -165,7 +165,7 @@ export const Text = styled.div`
   padding-bottom: 20px;
 `;
 
-export const InputWrapper = styled.form`
+export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
