@@ -9,6 +9,7 @@ import {
   FETCH_CANCELED_PAYMENTS_OF_USER,
   FETCH_COMPLETED_PAYMENTS_OF_USER,
   FETCH_USER_LOGGED_IN,
+  LOG_OUT,
   UPDATE_USER,
   UPLOAD_FILE,
 } from "./BuyerMypage.queries";
@@ -26,6 +27,8 @@ import {
   IOnClickEdit,
 } from "./BuyerMypage.types";
 import axios from "axios";
+import { TokenState } from "../../../../commons/store";
+import { useSetRecoilState } from "recoil";
 
 const schema = yup.object({
   name: yup.string().max(7, "이름은 7자를 넘을 수 없습니다."),
@@ -41,6 +44,8 @@ const schema = yup.object({
 
 export default function BuyerMypage(props: IBuyerMypageProps) {
   const router = useRouter();
+
+  const setToken = useSetRecoilState(TokenState);
 
   const [isUserVisible, setIsUserVisible] = useState(false);
   const [isEditVisible, setIsEditVisible] = useState(false);
@@ -65,6 +70,7 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
   const [deleteAddress] = useMutation(DELETE_ADDRESS);
   const [checkIfLoggedUser] = useMutation(CHECK_IF_LOGGED_USER);
   const [cancelPayment] = useMutation(CANCEL_PAYMENT);
+  const [logout] = useMutation(LOG_OUT);
 
   const { handleSubmit, register } = useForm<IForm>({
     resolver: yupResolver(schema),
@@ -336,6 +342,18 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
     setFileUrl("");
   };
 
+  const onClickLogout = async () => {
+    try {
+      await logout();
+      setToken("");
+      router.push(`/`);
+    } catch (error: any) {
+      Modal.error({
+        content: error.message,
+      });
+    }
+  };
+
   return (
     <BuyerMypageUI
       isSelect={isSelect}
@@ -384,6 +402,7 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
       onClickCancel={onClickCancel}
       data={data}
       onClickDefaultFile={onClickDefaultFile}
+      onClickLogout={onClickLogout}
     />
   );
 }

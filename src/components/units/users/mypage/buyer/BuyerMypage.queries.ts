@@ -158,3 +158,9 @@ export const CANCEL_PAYMENT = gql`
     }
   }
 `;
+
+export const LOG_OUT = gql`
+  mutation logout {
+    logout
+  }
+`;

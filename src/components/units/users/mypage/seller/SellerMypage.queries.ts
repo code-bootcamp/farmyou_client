@@ -116,3 +116,9 @@ export const UPDATE_INVOICE = gql`
     }
   }
 `;
+
+export const LOG_OUT = gql`
+  mutation logout {
+    logout
+  }
+`;

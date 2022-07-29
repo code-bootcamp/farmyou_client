@@ -86,6 +86,7 @@ export interface ISellerMypageUiProps {
   onClickDefaultFile: () => void;
   fetchUglyProductsCount: number;
   fetchCompletedPaymentsCount: number;
+  onClickLogout: () => void;
 
   fetchUglyProductsBySellerData: {
     fetchUglyProductsBySeller?: Array<IFetchUglyProductsBySeller>;
