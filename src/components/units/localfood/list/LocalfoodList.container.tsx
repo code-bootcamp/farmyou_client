@@ -13,9 +13,15 @@ export default function LocalfoodList() {
   const [text, setText] = useState("");
   const [sorted, setSorted] = useState<string>("최신순");
   useEffect(() => {
-    setStoreId(JSON.parse(sessionStorage.getItem("DirectStoreId") || "").id);
+    // console.log(sessionStorage.getItem("DirectStoreId") || "[]");
+    if (
+      JSON.parse(sessionStorage.getItem("DirectStoreId") || "[]")?.length === 0
+    ) {
+      router.push("/");
+    }
+    setStoreId(JSON.parse(sessionStorage.getItem("DirectStoreId") || "[]").id);
     setStoreName(
-      JSON.parse(sessionStorage.getItem("DirectStoreId") || "").name
+      JSON.parse(sessionStorage.getItem("DirectStoreId") || "[]").name
     );
   }, []);
   const { data, refetch } = useQuery(FETCH_DIRECT_PRODUCTS, {
