@@ -49,7 +49,6 @@ export default function Login() {
     setIsModal((prev) => !prev);
   };
   const handleOk = () => {
-    setIsModal2(true); // 퍼블리싱 완료후 최하단으로 이동
     if (userType === "") {
       Modal.error({ content: "이메일이 존재하지 않습니다" });
       return;
@@ -59,6 +58,7 @@ export default function Login() {
       return;
     }
     setIsModal((prev) => !prev);
+    setIsModal2(true);
   };
   const handleCancel = () => {
     setIsModal((prev) => !prev);
@@ -80,13 +80,13 @@ export default function Login() {
           newPassword: data.password2,
         },
       });
-      console.log(userPwd);
-      alert(
-        userPwd.data?.updateUserPassword.name +
-          "님의 비밀번호가 변경되었습니다."
-      );
+      Modal.success({
+        content:
+          userPwd.data?.updateUserPassword.name +
+          "님의 비밀번호가 변경되었습니다!",
+      });
     } catch (e: any) {
-      alert(e.message);
+      Modal.error({ content: e.message });
     }
   };
   const onSubmitChangeSeller = async (data: IDataChange) => {
@@ -97,11 +97,14 @@ export default function Login() {
           newPassword: data.password2,
         },
       });
-      console.log(sellerPwd);
 
-      alert(sellerPwd.data?.updateSellerPassword.name);
+      Modal.success({
+        content:
+          sellerPwd.data?.updateSellerPassword.name +
+          "님의 비밀번호가 변경되었습니다!",
+      });
     } catch (e: any) {
-      alert(e.message);
+      Modal.error({ content: e.message });
     }
   };
 
@@ -140,7 +143,6 @@ export default function Login() {
           phone: phoneNumber,
         },
       });
-      console.log(send);
     } catch (e: any) {
       Modal.success({ content: e.message });
     }
@@ -161,7 +163,7 @@ export default function Login() {
   };
   const onClickSellerLogin = async (data: IData) => {
     if (isUser === "") {
-      alert("체크박스를 체크해주세요");
+      Modal.error({ content: "체크박스를 체크해주세요" });
       return;
     }
     try {
@@ -171,16 +173,17 @@ export default function Login() {
           password: data.password,
         },
       });
-      console.log(resultSeller);
+
       setToken(resultSeller.data?.loginSeller);
       router.push(`/main`);
     } catch (e: any) {
-      alert(e.message);
+      Modal.error({ content: e.message });
     }
   };
   const onClickLogin = async (data: IData) => {
     if (isUser === "") {
-      alert("체크박스를 체크해주세요");
+      Modal.error({ content: "체크박스를 체크해주세요" });
+
       return;
     }
     try {
@@ -191,10 +194,10 @@ export default function Login() {
         },
       });
       router.push(`/main`);
-      console.log(result);
+
       setToken(result.data?.loginUser);
     } catch (error: any) {
-      alert(error.message);
+      Modal.error({ content: error.message });
     }
   };
   const onClickMove = (move: string) => () => {
