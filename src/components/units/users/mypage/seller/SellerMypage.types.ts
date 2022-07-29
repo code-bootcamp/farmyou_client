@@ -100,6 +100,7 @@ export interface ISellerMypageUiProps {
       email?: string;
       type?: string;
       files: Array<IFiles>;
+      phone: string;
     };
   };
   fetchCompletedPaymentsForSellerData: {
@@ -115,6 +116,7 @@ export interface ISellerMypageProps {
       email?: string;
       type?: string;
       files: Array<IFiles>;
+      phone: string;
     };
   };
 }

@@ -7,6 +7,7 @@ export const FETCH_USER_LOGGED_IN = gql`
       name
       email
       type
+      phone
       files {
         url
       }

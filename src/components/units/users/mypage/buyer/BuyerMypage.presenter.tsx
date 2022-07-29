@@ -357,6 +357,7 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                 <InputComponent
                   register={props.register("name")}
                   placeholder="이름을 입력해주세요."
+                  defaultValue={props.data?.fetchUserLoggedIn.name}
                 />
               </S.InputWrapper>
               <S.InputWrapper>
@@ -364,6 +365,7 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                 <InputComponent
                   register={props.register("phone")}
                   placeholder="전화번호를 입력해주세요.( - 생략)"
+                  defaultValue={props.data?.fetchUserLoggedIn.phone}
                 />
               </S.InputWrapper>
               <S.UserAddresses>

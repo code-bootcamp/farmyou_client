@@ -156,6 +156,7 @@ export interface IBuyerMypageUIProps {
       email?: string;
       type?: string;
       files: Array<IFiles>;
+      phone: string;
     };
   };
   completePaymentsLocal: Array<IFetchCompletePayments> | undefined;
@@ -184,6 +185,7 @@ export interface IBuyerMypageProps {
       email?: string;
       type?: string;
       files: Array<IFiles>;
+      phone: string;
     };
   };
 }
