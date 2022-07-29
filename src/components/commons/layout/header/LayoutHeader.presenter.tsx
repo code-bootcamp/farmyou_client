@@ -24,7 +24,8 @@ export default function LayoutHeaderUI(props: ILayoutHeaderUIProps) {
             <S.LoginMyPage onClick={props.onClickMoveToMypage}>
               <b>{props.data?.fetchUserLoggedIn.name}</b>님의 마이페이지
             </S.LoginMyPage>
-            {!props.isCheck && (
+            <S.LogOut onClick={props.onClickLogout}>로그아웃</S.LogOut>
+            {!props.isCheck && props.data?.fetchUserLoggedIn.type === "user" && (
               <S.Cart
                 onDragOver={props.dragOver}
                 onDrop={props.drop}
@@ -35,14 +36,17 @@ export default function LayoutHeaderUI(props: ILayoutHeaderUIProps) {
                 장바구니
               </S.Cart>
             )}
-            <S.LogOut onClick={props.onClickLogout}>로그아웃</S.LogOut>
+
             <S.HamburgerMenu>
               <Menu styles={props.styles} right>
                 <S.Item>
                   {props.data?.fetchUserLoggedIn.name}님의 마이페이지
                 </S.Item>
-                {!props.isCheck && <S.Item>장바구니</S.Item>}
                 <S.Item onClick={props.onClickLogout}>로그아웃</S.Item>
+                {!props.isCheck &&
+                  props.data?.fetchUserLoggedIn.type === "user" && (
+                    <S.Item>장바구니</S.Item>
+                  )}
               </Menu>
             </S.HamburgerMenu>
           </S.LoginWrapper>
