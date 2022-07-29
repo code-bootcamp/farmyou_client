@@ -25,7 +25,7 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
                 {props.data?.fetchUserLoggedIn?.name}
               </S.ProfileName>
               <S.FunctionWrapper>
-                <S.Function>로그아웃</S.Function>
+                <S.Function onClick={props.onClickLogout}>로그아웃</S.Function>
                 <S.LengthDivideLine />
                 <S.Function onClick={props.showPasswordModal}>
                   회원정보수정

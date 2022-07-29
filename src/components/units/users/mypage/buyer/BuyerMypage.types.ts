@@ -173,6 +173,7 @@ export interface IBuyerMypageUIProps {
   onClickPay: () => void;
   onClickCancel: () => void;
   onClickDefaultFile: () => void;
+  onClickLogout: () => void;
 }
 
 export interface IBuyerMypageProps {

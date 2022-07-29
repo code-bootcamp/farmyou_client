@@ -10,15 +10,19 @@ import {
   FETCH_COMPLETED_PAYMENTS_FOR_SELLER,
   FETCH_UGLY_PRODUCTS_BY_SELLER,
   FETCH_USER_LOGGED_IN,
+  LOG_OUT,
   UPDATE_INVOICE,
   UPDATE_SELLER,
   UPLOAD_FILE,
 } from "./SellerMypage.queries";
 import { useRouter } from "next/router";
 import { IForm, ISellerMypageProps } from "./SellerMypage.types";
+import { useSetRecoilState } from "recoil";
+import { TokenState } from "../../../../commons/store";
 
 export default function SellerMypage(props: ISellerMypageProps) {
   const router = useRouter();
+  const setToken = useSetRecoilState(TokenState);
   const schema = yup.object({
     name: yup.string().max(7, "이름은 7자를 넘을 수 없습니다."),
     password: yup
@@ -51,6 +55,7 @@ export default function SellerMypage(props: ISellerMypageProps) {
   const [updateSeller] = useMutation(UPDATE_SELLER);
   const [checkIfLoggedSeller] = useMutation(CHECK_IF_LOGGED_SELLER);
   const [updateInvoice] = useMutation(UPDATE_INVOICE);
+  const [logout] = useMutation(LOG_OUT);
 
   const { data, refetch: dataRefetch } = useQuery(FETCH_USER_LOGGED_IN);
   const { data: fetchUglyProductsBySellerData } = useQuery(
@@ -234,6 +239,17 @@ export default function SellerMypage(props: ISellerMypageProps) {
   const onClickDefaultFile = () => {
     setFileUrl("");
   };
+  const onClickLogout = async () => {
+    try {
+      await logout();
+      setToken("");
+      router.push(`/`);
+    } catch (error: any) {
+      Modal.error({
+        content: error.message,
+      });
+    }
+  };
   return (
     <SellerMypageUI
       showEditModal={showEditModal}
@@ -275,6 +291,7 @@ export default function SellerMypage(props: ISellerMypageProps) {
       onClickMoveToUglyDetail={onClickMoveToUglyDetail}
       fetchUglyProductsCount={fetchUglyProductsCount}
       fetchCompletedPaymentsCount={fetchCompletedPaymentsCount}
+      onClickLogout={onClickLogout}
     />
   );
 }
