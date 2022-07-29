@@ -87,20 +87,6 @@ export const AddressWrapper = styled.div`
   height: 170px;
 `;
 
-export const AddressSearchBtn = styled.button`
-  width: 8vw;
-  font-size: 0.7vw;
-  height: 2.5vw;
-  min-height: 35px;
-  min-width: 75px;
-  border-radius: 45px;
-  border: 0px solid;
-  background-color: #d9d9d9;
-  @media (max-width: 671px) {
-    font-size: 1.4vw;
-  }
-`;
-
 export const RightWrapper = styled.div`
   width: 30%;
   margin-top: 5vw;
@@ -260,8 +246,8 @@ export const ModalWrapper = styled.div`
   max-width: 500px;
   min-width: 300px;
   border-radius: 5px;
-
   background-color: white;
+
   padding: 30px;
   position: relative;
 `;
@@ -318,7 +304,8 @@ export const AddressAddButton = styled.button`
 `;
 
 export const NewAddress = styled.div`
-  padding: 10px;
+  /* padding: 10px; */
+  margin-top: 25px;
   font-size: 1rem;
   width: 100%;
   text-align: end;
@@ -334,6 +321,7 @@ export const Address = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-color: white;
   min-height: 140px;
   @media (max-width: 575px) {
     /* height: 110px; */
@@ -348,5 +336,30 @@ export const ZipcodeWrapper = styled.div`
 `;
 
 export const AddressInput = styled.div`
-  width: 50%;
+  width: 100%;
+  margin: 10px 0px;
+`;
+
+export const AddressSearchBtn = styled.button`
+  width: 10vw;
+  min-width: 150px;
+  height: 2.5rem;
+  background-color: #d9d9d9;
+  font-size: 1rem;
+  font-weight: 500;
+  border: 1px solid #f6651e;
+  background-color: #fff;
+  color: #f6651e;
+  border-radius: 35px;
+  margin-left: 10px;
+  &:hover {
+    background-color: #f6651e;
+    border: 1px solid #f6651e;
+    color: #fff;
+  }
+
+  @media (max-width: 575px) {
+    min-width: 100px;
+    font-size: 0.8rem;
+  }
 `;

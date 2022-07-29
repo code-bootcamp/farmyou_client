@@ -81,6 +81,7 @@ export default function PaymentUI(props: IPaymentUIProps) {
               <S.AddressWrapper>
                 <S.ComponentWrapper>
                   <InputComponent
+                    readOnly
                     placeholder="00000"
                     register={props.register("receiverPostalCode")}
                   />
@@ -91,12 +92,14 @@ export default function PaymentUI(props: IPaymentUIProps) {
                 </S.ComponentWrapper>
                 <S.ComponentWrapper>
                   <InputComponent
+                    readOnly
                     placeholder=""
                     register={props.register("receiverAddress")}
                   />
                 </S.ComponentWrapper>
                 <S.ComponentWrapper>
                   <InputComponent
+                    readOnly
                     placeholder=""
                     register={props.register("receiverAddressDetail")}
                   />
@@ -300,23 +303,27 @@ export default function PaymentUI(props: IPaymentUIProps) {
                     register={props.register("newPostalCode")}
                   />
                 </S.AddressInput>
-                <button onClick={props.toggleDaumPostCode}>
-                  다음포스트코드
-                </button>
+                <S.AddressSearchBtn onClick={props.toggleDaumPostCode}>
+                  우편번호 검색
+                </S.AddressSearchBtn>
               </S.ZipcodeWrapper>
-              <InputComponent
-                readOnly
-                placeholder="주소"
-                register={props.register("newAddress")}
-              />
-              <InputComponent
-                placeholder="상세주소"
-                register={props.register("newDetailedAddress")}
-              />
-              <S.NewAddress onClick={props.onClickNewAddressRegistration}>
-                배송지 등록하기
-              </S.NewAddress>
+              <S.AddressInput>
+                <InputComponent
+                  readOnly
+                  placeholder="주소"
+                  register={props.register("newAddress")}
+                />
+              </S.AddressInput>
+              <S.AddressInput>
+                <InputComponent
+                  placeholder="상세주소"
+                  register={props.register("newDetailedAddress")}
+                />
+              </S.AddressInput>
             </S.Address>
+            <S.NewAddress onClick={props.onClickNewAddressRegistration}>
+              배송지 등록하기
+            </S.NewAddress>
           </S.ModalWrapper>
           {props.isModalVisible && (
             <Modal
