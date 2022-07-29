@@ -232,7 +232,7 @@ export const ListItem = styled.div`
   align-items: center;
   padding: 1vw 2vw;
   border-top: 1px solid #ccc;
-  &:first-child {
+  :first-of-type {
     border-top: none;
   }
 `;
