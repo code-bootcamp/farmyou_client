@@ -74,6 +74,7 @@ interface ClickProps {
 }
 export const QuestionTitleColumn = styled.div`
   width: 50%;
+  padding-bottom: 5px;
   text-overflow: ellipsis;
   white-space: ${(props: ClickProps) =>
     props.isClick === props.id ? "default" : "nowrap"};
@@ -129,13 +130,13 @@ export const QuestionContents = styled.div`
 `;
 
 export const AnswerTitle = styled.div`
-  padding: 10px 20px 20px 0px;
+  padding: 10px 20px 10px 0px;
   width: 85%;
   flex-wrap: wrap;
 `;
 
 export const AnswerContents = styled.div`
-  padding: 0px 20px 20px 0px;
+  padding: 0px 20px 10px 0px;
   width: 85%;
   flex-wrap: wrap;
 `;
@@ -222,6 +223,9 @@ export const ContentsTextarea = styled.textarea`
   font-size: 1.2rem;
   border: 1px solid #cccccc;
   border-radius: 5px;
+  ::placeholder {
+    font-size: 1rem;
+  }
 `;
 
 export const ButtonWrapper = styled.div`

@@ -100,15 +100,8 @@ export default function QuestionUI(props: IQuestionUIProps) {
                       {el.status === "ANSWERED" ? (
                         <>
                           <S.AnswerTitle>
-                            <S.AText>A.</S.AText>
-                            {el.answerTitle} {/* 수정이 api에서 막혀있음 */}
-                            {/* {props.userLoggedData.fetchUserLoggedIn.id ===
-                              props.data.seller?.id && (
-                              <S.EditImage
-                                src="/icons/edit.svg"
-                                onClick={props.onClickAnswerEdit(el)}
-                              ></S.EditImage>
-                            )} */}
+                            <S.AText>A. </S.AText>
+                            {el.answerTitle}
                           </S.AnswerTitle>
                           <S.AnswerContents>{el.answer}</S.AnswerContents>
                         </>
@@ -164,6 +157,7 @@ export default function QuestionUI(props: IQuestionUIProps) {
                 {props.isAnswer ? "답변 내용" : "문의 내용"}
               </S.TitleContentsText>
               <S.ContentsTextarea
+                placeholder={`문의에 답변이 달리면 문의를 수정하거나 삭제할 수 없습니다.\n비밀번호, 전화번호 등의 개인정보 노출에 주의해주세요.`}
                 {...props.register("content")}
               ></S.ContentsTextarea>
               <S.ButtonWrapper>
