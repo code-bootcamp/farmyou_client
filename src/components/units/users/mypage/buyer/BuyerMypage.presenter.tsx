@@ -172,7 +172,7 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                                 {el.quantity}개
                               </S.ItemPrice>
                               <S.ItemCreateDate>
-                                구매 날짜 : {getDate(el.createdAt)}
+                                취소 날짜 : {getDate(el.createdAt)}
                               </S.ItemCreateDate>
                             </S.ItemInfoWrapper>
                             <S.ItemSubInfoWrapper></S.ItemSubInfoWrapper>
@@ -190,19 +190,21 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                     ?.slice(0, props.sliceNumber)
                     .map((el: IFetchCompletePayments) => {
                       return (
-                        <S.ListItem
-                          key={uuidv4()}
-                          id={el.productUgly?.id}
-                          onClick={props.onClickBfoodDetail}
-                        >
-                          <S.ItemImgWrapper>
+                        <S.ListItem key={uuidv4()}>
+                          <S.ItemImgWrapper
+                            id={el.productUgly?.id}
+                            onClick={props.onClickBfoodDetail}
+                          >
                             <S.ItemImg
                               src={`https://storage.googleapis.com/${
                                 el.productUgly?.files[0]?.url.split(",")[0]
                               }`}
                             ></S.ItemImg>
                           </S.ItemImgWrapper>
-                          <S.ItemInfoWrapper>
+                          <S.ItemInfoWrapper
+                            id={el.productUgly?.id}
+                            onClick={props.onClickBfoodDetail}
+                          >
                             <S.ItemTitle>{el.productUgly?.title}</S.ItemTitle>
                             <S.ItemPrice>
                               {el.productUgly?.price.toLocaleString()}원 /{" "}
@@ -269,7 +271,7 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                               {el.quantity}개
                             </S.ItemPrice>
                             <S.ItemCreateDate>
-                              구매 날짜 : {getDate(el.createdAt)}
+                              취소 날짜 : {getDate(el.createdAt)}
                             </S.ItemCreateDate>
                           </S.ItemInfoWrapper>
                           {/* <S.LengthDivideLine /> */}
