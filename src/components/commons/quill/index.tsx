@@ -102,19 +102,15 @@ export default function ReactQuillContainer(props: IProps) {
               range,
               `<img src="https://storage.googleapis.com/${url}"/>`
             );
-
-            console.log(quill);
           }
 
           return { ...result, success: true };
         } catch (error) {
-          console.log(error);
           const err = error as AxiosError;
           return { ...err.response, success: false };
         }
       }
     };
-    // }
   };
 
   // useMemo를 사용한 이유는 modules가 렌더링마다 변하면 에디터에서 입력이 끊기는 버그가 발생

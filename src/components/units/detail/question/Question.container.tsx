@@ -143,7 +143,7 @@ export default function Question(props: IQuestionProps) {
 
   const onClickQuestionRegistrationButton = async (data: any) => {
     try {
-      const result = await createInquiry({
+      await createInquiry({
         variables: {
           title: data.title,
           question: data.content,
@@ -152,7 +152,6 @@ export default function Question(props: IQuestionProps) {
         },
       });
       await refetch();
-      console.log(result);
       onClickModalCancel();
       Modal.success({
         content: "등록에 성공했습니다.",
