@@ -1,7 +1,7 @@
 import { ReactNode, useEffect } from "react";
 import { createUploadLink } from "apollo-upload-client";
 import { useRecoilState } from "recoil";
-import { IsLoadedState, TokenState } from "../store";
+import { TokenState } from "../store";
 import {
   ApolloClient,
   ApolloLink,
@@ -17,11 +17,10 @@ interface IProps {
 
 export default function ApolloSetting(props: IProps) {
   const [accessToken, setAccessToken] = useRecoilState(TokenState);
-  const [isLoad, setIsLoaded] = useRecoilState(IsLoadedState);
+
   useEffect(() => {
     getAccessToken().then((newAccessToken) => {
       setAccessToken(newAccessToken);
-      setIsLoaded(true);
     });
   }, []);
 

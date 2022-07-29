@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { Modal } from "antd";
 import { GraphQLClient } from "graphql-request";
 
 const RESTORE_ACCESS_TOKEN = gql`
@@ -16,6 +17,6 @@ export async function getAccessToken() {
     const newAccessToken = result.restoreAccessToken;
     return newAccessToken;
   } catch (error: any) {
-    console.log(error.message);
+    Modal.error({ content: "로그인이 만료되었습니다! 다시 로그인해주세요!" });
   }
 }

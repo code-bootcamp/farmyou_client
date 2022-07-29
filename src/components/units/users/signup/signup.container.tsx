@@ -69,7 +69,6 @@ export default function Signup(props: any) {
         },
       });
       setIsCheck((prev) => !prev);
-      console.log(tokenCheck);
     } catch (e: any) {
       alert(e.message);
     }
@@ -86,7 +85,6 @@ export default function Signup(props: any) {
           phone: phoneNumber,
         },
       });
-      console.log(phoneToken);
     } catch (e: any) {
       alert(e.message);
     }
@@ -113,7 +111,6 @@ export default function Signup(props: any) {
         },
       });
       router.push(`/main`);
-      console.log(result);
     } catch (e: any) {
       alert(e.message);
     }
@@ -133,7 +130,7 @@ export default function Signup(props: any) {
           phone: phoneNumber,
         },
       });
-      console.log(resultSeller);
+
       router.push(`/main`);
     } catch (e: any) {
       alert(e.message);
@@ -189,7 +186,6 @@ export default function Signup(props: any) {
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
 
-    console.log(fullAddress, data.zonecode); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
     setPostalCode(data.zonecode);
     setAddress(fullAddress);
     setIsModal((prev) => !prev);

@@ -1,11 +1,6 @@
 import { atom } from "recoil";
-
+import { v4 as uuidv4 } from "uuid";
 export const TokenState = atom({
-  key: "accessToken",
+  key: "accessToken" + uuidv4(),
   default: "",
-});
-
-export const IsLoadedState = atom({
-  key: "isload",
-  default: false,
 });
