@@ -21,6 +21,8 @@ const schema = yup.object({
   content: yup.string().required("필수입력사항입니다."),
 });
 
+const IS_EDIT = ["/edit"];
+
 export default function BfoodWrite(props: IBfoodWriteProps) {
   const router = useRouter();
   const [fileUrls, setFileUrls] = useState<string[]>([]);

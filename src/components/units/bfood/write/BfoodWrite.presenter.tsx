@@ -5,11 +5,12 @@ import ButtonComponent from "../../../commons/buttons";
 import { IBfoodWriteUIProps } from "./BfoodWrite.types";
 import UploadImage from "./UploadImage/UploadImage.container";
 import ReactQuillContainer from "../../../commons/quill";
+import { v4 as uuidv4 } from "uuid";
 
 export default function BfoodWriteUI(props: IBfoodWriteUIProps) {
   return (
     <S.Wrapper>
-      <S.PageTitle>상품 등록</S.PageTitle>
+      <S.PageTitle>{props.isEdit ? "상품 수정" : "상품 등록"}</S.PageTitle>
       <form
         onSubmit={props.handleSubmit(
           props.isEdit ? props.onClickEdit : props.onClickSubmit
@@ -17,9 +18,9 @@ export default function BfoodWriteUI(props: IBfoodWriteUIProps) {
       >
         <S.InnerWrapper>
           <S.ImageItemWrapper>
-            {new Array(props.fileUrls.length + 1).fill(1).map((data, index) => (
+            {new Array(props.fileUrls.length + 1).fill(1).map((_, index) => (
               <UploadImage
-                key={`${data}_${index}`}
+                key={uuidv4()}
                 index={index}
                 onChangeFiles={props.onChangeFiles}
                 fileUrls={props.fileUrls}

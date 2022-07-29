@@ -24,11 +24,10 @@ export default function UploadImage(props: IUploadsImageProps) {
           files: file,
         },
       });
-      console.log(result.data.uploadFile[0]);
       props.onChangeFiles(props.index, result.data?.uploadFile[0]);
-    } catch (error) {
+    } catch (error: any) {
       Modal.error({
-        content: "에러발생",
+        content: error.message,
       });
     }
   }
