@@ -238,6 +238,10 @@ export default function Payment(props: IPaymentProps) {
     );
   };
 
+  const onClickPrevPage = () => {
+    router.back();
+  };
+
   useEffect(() => {
     setIsCart(sessionStorage.getItem("isCart") || "");
     setLocalfoodBaskets(
@@ -315,6 +319,7 @@ export default function Payment(props: IPaymentProps) {
       isModalVisible={isModalVisible}
       handleComplete={handleComplete}
       onClickNewAddressRegistration={onClickNewAddressRegistration}
+      onClickPrevPage={onClickPrevPage}
     />
   );
 }

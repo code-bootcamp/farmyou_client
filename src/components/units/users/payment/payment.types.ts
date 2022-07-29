@@ -133,4 +133,5 @@ export interface IPaymentUIProps {
   handleComplete: (data: IDaumPostcode) => void;
   toggleDaumPostCode: () => void;
   onClickNewAddressRegistration: () => void;
+  onClickPrevPage: () => void;
 }

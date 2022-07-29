@@ -171,7 +171,10 @@ export default function PaymentUI(props: IPaymentUIProps) {
               ).toLocaleString()}
               원 결제하기
             </S.PayOrCancelBtn>
-            <S.PayOrCancelBtn style={{ backgroundColor: "#bdbdbd" }}>
+            <S.PayOrCancelBtn
+              style={{ backgroundColor: "#bdbdbd" }}
+              onClick={props.onClickPrevPage}
+            >
               이전으로
             </S.PayOrCancelBtn>
           </S.RightWrapper>
