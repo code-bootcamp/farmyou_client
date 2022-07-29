@@ -6,7 +6,7 @@ import {
   IBfoodListUIProps,
   IFetchUglyProductsSortedByTitle,
 } from "./BfoodList.types";
-// import InfiniteScroll from "react-infinite-scroller";
+import InfiniteScroll from "react-infinite-scroller";
 import PopUp from "../../../commons/popup";
 const { Option } = Select;
 
@@ -34,27 +34,27 @@ export default function BfoodListUI(props: IBfoodListUIProps) {
             </S.SearchInputWrapper>
           </S.SearchWrapper>
 
-          {/* <InfiniteScroll
-          pageStart={0}
-          loadMore={props.loadFunc}
-          hasMore={true}
-          useWindow={false}
-        > */}
-          <S.ItemWrapper>
-            {props.data?.fetchUglyProductsSortedByTitle.map(
-              (el: IFetchUglyProductsSortedByTitle) => {
-                return (
-                  <ListItem
-                    key={uuidv4()}
-                    el={el}
-                    drag={props.drag}
-                    onClickToDetail={props.onClickToDetail}
-                  />
-                );
-              }
-            )}
-          </S.ItemWrapper>
-          {/* </InfiniteScroll> */}
+          <InfiniteScroll
+            pageStart={1}
+            loadMore={props.loadFunc}
+            hasMore={true}
+            useWindow={false}
+          >
+            <S.ItemWrapper>
+              {props.data?.fetchUglyProductsSortedByTitle.map(
+                (el: IFetchUglyProductsSortedByTitle) => {
+                  return (
+                    <ListItem
+                      key={uuidv4()}
+                      el={el}
+                      drag={props.drag}
+                      onClickToDetail={props.onClickToDetail}
+                    />
+                  );
+                }
+              )}
+            </S.ItemWrapper>
+          </InfiniteScroll>
         </S.Wrapper>
       </S.OutLine>
       <PopUp />

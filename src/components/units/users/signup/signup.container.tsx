@@ -13,8 +13,9 @@ import {
   SEND_TOKEN,
 } from "./signup.queries";
 import { Modal } from "antd";
+import { IData, IPropsSignUp } from "./signup.types";
 
-export default function Signup(props: any) {
+export default function Signup(props: IPropsSignUp) {
   const router = useRouter();
   const [isModal, setIsModal] = useState(false);
   const [postalCode, setPostalCode] = useState("");
@@ -31,14 +32,14 @@ export default function Signup(props: any) {
   useEffect(() => {
     if (isStart === false) return;
     const countdown = setInterval(() => {
-      if (parseInt(seconds) > 0) {
-        setSeconds(parseInt(seconds) - 1);
+      if (Number(seconds) > 0) {
+        setSeconds(Number(seconds) - 1);
       }
-      if (parseInt(seconds) === 0) {
-        if (parseInt(minutes) === 0) {
+      if (Number(seconds) === 0) {
+        if (Number(minutes) === 0) {
           clearInterval(countdown);
         } else {
-          setMinutes(parseInt(minutes) - 1);
+          setMinutes(Number(minutes) - 1);
           setSeconds(59);
         }
       }
@@ -62,7 +63,7 @@ export default function Signup(props: any) {
   const onClickSubmitToken = async () => {
     try {
       setIsStart((prev) => !prev);
-      const tokenCheck = await checkToken({
+      await checkToken({
         variables: {
           phone: phoneNumber,
           token: tokenSave,
@@ -80,7 +81,7 @@ export default function Signup(props: any) {
         return;
       }
       setIsStart((prev) => !prev);
-      const phoneToken = await sendToken({
+      await sendToken({
         variables: {
           phone: phoneNumber,
         },
@@ -90,14 +91,14 @@ export default function Signup(props: any) {
     }
   };
   // 회원가입
-  const onClickCreateUser = async (data: any) => {
+  const onClickCreateUser = async (data: IData) => {
     if (!isCheck) {
       Modal.error({ content: "휴대전화 인증을 진행 해 주세요" });
       return;
     }
 
     try {
-      const result = await createUser({
+      await createUser({
         variables: {
           email: data.email,
           name: data.name,
@@ -116,13 +117,13 @@ export default function Signup(props: any) {
     }
   };
 
-  const onClickCreateSeller = async (data: any) => {
+  const onClickCreateSeller = async (data: IData) => {
     if (!isCheck) {
       Modal.error({ content: "휴대전화 인증을 진행 해 주세요" });
       return;
     }
     try {
-      const resultSeller = await createSeller({
+      await createSeller({
         variables: {
           name: data.name,
           email: data.email,

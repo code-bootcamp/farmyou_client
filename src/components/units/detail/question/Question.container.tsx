@@ -13,7 +13,11 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Modal } from "antd";
-import { IFetchInquiriesByProduct, IQuestionProps } from "./Question.types";
+import {
+  IData,
+  IFetchInquiriesByProduct,
+  IQuestionProps,
+} from "./Question.types";
 
 const IS_LOCAL = ["/localfood/[id]"];
 const schema = yup.object({
@@ -73,7 +77,7 @@ export default function Question(props: IQuestionProps) {
     toggleModal();
   };
 
-  const onClickQuestionEditButton = async (data: any) => {
+  const onClickQuestionEditButton = async (data: IData) => {
     try {
       await editInquiry({
         variables: {
@@ -105,7 +109,7 @@ export default function Question(props: IQuestionProps) {
     toggleModal();
   };
 
-  const onClickAnswerRegistrationButton = async (data: any) => {
+  const onClickAnswerRegistrationButton = async (data: IData) => {
     try {
       const result = await postResponse({
         variables: {
@@ -141,7 +145,7 @@ export default function Question(props: IQuestionProps) {
     setIsClick(event.currentTarget.id);
   };
 
-  const onClickQuestionRegistrationButton = async (data: any) => {
+  const onClickQuestionRegistrationButton = async (data: IData) => {
     try {
       await createInquiry({
         variables: {

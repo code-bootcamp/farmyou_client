@@ -1,7 +1,7 @@
 import { ChangeEvent, MouseEvent, useState } from "react";
 import DetailUI from "./Detail.presenter";
 import _ from "lodash";
-import { IDetailProps } from "./Detail.types";
+import { IBaskets, IDetailProps } from "./Detail.types";
 import { useRouter } from "next/router";
 import { Modal } from "antd";
 
@@ -44,7 +44,7 @@ export default function Detail(props: IDetailProps) {
 
     // 2. 이미 담겼는지 확인하기
     const temp = baskets.filter(
-      (basketEl: any) => basketEl.id === props.data.id
+      (basketEl: IBaskets) => basketEl.id === props.data.id
     );
 
     if (temp.length === 1) {

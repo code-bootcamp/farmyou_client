@@ -12,6 +12,7 @@ const LocalMarket = styled.div`
   padding: 2vw 3vw;
   flex-direction: column;
   justify-content: space-around;
+  cursor: pointer;
   &:hover {
     box-shadow: 10px 5px 5px #f6651e60;
     border: 1.2px solid #f6651e60;

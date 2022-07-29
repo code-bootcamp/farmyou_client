@@ -3,6 +3,7 @@ import InputComponent from "../../../../commons/inputs";
 import * as S from "./BuyerMypage.styles";
 import {
   IBuyerMypageUIProps,
+  IFetchAddressesOfTheUser,
   IFetchCanceledPayments,
   IFetchCompletePayments,
 } from "./BuyerMypage.types";
@@ -371,7 +372,7 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
               <S.UserAddresses>
                 <S.InputTitle>주소정보 </S.InputTitle>
                 {props.userAddressData?.fetchAddressesOfTheUser.map(
-                  (el: any) => (
+                  (el: IFetchAddressesOfTheUser) => (
                     <S.AddressWrapper key={el.id}>
                       <S.Address>
                         <S.UserAddress>주소 : {el.address}</S.UserAddress>

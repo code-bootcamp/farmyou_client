@@ -1,15 +1,21 @@
 import { RadioChangeEvent } from "antd";
 import { ChangeEvent } from "react";
 
-import { FieldValues, FormState, UseFormRegister } from "react-hook-form";
+import {
+  FieldValues,
+  FormState,
+  UseFormHandleSubmit,
+  UseFormRegister,
+} from "react-hook-form";
 
 export interface IData {
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
+  password2?: string;
 }
-export interface IDataChange {
-  password2: string;
-}
+// export interface IDataChange {
+//   password2?: string;
+// }
 export interface IPropsLogin {
   onChangePhone: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeToken: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -25,10 +31,10 @@ export interface IPropsLogin {
   handleCancel: () => void;
   handleOk2: () => void;
   handleCancel2: () => void;
-  register: UseFormRegister<FieldValues>;
-  handleSubmit: any;
-  onSubmitChangeUser: (data: IDataChange) => void;
-  onSubmitChangeSeller: (data: IDataChange) => void;
+  register: UseFormRegister<IData>;
+  handleSubmit: UseFormHandleSubmit<IData>;
+  onSubmitChangeUser: (data: IData) => void;
+  onSubmitChangeSeller: (data: IData) => void;
   isUser: string;
   isModal: boolean;
   isModal2: boolean;

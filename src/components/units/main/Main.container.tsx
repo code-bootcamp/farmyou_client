@@ -21,7 +21,7 @@ export default function Main() {
   const onClickMove = (move: string) => () => {
     router.push(move);
   };
-  const Debouncing = _.debounce((search: any) => {
+  const Debouncing = _.debounce((search: string) => {
     setKeyword(search);
   }, 500);
   const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {

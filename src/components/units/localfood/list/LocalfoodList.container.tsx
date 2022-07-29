@@ -1,5 +1,12 @@
 import { useQuery } from "@apollo/client";
-import { ChangeEvent, DragEvent, MouseEvent, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  DragEvent,
+  MouseEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import LocalfoodListUI from "./LocalfoodList.presenter";
 import { FETCH_DIRECT_PRODUCTS } from "./LocalfoodList.queries";
 import _ from "lodash";
@@ -9,11 +16,11 @@ export default function LocalfoodList() {
   const router = useRouter();
   const [storeId, setStoreId] = useState<string>("");
   const [storeName, setStoreName] = useState("");
-  // const [categoryId, setCategoryId] = useState<string>("");
+  const [categoryId, setCategoryId] = useState<string>("");
   const [text, setText] = useState("");
   const [sorted, setSorted] = useState<string>("최신순");
+  const myRef = useRef<any>();
   useEffect(() => {
-    // console.log(sessionStorage.getItem("DirectStoreId") || "[]");
     if (
       JSON.parse(sessionStorage.getItem("DirectStoreId") || "[]")?.length === 0
     ) {
@@ -24,13 +31,13 @@ export default function LocalfoodList() {
       JSON.parse(sessionStorage.getItem("DirectStoreId") || "[]").name
     );
   }, []);
-  const { data, refetch } = useQuery(FETCH_DIRECT_PRODUCTS, {
+  const { data, refetch, fetchMore } = useQuery(FETCH_DIRECT_PRODUCTS, {
     variables: {
       page: 1,
       directStoreId: storeId,
       sortBy: "최신순",
       categoryId: "",
-      title: "",
+      title: text,
     },
   });
   const onClickAll = () => {
@@ -44,6 +51,8 @@ export default function LocalfoodList() {
   };
 
   const onClickCategory = (event: MouseEvent<HTMLDivElement>) => {
+    myRef.current.input.value = "";
+    setCategoryId(event.currentTarget.id);
     refetch({
       directStoreId: storeId,
       categoryId: event.currentTarget.id,
@@ -52,29 +61,56 @@ export default function LocalfoodList() {
       page: 1,
     });
     setText("");
+    console.log(myRef.current.input.value);
   };
   const drag = (event: DragEvent<HTMLDivElement>) => {
     event.dataTransfer.setData("object", event.currentTarget.id);
   };
   const onChangeSorted = (event: string) => {
     setSorted(event);
-    refetch({ sortBy: event, directStoreId: storeId, page: 1 });
+    refetch({ sortBy: event, directStoreId: storeId, page: 1, title: text });
   };
   const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
-    setText(event.target.value);
     getDebounce(event.target.value);
   };
   const getDebounce = _.debounce((data: string) => {
+    setText(data);
     refetch({
       title: data,
       directStoreId: storeId,
-      categoryId: "",
+      categoryId,
       sortBy: sorted,
       page: 1,
     });
-  }, 200);
+  }, 700);
   const onClickToDetail = (event: MouseEvent<HTMLDivElement>) => {
     router.push(`/localfood/${JSON.parse(event.currentTarget.id).id}`);
+  };
+  const loadFunc = () => {
+    // 데이터가 있을 떄만 fetchMore 해준다.
+    if (!data) return;
+    fetchMore({
+      variables: {
+        page: Math.ceil(data.fetchDirectProductsSortedByTitle.length / 10) + 1,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!prev.fetchDirectProductsSortedByTitle) {
+          return;
+        }
+        if (!fetchMoreResult.fetchDirectProductsSortedByTitle)
+          return {
+            fetchDirectProductsSortedByTitle: [
+              ...prev.fetchDirectProductsSortedByTitle,
+            ],
+          };
+        return {
+          fetchDirectProductsSortedByTitle: [
+            ...prev.fetchDirectProductsSortedByTitle,
+            ...fetchMoreResult.fetchDirectProductsSortedByTitle,
+          ],
+        };
+      },
+    });
   };
   return (
     <LocalfoodListUI
@@ -87,6 +123,8 @@ export default function LocalfoodList() {
       onClickToDetail={onClickToDetail}
       text={text}
       storeName={storeName}
+      loadFunc={loadFunc}
+      myRef={myRef}
     />
   );
 }

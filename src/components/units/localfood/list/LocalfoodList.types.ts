@@ -1,4 +1,4 @@
-import { ChangeEvent, DragEvent, MouseEvent } from "react";
+import { ChangeEvent, DragEvent, MouseEvent, MutableRefObject } from "react";
 export interface IFiles {
   url: string;
 }
@@ -26,4 +26,6 @@ export interface ILocalfoodListUIProps {
   text: string;
   onClickToDetail: (event: MouseEvent<HTMLDivElement>) => void;
   storeName: string;
+  loadFunc: () => void;
+  myRef: MutableRefObject<any>;
 }
