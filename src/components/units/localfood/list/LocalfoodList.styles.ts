@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { Input } from "antd";
 
 export const OutLine = styled.div`
   width: 100%;
@@ -43,10 +42,14 @@ export const SearchInputWrapper = styled.div`
   width: 20rem;
   margin: 0px 45px 0px 20px;
 `;
-export const SearchInput = styled(Input)`
-  width: 20rem;
+export const SearchInput = styled.input`
+  width: 18rem;
+  height: 2rem;
+  padding: 0px 20px;
   margin-right: 45px;
   margin-left: 20px;
+  outline-color: #35b5ff;
+  outline-width: thin;
 `;
 
 export const CategoryWrapper = styled.div`
