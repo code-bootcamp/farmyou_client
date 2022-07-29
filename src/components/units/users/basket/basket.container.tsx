@@ -16,6 +16,15 @@ export default function Basket() {
     IBaskets[]
   >([]);
   useEffect(() => {
+    const Bbaskets = JSON.parse(localStorage.getItem("bfoodbaskets") || "[]");
+    setBfoodBasketsCount(Bbaskets.length);
+    const Lbaskets = JSON.parse(
+      localStorage.getItem("localfoodbaskets") || "[]"
+    );
+    setLocalFoodBasketsCount(Lbaskets.length);
+  }, []);
+
+  useEffect(() => {
     const baskets = JSON.parse(localStorage.getItem("bfoodbaskets") || "[]");
     setBFoodBasketsItems(baskets);
     if (baskets.length !== 0) {

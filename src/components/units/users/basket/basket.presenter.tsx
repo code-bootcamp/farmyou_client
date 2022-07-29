@@ -50,14 +50,14 @@ export default function BasketUI(props: IBasketUIProps) {
           <S.PriceWrapper>
             <S.Text>로컬푸드 상품금액</S.Text>
             <S.Price>
-              <S.Text>{props.localFoodSum}</S.Text>
+              <S.Text>{props.localFoodSum.toLocaleString()}</S.Text>
               <S.Won>원</S.Won>
             </S.Price>
           </S.PriceWrapper>
           <S.PriceWrapper>
             <S.Text>못난이 상품 삼풍금액</S.Text>
             <S.Price>
-              <S.Text>{props.bFoodSum}</S.Text>
+              <S.Text>{props.bFoodSum.toLocaleString()}</S.Text>
               <S.Won>원</S.Won>
             </S.Price>
           </S.PriceWrapper>
@@ -72,7 +72,9 @@ export default function BasketUI(props: IBasketUIProps) {
           <S.Total style={{ fontWeight: "bold" }}>
             <S.Text>결제금액</S.Text>
             <S.PriceWrapper>
-              <S.Text>{props.bFoodSum + props.localFoodSum}</S.Text>
+              <S.Text>
+                {(props.bFoodSum + props.localFoodSum).toLocaleString()}
+              </S.Text>
               <S.Won>원</S.Won>
             </S.PriceWrapper>
           </S.Total>
