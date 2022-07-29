@@ -226,6 +226,7 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
                 <InputComponent
                   register={props.register("name")}
                   placeholder="이름을 입력해주세요."
+                  defaultValue={props.data?.fetchUserLoggedIn.name}
                 />
               </S.InputWrapper>
               <S.InputWrapper>
@@ -233,6 +234,7 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
                 <InputComponent
                   register={props.register("phone")}
                   placeholder="전화번호를 입력해주세요.( - 생략)"
+                  defaultValue={props.data?.fetchUserLoggedIn.phone}
                 />
               </S.InputWrapper>
               <S.InputWrapper>
@@ -240,6 +242,7 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
                 <InputComponent
                   register={props.register("password")}
                   placeholder="변경할 비밀번호를 입력해주세요."
+                  type="password"
                 />
               </S.InputWrapper>
               <ButtonComponent title="수정하기" buttonColor="#F6651E" />
