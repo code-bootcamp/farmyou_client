@@ -69,7 +69,6 @@ export default function PopUp() {
   useEffect(() => {
     const BEFORE = localStorage.getItem("visitBefore") || "";
     const NOW = Math.floor(new Date().getDate());
-    console.log(BEFORE);
     if (BEFORE === "") {
       setShowModal(true);
     } else {

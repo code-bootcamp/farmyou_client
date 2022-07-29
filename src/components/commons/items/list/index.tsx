@@ -27,7 +27,6 @@ interface IFetchProductsSortedByTitle {
   files: Array<IFiles>;
 }
 interface IListItemProps {
-  key: string;
   el: IFetchProductsSortedByTitle;
   drag: (event: DragEvent<HTMLDivElement>) => void;
   onClickToDetail: (event: MouseEvent<HTMLDivElement>) => void;
@@ -100,7 +99,6 @@ const ItemPrice = styled.div`
 export default function ListItem(props: IListItemProps) {
   return (
     <Wrapper
-      key={props.key}
       id={JSON.stringify(props.el)}
       draggable={true}
       onDragStart={props.drag}

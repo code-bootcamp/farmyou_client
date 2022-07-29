@@ -145,7 +145,6 @@ export default function SellerMypage(props: ISellerMypageProps) {
   };
 
   const onClickMoveToUglyDetail = (event: MouseEvent<HTMLDivElement>) => {
-    console.log("click");
     router.push(`/bfood/${event.currentTarget.id}`);
   };
 

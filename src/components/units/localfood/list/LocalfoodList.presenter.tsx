@@ -2,6 +2,7 @@ import ListItem from "../../../commons/items/list";
 import * as S from "./LocalfoodList.styles";
 import { Select } from "antd";
 import ListCategoryItem from "../../../commons/items/listcategory";
+import { v4 as uuidv4 } from "uuid";
 import {
   IFetchDirectProductsSortedByTitle,
   ILocalfoodListUIProps,
@@ -92,7 +93,7 @@ export default function LocalfoodListUI(props: ILocalfoodListUIProps) {
               (el: IFetchDirectProductsSortedByTitle) => {
                 return (
                   <ListItem
-                    key={el.id}
+                    key={uuidv4()}
                     el={el}
                     drag={props.drag}
                     onClickToDetail={props.onClickToDetail}
