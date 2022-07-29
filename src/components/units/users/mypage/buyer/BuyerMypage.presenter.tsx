@@ -242,7 +242,9 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                               {el.productUgly?.seller?.name}
                             </S.SellerName>
                             <S.SellerPhoneNum>
-                              {el.productUgly?.seller?.phone}
+                              {el.productUgly?.seller?.phone.slice(0, 3)} -
+                              {el.productUgly?.seller?.phone.slice(3, 7)} -
+                              {el.productUgly?.seller?.phone.slice(7, 11)}
                             </S.SellerPhoneNum>
                           </S.ItemSubInfoWrapper>
                         </S.ListItem>
@@ -280,9 +282,7 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                             <S.SellerName>
                               {el.productUgly?.seller?.name}
                             </S.SellerName>
-                            <S.SellerPhoneNum>
-                              {el.productUgly?.seller?.phone}
-                            </S.SellerPhoneNum>
+                            <S.SellerPhoneNum></S.SellerPhoneNum>
                           </S.ItemSubInfoWrapper>
                         </S.ListItem>
                       );
