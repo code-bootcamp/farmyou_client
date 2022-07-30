@@ -83,7 +83,7 @@ export default function BfoodWrite(props: IBfoodWriteProps) {
 
   const onClickEdit = async (data: IData) => {
     try {
-      updateProductUgly({
+      await updateProductUgly({
         variables: {
           productId: router.query.id,
           title: data.title,
