@@ -29,7 +29,7 @@ export default function Question(props: IQuestionProps) {
   const router = useRouter();
   const isLocal = IS_LOCAL.includes(router.pathname);
 
-  const { register, handleSubmit, setValue, trigger } = useForm({
+  const { register, handleSubmit, setValue, trigger } = useForm<IData>({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
