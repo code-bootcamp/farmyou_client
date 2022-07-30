@@ -109,7 +109,9 @@ export default function BfoodWrite(props: IBfoodWriteProps) {
       props.fetchProductUglyData?.fetchProductUgly?.files[0]?.url?.split(",") ||
         []
     );
-    onChangeContent(props.fetchProductUglyData?.fetchProductUgly?.content);
+    onChangeContent(
+      props.fetchProductUglyData?.fetchProductUgly?.content || ""
+    );
   }, []);
 
   return (

@@ -1,9 +1,5 @@
 import { ChangeEvent, MouseEvent } from "react";
-import {
-  FieldValues,
-  UseFormHandleSubmit,
-  UseFormRegister,
-} from "react-hook-form";
+import { UseFormHandleSubmit, UseFormRegister } from "react-hook-form";
 
 export interface IData {
   title: string;
@@ -45,8 +41,8 @@ export interface IQuestionUIProps {
   onClickAnswerRegistrationButton: (data: IData) => Promise<void>;
   onClickQuestionEditButton: (data: IData) => Promise<void>;
 
-  register: UseFormRegister<FieldValues>;
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
+  register: UseFormRegister<IData>;
+  handleSubmit: UseFormHandleSubmit<IData>;
 
   fetchInquiriesByProductData: {
     fetchInquiriesByProduct: Array<IFetchInquiriesByProduct>;

@@ -17,7 +17,7 @@ interface IFiles {
 }
 
 export interface IBfoodWriteUIProps {
-  isEdit: boolean;
+  isEdit?: boolean;
   register: UseFormRegister<IData>;
   handleSubmit: UseFormHandleSubmit<IData>;
   getValues: UseFormGetValues<IData>;
@@ -41,8 +41,8 @@ export interface IBfoodWriteUIProps {
 }
 
 export interface IBfoodWriteProps {
-  isEdit: boolean;
-  fetchProductUglyData: {
+  isEdit?: boolean;
+  fetchProductUglyData?: {
     fetchProductUgly: {
       id: string;
       title: string;
