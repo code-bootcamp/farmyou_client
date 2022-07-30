@@ -90,9 +90,12 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
               </S.SelectLocalFood>
             </S.SelectListWrapper>
             <S.ListItemWrapper>
-              {props.isSelect
-                ? props.payOrCancel === "pay"
-                  ? props.completePaymentsLocal
+              {props.isSelect ? (
+                props.payOrCancel === "pay" ? (
+                  !props.fetchCompletedPaymentsLocalCount ? (
+                    <S.DefaultValueWrapper></S.DefaultValueWrapper>
+                  ) : (
+                    props.completePaymentsLocal
                       ?.slice(0, props.sliceNumber)
                       .map((el) => {
                         return (
@@ -148,46 +151,52 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                           </S.ListItem>
                         );
                       })
-                  : props.canceledPaymentsLocal
-                      ?.slice(0, props.sliceNumber)
-                      .map((el: IFetchCanceledPayments) => {
-                        return (
-                          <S.ListItem
-                            key={uuidv4()}
-                            onClick={props.onClickLocalDetail}
-                            id={el.productDirect?.id}
-                          >
-                            <S.ItemImgWrapper>
-                              <S.ItemImg
-                                src={`https://storage.googleapis.com/${
-                                  el.productDirect?.files[0]?.url.split(",")[0]
-                                }`}
-                              ></S.ItemImg>
-                            </S.ItemImgWrapper>
-                            <S.ItemInfoWrapper>
-                              <S.ItemTitle>
-                                {el.productDirect?.title}
-                              </S.ItemTitle>
-                              <S.ItemPrice>
-                                {el.productDirect?.price?.toLocaleString()}원 /{" "}
-                                {el.quantity}개
-                              </S.ItemPrice>
-                              <S.ItemCreateDate>
-                                취소 날짜 : {getDate(el.createdAt)}
-                              </S.ItemCreateDate>
-                            </S.ItemInfoWrapper>
-                            <S.ItemSubInfoWrapper></S.ItemSubInfoWrapper>
-                            <S.ItemSubInfoWrapper>
-                              <S.SellerName>
-                                {el.productDirect?.directStore?.name}
-                              </S.SellerName>
-                              <S.SellerPhoneNum></S.SellerPhoneNum>
-                            </S.ItemSubInfoWrapper>
-                          </S.ListItem>
-                        );
-                      })
-                : props.payOrCancel === "pay"
-                ? props.completePaymentsUgly
+                  )
+                ) : !props.fetchCanceledPaymentsLocalCount ? (
+                  <S.DefaultValueWrapper></S.DefaultValueWrapper>
+                ) : (
+                  props.canceledPaymentsLocal
+                    ?.slice(0, props.sliceNumber)
+                    .map((el: IFetchCanceledPayments) => {
+                      return (
+                        <S.ListItem
+                          key={uuidv4()}
+                          onClick={props.onClickLocalDetail}
+                          id={el.productDirect?.id}
+                        >
+                          <S.ItemImgWrapper>
+                            <S.ItemImg
+                              src={`https://storage.googleapis.com/${
+                                el.productDirect?.files[0]?.url.split(",")[0]
+                              }`}
+                            ></S.ItemImg>
+                          </S.ItemImgWrapper>
+                          <S.ItemInfoWrapper>
+                            <S.ItemTitle>{el.productDirect?.title}</S.ItemTitle>
+                            <S.ItemPrice>
+                              {el.productDirect?.price?.toLocaleString()}원 /{" "}
+                              {el.quantity}개
+                            </S.ItemPrice>
+                            <S.ItemCreateDate>
+                              취소 날짜 : {getDate(el.createdAt)}
+                            </S.ItemCreateDate>
+                          </S.ItemInfoWrapper>
+                          <S.ItemSubInfoWrapper></S.ItemSubInfoWrapper>
+                          <S.ItemSubInfoWrapper>
+                            <S.SellerName>
+                              {el.productDirect?.directStore?.name}
+                            </S.SellerName>
+                            <S.SellerPhoneNum></S.SellerPhoneNum>
+                          </S.ItemSubInfoWrapper>
+                        </S.ListItem>
+                      );
+                    })
+                )
+              ) : props.payOrCancel === "pay" ? (
+                !props.fetchCompletePaymentsUglyCount ? (
+                  <S.DefaultValueWrapper></S.DefaultValueWrapper>
+                ) : (
+                  props.completePaymentsUgly
                     ?.slice(0, props.sliceNumber)
                     .map((el: IFetchCompletePayments) => {
                       return (
@@ -251,43 +260,48 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                         </S.ListItem>
                       );
                     })
-                : props.canceledPaymentsUgly
-                    ?.slice(0, props.sliceNumber)
-                    .map((el: IFetchCanceledPayments) => {
-                      return (
-                        <S.ListItem
-                          key={uuidv4()}
-                          onClick={props.onClickBfoodDetail}
-                          id={el.productUgly?.id}
-                        >
-                          <S.ItemImgWrapper>
-                            <S.ItemImg
-                              src={`https://storage.googleapis.com/${
-                                el.productUgly?.files[0]?.url.split(",")[0]
-                              }`}
-                            ></S.ItemImg>
-                          </S.ItemImgWrapper>
-                          <S.ItemInfoWrapper>
-                            <S.ItemTitle>{el.productUgly?.title}</S.ItemTitle>
-                            <S.ItemPrice>
-                              {el.productUgly?.price.toLocaleString()}원 /{" "}
-                              {el.quantity}개
-                            </S.ItemPrice>
-                            <S.ItemCreateDate>
-                              취소 날짜 : {getDate(el.createdAt)}
-                            </S.ItemCreateDate>
-                          </S.ItemInfoWrapper>
-                          {/* <S.LengthDivideLine /> */}
-                          <S.ItemSubInfoWrapper></S.ItemSubInfoWrapper>
-                          <S.ItemSubInfoWrapper>
-                            <S.SellerName>
-                              {el.productUgly?.seller?.name}
-                            </S.SellerName>
-                            <S.SellerPhoneNum></S.SellerPhoneNum>
-                          </S.ItemSubInfoWrapper>
-                        </S.ListItem>
-                      );
-                    })}
+                )
+              ) : !props.fetchCanceledPaymentsUglyCount ? (
+                <S.DefaultValueWrapper></S.DefaultValueWrapper>
+              ) : (
+                props.canceledPaymentsUgly
+                  ?.slice(0, props.sliceNumber)
+                  .map((el: IFetchCanceledPayments) => {
+                    return (
+                      <S.ListItem
+                        key={uuidv4()}
+                        onClick={props.onClickBfoodDetail}
+                        id={el.productUgly?.id}
+                      >
+                        <S.ItemImgWrapper>
+                          <S.ItemImg
+                            src={`https://storage.googleapis.com/${
+                              el.productUgly?.files[0]?.url.split(",")[0]
+                            }`}
+                          ></S.ItemImg>
+                        </S.ItemImgWrapper>
+                        <S.ItemInfoWrapper>
+                          <S.ItemTitle>{el.productUgly?.title}</S.ItemTitle>
+                          <S.ItemPrice>
+                            {el.productUgly?.price.toLocaleString()}원 /{" "}
+                            {el.quantity}개
+                          </S.ItemPrice>
+                          <S.ItemCreateDate>
+                            취소 날짜 : {getDate(el.createdAt)}
+                          </S.ItemCreateDate>
+                        </S.ItemInfoWrapper>
+                        {/* <S.LengthDivideLine /> */}
+                        <S.ItemSubInfoWrapper></S.ItemSubInfoWrapper>
+                        <S.ItemSubInfoWrapper>
+                          <S.SellerName>
+                            {el.productUgly?.seller?.name}
+                          </S.SellerName>
+                          <S.SellerPhoneNum></S.SellerPhoneNum>
+                        </S.ItemSubInfoWrapper>
+                      </S.ListItem>
+                    );
+                  })
+              )}
 
               {(props.isSelect
                 ? props.payOrCancel === "pay"
