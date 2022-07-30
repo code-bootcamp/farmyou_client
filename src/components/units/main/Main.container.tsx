@@ -37,7 +37,7 @@ export default function Main() {
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?appkey=834022f7a11709f54649f796dc004e21&autoload=false&libraries=services,clusterer,drawing";
+      "//dapi.kakao.com/v2/maps/sdk.js?appkey=8054abbbd392f4c553cf47d06ac5efe1&autoload=false&libraries=services,clusterer,drawing";
     document.head.appendChild(script);
     if (
       isNaN(Number(keyword)) &&
