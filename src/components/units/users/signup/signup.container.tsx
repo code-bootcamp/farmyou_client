@@ -111,7 +111,7 @@ export default function Signup(props: IPropsSignUp) {
           },
         },
       });
-      router.push(`/main`);
+      router.push(`/`);
     } catch (e: any) {
       alert(e.message);
     }
@@ -132,7 +132,7 @@ export default function Signup(props: IPropsSignUp) {
         },
       });
 
-      router.push(`/main`);
+      router.push(`/`);
     } catch (e: any) {
       alert(e.message);
     }

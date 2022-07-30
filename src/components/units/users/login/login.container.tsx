@@ -175,7 +175,7 @@ export default function Login() {
       });
 
       setToken(resultSeller.data?.loginSeller);
-      router.push(`/main`);
+      router.push(`/`);
     } catch (e: any) {
       Modal.error({ content: e.message });
     }
@@ -193,7 +193,7 @@ export default function Login() {
           password: data.password,
         },
       });
-      router.push(`/main`);
+      router.push(`/`);
 
       setToken(result.data?.loginUser);
     } catch (error: any) {
