@@ -1,7 +1,10 @@
+import LocalfoodList from "../../src/components/units/localfood/list/LocalfoodList.container";
+import LayoutBanner from "../../src/components/commons/layout/banner/LayoutBanner.container";
 export default function LocalFoodListPage() {
   return (
     <>
-      <div>로컬푸드 리스트 페이지 입니다.</div>
+      <LayoutBanner />
+      <LocalfoodList></LocalfoodList>
     </>
   );
 }

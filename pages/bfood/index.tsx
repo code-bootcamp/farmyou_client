@@ -1,7 +1,10 @@
+import BfoodList from "../../src/components/units/bfood/list/BfoodList.container";
+import LayoutBanner from "../../src/components/commons/layout/banner/LayoutBanner.container";
 export default function BfoodListPage() {
   return (
     <>
-      <div>못난이 상품 리스트 페이지 입니다.</div>
+      <LayoutBanner />
+      <BfoodList></BfoodList>
     </>
   );
 }

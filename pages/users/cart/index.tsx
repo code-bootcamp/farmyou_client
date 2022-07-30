@@ -1,7 +1,5 @@
+import Basket from "../../../src/components/units/users/basket/basket.container";
+
 export default function CartPage() {
-  return (
-    <>
-      <div>장바구니페이지 입니다.</div>
-    </>
-  );
+  return <Basket />;
 }

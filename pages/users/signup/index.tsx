@@ -1,7 +1,5 @@
+import SignUpAuth from "../../../src/components/units/users/signup/signup.auth";
+
 export default function SignupPage() {
-  return (
-    <>
-      <div>회원가입페이지 입니다.</div>
-    </>
-  );
+  return <SignUpAuth />;
 }
