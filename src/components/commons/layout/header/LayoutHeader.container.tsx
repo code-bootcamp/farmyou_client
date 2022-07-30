@@ -13,9 +13,9 @@ export default function LayoutHeader() {
   const setToken = useSetRecoilState(TokenState);
 
   const [isIn, setIsIn] = useState(false);
-  const CHECK = ["/", "/main"];
+  const CHECK = ["/"];
   const isCheck = CHECK.includes(router.asPath);
-  const CHECK_LIST = ["/main", "/localfood", "/bfood", "/"];
+  const CHECK_LIST = ["/localfood", "/bfood", "/"];
   const isCheckList = CHECK_LIST.includes(router.asPath);
   const CHECK_BFOOD = ["/bfood"];
   const isCheckBFood = CHECK_BFOOD.includes(router.asPath);
@@ -27,7 +27,7 @@ export default function LayoutHeader() {
     try {
       await logout();
       setToken("");
-      router.push(`/main`);
+      router.push(`/`);
     } catch (error: any) {
       Modal.error({
         content: error.message,
@@ -50,7 +50,7 @@ export default function LayoutHeader() {
     router.push(`/users/mypage`);
   };
   const onCLickMoveToMain = () => {
-    router.push(`/main`);
+    router.push(`/`);
   };
 
   useEffect(() => {

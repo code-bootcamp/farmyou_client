@@ -143,7 +143,8 @@ export default function SignupUI(props: IPropsSignUpUI) {
             <ButtonComponent
               type="button"
               title="취소하기"
-              onClick={props.onClickMove(`/main`)}
+              buttonColor="#bdbdbd"
+              onClick={props.onClickMove(`/`)}
             />
             <ButtonComponent
               type="submit"

@@ -83,12 +83,12 @@ export default function LoginUI(props: IPropsLogin) {
             <S.Text>로그인</S.Text>
             <S.DivideLine></S.DivideLine>
             <InputComponent
-              placeholder="Email address"
+              placeholder="이메일을 입력해주세요."
               register={props.register("email")}
             />
             <InputComponent
               type="password"
-              placeholder="Password"
+              placeholder="비밀번호를 입려해주세요."
               register={props.register("password")}
             />
             <S.FindPwd onClick={props.onClickModal}>
