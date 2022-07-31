@@ -1,5 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+import { useAuth } from "../../../../src/components/commons/hooks/useAuth";
 import BfoodWrite from "../../../../src/components/units/bfood/write/BfoodWrite.container";
 
 const FETCH_PRODUCT_UGLY = gql`
@@ -19,6 +20,7 @@ const FETCH_PRODUCT_UGLY = gql`
 `;
 
 export default function BFoodEditPage() {
+  useAuth();
   const router = useRouter();
 
   const { data: fetchProductUglyData, loading } = useQuery(FETCH_PRODUCT_UGLY, {
