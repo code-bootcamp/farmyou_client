@@ -502,3 +502,9 @@ export const Error = styled.div`
   position: absolute;
   bottom: 50px;
 `;
+
+export const DefaultValueWrapper = styled.div`
+  width: 100%;
+  height: 300px;
+  background-color: red;
+`;

@@ -75,10 +75,10 @@ export const CategoryWrapper = styled.div`
 
 export const ItemWrapper = styled.div`
   width: 100%;
-  flex-wrap: wrap;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(236px, 1fr));
+  justify-items: center;
+  gap: 20px;
 
   @media (max-width: 689px) {
     display: flex;

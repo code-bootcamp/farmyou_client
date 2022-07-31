@@ -261,7 +261,7 @@ export const BfoodSubTitleTop = styled.div`
   color: white;
   text-align: start;
   @media (max-width: 1200px) {
-    font-size: 4vw;
+    font-size: 5vw;
   }
 `;
 export const BfoodSubTitleLow = styled.div`
@@ -269,17 +269,17 @@ export const BfoodSubTitleLow = styled.div`
   color: white;
   text-align: end;
   @media (max-width: 1200px) {
-    font-size: 4vw;
+    font-size: 5vw;
   }
 `;
 export const BfoodTitle = styled.div`
   font-size: 3.5vw;
-  width: 100%;
+  width: auto;
   font-weight: 900;
   color: white;
   padding-top: 3vw;
   @media (max-width: 1200px) {
-    font-size: 6vw;
+    font-size: 7vw;
     text-align: center;
   }
 `;

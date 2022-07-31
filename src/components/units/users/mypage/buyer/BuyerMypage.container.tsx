@@ -76,7 +76,6 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-
   const { data: userAddressData } = useQuery(FETCH_ADDRESSES_OF_THE_USER, {
     variables: {
       userId: props.userData?.fetchUserLoggedIn.id,

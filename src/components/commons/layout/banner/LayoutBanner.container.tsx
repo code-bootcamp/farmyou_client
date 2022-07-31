@@ -19,7 +19,7 @@ const BfoodBannerTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   top: 250px;
-  right: 130px;
+  right: 10vw;
 `;
 const TagsWrapper = styled.div`
   display: flex;
@@ -27,6 +27,7 @@ const TagsWrapper = styled.div`
   align-items: center;
   justify-content: space-around;
   margin-bottom: 10px;
+  width: auto;
 `;
 const Tag = styled.div`
   height: 2em;
@@ -36,7 +37,7 @@ const Tag = styled.div`
   font-size: 18px;
   border-radius: 20px;
 `;
-const BfoodTextFront = styled.span`
+const BfoodTextFront = styled.div`
   font-size: 60px;
   font-weight: 800;
   color: white;
@@ -45,6 +46,7 @@ const BfoodTextEnd = styled.span`
   font-size: 40px;
   margin-left: 20px;
   font-weight: 400;
+  line-height: 40px;
 `;
 const LocalFoodBannerTextWrapper = styled.div`
   width: 450px;
@@ -71,7 +73,7 @@ export const LocalFoodContent = styled.span`
   color: #464646;
   font-size: 28px;
 `;
-export const LocalFoodContentEmphasis = styled.span`
+export const LocalFoodContentEmphasis = styled.div`
   color: #f6651e;
   font-size: 28px;
 `;
