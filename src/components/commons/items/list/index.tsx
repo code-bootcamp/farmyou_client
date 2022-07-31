@@ -61,8 +61,10 @@ const ItemImage = styled.img`
   object-fit: cover;
 
   @media (max-width: 689px) {
-    width: 137px;
-    height: 108.5px;
+    max-width: 110px;
+    height: 110px;
+    object-fit: cover;
+    background-color: yellow;
   }
 `;
 

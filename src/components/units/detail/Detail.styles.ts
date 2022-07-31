@@ -238,4 +238,7 @@ export const Contents = styled.div`
   width: 100%;
   padding: 50px;
   border-bottom: 1px solid #bdbdbd;
+  img {
+    max-width: 100%;
+  }
 `;

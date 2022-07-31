@@ -23,7 +23,7 @@ const Input = styled.input`
 
   @media (max-width: 575px) {
     height: 2em;
-    font-size: 1vw;
+    font-size: 0.8rem;
   }
 `;
 

@@ -118,7 +118,7 @@ export const InfoBoxWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  @media (max-width: 667px) {
+  @media (max-width: 749px) {
     flex-direction: column;
   }
 `;
@@ -130,20 +130,23 @@ export const Box = styled.div`
   padding: 20px;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  @media (max-width: 667px) {
-    flex-direction: row;
+  justify-content: center;
+  @media (max-width: 749px) {
     width: 100%;
     height: 80%;
     padding: 2vw;
-    /* justify-content: flex-start; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
   }
 `;
 export const BoxTitle = styled.div`
   font-size: 1rem;
-  @media (max-width: 667px) {
-    font-size: 0.8rem;
-    margin-left: 1vw;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  @media (max-width: 749px) {
+    font-size: 1rem;
+    margin: 0px;
   }
 `;
 export const Count = styled.div`
@@ -157,35 +160,29 @@ export const Count = styled.div`
 export const BoxIcons = styled.div`
   width: 75px;
   height: 75px;
-  @media (max-width: 667px) {
-    width: 50px;
-    height: 50px;
-  }
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const OrderCheckBoxIcon = styled.img`
-  width: 100%;
+  width: 70px;
   padding: 10%;
 `;
 
 export const DeliveryBoxIcon = styled.img`
-  width: 100%;
+  width: 65px;
 `;
-
-export const BoxBoxIcon = styled.img`
-  width: 100%;
-  padding: 10%;
-`;
-
 export const ReturnBoxIcon = styled.img`
-  width: 100%;
+  width: 65px;
 `;
 
 export const LengthDivideLine = styled.div`
   width: 1px;
   height: 60%;
   background-color: #ccc;
-  @media (max-width: 667px) {
+  @media (max-width: 749px) {
     /* display: none; */
     width: 90%;
     height: 1px;
@@ -281,6 +278,9 @@ export const ReturnButton = styled.div`
     border-bottom: 1px solid black;
     cursor: pointer;
   }
+  @media (max-width: 749px) {
+    font-size: 0.8rem;
+  }
 `;
 
 export const ItemSubInfoWrapper = styled.div`
@@ -292,10 +292,16 @@ export const ItemSubInfoWrapper = styled.div`
 `;
 export const SellerName = styled.div`
   font-size: 0.9rem;
+  @media (max-width: 749px) {
+    display: none;
+  }
 `;
 
 export const SellerPhoneNum = styled.div`
   font-size: 0.8rem;
+  @media (max-width: 749px) {
+    display: none;
+  }
 `;
 export const MoreItemWrapper = styled.div`
   width: 100%;
@@ -501,4 +507,21 @@ export const Error = styled.div`
   font-size: 1rem;
   position: absolute;
   bottom: 50px;
+`;
+
+export const DefaultValueWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 150px 0px;
+`;
+export const DefaultValueImg = styled.img`
+  width: 5vw;
+  min-width: 100px;
+  margin-bottom: 30px;
+`;
+export const DefaultText = styled.div`
+  font-size: 1.2rem;
+  color: gray;
 `;

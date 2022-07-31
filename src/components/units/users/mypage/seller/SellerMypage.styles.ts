@@ -128,7 +128,7 @@ export const InfoBoxWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  @media (max-width: 667px) {
+  @media (max-width: 829px) {
     flex-direction: column;
   }
 `;
@@ -140,20 +140,24 @@ export const Box = styled.div`
   padding: 20px;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  @media (max-width: 667px) {
+  justify-content: center;
+  @media (max-width: 829px) {
     flex-direction: row;
     width: 100%;
     height: 80%;
     padding: 2vw;
-    /* justify-content: flex-start; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
   }
 `;
 export const BoxTitle = styled.div`
   font-size: 1rem;
-  @media (max-width: 667px) {
-    font-size: 0.8rem;
-    margin-left: 1vw;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  @media (max-width: 829px) {
+    font-size: 1rem;
+    margin: 0px;
   }
 `;
 export const Count = styled.div`
@@ -164,40 +168,40 @@ export const Count = styled.div`
   }
 `;
 export const SellBoxIcon = styled.img`
-  width: 100%;
+  width: 65px;
 `;
 
-export const BoxBoxIcon = styled.img`
-  width: 100%;
-  padding: 10%;
-`;
+// export const BoxBoxIcon = styled.img`
+//   width: 100%;
+//   padding: 10%;
+// `;
 
 export const LikeBoxIcon = styled.img`
-  width: 100%;
+  width: 65px;
   padding: 10%;
 `;
 
 export const BoxIcons = styled.div`
   width: 75px;
   height: 75px;
-  @media (max-width: 667px) {
-    width: 50px;
-    height: 50px;
-  }
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const LengthDivideLine = styled.div`
   width: 1px;
   height: 60%;
   background-color: #ccc;
-  @media (max-width: 667px) {
+  @media (max-width: 829px) {
     /* display: none; */
     width: 90%;
     height: 1px;
   }
 `;
 export const OrderCheckBoxIcon = styled.img`
-  width: 100%;
+  width: 65px;
   padding: 10%;
 `;
 
@@ -461,4 +465,20 @@ export const Error = styled.div`
 
 export const InvoiceInput = styled.div`
   width: 80%;
+`;
+export const DefaultValueWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 150px 0px;
+`;
+export const DefaultValueImg = styled.img`
+  width: 5vw;
+  min-width: 100px;
+  margin-bottom: 30px;
+`;
+export const DefaultText = styled.div`
+  font-size: 1.2rem;
+  color: gray;
 `;

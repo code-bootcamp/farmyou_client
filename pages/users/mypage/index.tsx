@@ -3,6 +3,7 @@ import SellerMypage from "../../../src/components/units/users/mypage/seller/Sell
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { gql, useQuery } from "@apollo/client";
+import { useAuth } from "../../../src/components/commons/hooks/useAuth";
 
 const HeaderWrapper = styled.div`
   padding: 50px 10% 0 10%;
@@ -46,6 +47,7 @@ export const FETCH_USER_LOGGED_IN = gql`
 `;
 
 export default function MypagePage() {
+  useAuth();
   const [isCheck, setIsCheck] = useState(false);
   const [isWhoPage, setIsWhoPage] = useState("");
 
