@@ -23,7 +23,7 @@ export default function MainUI(props: IMainUIProps) {
         <S.Icon src="/icons/arrow.svg" />
       </S.NextIcon>
       <S.LocalScrollWrapper ref={props.localRef}>
-        <div style={{ height: "100px", width: "100%" }}></div>
+        <div style={{ width: "100%" }}></div>
         <S.LocalWrapper>
           <S.LocalLeftWrapper>
             <S.LocalTitle>로컬푸드 직매장</S.LocalTitle>
@@ -43,14 +43,34 @@ export default function MainUI(props: IMainUIProps) {
               <S.SearchIcon src="/icons/search.png" />
             </S.LocalSearchBar>
 
-            {(props.isSearch &&
-              props.listData?.map((el: any, index: number) => (
-                <div key={index}>
-                  <LocalListCapsule el={el} />
+            {props.isSearch ? (
+              !props.listData.length ? (
+                <div
+                  style={{
+                    width: "100%",
+                    textAlign: "center",
+                  }}
+                >
+                  <img
+                    style={{ width: "100%" }}
+                    src="/main/NoResult.png"
+                    alt="검색결과 없을때 이미지입니다."
+                  />
                 </div>
-              ))) || (
+              ) : (
+                props.listData?.map((el: any, index: number) => (
+                  <div key={index}>
+                    <LocalListCapsule el={el} />
+                  </div>
+                ))
+              )
+            ) : (
               <div
-                style={{ width: "100%", height: "500px", textAlign: "center" }}
+                style={{
+                  width: "100%",
+                  // height: "500px",
+                  textAlign: "center",
+                }}
               >
                 <img
                   style={{ width: "100%" }}

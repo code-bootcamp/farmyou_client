@@ -1,4 +1,4 @@
-import { Modal, Radio } from "antd";
+import { Radio } from "antd";
 import ButtonComponent from "../../../commons/buttons";
 import InputComponent from "../../../commons/inputs";
 import * as S from "./login.styles";
@@ -7,8 +7,9 @@ import { IPropsLogin } from "./login.types";
 export default function LoginUI(props: IPropsLogin) {
   return (
     <>
-      <Modal
+      <S.CustomModal
         visible={props.isModal}
+        onCancel={props.handleCancel}
         footer={[
           <S.FootWrapper key="back">
             <S.Button onClick={props.handleCancel}>취소</S.Button>
@@ -42,10 +43,11 @@ export default function LoginUI(props: IPropsLogin) {
             인증번호제출
           </S.TokenCheckBtn>
         </S.TokenWrapper>
-      </Modal>
+      </S.CustomModal>
       {/* 모달 2 */}
-      <Modal
+      <S.CustomModal
         visible={props.isModal2}
+        onCancel={props.handleCancel}
         footer={[
           <S.FootWrapper key="primary">
             <S.Button onClick={props.handleCancel2}>취소</S.Button>
@@ -65,12 +67,13 @@ export default function LoginUI(props: IPropsLogin) {
             <S.PwdInput
               {...props.register("password2")}
               placeholder="재설정 할 비밀번호를 입력하세요"
+              type="password"
             ></S.PwdInput>
             <S.PwdChangeBtn type="submit">변경하기</S.PwdChangeBtn>
           </S.PwdInputWrapper>
           <S.PwdErr>{props.formState.errors.password2?.message}</S.PwdErr>
         </S.PwdWrapper>
-      </Modal>
+      </S.CustomModal>
       <S.Wrapper
         onSubmit={props.handleSubmit(
           props.isUser === "buyer"

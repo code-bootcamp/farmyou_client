@@ -119,14 +119,14 @@ export default function Login() {
     setPhoneNumber(event.target.value);
   };
 
-  const { data } = useQuery(FETCH_USER_BY_EMAIL, {
+  const { data, refetch } = useQuery(FETCH_USER_BY_EMAIL, {
     variables: {
       email,
     },
   });
   useEffect(() => {
     setUserType(data?.fetchUserByEmail.type);
-  }, [email]);
+  }, [data]);
 
   const onChangeToken = (event: ChangeEvent<HTMLInputElement>) => {
     setTokenSave(event.target.value);
@@ -138,6 +138,7 @@ export default function Login() {
     if (phoneNumber === "" || phoneNumber.includes("-") === true) return;
 
     try {
+      await refetch();
       await sendToken({
         variables: {
           phone: phoneNumber,

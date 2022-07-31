@@ -40,7 +40,7 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
               <S.InfoBoxWrapper>
                 <S.Box>
                   <S.BoxIcons>
-                    <S.OrderCheckBoxIcon src="/icons/product_board.svg" />
+                    <S.OrderCheckBoxIcon src="/icons/mypage/list.png" />
                   </S.BoxIcons>
                   <S.BoxTitle>상품게시글</S.BoxTitle>
                   <S.Count>
@@ -53,7 +53,7 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
                 <S.LengthDivideLine />
                 <S.Box>
                   <S.BoxIcons>
-                    <S.SellBoxIcon src="/icons/sell.svg" />
+                    <S.SellBoxIcon src="/icons/mypage/sell.png" />
                   </S.BoxIcons>
                   <S.BoxTitle>판매량</S.BoxTitle>
                   <S.Count>
@@ -66,7 +66,7 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
                 <S.LengthDivideLine></S.LengthDivideLine>
                 <S.Box>
                   <S.BoxIcons>
-                    <S.LikeBoxIcon src="/icons/like.svg" />
+                    <S.LikeBoxIcon src="/icons/mypage/good.png" />
                   </S.BoxIcons>
                   <S.BoxTitle>좋아요</S.BoxTitle>
                   <S.Count>0</S.Count>
@@ -90,8 +90,14 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
               </S.SelectLocalFood>
             </S.SelectListWrapper>
             <S.ListItemWrapper>
-              {props.isSelect
-                ? props.fetchUglyProductsBySellerData?.fetchUglyProductsBySeller
+              {props.isSelect ? (
+                !props.fetchUglyProductsCount ? (
+                  <S.DefaultValueWrapper>
+                    <S.DefaultValueImg src="/icons/mypage/default.png" />
+                    <S.DefaultText>게시글 내역이 없습니다.</S.DefaultText>
+                  </S.DefaultValueWrapper>
+                ) : (
+                  props.fetchUglyProductsBySellerData?.fetchUglyProductsBySeller
                     ?.slice(0, props.sliceNumber)
                     .map((el) => {
                       return (
@@ -126,41 +132,49 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
                         </S.ListItem>
                       );
                     })
-                : props.fetchCompletedPaymentsForSellerData?.fetchCompletedPaymentsForSeller
-                    ?.slice(0, props.sliceNumber)
-                    .map((el) => {
-                      return (
-                        <S.ListItem key={uuidv4()}>
-                          <S.ItemImg
-                            src={`https://storage.googleapis.com/${
-                              el.productUgly?.files[0].url.split(",")[0]
-                            }`}
-                          ></S.ItemImg>
-                          <S.ItemInfoWrapper>
-                            <S.ItemTitle>{el.productUgly?.title}</S.ItemTitle>
-                            <S.ItemPrice>
-                              {el.productUgly?.price.toLocaleString()}원
-                            </S.ItemPrice>
-                            <S.ItemCreateDate>
-                              {getDate(el.createdAt)}
-                            </S.ItemCreateDate>
-                          </S.ItemInfoWrapper>
-                          <S.ItemSubInfoWrapper>
-                            {el.invoice}
-                            <S.SellerName
-                              id={el.id}
-                              onClick={
-                                el.invoice
-                                  ? props.onClickInvoiceEdit
-                                  : props.toggleModal
-                              }
-                            >
-                              {el.invoice ? "운송장 수정" : "운송장 등록"}
-                            </S.SellerName>
-                          </S.ItemSubInfoWrapper>
-                        </S.ListItem>
-                      );
-                    })}
+                )
+              ) : !props.fetchCompletedPaymentsCount ? (
+                <S.DefaultValueWrapper>
+                  <S.DefaultValueImg src="/icons/mypage/default.png" />
+                  <S.DefaultText>판매내역이 없습니다.</S.DefaultText>
+                </S.DefaultValueWrapper>
+              ) : (
+                props.fetchCompletedPaymentsForSellerData?.fetchCompletedPaymentsForSeller
+                  ?.slice(0, props.sliceNumber)
+                  .map((el) => {
+                    return (
+                      <S.ListItem key={uuidv4()}>
+                        <S.ItemImg
+                          src={`https://storage.googleapis.com/${
+                            el.productUgly?.files[0].url.split(",")[0]
+                          }`}
+                        ></S.ItemImg>
+                        <S.ItemInfoWrapper>
+                          <S.ItemTitle>{el.productUgly?.title}</S.ItemTitle>
+                          <S.ItemPrice>
+                            {el.productUgly?.price.toLocaleString()}원
+                          </S.ItemPrice>
+                          <S.ItemCreateDate>
+                            {getDate(el.createdAt)}
+                          </S.ItemCreateDate>
+                        </S.ItemInfoWrapper>
+                        <S.ItemSubInfoWrapper>
+                          {el.invoice}
+                          <S.SellerName
+                            id={el.id}
+                            onClick={
+                              el.invoice
+                                ? props.onClickInvoiceEdit
+                                : props.toggleModal
+                            }
+                          >
+                            {el.invoice ? "운송장 수정" : "운송장 등록"}
+                          </S.SellerName>
+                        </S.ItemSubInfoWrapper>
+                      </S.ListItem>
+                    );
+                  })
+              )}
               {(props.isSelect
                 ? props.fetchUglyProductsCount > props.sliceNumber
                 : props.fetchCompletedPaymentsCount > props.sliceNumber) && (

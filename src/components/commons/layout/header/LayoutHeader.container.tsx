@@ -117,10 +117,10 @@ export default function LayoutHeader() {
   const styles = {
     bmBurgerButton: {
       position: "fixed",
-      width: "36px",
-      height: "30px",
-      right: "36px",
-      top: "36px",
+      width: "25px",
+      height: "20px",
+      right: "10vw",
+      top: "40px",
     },
     bmBurgerBars: {
       background: isCheckList ? (scroll ? "#373a47" : "white") : "#373a47",

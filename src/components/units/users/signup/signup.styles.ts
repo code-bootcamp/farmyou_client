@@ -71,7 +71,7 @@ export const Text = styled.div`
   text-align: left;
 
   @media (max-width: 575px) {
-    font-size: 1.2rem;
+    font-size: 0.8rem;
     width: 130px;
   }
 `;
@@ -155,7 +155,6 @@ export const PhoneAgreementButton = styled.button`
   min-width: 150px;
   height: 100%;
   background-color: #fff;
-
   border: 1px solid #f6651e;
   color: #f6651e;
   border-radius: 35px;
@@ -172,6 +171,7 @@ export const PhoneAgreementButton = styled.button`
   @media (max-width: 575px) {
     min-width: 100px;
     font-size: 0.8rem;
+    height: 35px;
   }
 `;
 

@@ -52,6 +52,10 @@ export const LeftWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   height: 1em;
+  @media (max-width: 735px) {
+    flex-direction: column;
+    align-items: flex-end;
+  }
 `;
 export const LeftItem = styled.div`
   color: white;

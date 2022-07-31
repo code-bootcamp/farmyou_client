@@ -1,5 +1,10 @@
 import styled from "@emotion/styled";
-
+import { Modal } from "antd";
+export const CustomModal = styled(Modal)`
+  .ant-modal-close-x {
+    display: none;
+  }
+`;
 export const Wrapper = styled.form`
   display: flex;
   flex-direction: column;
@@ -9,7 +14,8 @@ export const Wrapper = styled.form`
   height: 100vh;
   background-color: #f8f8f8;
   @media (max-width: 575px) {
-    width: 100%;
+    width: 90%;
+    margin: 0px auto;
   }
 `;
 
@@ -65,6 +71,7 @@ export const EmailInput = styled.input`
   height: 40px;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
+  padding: 0px 20px;
   &:focus {
     outline-color: #f5561e;
   }
@@ -81,6 +88,7 @@ export const PhoneInput = styled.input`
   height: 40px;
   border-radius: 5px;
   border: 1px solid #bdbdbd;
+  padding: 0px 20px;
   &:focus {
     outline-color: #f5561e;
   }
@@ -105,6 +113,7 @@ export const PhoneToken = styled.input`
   width: 80%;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
+  padding: 0px 20px;
   &:focus {
     outline-color: #f5561e;
   }
@@ -132,14 +141,17 @@ export const PwdWrapper = styled.form`
 `;
 export const PwdInput = styled.input`
   width: 70%;
+  height: 35px;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
+  padding: 0px 20px;
   &:focus {
     outline-color: #f5561e;
   }
 `;
 
 export const PwdInputWrapper = styled.div`
+  margin-top: 20px;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -153,6 +165,7 @@ export const PwdErr = styled.div`
 
 export const PwdChangeBtn = styled.button`
   width: 20%;
+  height: 35px;
   border: none;
   background-color: #f5561e;
   color: #fff;

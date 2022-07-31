@@ -4,7 +4,8 @@ import { useRouter } from "next/router";
 import { MouseEvent } from "react";
 
 const LocalMarket = styled.div`
-  width: 32rem;
+  width: 70vw;
+  max-width: 32rem;
   border: 1px solid #ccc;
   border-radius: 20px;
   margin: 2vw 0px;
