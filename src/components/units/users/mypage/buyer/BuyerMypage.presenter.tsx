@@ -48,7 +48,7 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                 <S.LengthDivideLine />
                 <S.Box>
                   <S.BoxIcons>
-                    <S.DeliveryBoxIcon src="/icons/mypage/delivery.png" />
+                    <S.DeliveryBoxIcon src="/icons/mypage/truck.png" />
                   </S.BoxIcons>
                   <S.BoxTitle onClick={props.onClickPostTracking}>
                     배송
@@ -93,7 +93,10 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
               {props.isSelect ? (
                 props.payOrCancel === "pay" ? (
                   !props.fetchCompletedPaymentsLocalCount ? (
-                    <S.DefaultValueWrapper></S.DefaultValueWrapper>
+                    <S.DefaultValueWrapper>
+                      <S.DefaultValueImg src="/icons/mypage/default.png" />
+                      <S.DefaultText>구매내역이 없습니다.</S.DefaultText>
+                    </S.DefaultValueWrapper>
                   ) : (
                     props.completePaymentsLocal
                       ?.slice(0, props.sliceNumber)
@@ -153,7 +156,10 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                       })
                   )
                 ) : !props.fetchCanceledPaymentsLocalCount ? (
-                  <S.DefaultValueWrapper></S.DefaultValueWrapper>
+                  <S.DefaultValueWrapper>
+                    <S.DefaultValueImg src="/icons/mypage/default.png" />
+                    <S.DefaultText>취소내역이 없습니다.</S.DefaultText>
+                  </S.DefaultValueWrapper>
                 ) : (
                   props.canceledPaymentsLocal
                     ?.slice(0, props.sliceNumber)
@@ -194,7 +200,10 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                 )
               ) : props.payOrCancel === "pay" ? (
                 !props.fetchCompletePaymentsUglyCount ? (
-                  <S.DefaultValueWrapper></S.DefaultValueWrapper>
+                  <S.DefaultValueWrapper>
+                    <S.DefaultValueImg src="/icons/mypage/default.png" />
+                    <S.DefaultText>구매내역이 없습니다.</S.DefaultText>
+                  </S.DefaultValueWrapper>
                 ) : (
                   props.completePaymentsUgly
                     ?.slice(0, props.sliceNumber)
@@ -262,7 +271,10 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                     })
                 )
               ) : !props.fetchCanceledPaymentsUglyCount ? (
-                <S.DefaultValueWrapper></S.DefaultValueWrapper>
+                <S.DefaultValueWrapper>
+                  <S.DefaultValueImg src="/icons/mypage/default.png" />
+                  <S.DefaultText>취소내역이 없습니다.</S.DefaultText>
+                </S.DefaultValueWrapper>
               ) : (
                 props.canceledPaymentsUgly
                   ?.slice(0, props.sliceNumber)

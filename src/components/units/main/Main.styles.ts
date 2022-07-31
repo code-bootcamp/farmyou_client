@@ -67,7 +67,6 @@ export const LocalScrollWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0px auto;
-  margin-bottom: 100px;
 `;
 
 export const LocalWrapper = styled.div`
@@ -81,6 +80,7 @@ export const LocalWrapper = styled.div`
   @media (max-width: 1200px) {
     flex-direction: column;
     align-items: center;
+    margin: 5vh auto;
   }
 `;
 export const LocalLeftWrapper = styled.div`
@@ -133,6 +133,7 @@ export const LocalSearchBar = styled.div`
     margin-top: 10vw;
     width: 80%;
     padding: 0px 3vw;
+    height: 2.5rem;
   }
 `;
 export const LocalSearch = styled.input`
@@ -148,12 +149,20 @@ export const LocalSearch = styled.input`
   @media (max-width: 1200px) {
     width: 100%;
     font-size: 0.8rem;
+    &::placeholder {
+      color: #ccc;
+      font-size: 0.5rem;
+    }
   }
 `;
 
 export const SearchIcon = styled.img`
   width: 1.8rem;
   height: 1.8rem;
+  @media (max-width: 1200px) {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
 `;
 
 export const LocalMarket = styled.div`
@@ -253,6 +262,7 @@ export const BfoodSubTitleWrapper = styled.div`
   width: 22vw;
   padding-top: 3vw;
   @media (max-width: 1200px) {
+    margin-top: 20px;
     width: 40vw;
   }
 `;
@@ -261,7 +271,7 @@ export const BfoodSubTitleTop = styled.div`
   color: white;
   text-align: start;
   @media (max-width: 1200px) {
-    font-size: 5vw;
+    font-size: 3vw;
   }
 `;
 export const BfoodSubTitleLow = styled.div`
@@ -269,7 +279,7 @@ export const BfoodSubTitleLow = styled.div`
   color: white;
   text-align: end;
   @media (max-width: 1200px) {
-    font-size: 5vw;
+    font-size: 3vw;
   }
 `;
 export const BfoodTitle = styled.div`
@@ -279,7 +289,7 @@ export const BfoodTitle = styled.div`
   color: white;
   padding-top: 3vw;
   @media (max-width: 1200px) {
-    font-size: 7vw;
+    font-size: 5vw;
     text-align: center;
   }
 `;
@@ -301,7 +311,7 @@ export const BfoodButton = styled.button`
   }
 
   @media (max-width: 1200px) {
-    width: 40vw;
+    width: 30vw;
     font-size: 4vw;
     text-align: center;
   }
