@@ -112,7 +112,7 @@ export default function SignUpAuth() {
           <Right onClick={onClickSeller}>
             <Img2
               className="Img2"
-              src="/icons/user/signup/buyericon.png"
+              src="/icons/user/signup/buyerIcon.png"
               alt=""
             />
             <Text>판매자 회원가입</Text>
