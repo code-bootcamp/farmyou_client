@@ -104,7 +104,7 @@ export default function SignUpAuth() {
           <Left onClick={onClickSellect}>
             <Img1
               className="Img1"
-              src="/icons/user/signup/sellerIcon.png"
+              src="/icons/user/signup/sellericon.png"
               alt=""
             />
             <Text>구매자 회원가입</Text>
@@ -112,7 +112,7 @@ export default function SignUpAuth() {
           <Right onClick={onClickSeller}>
             <Img2
               className="Img2"
-              src="/icons/user/signup/buyerIcon.png"
+              src="/icons/user/signup/buyericon.png"
               alt=""
             />
             <Text>판매자 회원가입</Text>
