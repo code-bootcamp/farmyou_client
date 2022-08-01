@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Slider from "react-slick";
-import { Input } from "antd";
+import { Image, Input } from "antd";
 
 export const Body = styled.div`
   width: 100%;
@@ -43,7 +43,7 @@ export const ImageWrapper = styled.div`
   }
 `;
 
-export const MainImage = styled.img`
+export const MainImage = styled(Image)`
   width: 30vw;
   height: 30vw;
   object-fit: contain;
