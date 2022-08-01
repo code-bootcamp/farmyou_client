@@ -28,7 +28,7 @@ export default function Basket() {
     const baskets = JSON.parse(localStorage.getItem("bfoodbaskets") || "[]");
     setBFoodBasketsItems(baskets);
     if (baskets.length !== 0) {
-      const temp = baskets.map((el: IBaskets) => el.price);
+      const temp = baskets.map((el: IBaskets) => el.price * el.count);
       setBFoodSum(temp.reduce((acc: number, cur: number) => acc + cur));
       setBFoodSums(temp);
     } else {
@@ -41,7 +41,7 @@ export default function Basket() {
     );
     setLocalFoodBasketsItems(baskets);
     if (baskets.length !== 0) {
-      const temp = baskets.map((el: IBaskets) => el.price);
+      const temp = baskets.map((el: IBaskets) => el.price * el.count);
       setLocalFoodSum(temp.reduce((acc: number, cur: number) => acc + cur));
       setLocalFoodSums(temp);
     } else {
