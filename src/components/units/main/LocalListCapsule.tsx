@@ -1,5 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { MouseEvent } from "react";
 
@@ -52,6 +53,10 @@ export default function LocalListCapsule(props: any) {
     },
   });
   const onClickMoveToList = (event: MouseEvent<HTMLDivElement>) => {
+    if (!data) {
+      Modal.error({ content: "등록되지 않은 매장입니다!" });
+      return;
+    }
     const directStoreData = {
       id: data?.fetchDirectStore.id,
       name: data?.fetchDirectStore.name,
