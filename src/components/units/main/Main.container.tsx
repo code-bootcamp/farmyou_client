@@ -61,6 +61,7 @@ export default function Main() {
       };
     } else {
       setIsSearch(false);
+      setListData([]);
     }
   }, [keyword]);
 

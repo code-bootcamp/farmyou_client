@@ -33,7 +33,6 @@ export default function BfoodListUI(props: IBfoodListUIProps) {
               />
             </S.SearchInputWrapper>
           </S.SearchWrapper>
-
           <InfiniteScroll
             pageStart={1}
             loadMore={props.loadFunc}
