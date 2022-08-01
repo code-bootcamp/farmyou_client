@@ -93,6 +93,7 @@ export const DeleteButtonWrapper = styled.div`
 `;
 
 export const DeleteButton = styled.img`
+  cursor: pointer;
   width: 20px;
   height: 20px;
   position: absolute;
