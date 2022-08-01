@@ -240,5 +240,7 @@ export const Contents = styled.div`
   border-bottom: 1px solid #bdbdbd;
   img {
     max-width: 100%;
+    display: flex;
+    margin: 0px auto;
   }
 `;
