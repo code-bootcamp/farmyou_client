@@ -17,5 +17,6 @@ module.exports = {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "react/no-unescaped-entities": "off",
+    "react/display-name": "off",
   },
 };

@@ -19,11 +19,11 @@ export default function MainUI(props: IMainUIProps) {
         {/* <span style={{ fontWeight: "700" }}>로컬푸드</span> 온라인 마켓 */}
       </S.SubTitle>
       <S.Title>“행복한 밥상 팜유와 함께하세요”</S.Title>
-      <S.NextIcon onClick={props.onClickLocal}>
+      <S.NextIcon onClick={props.onClickLocal} ref={props.localRef}>
         <S.Icon src="/icons/arrow.svg" />
       </S.NextIcon>
-      <S.LocalScrollWrapper ref={props.localRef}>
-        <div style={{ width: "100%" }}></div>
+      <S.LocalScrollWrapper>
+        {/* <div style={{ width: "100%" }}></div> */}
         <S.LocalWrapper>
           <S.LocalLeftWrapper>
             <S.LocalTitle>로컬푸드 직매장</S.LocalTitle>

@@ -31,7 +31,6 @@ export const SearchWrapper = styled.div`
   }
 `;
 export const SearchInputWrapper = styled.div`
-  width: 20rem;
   margin: 0px 45px 0px 20px;
   @media (max-width: 689px) {
     /* width: 10vw; */
@@ -39,7 +38,7 @@ export const SearchInputWrapper = styled.div`
   }
 `;
 export const SearchInput = styled.input`
-  width: 20rem;
+  width: 100%;
   height: 32px;
   min-width: 200px;
   /* border: 1px solid #ccc; */
