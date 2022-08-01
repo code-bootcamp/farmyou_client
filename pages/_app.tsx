@@ -6,16 +6,22 @@ import type { AppProps } from "next/app";
 import Layout from "../src/components/commons/layout";
 import { RecoilRoot } from "recoil";
 import ApolloSetting from "../src/components/commons/apolloSetting";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <RecoilRoot>
-      <ApolloSetting>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ApolloSetting>
-    </RecoilRoot>
+    <>
+      <Head>
+        <title>FARM YOU</title>
+      </Head>
+      <RecoilRoot>
+        <ApolloSetting>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ApolloSetting>
+      </RecoilRoot>
+    </>
   );
 }
 
