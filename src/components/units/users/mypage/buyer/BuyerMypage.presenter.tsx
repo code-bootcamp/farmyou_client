@@ -102,19 +102,21 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                       ?.slice(0, props.sliceNumber)
                       .map((el) => {
                         return (
-                          <S.ListItem
-                            key={uuidv4()}
-                            onClick={props.onClickLocalDetail}
-                            id={el.productDirect?.id}
-                          >
-                            <S.ItemImgWrapper>
+                          <S.ListItem key={uuidv4()}>
+                            <S.ItemImgWrapper
+                              onClick={props.onClickLocalDetail}
+                              id={el.productDirect?.id}
+                            >
                               <S.ItemImg
                                 src={`https://storage.googleapis.com/${
                                   el.productDirect?.files[0]?.url.split(",")[0]
                                 }`}
                               ></S.ItemImg>
                             </S.ItemImgWrapper>
-                            <S.ItemInfoWrapper>
+                            <S.ItemInfoWrapper
+                              onClick={props.onClickLocalDetail}
+                              id={el.productDirect?.id}
+                            >
                               <S.ItemTitle>
                                 {el.productDirect?.title}
                               </S.ItemTitle>
@@ -261,8 +263,8 @@ export default function BuyerMypageUI(props: IBuyerMypageUIProps) {
                               {el.productUgly?.seller?.name}
                             </S.SellerName>
                             <S.SellerPhoneNum>
-                              {el.productUgly?.seller?.phone.slice(0, 3)} -
-                              {el.productUgly?.seller?.phone.slice(3, 7)} -
+                              {el.productUgly?.seller?.phone.slice(0, 3)}-
+                              {el.productUgly?.seller?.phone.slice(3, 7)}-
                               {el.productUgly?.seller?.phone.slice(7, 11)}
                             </S.SellerPhoneNum>
                           </S.ItemSubInfoWrapper>

@@ -235,6 +235,7 @@ export const ListItem = styled.div`
 `;
 
 export const ItemImgWrapper = styled.div`
+  cursor: pointer;
   width: 80px;
   height: 80px;
   display: flex;
@@ -249,6 +250,7 @@ export const ItemImg = styled.img`
 `;
 
 export const ItemInfoWrapper = styled.div`
+  cursor: pointer;
   position: relative;
   width: 95%;
   height: 100%;
@@ -273,6 +275,7 @@ export const ItemCreateDate = styled.div`
 `;
 
 export const ReturnButton = styled.div`
+  cursor: pointer;
   font-size: 1rem;
   &:hover {
     border-bottom: 1px solid black;
@@ -366,6 +369,7 @@ export const Title = styled.span`
   padding-bottom: 20px;
 `;
 export const CancelIcon = styled.img`
+  cursor: pointer;
   position: absolute;
   top: 25px;
   right: 25px;
@@ -399,6 +403,7 @@ export const UploadFileHidden = styled.input`
   display: none;
 `;
 export const UploadButton = styled.div`
+  cursor: pointer;
   border-radius: 90%;
   width: 120px;
   height: 120px;
@@ -467,6 +472,7 @@ export const AddressOption = styled.div`
   bottom: 10px;
 `;
 export const Option = styled.div`
+  cursor: pointer;
   font-size: 0.7rem;
   margin-left: 20px;
   &:hover {
@@ -495,6 +501,7 @@ export const PasswordModalWrapper = styled.div`
 `;
 
 export const Button = styled.button`
+  cursor: pointer;
   width: 70px;
   height: 40px;
   color: white;
