@@ -123,3 +123,9 @@ export const LOG_OUT = gql`
     logout
   }
 `;
+
+export const DELETE_PRODUCT_UGLY = gql`
+  mutation deleteProductUgly($productId: String!) {
+    deleteProductUgly(productId: $productId)
+  }
+`;

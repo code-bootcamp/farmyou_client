@@ -7,6 +7,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
 import {
   CHECK_IF_LOGGED_SELLER,
+  DELETE_PRODUCT_UGLY,
   FETCH_COMPLETED_PAYMENTS_FOR_SELLER,
   FETCH_UGLY_PRODUCTS_BY_SELLER,
   FETCH_USER_LOGGED_IN,
@@ -56,11 +57,13 @@ export default function SellerMypage(props: ISellerMypageProps) {
   const [checkIfLoggedSeller] = useMutation(CHECK_IF_LOGGED_SELLER);
   const [updateInvoice] = useMutation(UPDATE_INVOICE);
   const [logout] = useMutation(LOG_OUT);
+  const [deleteProductUgly] = useMutation(DELETE_PRODUCT_UGLY);
 
   const { data, refetch: dataRefetch } = useQuery(FETCH_USER_LOGGED_IN);
-  const { data: fetchUglyProductsBySellerData } = useQuery(
-    FETCH_UGLY_PRODUCTS_BY_SELLER
-  );
+  const {
+    data: fetchUglyProductsBySellerData,
+    refetch: fetchUglyProductsBySellerRefetch,
+  } = useQuery(FETCH_UGLY_PRODUCTS_BY_SELLER);
   const { data: fetchCompletedPaymentsForSellerData, refetch } = useQuery(
     FETCH_COMPLETED_PAYMENTS_FOR_SELLER,
     {
@@ -108,6 +111,26 @@ export default function SellerMypage(props: ISellerMypageProps) {
       });
       setInvoiceNum("");
       await refetch();
+    } catch (error: any) {
+      Modal.error({
+        content: error.message,
+      });
+    }
+  };
+
+  const onClickDeleteUglyProduct = async (
+    event: MouseEvent<HTMLDivElement>
+  ) => {
+    try {
+      await deleteProductUgly({
+        variables: {
+          productId: event.currentTarget.id,
+        },
+      });
+      await fetchUglyProductsBySellerRefetch();
+      Modal.success({
+        content: "상품이 삭제되었습니다.",
+      });
     } catch (error: any) {
       Modal.error({
         content: error.message,
@@ -296,6 +319,7 @@ export default function SellerMypage(props: ISellerMypageProps) {
       fetchUglyProductsCount={fetchUglyProductsCount}
       fetchCompletedPaymentsCount={fetchCompletedPaymentsCount}
       onClickLogout={onClickLogout}
+      onClickDeleteUglyProduct={onClickDeleteUglyProduct}
     />
   );
 }
