@@ -91,8 +91,6 @@ export default function ReactQuillContainer(props: IProps) {
 
           const range = QuillRef.current?.getEditor().getSelection()?.index;
 
-          console.log(range);
-
           if (range !== null && range !== undefined) {
             const quill = QuillRef.current?.getEditor();
 

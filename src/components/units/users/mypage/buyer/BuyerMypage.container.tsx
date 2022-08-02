@@ -321,7 +321,7 @@ export default function BuyerMypage(props: IBuyerMypageProps) {
           },
         });
         await axios({
-          url: "http://farmyou.shop/users/mypage",
+          url: "https://farmyou.shop/users/mypage",
           method: "POST",
           headers: {
             "Content-Type": "application/json",
