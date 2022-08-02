@@ -129,6 +129,15 @@ export default function SellerMypageUI(props: ISellerMypageUiProps) {
                               수정
                             </S.SellerName>
                           </S.ItemSubInfoWrapper>
+
+                          {/* <S.ItemSubInfoWrapper>
+                            <S.SellerName
+                              id={el.id}
+                              onClick={props.onClickDeleteUglyProduct}
+                            >
+                              삭제
+                            </S.SellerName>
+                          </S.ItemSubInfoWrapper> */}
                         </S.ListItem>
                       );
                     })

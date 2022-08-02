@@ -74,6 +74,7 @@ export interface ISellerMypageUiProps {
   onClickSellingList: () => void;
   onClickPaymentList: () => void;
   onClickMoveToEditPage: (event: MouseEvent<HTMLDivElement>) => void;
+  onClickDeleteUglyProduct: (event: MouseEvent<HTMLDivElement>) => void;
   onClickInvoiceRegistration: () => void;
   onChangeInvoiceNum: (event: ChangeEvent<HTMLInputElement>) => void;
   toggleModal: (event: MouseEvent<HTMLDivElement>) => void;
