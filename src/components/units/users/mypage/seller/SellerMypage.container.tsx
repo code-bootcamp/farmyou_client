@@ -180,8 +180,10 @@ export default function SellerMypage(props: ISellerMypageProps) {
       } else {
         setError("비밀번호가 틀렸습니다.");
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      Modal.error({
+        content: error.message,
+      });
     }
   };
 
@@ -206,8 +208,10 @@ export default function SellerMypage(props: ISellerMypageProps) {
       });
       dataRefetch();
       setIsEditVisible(false);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      Modal.error({
+        content: error.message,
+      });
     }
   };
   const fileRef = useRef<HTMLInputElement>(null);

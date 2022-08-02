@@ -82,7 +82,7 @@ export default function Detail(props: IDetailProps) {
     const buy = { ...props.data, count: buyQuantity };
 
     localStorage.setItem("payProduct", JSON.stringify(buy));
-    sessionStorage.setItem("isCart", "pay");
+    sessionStorage.setItem("isCart", isCheckBFood ? "bfood" : "local");
 
     router.push("/users/payment");
   };

@@ -80,7 +80,6 @@ export default function BfoodWrite(props: IBfoodWriteProps) {
       });
     }
   };
-
   const onClickEdit = async (data: IData) => {
     try {
       await updateProductUgly({

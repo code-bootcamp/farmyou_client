@@ -93,7 +93,7 @@ export default function Payment(props: IPaymentProps) {
 
   const onClickNewAddressRegistration = async () => {
     try {
-      const result = await createAddress({
+      await createAddress({
         variables: {
           address: getValues("newAddress"),
           detailedAddress: getValues("newDetailedAddress"),
@@ -102,7 +102,6 @@ export default function Payment(props: IPaymentProps) {
           isMain: false,
         },
       });
-      console.log(result);
       await refetch();
     } catch (error: any) {
       Modal.error({
@@ -183,7 +182,6 @@ export default function Payment(props: IPaymentProps) {
       },
       async (rsp: any) => {
         if (rsp.success) {
-          console.log(rsp);
           if (isCart === "cart") {
             bfoodBaskets.map(async (el: IBaskets) => {
               await createPayment({

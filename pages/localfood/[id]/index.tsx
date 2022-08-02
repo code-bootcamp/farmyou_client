@@ -11,7 +11,6 @@ export default function LocalFoodDetailPage() {
       productId: router.query.id,
     },
   });
-  console.log(data);
 
   return loading || <Detail data={data.fetchProductDirect}></Detail>;
 }
