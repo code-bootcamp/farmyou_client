@@ -49,7 +49,6 @@ export default function Basket() {
     }
   }, [localFoodBasketsCount]);
 
-  // console.log(bFoodSums);
   useEffect(() => {
     if (bFoodSums.length !== 0)
       setBFoodSum(bFoodSums.reduce((acc: number, cur: number) => acc + cur));
@@ -58,7 +57,6 @@ export default function Basket() {
   useEffect(() => {
     if (localFoodSums.length !== 0)
       setLocalFoodSum(localFoodSums.reduce((acc, cur) => acc + cur));
-    // console.log(localFoodSums);
   }, [localFoodSums]);
 
   const onClickToPayment = () => {

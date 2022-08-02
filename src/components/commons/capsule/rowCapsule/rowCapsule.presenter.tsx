@@ -2,7 +2,6 @@ import * as S from "./rowCapsule.styles";
 import { IRowCapsuleUIProps } from "./rowCapsule.types";
 
 export default function RowCapsuleUI(props: IRowCapsuleUIProps) {
-  // console.log(props.foodEl?.files[0].url.split(",")[0]);
   return (
     <S.Wrapper>
       <S.ImageWrapper
