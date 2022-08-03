@@ -71,13 +71,17 @@ export default function Signup(props: IPropsSignUp) {
       });
       setIsCheck((prev) => !prev);
     } catch (e: any) {
-      alert(e.message);
+      Modal.error({
+        content: e.message,
+      });
     }
   };
   const onClickCheckPhone = async () => {
     try {
       if (phoneNumber === "" || phoneNumber.includes("-") === true) {
-        alert("핸드폰 번호를 입력해주세요");
+        Modal.error({
+          content: "핸드폰 번호를 입력해주세요",
+        });
         return;
       }
       setIsStart((prev) => !prev);
@@ -87,7 +91,9 @@ export default function Signup(props: IPropsSignUp) {
         },
       });
     } catch (e: any) {
-      alert(e.message);
+      Modal.error({
+        content: e.message,
+      });
     }
   };
   // 회원가입
@@ -113,7 +119,9 @@ export default function Signup(props: IPropsSignUp) {
       });
       router.push(`/`);
     } catch (e: any) {
-      alert(e.message);
+      Modal.error({
+        content: e.message,
+      });
     }
   };
 
@@ -134,7 +142,9 @@ export default function Signup(props: IPropsSignUp) {
 
       router.push(`/`);
     } catch (e: any) {
-      alert(e.message);
+      Modal.error({
+        content: e.message,
+      });
     }
   };
   const schema = yup.object({
