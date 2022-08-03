@@ -85,7 +85,9 @@ export default function LayoutHeader() {
     // 2. 이미 담겼는지 확인하기
     const temp = baskets.filter((basketEl: IDrag) => basketEl.id === el.id);
     if (temp.length === 1) {
-      alert("이미 담으신 물품입니다.");
+      Modal.error({
+        content: "이미 담으신 상품입니다.",
+      });
       return;
     }
     // 3. 장바구니에 담기
