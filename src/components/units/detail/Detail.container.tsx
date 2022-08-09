@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, KeyboardEvent, MouseEvent, useState } from "react";
 import DetailUI from "./Detail.presenter";
 import _ from "lodash";
 import { IBaskets, IDetailProps } from "./Detail.types";
@@ -19,6 +19,21 @@ export default function Detail(props: IDetailProps) {
 
   const onChangeBuyQuantity = (event: ChangeEvent<HTMLInputElement>) => {
     getDebounce(Number(event.target.value));
+  };
+
+  const checkOnlyNumber = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (
+      (event.keyCode > 48 && event.keyCode < 57) || // 숫자
+      event.keyCode === 8 || // backspace
+      event.keyCode === 37 ||
+      event.keyCode === 39 || // 방향키 →, ←
+      event.keyCode === 46 || // delete키
+      event.keyCode === 39
+    ) {
+      // return true;
+    } else {
+      event.preventDefault();
+    }
   };
 
   const getDebounce = _.debounce((input: number) => {
@@ -96,6 +111,7 @@ export default function Detail(props: IDetailProps) {
       buyQuantity={buyQuantity}
       onClickBasketsButton={onClickBasketsButton}
       onClickBuyButton={onClickBuyButton}
+      checkOnlyNumber={checkOnlyNumber}
     ></DetailUI>
   );
 }
