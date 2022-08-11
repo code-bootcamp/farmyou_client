@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent } from "react";
+import { ChangeEvent, KeyboardEvent, MouseEvent } from "react";
 
 export interface IFiles {
   url: string;
@@ -48,6 +48,11 @@ export interface IDetailProps {
   };
 }
 
+export interface KeyHandler {
+  keyCode: number;
+  returnValue: boolean;
+}
+
 export interface IDetailUIProps {
   onClickSubImage: (event: MouseEvent<HTMLImageElement>) => void;
   mainImageSrc: string;
@@ -55,6 +60,7 @@ export interface IDetailUIProps {
   buyQuantity: number;
   onClickBasketsButton: () => void;
   onClickBuyButton: () => void;
+  checkOnlyNumber: (event: KeyboardEvent<HTMLInputElement>) => void;
   data: {
     __typename: string;
     id: string;
