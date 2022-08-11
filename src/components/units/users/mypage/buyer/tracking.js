@@ -16,7 +16,7 @@ export default function Tracking(props) {
             id="t_key"
             name="t_key"
             placeholder="제공받은 APIKEY"
-            value="uDoOXokWAiIlA5yJfJf8fA"
+            value="gNoyraf5UIwKEGuYV2lb5A"
             readOnly
           />
         </div>
