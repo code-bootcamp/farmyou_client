@@ -61,6 +61,8 @@ export default function DetailUI(props: IDetailUIProps) {
                 placeholder="수량을 입력해주세요."
                 type="number"
                 onChange={props.onChangeBuyQuantity}
+                min={0}
+                onKeyDown={props.checkOnlyNumber}
               ></S.CountInput>
               <S.TotalPrice>
                 {props.buyQuantity.toLocaleString()} X{" "}
