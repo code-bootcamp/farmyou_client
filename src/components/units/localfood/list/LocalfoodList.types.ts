@@ -29,3 +29,6 @@ export interface ILocalfoodListUIProps {
   loadFunc: () => void;
   myRef: MutableRefObject<any>;
 }
+export interface IFetchCategories {
+  id: string;
+}
