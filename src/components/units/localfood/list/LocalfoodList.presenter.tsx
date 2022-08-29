@@ -26,43 +26,43 @@ export default function LocalfoodListUI(props: ILocalfoodListUIProps) {
           <ListCategoryItem
             src="/icons/list/chard.png"
             name="엽채류"
-            id="bfc70f34-8ec9-4ae2-8141-f0b7b6dadd26"
+            id="6"
             onClick={props.onClickCategory}
           />
           <ListCategoryItem
             src="/icons/list/eggplants.png"
             name="과채류"
-            id="2a4d6fb3-7dec-4876-9b33-942b6f5e1044"
+            id="2"
             onClick={props.onClickCategory}
           />
           <ListCategoryItem
             src="/icons/list/beet.png"
             name="근채류"
-            id="e5cd51b0-1e77-4b5d-a53b-439bf6a539c2"
+            id="3"
             onClick={props.onClickCategory}
           />
           <ListCategoryItem
             src="/icons/list/chili-pepper.png"
             name="양념류"
-            id="e895e43f-9fec-4b34-8f35-768074aa5c99"
+            id="5"
             onClick={props.onClickCategory}
           />
           <ListCategoryItem
             src="/icons/list/strawberry.png"
             name="과일류"
-            id="7b92d172-9ef5-40db-b307-c7d8341c2f21"
+            id="1"
             onClick={props.onClickCategory}
           />
           <ListCategoryItem
             src="/icons/list/mushroom.png"
             name="버섯류"
-            id="151cb7d2-484e-462d-b21e-bc5524a90e40"
+            id="4"
             onClick={props.onClickCategory}
           />
           <ListCategoryItem
             src="/icons/list/wheat.png"
             name="곡류"
-            id="2b5270a4-47e4-4212-8bb6-3468ce207a5a"
+            id="0"
             onClick={props.onClickCategory}
           />
         </S.CategoryWrapper>

@@ -30,3 +30,19 @@ export const FETCH_DIRECT_PRODUCTS = gql`
     }
   }
 `;
+
+export const FETCH_CATEGORY = gql`
+  query fetchCategory($name: String!) {
+    fetchCategory(name: $name) {
+      id
+    }
+  }
+`;
+
+export const FETCH_CATEGORIES = gql`
+  query fetchCategories {
+    fetchCategories {
+      id
+    }
+  }
+`;

@@ -8,18 +8,23 @@ import {
   useState,
 } from "react";
 import LocalfoodListUI from "./LocalfoodList.presenter";
-import { FETCH_DIRECT_PRODUCTS } from "./LocalfoodList.queries";
+import {
+  FETCH_CATEGORIES,
+  FETCH_DIRECT_PRODUCTS,
+} from "./LocalfoodList.queries";
 import _ from "lodash";
 import { useRouter } from "next/router";
+import { IFetchCategories } from "./LocalfoodList.types";
 
 export default function LocalfoodList() {
   const router = useRouter();
   const [storeId, setStoreId] = useState<string>("");
   const [storeName, setStoreName] = useState("");
-  const [categoryId, setCategoryId] = useState<string>("");
+  // const [categoryId, setCategoryId] = useState<string>("");
   const [text, setText] = useState("");
   const [sorted, setSorted] = useState<string>("최신순");
   const myRef = useRef<any>();
+
   useEffect(() => {
     if (
       JSON.parse(sessionStorage.getItem("DirectStoreId") || "[]")?.length === 0
@@ -31,6 +36,10 @@ export default function LocalfoodList() {
       JSON.parse(sessionStorage.getItem("DirectStoreId") || "[]").name
     );
   }, []);
+  const { data: categories } = useQuery(FETCH_CATEGORIES);
+  const idArray = categories?.fetchCategories.map(
+    (el: IFetchCategories) => el.id
+  );
   const { data, refetch, fetchMore } = useQuery(FETCH_DIRECT_PRODUCTS, {
     variables: {
       page: 1,
@@ -40,6 +49,7 @@ export default function LocalfoodList() {
       title: text,
     },
   });
+
   const onClickAll = () => {
     myRef.current.value = "";
     refetch({
@@ -49,14 +59,15 @@ export default function LocalfoodList() {
       categoryId: "",
       title: "",
     });
+    setText("");
   };
 
   const onClickCategory = (event: MouseEvent<HTMLDivElement>) => {
     myRef.current.value = "";
-    setCategoryId(event.currentTarget.id);
+    // setCategoryId(idArray[event.currentTarget.id]);
     refetch({
       directStoreId: storeId,
-      categoryId: event.currentTarget.id,
+      categoryId: idArray[event.currentTarget.id],
       title: "",
       sortBy: sorted,
       page: 1,
@@ -78,7 +89,7 @@ export default function LocalfoodList() {
     refetch({
       title: data,
       directStoreId: storeId,
-      categoryId,
+      categoryId: "",
       sortBy: sorted,
       page: 1,
     });
