@@ -1,3 +1,4 @@
+import AlertPopUp from "../../commons/alertpopup";
 import LocalListCapsule from "./LocalListCapsule";
 import * as S from "./Main.styles";
 import { IMainUIProps } from "./Main.types";
@@ -5,6 +6,7 @@ import { IMainUIProps } from "./Main.types";
 export default function MainUI(props: IMainUIProps) {
   return (
     <S.Body>
+      <AlertPopUp />
       <S.VideoWrapper>
         <S.MainVideo
           muted={true}
